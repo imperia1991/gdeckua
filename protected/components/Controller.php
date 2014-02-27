@@ -54,12 +54,14 @@ class Controller extends CController
         }
         else if (isset(Yii::app()->request->cookies['language'])) {
             Yii::app()->language = Yii::app()->request->cookies['language']->value;
+        } else {
+            Yii::app()->language = 'ru';
         }
 
         Yii::app()->sourceLanguage = Yii::app()->getLocale();
 
         $this->modelUser = Yii::app()->user->isGuest ? new Users('login') : Users::model()->findByPk(Yii::app()->user->id);
-
+        
         new JsTrans('main', Yii::app()->language, Yii::app()->language);
     }
 

@@ -1,6 +1,6 @@
 <script type="text/javascript">
 var placeMap;
-var placeCenter = [<?php echo $model->lat ? $model->lat : 49.439172 ?>, <?php echo $model->lng ? $model->lng : 32.059268 ?>];
+var placeCenter = [<?php echo $model->lat ? $model->lat : 49.439172 ?>,<?php echo $model->lng ? $model->lng : 32.059268 ?>];
 var placemark;
 var country = "<?php is_object($model->country) ? $model->country->title_ru : ''; ?>";
 var region = "<?php is_object($model->region) ? $model->region->title_ru : ''; ?>";
@@ -60,8 +60,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <?php echo $form->textFieldRow($model, 'address', array('id' => 'address')); ?>
-    <?php echo $form->textFieldRow($model, 'lat', array('id' => 'placeLat', 'disabled' => 'disabled')); ?>
-    <?php echo $form->textFieldRow($model, 'lng', array('id' => 'placeLng', 'disabled' => 'disabled')); ?>
+    <?php echo $form->textFieldRow($model, 'lat', array('id' => 'placeLat', 'readonly' => 'readonly')); ?>
+    <?php echo $form->textFieldRow($model, 'lng', array('id' => 'placeLng', 'readonly' => 'readonly')); ?>
 </div>
 <div id="placeMap" class="row" style="height:400px;">
 

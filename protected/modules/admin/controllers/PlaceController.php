@@ -116,12 +116,38 @@ class PlaceController extends AdminController
 
     private function processForm($model)
     {
+        /**
+         * Array
+            (
+                [Places] => Array
+                    (
+                        [title_ru] => 
+                        [title_uk] => 
+                        [description] => 
+                        [address] => переулок Пушкина
+                        [lat] => 49.444209118737966
+                        [lng] => 32.04141521679685
+                    )
+
+                [PlaceTags] => fdsf,dfsdfd,dfsdsfsd,fssdfsf
+                [PlaceTags__ptags] => 
+                [Photos] => Array
+                    (
+                        [0] => 3h40iy91v11g24.jpg
+                        [1] => 435662.jpg
+                    )
+
+                [yt0] => 
+            )
+         */
         if (Yii::app()->request->isPostRequest) {
             echo '<pre>';
             print_r($_POST);
             echo '</pre>';exit;
             $postPlace = Yii::app()->request->getPost('Places');
             $postPlacetags = Yii::app()->request->getPost('PlaceTags');
+            $postPhotos = Yii::app()->request->getPost('Photos');
+            
             $model->attributes = $post;
 
             $isNewRecord = $model->isNewRecord;

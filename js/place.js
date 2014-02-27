@@ -30,41 +30,6 @@ var photo =
 			});
 
 		});
-	},
-	viewAddress: function() {
-		$('#address').on('blur', function(e) {
-			var address = country + ', ' + region + ', ' + city + ', ' + $(this).val();
-
-			if ($('#address').val())
-			{
-				ymaps.geocode(address, {
-					results: 1
-				}).then(function(res) {
-					var firstGeoObject = res.geoObjects.get(0);
-
-					var coords = firstGeoObject.geometry.getCoordinates();
-					placeMap.setCenter(coords, 18);
-
-					if (placemark) {
-						placeMap.geoObjects.remove(placemark);
-					}
-
-					$('#placeLat').val(coords[0]);
-					$('#placeLng').val(coords[1]);
-
-					placemark = new ymaps.Placemark(coords,
-					{
-						balloonContent: address
-					},
-					{
-						iconImageHref: '/img/home_icon.png',
-						iconImageSize: [32, 37]
-					}
-					);
-					placeMap.geoObjects.add(placemark);
-				});
-			}
-		});
 	}
 }
 
@@ -75,13 +40,12 @@ function init()
 {
 	placeMap = new ymaps.Map('placeMap', {
 		center: placeCenter,
-		zoom: 1
+		zoom: 14
 	});
 
 	placeMap.controls.add('zoomControl');
 
 	var address = country + ', ' + region + ', ' + city + ', ' + $('#address').val();
-
 	if ($('#address').val())
 	{
 		ymaps.geocode(address, {
@@ -92,8 +56,6 @@ function init()
 			var coords = firstGeoObject.geometry.getCoordinates();
 			placeMap.setCenter(coords, 15);
 
-			$('#address').removeAttr('disabled');
-
 			if (placemark) {
 				placeMap.geoObjects.remove(placemark);
 			}
@@ -101,13 +63,13 @@ function init()
 			if ($('address').val())
 			{
 				placemark = new ymaps.Placemark(coords,
-				{
-					balloonContent: address
-				},
-				{
-					iconImageHref: '/img/home_icon.png',
-					iconImageSize: [32, 37]
-				}
+                    {
+                        balloonContent: address
+                    },
+                    {
+                        iconImageHref: '/img/home_icon.png',
+                        iconImageSize: [32, 37]
+                    }
 				);
 				placeMap.geoObjects.add(placemark);
 
@@ -157,5 +119,4 @@ function init()
 }
 
 $(document).ready(function() {
-	photo.viewAddress();
 });
