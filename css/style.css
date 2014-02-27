@@ -1,0 +1,20 @@
+.navigation-wrapper .navigation .language-switcher .ru a {
+	background-image:url("../img/flags/ru.png");
+	background-position:left center;
+	background-repeat:no-repeat;
+	background-size:16px 16px;
+	margin-left:15px}
+@media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+	.navigation-wrapper .navigation .language-switcher .ru a {
+		background-image:url("../img/flags/ru@2x.png")
+	}
+}
+
+.errorMessage {
+    color: #FF0000;
+    font-size: 13px;
+}
+
+#header-wrapper #header #header-inner .navbar .navbar-inner .site-phone span.welcome {
+	background: none;
+}
