@@ -2,6 +2,7 @@
 
 class PlaceController extends AdminController
 {
+
     public function init()
     {
         parent::init();
@@ -19,10 +20,14 @@ class PlaceController extends AdminController
 
             $model = new Places('search');
             $model->attributes = $params;
+            $model->districtId = isset($params['districtId']) ? (int) $params['districtId'] : 0;
         }
+
+        $districts = CHtml::listData(Districts::model()->findAll(), 'id', 'title_ru');
 
         $this->render('index', array(
             'model' => $model,
+            'districts' => $districts,
         ));
     }
 
@@ -47,142 +52,152 @@ class PlaceController extends AdminController
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getQuery('id');
 
-            $model = Places::model()->findByPk((int)$id);
+            $model = Places::model()->findByPk((int) $id);
+            $photos = $model->photos;
 
-            if (file_exists(Yii::app()->params['admin']['files']['images'] . $model->photo_b)) {
-                unlink(Yii::app()->params['admin']['files']['images'] . $model->photo_b);
-            }
-            if (file_exists(Yii::app()->params['admin']['files']['images'] . $model->photo_m)) {
-                unlink(Yii::app()->params['admin']['files']['images'] . $model->photo_m);
-            }
-            if (file_exists(Yii::app()->params['admin']['files']['images'] . $model->photo_s)) {
-                unlink(Yii::app()->params['admin']['files']['images'] . $model->photo_s);
+            if ($model->delete()) {
+                foreach ($photos as $photo) {
+                    if (file_exists(Yii::app()->params['admin']['files']['images'] . $photo->title)) {
+                        unlink(Yii::app()->params['admin']['files']['images'] . $photo->title);
+                    }
+                }
             }
 
-            $model->delete();
-
-            Yii::app()->user->setFlash('success', 'Мебель удалена');
+            Yii::app()->user->setFlash('success', 'Место удалено');
 
             Yii::app()->end();
         }
     }
 
-    public function actionUpload() {
-//		if (isset(Yii::app()->session['image']) && file_exists(Yii::app()->params['admin']['files']['tmp'] . '/' . Yii::app()->session['image'])) {
-//			unlink(Yii::app()->params['admin']['files']['tmp'] . '/' . Yii::app()->session['image']);
-//		}
+    public function actionUpload()
+    {
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-		Yii::import("ext.EAjaxUpload.qqFileUploader");
-
-		$uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
-		$result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
         Yii::app()->session['images'][] = $result['filename'];
 
-		$this->respondJSON($result);
-	}
+        $this->respondJSON($result);
+    }
 
-	public function actionDeletePreviewUpload()
-	{
+    public function actionDeletePreviewUpload()
+    {
         $request = Yii::app()->request;
 
-		if (!$request->isAjaxRequest || !$request->isPostRequest) {
+        if (!$request->isAjaxRequest || !$request->isPostRequest) {
             Yii::app()->end();
         }
 
         $filename = $request->getPost('filename', '');
 
-		$result = false;
-		if ($filename && file_exists(Yii::app()->params['admin']['files']['tmp'] . $filename))
-		{
-			$result = unlink(Yii::app()->params['admin']['files']['tmp'] . $filename);
-		}
+        $result = false;
+        if ($filename && file_exists(Yii::app()->params['admin']['files']['tmp'] . $filename)) {
+            $result = unlink(Yii::app()->params['admin']['files']['tmp'] . $filename);
+        }
 
-		$this->respondJSON($result);
+        $this->respondJSON($result);
 
-		Yii::app()->end();
-	}
+        Yii::app()->end();
+    }
 
-	public function actionDeletePhoto()
-	{
-		$id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
+    public function actionDeletePhoto()
+    {
+        $id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
 
-		$model = Photos::model()->findByPk($id);
+        $model = Photos::model()->findByPk($id);
 
-		$this->respondJSON($model ? $model->delete() : false);
+        if ($model->delete()) {
+            if (file_exists(Yii::app()->params['admin']['files']['images'] . $model->title)) {
+                unlink(Yii::app()->params['admin']['files']['images'] . $model->title);
+            }
 
-		Yii::app()->end();
-	}
+            $this->respondJSON(true);
+        }
+
+        Yii::app()->end();
+    }
 
     private function processForm($model)
     {
-        /**
-         * Array
-            (
-                [Places] => Array
-                    (
-                        [title_ru] => 
-                        [title_uk] => 
-                        [description] => 
-                        [address] => переулок Пушкина
-                        [lat] => 49.444209118737966
-                        [lng] => 32.04141521679685
-                    )
-
-                [PlaceTags] => fdsf,dfsdfd,dfsdsfsd,fssdfsf
-                [PlaceTags__ptags] => 
-                [Photos] => Array
-                    (
-                        [0] => 3h40iy91v11g24.jpg
-                        [1] => 435662.jpg
-                    )
-
-                [yt0] => 
-            )
-         */
         if (Yii::app()->request->isPostRequest) {
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';exit;
-            $postPlace = Yii::app()->request->getPost('Places');
-            $postPlacetags = Yii::app()->request->getPost('PlaceTags');
-            $postPhotos = Yii::app()->request->getPost('Photos');
-            
-            $model->attributes = $post;
+            $post = Yii::app()->request->getPost('Places', array());
+            $postPlacetags = Yii::app()->request->getPost('PlaceTags', array());
+            $postPhotos = Yii::app()->request->getPost('Photos', array());
 
             $isNewRecord = $model->isNewRecord;
-            if ($model->save()) {
-                $photoPath = Yii::app()->params['admin']['files']['tmp'] . $model->photo;
-                $image = Yii::app()->image->load($photoPath);
-
-                $model->photo_b = $model->id . '_b' . '.' . $image->ext;
-				$image->save(Yii::app()->params['admin']['files']['images'] . $model->photo_b);
-
-                $model->photo_m = $model->id . '_m' . '.' . $image->ext;
-				$image->resize(Yii::app()->params['admin']['images']['middle']['width'], Yii::app()->params['admin']['images']['middle']['height']);
-				$image->save(Yii::app()->params['admin']['files']['images'] . $model->photo_m);
-
-                $model->photo_s = $model->id . '_s' . '.' . $image->ext;
-				$image->resize(Yii::app()->params['admin']['images']['small']['width'], Yii::app()->params['admin']['images']['small']['height']);
-				$image->save(Yii::app()->params['admin']['files']['images'] . $model->photo_s);
-
-                $model->save(false);
-
-                if (file_exists($photoPath)){
-                    unlink($photoPath);
+            $transaction = $model->dbConnection->beginTransaction();
+            try {
+                $model->setAttributes($post);
+                $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+                if ($isNewRecord) {
+                    $model->created_at = $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+                }
+                else {
+                    $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
                 }
 
-                Yii::app()->user->setFlash('success', $isNewRecord ? 'Мебель добавлена' : 'Данные о мебели изменены');
+                if ($model->save()) {
+                    if (!$model->tags) {
+                        $model->tags = new PlaceTags();
+                    }
 
-                $this->redirect($this->createUrl('/admin/furniture'));
+                    $model->tags->place_id = $model->id;
+                    $model->tags->tags = $postPlacetags;
+                    if (!$model->tags->save(false)) {
+                        Yii::app()->user->setFlash('error', 'Теги:<br/> ' . join('<br/>', $model->tags->getErrors()));
+                    };
+
+                    if ($postPhotos) {
+                        $photoQuery = array();
+                        foreach ($postPhotos as $photo) {
+                            $photoQuery[] = '(' . $model->id . ', "' . $photo . '")';
+                        }
+
+                        $photoQueries = join(',', $photoQuery);
+                        Yii::app()->db->createCommand('
+                            INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)->execute();
+                    }
+
+                    $transaction->commit();
+
+                    if ($postPhotos) {
+                        foreach ($postPhotos as $photo) {
+                            $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
+                            $image = Yii::app()->image->load($photoPath);
+                            $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+
+                            if (file_exists($photoPath)) {
+                                unlink($photoPath);
+                            }
+                        }
+
+                        unset(Yii::app()->session['images']);
+                    }
+
+                    Yii::app()->user->setFlash('success', $isNewRecord ? 'Место добавлено' : 'Данные о месте изменены');
+
+                    $this->redirect(Yii::app()->createUrl('/admin/place'));
+                }
+                else {
+                    Yii::app()->user->setFlash('error', 'Ошибки при добалении Места:<br/> ' . join('<br/>', array_values($model->getErrors())));
+
+                    $transaction->rollback();
+                }
+            }
+            catch (Exception $e) {
+                $transaction->rollback();
             }
         }
 
         $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title');
+        $districts = CHtml::listData(Districts::model()->findAll(), 'id', 'title_ru');
 
         $this->render('create', array(
             'model' => $model,
-            'categories' => $categories
+            'categories' => $categories,
+            'districts' => $districts,
         ));
     }
+
 }

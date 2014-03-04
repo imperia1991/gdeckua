@@ -25,6 +25,7 @@
                     'items'=>array(
                         array('label'=>'Пользователи', 'url'=>'/admin/user', 'active' => $this->menuActive == 'user', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Места', 'url'=>'/admin/place', 'active' => $this->menuActive == 'place', 'visible' => Yii::app()->user->checkAccess('admin')),
+                        array('label'=>'Районы', 'url'=>'/admin/district', 'active' => $this->menuActive == 'district', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')),
                     ),
                 ),

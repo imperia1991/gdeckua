@@ -28,7 +28,12 @@
             'title_ru',
             'title_uk',
             array(
-                'name' => 'description',
+                'name' => 'districtId',
+                'value' => '$data->district->title_ru',
+                'filter' => $districts,
+            ),
+            array(
+                'name' => 'address',
                 'filter' => false,
                 'sortable' => false,
             ),
@@ -40,8 +45,14 @@
                 'name' => 'lng',
                 'filter' => false,
             ),
-            'created_at',
-            'updated_at',
+            array(
+                'name' => 'created_at',
+                'filter' => false,
+            ),
+            array(
+                'name' => 'updated_at',
+                'filter' => false,
+            ),
             array(
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'template' => '{update}{delete}',

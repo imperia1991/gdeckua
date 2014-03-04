@@ -42,7 +42,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="row">
     <?php echo $form->textFieldRow($model, 'title_ru'); ?>
     <?php echo $form->textFieldRow($model, 'title_uk'); ?>
-    <?php echo $form->textAreaRow($model, 'description', array('class' => 'span8', 'rows' => 5)); ?>
+    <?php echo $form->dropDownListRow($model, 'district_id', $districts, array('empty' => 'Выберите район')); ?>
+    <?php echo $form->textAreaRow($model, 'description', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description))); ?>
     <div class="control-group ">
         <label for="Places_title_uk" class="control-label required">Теги (через запятую) <span class="required">*</span></label>
         <div class="controls">
@@ -66,18 +67,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div id="placeMap" class="row" style="height:400px;">
 
 </div>
-<?php /*if (isset($model->photos)): ?>
-<div class="row">
+<?php if (isset($model->photos)): ?>
+<div class="row" style="margin-top: 20px;">
     <?php foreach ($model->photos as $photo): ?>
-        <a href="<?php echo '/' . Yii::app()->params['files']['photos'] . $photo->size_big ?>" class="lightbox photo_<?php echo $photo->id ?>" style="margin: 0 10px;" rel="group">
-            <img width="80" height="80" src="<?php echo '/' . Yii::app()->params['files']['photos'] . $photo->size_middle ?>" alt="">
-        </a>
-        <a href="javascript:void(0)" rel="<?php echo $photo->id ?>" style="disply:block;vertical-align:top;margin: 0 -5px 0 -10px;" class="deletePhoto photo_<?php echo $photo->id ?>"">
-            <img src="/images/elements/uploader/deleteFile.png" alt="">
+        <img width="280" height="180" src="<?php echo '/' . Yii::app()->params['admin']['files']['images'] . $photo->title; ?>" alt="" class="photo_<?php echo $photo->id ?>" style="margin: 0 10px;">
+        <a href="javascript:void(0)" rel="<?php echo $photo->id ?>" style="disply:block;vertical-align:top;margin: 0 -5px 0 -10px;" class="deletePhoto photo_<?php echo $photo->id; ?>">
+            <img src="/img/deleteFile.png" alt="">
         </a>
     <?php endforeach; ?>
 </div>
-<?php endif; */?>
+<?php endif; ?>
 <div class="row">
     <?php
         $this->widget('ext.EAjaxUpload.EAjaxUpload',

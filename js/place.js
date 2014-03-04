@@ -40,43 +40,25 @@ function init()
 {
 	placeMap = new ymaps.Map('placeMap', {
 		center: placeCenter,
-		zoom: 14
+		zoom: 16
 	});
 
 	placeMap.controls.add('zoomControl');
 
 	var address = country + ', ' + region + ', ' + city + ', ' + $('#address').val();
-	if ($('#address').val())
-	{
-		ymaps.geocode(address, {
-			results: 1
-		}).then(function(res) {
-			var firstGeoObject = res.geoObjects.get(0);
 
-			var coords = firstGeoObject.geometry.getCoordinates();
-			placeMap.setCenter(coords, 15);
+	placemark = new ymaps.Placemark(placeCenter,
+		{
+			balloonContent: address
+		},
+		{
+			iconImageHref: '/img/home_icon.png',
+			iconImageSize: [32, 37]
+		}
+	);
+	placeMap.geoObjects.add(placemark);
 
-			if (placemark) {
-				placeMap.geoObjects.remove(placemark);
-			}
-
-			if ($('address').val())
-			{
-				placemark = new ymaps.Placemark(coords,
-                    {
-                        balloonContent: address
-                    },
-                    {
-                        iconImageHref: '/img/home_icon.png',
-                        iconImageSize: [32, 37]
-                    }
-				);
-				placeMap.geoObjects.add(placemark);
-
-				placeMap.setCenter(coords, 18);
-			}
-		});
-	}
+//	placeMap.setCenter(placeCenter, 14);
 
 	placeMap.events.add('click', function (e) {
 		var coords = e.get('coordPosition');
@@ -119,4 +101,5 @@ function init()
 }
 
 $(document).ready(function() {
+	photo.deletePhotos();
 });
