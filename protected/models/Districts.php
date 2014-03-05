@@ -98,9 +98,16 @@ class Districts extends CActiveRecord
             $criteria->compare('title_uk', $this->title_uk, true);
         }
 
-        return new CActiveDataProvider($this, array(
-                'criteria' => $criteria,
-            ));
+        return new CActiveDataProvider($this,
+            array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'title_ru ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ),
+        ));
     }
 
     /**

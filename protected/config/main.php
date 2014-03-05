@@ -84,10 +84,10 @@ $mainConfig = array(
 //        ),
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=rabotenka',
+            'connectionString' => 'mysql:host=gangstas.mysql.ukraine.com.ua;dbname=gangstas_gde',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
+            'username' => 'gangstas_gde',
+            'password' => 'tflk4mrq',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(

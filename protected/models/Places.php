@@ -143,9 +143,16 @@ class Places extends ActiveRecord
             $criteria->compare('is_deleted', $this->is_deleted);
         }
 
-        return new CActiveDataProvider($this, array(
-                'criteria' => $criteria,
-            ));
+        return new CActiveDataProvider($this,
+            array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'title_ru ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ),
+        ));
     }
 
     /**
@@ -169,4 +176,5 @@ class Places extends ActiveRecord
 
         return false;
     }
+
 }

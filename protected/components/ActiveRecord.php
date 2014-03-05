@@ -19,7 +19,7 @@ class ActiveRecord extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'EScalarBehavior' => 'ext.Scalar.EScalarBehavior',
+            'EScalarBehavior' => 'ext.scalar.EScalarBehavior',
         );
     }
 
