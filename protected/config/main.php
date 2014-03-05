@@ -159,7 +159,7 @@ $mainConfig = array(
                     'width' => 466,
                 ),
                 'allowedExtensions' => array('jpg', 'jpeg', 'png'),
-                'sizeLimit'         => 1 * 1024 * 1024
+                'sizeLimit'         => 2 * 1024 * 1024
             ),
         ),
     ),
