@@ -65,7 +65,7 @@ class Places extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'country' => array(self::BELONGS_TO, 'Countries', 'region_id'),
+            'country' => array(self::BELONGS_TO, 'Countries', 'country_id'),
             'region' => array(self::BELONGS_TO, 'Regions', 'region_id'),
             'city' => array(self::BELONGS_TO, 'Cities', 'city_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
@@ -95,7 +95,7 @@ class Places extends ActiveRecord
             'lng' => Yii::t('main', 'Долгота'),
             'created_at' => Yii::t('main', 'Дата добавления'),
             'updated_at' => Yii::t('main', 'Дата обновления'),
-            'is_deleted' => Yii::t('main', 'Не показывается'),
+            'is_deleted' => Yii::t('main', 'Активно'),
             'districtId' => Yii::t('main', 'Район'),
         );
     }
@@ -139,20 +139,20 @@ class Places extends ActiveRecord
         if ($this->districtId) {
             $criteria->compare('district_id', $this->districtId);
         }
-        if ($this->is_deleted) {
+        if ($this->is_deleted == 0 || $this->is_deleted == 1) {
             $criteria->compare('is_deleted', $this->is_deleted);
         }
 
         return new CActiveDataProvider($this,
-            array(
-            'criteria' => $criteria,
-            'sort' => array(
-                'defaultOrder' => 'title_ru ASC',
-            ),
-            'pagination' => array(
-                'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ),
-        ));
+                array(
+                    'criteria' => $criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'title_ru ASC',
+                    ),
+                    'pagination' => array(
+                        'pageSize' => Yii::app()->params['admin']['pageSize'],
+                    ),
+            ));
     }
 
     /**
@@ -175,6 +175,26 @@ class Places extends ActiveRecord
         }
 
         return false;
+    }
+
+    public function getIsDeletes($all = true)
+    {
+        if ($all) {
+            return array(
+                0 => 'Активно',
+                1 => 'Не активно'
+            );
+        }
+        else {
+            switch ($this->is_deleted) {
+                case 0:
+                    return 'Активно';
+                case 1:
+                    return 'Не активно';
+                default:
+                    return 'Активно';
+            }
+        }
     }
 
 }

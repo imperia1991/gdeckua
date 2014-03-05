@@ -53,15 +53,25 @@ function init()
 		},
 		{
 			iconImageHref: '/img/home_icon.png',
-			iconImageSize: [32, 37]
+			iconImageSize: [32, 37],
+			draggable: true
 		}
 	);
+
+	placemark.events.add(['dragend'], function(e){
+		var coords = e.get('target').geometry.getCoordinates();
+
+		setCoordinates(coords, true);
+	});
+
 	placeMap.geoObjects.add(placemark);
 
 //	placeMap.setCenter(placeCenter, 14);
 
 	placeMap.events.add('click', function (e) {
 		var coords = e.get('coordPosition');
+
+		setCoordinates(coords, false);
 
 		// Отправим запрос на геокодирование.
 		ymaps.geocode(coords).then(function (res) {
@@ -92,11 +102,39 @@ function init()
 			}, {
 				iconImageHref: '/img/home_icon.png',
 				iconImageSize: [32, 37],
-				balloonMaxWidth:'250'
+				balloonMaxWidth:'250',
+				draggable: true
+			});
+
+			placemark.events.add(['dragend'], function(e){
+				var coords = e.get('target').geometry.getCoordinates();
+
+				setCoordinates(coords, true);
 			});
 
 			placeMap.geoObjects.add(placemark);
 		});
+	});
+}
+
+function setCoordinates(coords, isDrag)
+{
+	// Отправим запрос на геокодирование.
+	ymaps.geocode(coords).then(function (res) {
+		var names = [];
+		// Переберём все найденные результаты и
+		// запишем имена найденный объектов в массив names.
+
+		res.geoObjects.each(function (obj) {
+			if (obj.properties.get('name')) {
+				names.push(obj.properties.get('name'));
+			}
+		});
+
+		$('#address').val('');
+		$('#address').val(names[0]);
+		$('#placeLat').val(coords[0]);
+		$('#placeLng').val(coords[1]);
 	});
 }
 

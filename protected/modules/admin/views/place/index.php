@@ -54,6 +54,11 @@
                 'filter' => false,
             ),
             array(
+                'name' => 'is_deleted',
+                'filter' => $model->getIsDeletes(),
+                'value' => '$data->getIsDeletes(false)'
+            ),
+            array(
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'template' => '{update}{delete}',
                 'htmlOptions'=>array('style'=>'width: 50px'),

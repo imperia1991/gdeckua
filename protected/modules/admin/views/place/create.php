@@ -2,9 +2,9 @@
 var placeMap;
 var placeCenter = [<?php echo $model->lat ? $model->lat : 49.439172 ?>,<?php echo $model->lng ? $model->lng : 32.059268 ?>];
 var placemark;
-var country = "<?php is_object($model->country) ? $model->country->title_ru : ''; ?>";
-var region = "<?php is_object($model->region) ? $model->region->title_ru : ''; ?>";
-var city = "<?php is_object($model->city) ? $model->city->title_ru : ''; ?>";
+var country = "<?php echo is_object($model->country) ? $model->country->title_ru : ''; ?>";
+var region = "<?php echo is_object($model->region) ? $model->region->title_ru : ''; ?>";
+var city = "<?php echo is_object($model->city) ? $model->city->title_ru : ''; ?>";
 </script>
 
 <?php
@@ -33,6 +33,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'addPlaceForm',
     'type'=>'horizontal',
     'htmlOptions' => array('enctype' => 'multipart/form-data'),
+//    'enableAjaxValidation' => true,
+//    'enableClientValidation' => true,
+//    'clientOptions' => array(
+//        'validateOnSubmit' => true,
+//        'validateOnChange' => true,
+//    ),
 )); ?>
 
 <div class="row">
@@ -63,6 +69,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->textFieldRow($model, 'address', array('id' => 'address')); ?>
     <?php echo $form->textFieldRow($model, 'lat', array('id' => 'placeLat', 'readonly' => 'readonly')); ?>
     <?php echo $form->textFieldRow($model, 'lng', array('id' => 'placeLng', 'readonly' => 'readonly')); ?>
+    <?php echo $form->dropDownListRow($model, 'is_deleted', $model->getIsDeletes()); ?>
 </div>
 <div id="placeMap" class="row" style="height:400px;">
 

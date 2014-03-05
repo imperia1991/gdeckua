@@ -191,7 +191,7 @@ class PlaceController extends AdminController
         }
 
         $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title');
-        $districts = CHtml::listData(Districts::model()->findAll(), 'id', 'title_ru');
+        $districts = CHtml::listData(Districts::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
 
         $this->render('create', array(
             'model' => $model,
