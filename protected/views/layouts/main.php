@@ -13,6 +13,11 @@
     </head>
 
     <body>
+        <?php $this->renderPartial('/partials/_language'); ?>
+        <?php
+        $hour = date('G');
+        echo $hour > 6 && $hour < 18 ? 'Утро / День' : 'Вечер / Ночь';
+        ?>
         <?php echo $content; ?>
     </body>
 </html>

@@ -28,7 +28,7 @@
  */
 class Places extends ActiveRecord
 {
-
+    public $search;
     public $districtId;
 
     /**
@@ -50,10 +50,10 @@ class Places extends ActiveRecord
             array('title_ru, title_uk, description, address, lat, lng, created_at, district_id', 'required'),
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
-            array('user_id, updated_at, country_id, region_id, city_id', 'safe'),
+            array('user_id, updated_at, country_id, region_id, city_id, search', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, title_ru, title_uk, description, country_id, region_id, city_id, address, lat, lng, created_at, updated_at, is_deleted, district_id, districtId', 'safe', 'on' => 'search'),
+            array('id, user_id, title_ru, title_uk, description, country_id, region_id, city_id, address, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
         );
     }
 
@@ -97,6 +97,7 @@ class Places extends ActiveRecord
             'updated_at' => Yii::t('main', 'Дата обновления'),
             'is_deleted' => Yii::t('main', 'Активно'),
             'districtId' => Yii::t('main', 'Район'),
+            'search' => Yii::t('main', 'Название'),
         );
     }
 
