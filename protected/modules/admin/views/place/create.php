@@ -33,12 +33,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'addPlaceForm',
     'type'=>'horizontal',
     'htmlOptions' => array('enctype' => 'multipart/form-data'),
-//    'enableAjaxValidation' => true,
-//    'enableClientValidation' => true,
-//    'clientOptions' => array(
-//        'validateOnSubmit' => true,
-//        'validateOnChange' => true,
-//    ),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+    ),
+    'focus' => ($model->hasErrors()) ? '.error:first' : array($model, 'title_ru'),
 )); ?>
 
 <div class="row">
@@ -56,7 +57,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php
                 $this->widget('application.extensions.PTags.PTags', array(
                     'id' => 'PlaceTags',
-                    'value' => $model->tags->tags,
+                    'value' => is_object($model->tags) ? $model->tags->tags : NULL,
                     'options' => array(
                         'editable' => true,
                         'remover' => true,
@@ -66,12 +67,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php $form->error($model, ''); ?>
         </div>
     </div>
-    <?php echo $form->textFieldRow($model, 'address', array('id' => 'address')); ?>
-    <?php echo $form->textFieldRow($model, 'lat', array('id' => 'placeLat', 'readonly' => 'readonly')); ?>
-    <?php echo $form->textFieldRow($model, 'lng', array('id' => 'placeLng', 'readonly' => 'readonly')); ?>
+    <?php echo $form->textFieldRow($model, 'address', array()); ?>
+    <?php echo $form->textFieldRow($model, 'lat', array('readonly' => 'readonly')); ?>
+    <?php echo $form->textFieldRow($model, 'lng', array('readonly' => 'readonly')); ?>
     <?php echo $form->dropDownListRow($model, 'is_deleted', $model->getIsDeletes()); ?>
 </div>
-<div id="placeMap" class="row" style="height:400px;">
+<div id="placeMap" class="row" style="height:600px; width: 100%">
 
 </div>
 <?php if (isset($model->photos)): ?>

@@ -45,7 +45,7 @@ function init()
 
 	placeMap.controls.add('zoomControl');
 
-	var address = country + ', ' + region + ', ' + city + ', ' + $('#address').val();
+	var address = country + ', ' + region + ', ' + city + ', ' + $('#Places_address').val();
 
 	placemark = new ymaps.Placemark(placeCenter,
 		{
@@ -87,10 +87,10 @@ function init()
 			if (placemark)
 				placeMap.geoObjects.remove(placemark);
 
-			$('#address').val('');
-			$('#address').val(names[0]);
-			$('#placeLat').val(coords[0]);
-			$('#placeLng').val(coords[1]);
+			$('#Places_address').val('');
+			$('#Places_address').val(names[0]);
+			$('#Places_lat').val(coords[0]);
+			$('#Places_lng').val(coords[1]);
 
 			placemark = new ymaps.Placemark(coords, {
 				// В качестве контента иконки выведем
@@ -131,10 +131,10 @@ function setCoordinates(coords, isDrag)
 			}
 		});
 
-		$('#address').val('');
-		$('#address').val(names[0]);
-		$('#placeLat').val(coords[0]);
-		$('#placeLng').val(coords[1]);
+		$('#Places_address').val('');
+		$('#Places_address').val(names[0]);
+		$('#Places_lat').val(coords[0]);
+		$('#Places_lng').val(coords[1]);
 	});
 }
 

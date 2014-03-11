@@ -29,7 +29,7 @@
             'title_uk',
             array(
                 'name' => 'districtId',
-                'value' => '$data->district->title_ru',
+                'value' => '$data->getDistrict()',
                 'filter' => $districts,
             ),
             array(

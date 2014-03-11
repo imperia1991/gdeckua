@@ -47,10 +47,10 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title_ru, title_uk, description, address, lat, lng, created_at, district_id', 'required'),
+            array('title_ru, title_uk, address, lat, lng, created_at', 'required'),
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
-            array('user_id, updated_at, country_id, region_id, city_id, search', 'safe'),
+            array('user_id, updated_at, country_id, region_id, city_id, description, district_id, search', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, title_ru, title_uk, description, country_id, region_id, city_id, address, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
@@ -137,7 +137,10 @@ class Places extends ActiveRecord
         if ($this->updated_at) {
             $criteria->compare('updated_at', $this->updated_at);
         }
-        if ($this->districtId) {
+        if ($this->districtId == -1) {
+            $criteria->addCondition('district_id IS NULL');
+        }
+        if ($this->districtId && $this->districtId != -1) {
             $criteria->compare('district_id', $this->districtId);
         }
         if ($this->is_deleted == 0 || $this->is_deleted == 1) {
@@ -196,6 +199,11 @@ class Places extends ActiveRecord
                     return 'Активно';
             }
         }
+    }
+
+    public function getDistrict()
+    {
+        return is_object($this->district) ? $this->district->title_ru : Yii::t('main', 'Не указан');
     }
 
 }

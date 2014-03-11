@@ -24,6 +24,7 @@ class PlaceController extends AdminController
         }
 
         $districts = CHtml::listData(Districts::model()->findAll(), 'id', 'title_ru');
+        $districts[-1] = Yii::t('main', 'Не указан');
 
         $this->render('index', array(
             'model' => $model,
@@ -35,6 +36,14 @@ class PlaceController extends AdminController
     {
         $model = new Places();
 
+        if (Yii::app()->request->isAjaxRequest && 'addPlaceForm' == Yii::app()->request->getPost('ajax', '')) {
+            $model->setAttributes(Yii::app()->request->getPost('Places', array()));
+
+            echo CActiveForm::validate($model);
+
+            Yii::app()->end();
+        }
+
         $this->processForm($model);
     }
 
@@ -43,6 +52,14 @@ class PlaceController extends AdminController
         $id = Yii::app()->request->getQuery('id', 0);
 
         $model = Places::model()->findByPk((int) $id);
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $model->setAttributes(Yii::app()->request->getPost('Places', array()));
+
+            echo CActiveForm::validate($model);
+
+            Yii::app()->end();
+        }
 
         $this->processForm($model);
     }
@@ -76,7 +93,9 @@ class PlaceController extends AdminController
         $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
         $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
-        Yii::app()->session['images'][] = $result['filename'];
+        $sessionImages = Yii::app()->session['images'];
+        $sessionImages[] = $result['filename'];
+        Yii::app()->session['images'] = $sessionImages;
 
         $this->respondJSON($result);
     }
@@ -144,8 +163,9 @@ class PlaceController extends AdminController
 
                     $model->tags->place_id = $model->id;
                     $model->tags->tags = $postPlacetags;
+
                     if (!$model->tags->save(false)) {
-                        Yii::app()->user->setFlash('error', 'Теги:<br/> ' . join('<br/>', $model->tags->getErrors()));
+                        Yii::app()->user->setFlash('error', 'Ошибка при добавлении тегов');
                     };
 
                     if ($postPhotos) {
@@ -180,7 +200,7 @@ class PlaceController extends AdminController
                     $this->redirect(Yii::app()->createUrl('/admin/place'));
                 }
                 else {
-                    Yii::app()->user->setFlash('error', 'Ошибки при добалении Места:<br/> ' . join('<br/>', array_values($model->getErrors())));
+                    Yii::app()->user->setFlash('error', 'Ошибки при добалении Места');
 
                     $transaction->rollback();
                 }
