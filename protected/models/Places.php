@@ -154,7 +154,25 @@ class Places extends ActiveRecord
                         'defaultOrder' => 'title_ru ASC',
                     ),
                     'pagination' => array(
-                        'pageSize' => Yii::app()->params['admin']['pageSize'],
+                        'pageSize' => Yii::app()->params['pageSize'],
+                    ),
+            ));
+    }
+
+    public function searchMain()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria = new CDbCriteria;
+
+        return new CActiveDataProvider($this,
+                array(
+                    'criteria' => $criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'title_' . Yii::app()->getLanguage() . ' ASC',
+                    ),
+                    'pagination' => array(
+                        'pageSize' => Yii::app()->params['pageSize'],
                     ),
             ));
     }

@@ -2,7 +2,6 @@
 
 class SiteController extends Controller
 {
-
 //    public function filters()
 //    {
 //        return array(
@@ -50,8 +49,29 @@ class SiteController extends Controller
         $model = new Places();
         $model->search = Yii::app()->request->getQuery('search', '');
 
+        $results = array();
+        if ($model->search) {
+            $controller = Yii::app()->createController('/search');
+            $results = $controller[0]->search($model->search);
+
+            $dataProvider = new CArrayDataProvider(
+                    $results['results'],
+                    array(
+                        'pagination' => array(
+                            'pageSize' => 1,
+                        ),
+                    )
+            );
+        }
+        else {
+            $dataProvider = $model->search();
+        }
+
         $this->render('index', array(
             'model' => $model,
+            'search' => $model->search,
+            'results' => $results,
+            'dataProvider' => $dataProvider
         ));
     }
 
@@ -67,4 +87,5 @@ class SiteController extends Controller
                 $this->render('error', $error);
         }
     }
+
 }
