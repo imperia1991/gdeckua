@@ -58,13 +58,13 @@ class SiteController extends Controller
                     $results['results'],
                     array(
                         'pagination' => array(
-                            'pageSize' => 1,
+                            'pageSize' => Yii::app()->params['pageSize'],
                         ),
                     )
             );
         }
         else {
-            $dataProvider = $model->search();
+            $dataProvider = $model->searchMain();
         }
 
         $this->render('index', array(

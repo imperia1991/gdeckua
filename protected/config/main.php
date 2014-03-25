@@ -52,18 +52,18 @@ $mainConfig = array(
             'enableCookieValidation' => true,
 //            'enableCsrfValidation' => true,
         ),
-//        'clientScript' => array(
-//            'packages' => array(
-//                'jquery' => array(
-//                    'baseUrl' => '/js',
-//                    'js' => array('jquery.js')
-//                ),
+        'clientScript' => array(
+            'packages' => array(
+                'jquery' => array(
+                    'baseUrl' => '/js',
+                    'js' => array('jquery-2.1.0.min.js')
+                ),
 //                'jquery.ui' => array(
 //                    'baseUrl' => '/libraries/jquery-ui-1.10.2.custom/js',
 //                    'js' => array('jquery-ui-1.10.2.custom.min.js')
 //                )
-//            )
-//        ),
+            )
+        ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'showScriptName' => false,
@@ -140,13 +140,13 @@ $mainConfig = array(
         'languages' => array('ru' => 'Русский', 'uk' => 'Українська'),
         'pageSize' => 10,
         'admin' => array(
-            'pageSize'  => 20,
+            'pageSize' => 20,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
             'files' => array(
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
             ),
-            'images'    => array(
+            'images' => array(
                 'small' => array(
                     'height' => 80,
                     'width' => 80,
@@ -160,7 +160,7 @@ $mainConfig = array(
                     'width' => 466,
                 ),
                 'allowedExtensions' => array('jpg', 'jpeg', 'png'),
-                'sizeLimit'         => 2 * 1024 * 1024
+                'sizeLimit' => 2 * 1024 * 1024
             ),
         ),
     ),

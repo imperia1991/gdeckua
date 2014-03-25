@@ -2,6 +2,16 @@
 $title = 'title_' . Yii::app()->getLanguage();
 ?>
 
-<h2><?php echo $data->{$title}; ?></h2>
-<h2><?php echo $data->address; ?></h2>
-<p><?php echo $data->description; ?></p>
+<li>
+    <a class="big-photo" rel="lightgallery" href="images/photo.png">
+        <img src="images/photo.png" alt="">
+        <i class="enlarge">Увеличить</i>
+    </a>
+    <div class="item">
+        <h1><?php echo $data->{$title}; ?></h1>
+        <div class="address">
+            <span><?php echo $data->address; ?></span>
+            <span><?php echo $data->description; ?></span>
+        </div>
+    </div>
+</li>

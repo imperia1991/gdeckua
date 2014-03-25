@@ -154,7 +154,7 @@ class Places extends ActiveRecord
                         'defaultOrder' => 'title_ru ASC',
                     ),
                     'pagination' => array(
-                        'pageSize' => Yii::app()->params['pageSize'],
+                        'pageSize' => Yii::app()->params['admin']['pageSize'],
                     ),
             ));
     }
