@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введите название, например "Кафе Крещатик"');
+$this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введите, например "Кафе Крещатик"');
 ?>
 <div class="search-block">
 <?php
@@ -29,7 +29,7 @@ $this->renderPartial('/partials/_search', array(
             <?php
             $this->widget('CLinkPager', array(
                 'pages' => $dataProvider->getPagination(),
-                'cssFile'=>Yii::app()->theme->baseUrl."/css/pagination.css",
+                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
                 'header' => '',
                 'selectedPageCssClass' => 'active',
                 'footer' => '',
@@ -51,11 +51,11 @@ $this->renderPartial('/partials/_search', array(
 <div class="left-sidebar">
     <div id="search-content">
         <ul>
-            
+
             <?php
             $this->widget('zii.widgets.CListView', array(
                 'dataProvider' => $dataProvider,
-                'cssFile'=>Yii::app()->theme->baseUrl."/css/search-list.css",
+                'cssFile'=>Yii::app()->baseUrl."/css/search-list.css",
                 'itemView' => 'partials/_item', // представление для одной записи
                 'ajaxUpdate' => false, // отключаем ajax поведение
                 'emptyText' => 'Места не найдены.',

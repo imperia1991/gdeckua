@@ -19,33 +19,38 @@
         height: 99px;
         border-right: 1px solid #afacac;
         cursor: pointer;
-    } 
-    
+    }
+
+    .left-sidebar ul li.item-active, .left-sidebar ul li:hover {
+        background-color: #fef8e9;
+		cursor: pointer;
+    }
+
     .left-sidebar ul li .enlarge {
-        background-color: rgba(0,0,0,0.2);   
+        background-color: rgba(0,0,0,0.2);
         background-image: url("../images/m/search.png");
         background-position: 75px center;
-        background-repeat: no-repeat;   
+        background-repeat: no-repeat;
         color: #FFFFFF;
         display: block;
-        position: absolute;        
-        width: 73px;  
+        position: absolute;
+        width: 73px;
         margin-top: 81px;
         cursor: pointer;
         padding: 0 12px;
         display: none;
         font-style: normal;
-    }    
-       
+    }
+
     .left-sidebar h1 {
         background-color: #edc69a;
         color: #6a4418;
         font-size: 12px;
         text-align: center;
-        font-weight: 100;        
+        font-weight: 100;
     }
     .left-sidebar .item {
-        float: left; 
+        float: left;
         width: 205px;
     }
     .left-sidebar .item span {
@@ -58,31 +63,31 @@
     .left-sidebar .left-sidebar-ad {
         width: 305px;
         height: 70px;
-    }  
-    
-@media screen and (max-width: 485px) { 
-    
-    #search-content {       
+    }
+
+@media screen and (max-width: 485px) {
+
+    #search-content {
         height: 620px;
         width: 213px;
     }
     .left-sidebar ul {
         width: 210px;
-    }                    
+    }
     .left-sidebar ul li {
-        margin-top: 2px;      
+        margin-top: 2px;
     }
     .left-sidebar ul li img {
         width: 68px;
-        height: 52px;                
+        height: 52px;
     }
     .left-sidebar ul li .enlarge {
-        background-position: 55px center;        
+        background-position: 55px center;
         font-size: 10px;
-        width: 62px;  
+        width: 62px;
         margin-top: 35px;
         padding: 0 3px;
-    }    
+    }
     .left-sidebar h1 {
         font-size: 10px;
         line-height: 10px;
@@ -90,6 +95,7 @@
     .left-sidebar .item {
         width: 139px;
     }
+
     .left-sidebar .item span {
         display: inline;
     }
@@ -103,5 +109,5 @@
         height: 50px;
         overflow: hidden;
     }
-    
+
 }

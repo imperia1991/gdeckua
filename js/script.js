@@ -32,25 +32,23 @@ $(document).ready(function(){
         $('.popup').hide();
         $(".popup").removeClass('popup-active');
     });
-    
-    /*$(".left-sidebar ul li img").hover(function(){
-        $(this).parent().find('span').css({'display': 'block'});        
-    });*/
+        
     $(".left-sidebar ul li a img").hover(
         function() {
             $(this).parent().find('i').css({'display': 'block'});        
         }, function() {
              $(".enlarge").css({'display': 'none'});        
-        }
-        
+        }        
     );
+    $(".left-sidebar ul li").on('click', function(){
+        $(".left-sidebar ul li").removeClass('item-active');
+        $(this).addClass('item-active');        
+    });
+    
         
     $("#search-content").mCustomScrollbar();    
     var customScrollbar=$("#search-content").find(".mCSB_scrollTools");
     customScrollbar.css({"opacity":0});
     $("#search-content").mCustomScrollbar("update");
     customScrollbar.animate({opacity:1},"slow");
-    
-    
-    
 });

@@ -22,7 +22,20 @@ class SearchController extends Controller
         Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
 
         $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $this->_indexFiles));
-        $query = new Zend_Search_Lucene_Search_Query_Phrase(explode(' ', trim(mb_strtolower($search, 'utf-8'))));
+
+        $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
+
+        $termsArray = explode(' ', trim(mb_strtolower($search, 'utf-8')));
+        $terms = array();
+        foreach ($termsArray as $term) {
+            $term = str_replace('"', '', $term);
+            $term = str_replace("'", '', $term);
+            $term = trim(strip_tags($term));
+
+            $query->addTerm(new Zend_Search_Lucene_Index_Term($term), null);
+        }
+
+//        $query = new Zend_Search_Lucene_Search_Query_Phrase($terms);
         $results = $index->find($query);
 
         return compact('results', 'term', 'query');

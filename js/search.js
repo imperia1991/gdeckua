@@ -1,6 +1,6 @@
 ymaps.ready(init);
 
-var names = [];
+var placemarks = [];
 function init()
 {
 	placeMap = new ymaps.Map('placeMap', {
@@ -10,75 +10,46 @@ function init()
 
 	placeMap.controls.add('zoomControl');
 
-//	var address = country + ', ' + region + ', ' + city + ', ' + $('#Places_address').val();
-	var address = '';
+	var searchCollection = new ymaps.GeoObjectCollection();
 
-	placemark = new ymaps.Placemark(placeCenter,
-		{
-			balloonContent: address
-		},
-		{
-			iconImageHref: '/img/home_icon.png',
-			iconImageSize: [32, 37],
-			draggable: true
-		}
-	);
+	// Заполняем коллекцию данными.
+    searchPoints.forEach(function (point) {
+		var placemark = new ymaps.Placemark(
+            point.coords,
+			{
+                balloonContentHeader: point.header,
+				balloonContentBody: point.body,
+				balloonContentFooter: point.footer,
+				hintContent: point.text
+            },
+			{
+				preset: 'twirl#blueDotIcon'
+			}
+        );
 
-//	placemark.events.add(['dragend'], function(e){
-//		var coords = e.get('target').geometry.getCoordinates();
-//
-//		setCoordinates(coords, true);
-//	});
+		placemark.events
+			.add('mouseenter', function (e) {
+				// Ссылку на объект, вызвавший событие,
+				// можно получить из поля 'target'.
+				e.get('target').options.set('preset', 'twirl#darkorangeDotIcon');
+			})
+			.add('mouseleave', function (e) {
+				e.get('target').options.set('preset', 'twirl#blueDotIcon');
+			})
+			.add('click', function (e) {
+				e.get('target').options.set('preset', 'twirl#blueDotIcon');
+			});
 
-	placeMap.geoObjects.add(placemark);
+		placemarks[point.id] = placemark;
 
-//	placeMap.setCenter(placeCenter, 14);
+        searchCollection.add(placemark);
+    });
 
-//	placeMap.events.add('click', function (e) {
-//		var coords = e.get('coordPosition');
-//
-//		setCoordinates(coords, false);
-//
-//		// Отправим запрос на геокодирование.
-//		ymaps.geocode(coords).then(function (res) {
-//			var names = [];
-//			// Переберём все найденные результаты и
-//			// запишем имена найденный объектов в массив names.
-//			res.geoObjects.each(function (obj) {
-//				names.push(obj.properties.get('name'));
-//			});
-//
-//			// Добавим на карту метку в точку, по координатам
-//			// которой запрашивали обратное геокодирование.
-//			if (placemark)
-//				placeMap.geoObjects.remove(placemark);
-//
-//			$('#Places_address').val('');
-//			$('#Places_address').val(names[0]);
-//			$('#Places_lat').val(coords[0]);
-//			$('#Places_lng').val(coords[1]);
-//
-//			placemark = new ymaps.Placemark(coords, {
-//				// В качестве контента иконки выведем
-//				// первый найденный объект.
-//				//                iconContent:names[0],
-//				// А в качестве контента балуна - подробности:
-//				// имена всех остальных найденных объектов.
-//				balloonContent:names.reverse().join(', ')
-//			}, {
-//				iconImageHref: '/img/home_icon.png',
-//				iconImageSize: [32, 37],
-//				balloonMaxWidth:'250',
-//				draggable: true
-//			});
-//
-//			placemark.events.add(['dragend'], function(e){
-//				var coords = e.get('target').geometry.getCoordinates();
-//
-//				setCoordinates(coords, true);
-//			});
-//
-//			placeMap.geoObjects.add(placemark);
-//		});
-//	});
+    // Добавляем коллекцию меток на карту.
+    placeMap.geoObjects.add(searchCollection);
+}
+
+function showPlacemark(id)
+{
+	placemarks[id].events.fire('mouseenter');
 }

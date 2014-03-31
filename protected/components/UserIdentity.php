@@ -10,7 +10,7 @@ class UserIdentity extends CUserIdentity
 
     const ERROR_PHONE_INVALID = 3;
 
-    public $phone;
+    public $name;
     public $email;
     private $id;
 
@@ -43,7 +43,7 @@ class UserIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_NONE;
             $this->id = $user->id;
             $this->email = $user->email;
-            $this->phone = $user->phone;
+            $this->name = $user->name;
 
             $this->setState('roles', $user->ruleUser->rule->name);
         }
@@ -64,11 +64,6 @@ class UserIdentity extends CUserIdentity
     public function getEmail()
     {
         return $this->email;
-    }
-
-    public function getPhone()
-    {
-        return $this->phone;
     }
 
 }

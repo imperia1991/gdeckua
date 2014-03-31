@@ -13,7 +13,7 @@ $form = $this->beginWidget('CActiveForm', array(
 //    ),
     ));
 ?>
-<label><?php echo Yii::t('main', 'Где в Черкассах?') ?>:&nbsp;&nbsp;&nbsp;</label>
+<label><?php echo Yii::t('main', 'Где в Черкассах') ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 <?php
 
 echo $form->textField($model, 'search', array(

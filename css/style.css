@@ -34,9 +34,11 @@ body {
         margin: 0 auto;
         width: 800px;
         text-align: right;
+        position: relative;
+        top: 15px;
     }
 
-    .ru {
+    .rus {
         background-image: url("../images/rus.png");
         height: 13px;
         position: absolute;
@@ -45,7 +47,7 @@ body {
         top: 15px;
         margin-left: -40px;
     }
-    .uk {
+    .ua {
         background-image: url("../images/ua.png");
         height: 13px;
         position: absolute;
@@ -80,13 +82,13 @@ body {
         color: #7c7e7f;
         font-size: 16px;
         position: relative;
-        top: 5px;
+        top: 7px;
     }
     .search-block input[type="text"] {
         width: 250px;
         position: relative;
-        top: 5px;
-        font-size: 12px;
+        top: 7px;
+        font-size: 13px;
         border: none;
         background-color: #FFF;
         font-style: italic;
@@ -94,13 +96,14 @@ body {
     .search-block input[type="submit"] {
         background: none;
         background-image: url("../images/search.png");
-        background-position: left 5px;
+        background-position: left 4px;
         background-repeat: no-repeat;
-        width: 85px;
+        width: 68px;
+        text-align: right;
         border: none;
         color: #b6babd;
         position: relative;
-        top: 5px;
+        top: 7px;
         cursor: pointer;
         font-size: 16px;
     }
@@ -230,7 +233,7 @@ body {
         position: relative;
         top: 9px;
     }
-    .footer a{
+    .footer a.call-popup{
         float: right;
         text-decoration: none;
         color: #FFF;
@@ -241,8 +244,12 @@ body {
         top: -9px;
         width: 100px;
     }
-    .footer a:hover {
+    .footer a.call-popup:hover {
         background: url("../images/footer-hover.png") repeat;
+    }
+    .footer a {
+        color: #FFF;
+        text-decoration: none;
     }
 
     .back-top {
@@ -298,7 +305,8 @@ body {
     .popup input[type="text"], textarea {
         border: 1px solid #C7C7C7;
         margin-bottom: 2px;
-        padding: 5px 0;
+        padding: 5px 0 5px 3px;
+        width: 250px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
         -khtml-border-radius: 4px;
@@ -308,13 +316,12 @@ body {
         font-size: 12px;
         font-family: Arial, sans-serif;
         padding: 1px;
-    }
-    .large {
-        width: 100%;
+        width: 65px;
+        text-align: center;
     }
 
     .big {
-        width: 75%;
+        width: 100px !important;
     }
     .m {
         display: none;
@@ -322,6 +329,51 @@ body {
     input {
         outline: none;
     }
+
+
+a.tooltip-rus, a.tooltip-ua {
+  position: relative;
+  display: inline;
+}
+a.tooltip-rus span, a.tooltip-ua span {
+  position: absolute;
+  color: #000;
+  background: #FFF;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 0px;
+  width: 150px;
+  right: 0;
+}
+a.tooltip-rus span:after, a.tooltip-ua span:after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-bottom: 8px solid #FFF;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltip-rus span, a:hover.tooltip-ua span {
+    position: absolute;
+    visibility: visible;
+    opacity: 1;
+    top: 35px;
+    z-index: 999;
+    display: block;
+    right: 0;
+}
+a:hover.tooltip-rus span {
+  right: 15px;
+
+}
+a:hover.tooltip-ua span {
+  right: 3px;
+}
 
 
 @media screen and (max-width: 485px) {
@@ -351,16 +403,16 @@ body {
     }
     .search-block label {
         font-size: 12px;
-        top: 0;
+        top: 2px;
     }
     .search-block input[type="text"] {
         width: 125px;
-        top: 0;
+        top: 2px;
         font-size: 10px;
         background-color: #fbfbf9;
     }
     .search-block input[type="button"] {
-        top: 0;
+        top: 2px;
         font-size: 14px;
     }
     .content {
@@ -442,6 +494,10 @@ body {
         top: 0;
     }
     .footer a{
+        padding: 1px;
+        top: 0;
+    }
+    .footer a.call-popup{
         padding: 1px;
         top: 0;
     }
