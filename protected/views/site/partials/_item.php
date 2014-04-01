@@ -2,7 +2,7 @@
 $title = 'title_' . Yii::app()->getLanguage();
 ?>
 
-<li onmouseover="showPlacemark(<?php echo $data->id; ?>)">
+<li onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)">
     <a class="big-photo" rel="lightgallery" href="images/photo.png">
         <img src="images/photo.png" alt="">
         <i class="enlarge">Увеличить</i>

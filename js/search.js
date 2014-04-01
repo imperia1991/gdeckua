@@ -47,9 +47,36 @@ function init()
 
     // Добавляем коллекцию меток на карту.
     placeMap.geoObjects.add(searchCollection);
+
+	placeMap.setBounds(searchCollection.getBounds(), {checkZoomRange:true, zoomMargin:1});
 }
 
 function showPlacemark(id)
 {
-	placemarks[id].events.fire('mouseenter');
+	placemarks[id].hint.show(placemarks[id].geometry.getPixelGeometry().getCoordinates());
+
+	placemarks[id].events.fire('mouseenter', {
+			coordPosition: placemarks[id].geometry.getCoordinates(),
+			target: placemarks[id]
+	});
+}
+
+function hidePlacemark(id)
+{
+	placemarks[id].hint.hide();
+
+	placemarks[id].events.fire('mouseleave', {
+			coordPosition: placemarks[id].geometry.getCoordinates(),
+			target: placemarks[id]
+	});
+}
+
+function clickPlacemark(id)
+{
+	placemarks[id].events.fire('click', {
+			coordPosition: placemarks[id].geometry.getCoordinates(),
+			target: placemarks[id]
+	});
+
+	placeMap.setCenter(placemarks[id].geometry.getCoordinates());
 }
