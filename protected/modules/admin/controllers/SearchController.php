@@ -57,6 +57,8 @@ class SearchController extends AdminController
             $doc->addField(Zend_Search_Lucene_Field::Text('title_ru', CHtml::encode($place->title_ru), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('title_uk', CHtml::encode($place->title_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('description', CHtml::encode(strip_tags($place->description)), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('district_ru', CHtml::encode($place->district->title_ru), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('district_uk', CHtml::encode($place->district->title_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('address', CHtml::encode($place->address), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unStored('tags', CHtml::encode($place->tags->tags), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('lat', $place->lat));
