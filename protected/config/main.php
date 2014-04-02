@@ -138,7 +138,7 @@ $mainConfig = array(
         'adminEmail' => 'webmaster@example.com',
         'supportEmail' => 'support@rabotenka.com.ua',
         'languages' => array('ru' => 'Русский', 'uk' => 'Українська'),
-        'pageSize' => 10,
+        'pageSize' => 12,
         'admin' => array(
             'pageSize' => 20,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',

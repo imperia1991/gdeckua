@@ -43,6 +43,7 @@ $this->renderPartial('/partials/_search', array(
     //            'lastPageCssClass' => 'nav-right',
                 'lastPageLabel' => '>>',
     //            'nextPageCssClass' => 'display-none',
+                'maxButtonCount' => 5
             ));
             ?>
         </div>
