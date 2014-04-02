@@ -8,7 +8,9 @@ function init()
 		zoom: 16
 	});
 
-	placeMap.controls.add('zoomControl');
+	placeMap.controls
+		.add('zoomControl')
+		.add('typeSelector');
 
 	var searchCollection = new ymaps.GeoObjectCollection();
 
@@ -79,4 +81,5 @@ function clickPlacemark(id)
 	});
 
 	placeMap.setCenter(placemarks[id].geometry.getCoordinates());
+	placeMap.setZoom(16);
 }

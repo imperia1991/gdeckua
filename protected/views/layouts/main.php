@@ -42,10 +42,13 @@
 <div class="footer-bg">
     <div class="footer">
         <div>
-            <span class="d"><a href="<?php echo Yii::app()->request->hostInfo; ?>"><?php echo Yii::app()->request->hostInfo; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?></a> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></span>
-            <span class="m"><a href="<?php echo Yii::app()->request->hostInfo; ?>"><?php echo Yii::app()->request->hostInfo; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?></a> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></span>
+            <span class="d"><a href="<?php echo Yii::app()->request->hostInfo; ?>"><?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?></a> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></span>
+            <span class="m"><a href="<?php echo Yii::app()->request->hostInfo; ?>"><?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?></a> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></span>
+            <?php /*
             <a href="#feedback" class="call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
             <a href="#organization-add" class="call-popup" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
+             *
+             */?>
         </div>
     </div>
 </div><!-- .footer -->
