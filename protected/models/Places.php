@@ -146,6 +146,7 @@ class Places extends ActiveRecord
         if ($this->is_deleted == 0 || $this->is_deleted == 1) {
             $criteria->compare('is_deleted', $this->is_deleted);
         }
+        $criteria->with = array('photos');
 
         return new CActiveDataProvider($this,
                 array(
@@ -164,6 +165,7 @@ class Places extends ActiveRecord
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('photos');
 
         return new CActiveDataProvider($this,
                 array(

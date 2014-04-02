@@ -18,10 +18,10 @@ $form = $this->beginWidget('CActiveForm', array(
 
 echo $form->textField($model, 'search', array(
     'name' => 'search',
-    'placeholder' => Yii::t('main', 'Введите, например "Кафе Крещатик"'),
+    'placeholder' => Yii::t('main', 'Введите, например, "Кафе Крещатик"'),
 ));
 ?>
 
-<?php echo CHtml::submitButton(Yii::t('main', 'Найти'), array('name' => '')); ?>
+<?php echo CHtml::submitButton(Yii::t('main', 'Поиск'), array('name' => '')); ?>
 
 <?php $this->endWidget(); ?>

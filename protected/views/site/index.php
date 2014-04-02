@@ -11,7 +11,7 @@ $this->renderPartial('/partials/_search', array(
 </div>
 <div class="container">
     <div class="content">
-        <div id="placeMap" class="map" style="height: 800px;">
+        <div id="placeMap" class="map">
             <?php
                 $this->renderPartial('partials/_map', array(
                     'dataProvider' => $dataProvider,
@@ -36,13 +36,13 @@ $this->renderPartial('/partials/_search', array(
                 'internalPageCssClass' => '',
                 'prevPageLabel' => '<',
                 'nextPageLabel' => '>',
-    //            'previousPageCssClass' => 'nav-left',
+                'previousPageCssClass' => 'prev',
                 'htmlOptions' => array('class' => ''),
-    //            'firstPageCssClass' => 'display-none',
+                'firstPageCssClass' => 'first',
                 'firstPageLabel' => '<<',
-    //            'lastPageCssClass' => 'nav-right',
+                'lastPageCssClass' => 'last',
                 'lastPageLabel' => '>>',
-    //            'nextPageCssClass' => 'display-none',
+                'nextPageCssClass' => 'next',
                 'maxButtonCount' => 5
             ));
             ?>

@@ -66,7 +66,7 @@ class SiteController extends Controller
         else {
             $dataProvider = $model->searchMain();
         }
-
+        
         $this->render('index', array(
             'model' => $model,
             'search' => $model->search,

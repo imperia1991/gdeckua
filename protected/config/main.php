@@ -22,6 +22,7 @@ $mainConfig = array(
         'ext.JsTrans.*',
         'ext.Scalar.*',
         'application.extensions.CAdvancedArFindBehavior',
+        'ext.easyimage.EasyImage',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -130,6 +131,9 @@ $mainConfig = array(
             'logging' => true,
             'dryRun' => false
         ),
+        'easyImage' => array(
+            'class' => 'application.extensions.easyimage.EasyImage',
+        )
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
