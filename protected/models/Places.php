@@ -8,11 +8,13 @@
  * @property integer $user_id
  * @property string $title_ru
  * @property string $title_uk
- * @property string $description
+ * @property string $description_ru
+ * @property string $description_uk
  * @property integer $country_id
  * @property integer $region_id
  * @property integer $city_id
- * @property string $address
+ * @property string $address_ru
+ * @property string $address_uk
  * @property float $lat
  * @property float $lng
  * @property integer $created_at
@@ -47,13 +49,13 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title_ru, title_uk, address, lat, lng, created_at', 'required'),
+            array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at', 'required'),
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
-            array('user_id, updated_at, country_id, region_id, city_id, description, district_id, search', 'safe'),
+            array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, title_ru, title_uk, description, country_id, region_id, city_id, address, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
+            array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,11 +88,13 @@ class Places extends ActiveRecord
             'title_ru' => Yii::t('main', 'Название (русский)'),
             'title_uk' => Yii::t('main', 'Название (украинский)'),
             'district_id' => Yii::t('main', 'Район'),
-            'description' => Yii::t('main', 'Короткое описание'),
+            'description_ru' => Yii::t('main', 'Короткое описание (на русском)'),
+            'description_uk' => Yii::t('main', 'Короткое описание (на украинском)'),
             'country_id' => Yii::t('main', 'Страна'),
             'region_id' => Yii::t('main', 'Область'),
             'city_id' => Yii::t('main', 'Населенный пункт'),
-            'address' => Yii::t('main', 'Адрес'),
+            'address_ru' => Yii::t('main', 'Адрес (на русском)'),
+            'address_uk' => Yii::t('main', 'Адрес (на украинском)'),
             'lat' => Yii::t('main', 'Широта'),
             'lng' => Yii::t('main', 'Долгота'),
             'created_at' => Yii::t('main', 'Дата добавления'),
@@ -127,9 +131,6 @@ class Places extends ActiveRecord
         }
         if ($this->title_uk) {
             $criteria->compare('title_uk', $this->title_uk, true);
-        }
-        if ($this->address) {
-            $criteria->compare('address', $this->address, true);
         }
         if ($this->created_at) {
             $criteria->compare('created_at', $this->created_at);
@@ -193,7 +194,8 @@ class Places extends ActiveRecord
     public function beforeSave()
     {
         if (parent::beforeSave()) {
-            $this->description = nl2br($this->description);
+            $this->description_ru = nl2br($this->description_ru);
+            $this->description_uk = nl2br($this->description_uk);
 
             return true;
         }

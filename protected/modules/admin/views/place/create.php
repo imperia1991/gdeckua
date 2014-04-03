@@ -45,36 +45,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="row">
     <h4>Добавление места</h4>
 </div>
-
-<div class="row">
-    <?php echo $form->textFieldRow($model, 'title_ru'); ?>
-    <?php echo $form->textFieldRow($model, 'title_uk'); ?>
-    <?php echo $form->dropDownListRow($model, 'district_id', $districts, array('empty' => 'Выберите район')); ?>
-    <?php echo $form->textAreaRow($model, 'description', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description))); ?>
-    <div class="control-group ">
-        <label for="Places_title_uk" class="control-label required">Теги (через запятую) <span class="required">*</span></label>
-        <div class="controls">
-            <?php
-                $this->widget('application.extensions.PTags.PTags', array(
-                    'id' => 'PlaceTags',
-                    'value' => is_object($model->tags) ? $model->tags->tags : NULL,
-                    'options' => array(
-                        'editable' => true,
-                        'remover' => true,
-                    )
-                ));
-            ?>
-            <?php $form->error($model, ''); ?>
-        </div>
-    </div>
-    <?php echo $form->textFieldRow($model, 'address', array()); ?>
-    <?php echo $form->textFieldRow($model, 'lat', array('readonly' => 'readonly')); ?>
-    <?php echo $form->textFieldRow($model, 'lng', array('readonly' => 'readonly')); ?>
-    <?php echo $form->dropDownListRow($model, 'is_deleted', $model->getIsDeletes()); ?>
-</div>
-<div id="placeMap" class="row" style="height:600px; width: 100%">
-
-</div>
 <?php if (isset($model->photos)): ?>
 <div class="row" style="margin-top: 20px;">
     <?php foreach ($model->photos as $photo): ?>
@@ -135,6 +105,35 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         );
     ?>
     <?php echo $form->error($model, 'photo'); ?>
+</div>
+<div id="placeMap" class="row" style="height:600px; width: 100%"></div>
+<div class="row">
+    <?php echo $form->textFieldRow($model, 'address_ru', array()); ?>
+    <?php echo $form->textFieldRow($model, 'address_uk', array()); ?>
+    <?php echo $form->textFieldRow($model, 'lat', array('readonly' => 'readonly')); ?>
+    <?php echo $form->textFieldRow($model, 'lng', array('readonly' => 'readonly')); ?>
+    <?php echo $form->dropDownListRow($model, 'is_deleted', $model->getIsDeletes()); ?>
+    <?php echo $form->textFieldRow($model, 'title_ru'); ?>
+    <?php echo $form->textFieldRow($model, 'title_uk'); ?>
+    <?php echo $form->dropDownListRow($model, 'district_id', $districts, array('empty' => 'Выберите район')); ?>
+    <?php echo $form->textAreaRow($model, 'description_ru', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_ru))); ?>
+    <?php echo $form->textAreaRow($model, 'description_uk', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_uk))); ?>
+    <div class="control-group ">
+        <label for="Places_title_uk" class="control-label required">Теги (через запятую) <span class="required">*</span></label>
+        <div class="controls">
+            <?php
+                $this->widget('application.extensions.PTags.PTags', array(
+                    'id' => 'PlaceTags',
+                    'value' => is_object($model->tags) ? $model->tags->tags : NULL,
+                    'options' => array(
+                        'editable' => true,
+                        'remover' => true,
+                    )
+                ));
+            ?>
+            <?php $form->error($model, ''); ?>
+        </div>
+    </div>
 </div>
 
 <div class="form-actions">

@@ -47,6 +47,23 @@ function init()
         searchCollection.add(placemark);
     });
 
+	button = new ymaps.control.Button({
+			data: {
+				content: Yii.t('main', 'Все', '', currLang)
+			}
+		},
+		{
+			selectOnClick: false
+		});
+	button.events.add('click', function(e){
+		placeMap.setBounds(searchCollection.getBounds(), {checkZoomRange:true, zoomMargin:1});
+	});
+
+    placeMap.controls.add(button, {
+        left: 5,
+        top: 5
+    });
+
     // Добавляем коллекцию меток на карту.
     placeMap.geoObjects.add(searchCollection);
 

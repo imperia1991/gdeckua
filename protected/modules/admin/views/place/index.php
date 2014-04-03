@@ -13,18 +13,6 @@
         'filter' => $model,
         'columns'=>array(
             'id',
-//            array(
-//                'name' => '',
-//                'header' => '',
-//                'type' => 'raw',
-//                'filter' => false,
-////                'value' => Yii::app()->params['imagesPath'] . '/' . '$data->photo_s' . '?r=' . mt_rand(0, 10000),
-//                'value' => function ($data, $raw)
-//                           {
-////                                echo CHtml::image(Yii::app()->params['imagesPath'] . '/' . $data->photo_s . '?r=' . mt_rand(0, 10000));
-//                           },
-//                'htmlOptions' => array('style' => 'width: 5%')
-//            ),
             'title_ru',
             'title_uk',
             array(
@@ -33,7 +21,12 @@
                 'filter' => $districts,
             ),
             array(
-                'name' => 'address',
+                'name' => 'address_ru',
+                'filter' => false,
+                'sortable' => false,
+            ),
+            array(
+                'name' => 'address_uk',
                 'filter' => false,
                 'sortable' => false,
             ),

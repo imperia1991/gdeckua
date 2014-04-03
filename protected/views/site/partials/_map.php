@@ -1,8 +1,11 @@
 <?php
 $items = $dataProvider->getData();
 $title = 'title_' . Yii::app()->getLanguage();
+$address = 'address_' . Yii::app()->getLanguage();
+$description = 'description_' . Yii::app()->getLanguage();
 ?>
 <script type="text/javascript">
+var currLang = '<?php echo Yii::app()->getLanguage(); ?>';
 var placeMap;
 var placeCenter = [49.439172, 32.059268];
 var searchPoints = [];
@@ -20,9 +23,9 @@ var searchPoints = [];
         id: <?php echo $item->id ?>,
         coords:[<?php echo $item->lat; ?>, <?php echo $item->lng; ?>],
         header: '<?php echo $item->{$title}; ?>',
-        body: '<?php echo $item->description; ?>',
-        footer: '<?php echo Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->address; ?>',
-        text: '<?php echo '<strong>' . $item->{$title} . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->address; ?>'
+        body: '<?php echo $item->{$description}; ?>',
+        footer: '<?php echo Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->{$address}; ?>',
+        text: '<?php echo '<strong>' . $item->{$title} . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->{$address}; ?>'
     });
 <?php endforeach; ?>
 var placemark;

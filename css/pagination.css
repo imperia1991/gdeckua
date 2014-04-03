@@ -29,7 +29,7 @@
          color: #FFF;
      }
 
-@media screen and (max-width: 485px) {
+@media screen and (max-width: 800px) {
     .pagination ul li {
         margin: 0 1px;
     }

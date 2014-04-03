@@ -17,7 +17,7 @@
     <script type="text/javascript">
         lightgallery.init();
     </script>
-
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.png" />
     <base href="<?php echo Yii::app()->baseUrl; ?>">
 </head>
 

@@ -56,10 +56,12 @@ class SearchController extends AdminController
             $doc = new Zend_Search_Lucene_Document();
             $doc->addField(Zend_Search_Lucene_Field::Text('title_ru', CHtml::encode($place->title_ru), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('title_uk', CHtml::encode($place->title_uk), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('description', CHtml::encode(strip_tags($place->description)), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::Text('description_ru', CHtml::encode(strip_tags($place->description_ru)), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::Text('description_uk', CHtml::encode(strip_tags($place->description_uk)), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('district_ru', CHtml::encode($place->district->title_ru), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('district_uk', CHtml::encode($place->district->title_uk), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::unIndexed('address', CHtml::encode($place->address), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('address_ru', CHtml::encode($place->address_ru), 'UTF-8'));
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('address_uk', CHtml::encode($place->address_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('photoTitle', CHtml::encode($place->photos[0]->title), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unStored('tags', CHtml::encode($place->tags->tags), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('lat', $place->lat));
