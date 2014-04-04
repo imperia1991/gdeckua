@@ -27,8 +27,8 @@
     <div class="header-bg">
         <div class="header">
             <a href="/">
-                <img class="d" src="images/logo_<?php echo Yii::app()->language ?>.png" alt="">
-                <img class="m" src="images/m/logo.png" alt="">
+                <img class="d" src="/images/logo_<?php echo Yii::app()->language ?>.png" alt="">
+                <img class="m" src="/images/m/logo.png" alt="">
             </a>
         </div>
     </div><!-- .header-->

@@ -18,7 +18,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 echo $form->textField($model, 'search', array(
     'name' => 'search',
-    'placeholder' => Yii::t('main', 'Введите, например, "Кафе Крещатик"'),
+    'placeholder' => Yii::t('main', 'Введите, например, кафе крещатик'),
 ));
 ?>
 

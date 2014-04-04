@@ -66,7 +66,7 @@ class SiteController extends Controller
         else {
             $dataProvider = $model->searchMain();
         }
-        
+
         $this->render('index', array(
             'model' => $model,
             'search' => $model->search,
@@ -86,6 +86,20 @@ class SiteController extends Controller
             else
                 $this->render('error', $error);
         }
+    }
+
+    public function actionView()
+    {
+        $id = Yii::app()->request->getQuery('object', 0);
+        $model = Places::model()->findByPk((int) $id);
+        
+        if (!is_object($model)) {
+            throw new CHttpException(404, Yii::t('main', 'Такой объект не найден'));
+        }
+
+        $this->render('view', array(
+            'model' => $model,
+        ));
     }
 
 }

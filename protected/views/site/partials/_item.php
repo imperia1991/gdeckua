@@ -24,16 +24,17 @@ if (isset($data->photos) && is_array($data->photos)) {
         <?php
         echo Yii::app()->easyImage->thumbOf($imagePath,
             array(
-                'resize' => array('width' => 97, 'height' => 99),
-                'quality' => 60,
+                'resize' => array('width' => 150, 'height' => 150),
+                'crop' => array('width' => 97, 'height' => 99),
+                'quality' => 100,
         ));
         ?>
     </a>
     <div class="item">
-        <h1><?php echo $data->{$title}; ?></h1>
+        <h1><?php echo CHtml::encode($data->{$title}); ?></h1>
         <div class="address">
-            <span><?php echo Yii::t('main', 'Район') . ' ' . $district . ', ' . $data->{$address}; ?></span>
-            <span><?php echo $data->{$description}; ?></span>
+            <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($data->{$address}); ?></span>
+            <span><?php echo CHtml::encode($data->{$description}); ?></span>
         </div>
     </div>
 </li>

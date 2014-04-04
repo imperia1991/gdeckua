@@ -22,10 +22,10 @@ var searchPoints = [];
     searchPoints.push({
         id: <?php echo $item->id ?>,
         coords:[<?php echo $item->lat; ?>, <?php echo $item->lng; ?>],
-        header: '<?php echo $item->{$title}; ?>',
-        body: '<?php echo $item->{$description}; ?>',
-        footer: '<?php echo Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->{$address}; ?>',
-        text: '<?php echo '<strong>' . $item->{$title} . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . $district . ', ' . $item->{$address}; ?>'
+        header: '<?php echo CHtml::encode($item->{$title}); ?>',
+        body: '<?php echo CHtml::encode($item->{$description}); ?>',
+        footer: '<?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>',
+        text: '<?php echo '<strong>' . CHtml::encode($item->{$title}) . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>'
     });
 <?php endforeach; ?>
 var placemark;
