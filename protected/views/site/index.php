@@ -5,6 +5,7 @@ $this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введи�
 <?php
 $this->renderPartial('/partials/_search', array(
     'dataProvider' => $dataProvider,
+    'currentPage' => ($dataProvider->getPagination()->currentPage + 1),
     'model' => $model,
 ));
 ?>

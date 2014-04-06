@@ -2,6 +2,7 @@
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
+$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/object/');
 
 $imagePath = '';
 if (isset($data->photos) && is_array($data->photos)) {
@@ -34,7 +35,8 @@ if (isset($data->photos) && is_array($data->photos)) {
         <h1><?php echo CHtml::encode($data->{$title}); ?></h1>
         <div class="address">
             <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($data->{$address}); ?></span>
-            <span><?php echo CHtml::encode($data->{$description}); ?></span>
+            <span><?php echo CHtml::encode($data->{$description}); ?></span><br/>
+            <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $data->id, array('target' => '_blank')); ?>
         </div>
     </div>
 </li>

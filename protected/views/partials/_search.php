@@ -2,7 +2,7 @@
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'searchForm',
-    'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?page=' . ($dataProvider->getPagination()->currentPage + 1)),
+    'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?page=' . $currentPage),
     'method' => 'GET',
     'htmlOptions' => array(),
 //    'enableAjaxValidation' => true,

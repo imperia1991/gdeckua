@@ -92,7 +92,7 @@ class SiteController extends Controller
     {
         $id = Yii::app()->request->getQuery('object', 0);
         $model = Places::model()->findByPk((int) $id);
-        
+
         if (!is_object($model)) {
             throw new CHttpException(404, Yii::t('main', 'Такой объект не найден'));
         }

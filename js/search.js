@@ -21,7 +21,7 @@ function init()
 			{
                 balloonContentHeader: point.header,
 				balloonContentBody: point.body,
-				balloonContentFooter: point.footer,
+				balloonContentFooter: point.footer + '<br/>' + point.view,
 				hintContent: point.text
             },
 			{
