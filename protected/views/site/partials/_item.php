@@ -12,15 +12,17 @@ if (isset($data->photos) && is_array($data->photos)) {
 }
 
 $district = '';
+$id = $data->id;
 if (isset($data->photos) && is_array($data->photos)) {
     $district = $data->district->{$title};
 } else {
     $titleDistrict = 'district_' . Yii::app()->getLanguage();
     $district= $data->{$titleDistrict};
+    $id = $data->place_id;
 }
 ?>
 
-<li onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)">
+<li onmouseover="showPlacemark(<?php echo $id; ?>)" onclick="clickPlacemark(<?php echo $id; ?>)" onmouseout="hidePlacemark(<?php echo $id; ?>)">
     <a class="big-photo" rel="lightgallery" href="<?php echo $imagePath; ?>">
         <?php
         echo Yii::app()->easyImage->thumbOf($imagePath,
@@ -36,7 +38,7 @@ if (isset($data->photos) && is_array($data->photos)) {
         <div class="address">
             <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($data->{$address}); ?></span>
             <span><?php echo CHtml::encode($data->{$description}); ?></span><br/>
-            <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $data->id, array('target' => '_blank')); ?>
+            <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id, array('target' => '_blank')); ?>
         </div>
     </div>
 </li>

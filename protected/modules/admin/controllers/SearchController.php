@@ -54,6 +54,7 @@ class SearchController extends AdminController
         $places = Places::model()->with(array('tags'))->findAll('is_deleted = 0');
         foreach ($places as $place) {
             $doc = new Zend_Search_Lucene_Document();
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('place_id', CHtml::encode($place->id), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('title_ru', CHtml::encode($place->title_ru), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('title_uk', CHtml::encode($place->title_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('description_ru', CHtml::encode(strip_tags($place->description_ru)), 'UTF-8'));
