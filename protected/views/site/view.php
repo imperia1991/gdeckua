@@ -20,7 +20,8 @@ $this->renderPartial('/partials/_search', array(
             ?>
         </div>
         <div class="content-ad">
-            <img src="/images/rek492x70.png" alt="">
+            <!--<img src="/images/rek492x70.png" alt="">-->
+
         </div>
 
         <div style="margin-bottom: 20px;">

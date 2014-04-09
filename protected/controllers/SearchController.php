@@ -37,7 +37,9 @@ class SearchController extends Controller
 
 //        $query = new Zend_Search_Lucene_Search_Query_Phrase($terms);
         $results = $index->find($query);
-
+//        echo '<pre>';
+//        print_r($results);
+//        echo '</pre>';exit;
         return compact('results', 'term', 'query');
 
         return array();
