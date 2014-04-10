@@ -23,13 +23,22 @@ class ActiveRecord extends CActiveRecord
         );
     }
 
-    public function beforeSave()
+    protected function beforeValidate()
     {
-        if (parent::beforeSave()) {
+        if (parent::beforeValidate()) {
             if ($this->hasAttribute('created_at') && !$this->created_at) {
                 $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
             }
 
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function beforeSave()
+    {
+        if (parent::beforeSave()) {
             if ($this->scenario == 'update' && $this->hasAttribute('updated_at')) {
                 $this->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
             }

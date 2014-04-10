@@ -87,8 +87,8 @@ function init()
 			if (placemark)
 				placeMap.geoObjects.remove(placemark);
 
-			$('#Places_address').val('');
-			$('#Places_address').val(names[0]);
+			$('#Places_address_ru').val('');
+			$('#Places_address_ru').val(names[0]);
 			$('#Places_lat').val(coords[0]);
 			$('#Places_lng').val(coords[1]);
 

@@ -102,4 +102,35 @@ class SiteController extends Controller
         ));
     }
 
+    public function actionAdd()
+    {
+        $model = new Places(Yii::app()->getLanguage());
+
+        if (Yii::app()->request->isPostRequest) {
+            $post = Yii::app()->request->getPost('Places', array());
+
+            $model->setAttributes($post);
+
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success', 'Место добавлено');
+
+                $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
+            } else {
+     echo '<pre>';
+     print_r($model->getErrors());
+     echo '</pre>';
+            }
+        }
+
+        $title = 'title_' . Yii::app()->getLanguage();
+
+        $districts = CHtml::listData(Districts::model()->findAll(), 'id', $title);
+        $districts[-1] = Yii::t('main', 'Не указан');
+
+        $this->render('place', array(
+            'model' => $model,
+            'districts' => $districts
+        ));
+    }
+
 }

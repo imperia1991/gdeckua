@@ -1,2 +1,2 @@
 <p>Ви не знайшли об'єкт або організацію яку шукали? Напишіть нам в <a class="call-popup" href="#feedback">"Зворотній зв'язок"</a>
-    або додайте самостійно скориставшись функцією <a class="call-popup" href="#organization-add">"Додати об'єкт"</a>.</p>
+    або додайте самостійно скориставшись функцією <a class="call-popup" href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add') ?>">"Додати об'єкт"</a>.</p>

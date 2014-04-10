@@ -30,6 +30,10 @@
  */
 class Places extends ActiveRecord
 {
+    const SCENARIO_RU = 'ru';
+    const SCENARIO_UK = 'uk';
+    const SCENARIO_ADMIN = 'admin';
+
     public $search;
     public $districtId;
 
@@ -49,7 +53,9 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at', 'required'),
+            array('title_ru, address_ru, created_at, district_id', 'required', 'on' => self::SCENARIO_RU),
+            array('title_uk, address_uk, created_at, district_id', 'required', 'on' => self::SCENARIO_UK),
+            array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id', 'required', 'on' => self::SCENARIO_ADMIN),
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
             array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
@@ -85,16 +91,16 @@ class Places extends ActiveRecord
         return array(
             'id' => Yii::t('main', '№'),
             'user_id' => Yii::t('main', 'Пользователь'),
-            'title_ru' => Yii::t('main', 'Название (русский)'),
-            'title_uk' => Yii::t('main', 'Название (украинский)'),
+            'title_ru' => Yii::t('main', 'Название'),
+            'title_uk' => Yii::t('main', 'Название'),
             'district_id' => Yii::t('main', 'Район'),
-            'description_ru' => Yii::t('main', 'Короткое описание (на русском)'),
-            'description_uk' => Yii::t('main', 'Короткое описание (на украинском)'),
+            'description_ru' => Yii::t('main', 'Короткое описание'),
+            'description_uk' => Yii::t('main', 'Короткое описание'),
             'country_id' => Yii::t('main', 'Страна'),
             'region_id' => Yii::t('main', 'Область'),
             'city_id' => Yii::t('main', 'Населенный пункт'),
-            'address_ru' => Yii::t('main', 'Адрес (на русском)'),
-            'address_uk' => Yii::t('main', 'Адрес (на украинском)'),
+            'address_ru' => Yii::t('main', 'Адрес'),
+            'address_uk' => Yii::t('main', 'Адрес'),
             'lat' => Yii::t('main', 'Широта'),
             'lng' => Yii::t('main', 'Долгота'),
             'created_at' => Yii::t('main', 'Дата добавления'),
@@ -191,7 +197,7 @@ class Places extends ActiveRecord
         return parent::model($className);
     }
 
-    public function beforeSave()
+    protected function beforeSave()
     {
         if (parent::beforeSave()) {
             $this->description_ru = nl2br($this->description_ru);

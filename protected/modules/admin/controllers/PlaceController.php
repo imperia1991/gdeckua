@@ -34,7 +34,7 @@ class PlaceController extends AdminController
 
     public function actionCreate()
     {
-        $model = new Places();
+        $model = new Places('admin');
 
         if (Yii::app()->request->isAjaxRequest && 'addPlaceForm' == Yii::app()->request->getPost('ajax', '')) {
             $model->setAttributes(Yii::app()->request->getPost('Places', array()));
@@ -52,6 +52,7 @@ class PlaceController extends AdminController
         $id = Yii::app()->request->getQuery('id', 0);
 
         $model = Places::model()->findByPk((int) $id);
+        $model->scenario = Places::SCENARIO_ADMIN;
 
         if (Yii::app()->request->isAjaxRequest) {
             $model->setAttributes(Yii::app()->request->getPost('Places', array()));
