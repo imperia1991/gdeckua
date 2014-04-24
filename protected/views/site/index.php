@@ -1,6 +1,9 @@
 <?php
 $this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введите, например "Кафе Крещатик"');
 ?>
+
+<?php $this->renderPartial('/partials/_welcome_' . Yii::app()->language); ?>
+
 <div class="search-block">
 <?php
 $this->renderPartial('/partials/_search', array(
@@ -12,7 +15,7 @@ $this->renderPartial('/partials/_search', array(
 </div>
 <div class="container">
     <div class="content">
-        <div id="placeMap" class="map">
+        <div id="placeMap" class="map-wrap">
             <?php
                 $this->renderPartial('partials/_map', array(
                     'dataProvider' => $dataProvider,
@@ -26,28 +29,29 @@ $this->renderPartial('/partials/_search', array(
 
         <?php $this->renderPartial('/partials/_find_' . Yii::app()->language); ?>
 
-        <div class="pagination">
-            <?php
-            $this->widget('CLinkPager', array(
-                'pages' => $dataProvider->getPagination(),
-                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
-                'header' => '',
-                'selectedPageCssClass' => 'active',
-                'footer' => '',
-                'internalPageCssClass' => '',
-                'prevPageLabel' => '<',
-                'nextPageLabel' => '>',
-                'previousPageCssClass' => 'prev',
-                'htmlOptions' => array('class' => ''),
-                'firstPageCssClass' => 'first',
-                'firstPageLabel' => '<<',
-                'lastPageCssClass' => 'last',
-                'lastPageLabel' => '>>',
-                'nextPageCssClass' => 'next',
-                'maxButtonCount' => 5
-            ));
-            ?>
-        </div>
+    </div>
+    <div class="line"></div>
+    <div class="pagination">
+        <?php
+        $this->widget('CLinkPager', array(
+            'pages' => $dataProvider->getPagination(),
+            'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
+            'header' => '',
+            'selectedPageCssClass' => 'active',
+            'footer' => '',
+            'internalPageCssClass' => '',
+            'prevPageLabel' => '<',
+            'nextPageLabel' => '>',
+            'previousPageCssClass' => 'prev',
+            'htmlOptions' => array('class' => ''),
+            'firstPageCssClass' => 'first',
+            'firstPageLabel' => '<<',
+            'lastPageCssClass' => 'last',
+            'lastPageLabel' => '>>',
+            'nextPageCssClass' => 'next',
+            'maxButtonCount' => 5
+        ));
+        ?>
     </div>
 </div><!-- .container-->
 <div class="left-sidebar">
