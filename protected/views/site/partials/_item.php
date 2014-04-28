@@ -8,10 +8,12 @@ $district = '';
 $placeId = $data->id;
 if (isset($data->photos) && is_array($data->photos)) {
     $district = $data->district->{$title};
+    $this->keywords .= $data->tags->tags . ', ' . $data->{$title};
 } else {
     $titleDistrict = 'district_' . Yii::app()->getLanguage();
     $district= $data->{$titleDistrict};
     $placeId = $data->place_id;
+    $this->keywords .= $data->{$title} . ',';
 }
 
 $photos = array();
@@ -37,8 +39,8 @@ if (isset($data->photos) && is_array($data->photos)) {
 }
 ?>
 
-<li onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)">
-    <a class="big-photo" rel="lightgallery" href="<?php echo $photos[0]; ?>">
+<li onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)" class="highslide-gallery" style="cursor: pointer;">
+    <a id="thumb<?php echo $placeId; ?>" href="<?php echo $photos[0]; ?>" class="big-photo" onclick="return hs.expand(this, { thumbnailId: 'thumb<?php echo $placeId; ?>', slideshowGroup: <?php echo $placeId; ?> })">
         <?php
         echo Yii::app()->easyImage->thumbOf($photos[0],
             array(
@@ -47,19 +49,27 @@ if (isset($data->photos) && is_array($data->photos)) {
                 'quality' => 100,
         ));
         ?>
-
-        <?php foreach ($photos as $photo): ?>
-            <?php
-            echo CHtml::image($photo, CHtml::encode($data->{$title}), array('style' => 'display:none'));
-            ?>
-        <?php endforeach; ?>
+        <i class="enlarge"><?php echo Yii::t('main', 'Увеличить'); ?></i>
     </a>
+    <div class="hidden-container">
+        <?php $index = 0; foreach ($photos as $photo): ?>
+        <?php if ($index++ == 0) continue; ?>
+        <a href="<?php echo $photo; ?>" onclick="return hs.expand(this, { thumbnailId: 'thumb<?php echo $placeId; ?>', slideshowGroup: <?php echo $placeId; ?> })">
+            <?php
+            echo CHtml::image($photo, CHtml::encode($data->{$title}));
+            ?>
+        </a>
+        <?php endforeach; ?>
+    </div>
+
     <div class="item">
         <h1><?php echo CHtml::encode($data->{$title}); ?></h1>
         <div class="address">
-            <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($data->{$address}); ?></span>
-            <span><?php echo CHtml::encode($data->{$description}); ?></span><br/>
-            <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $placeId, array('target' => '_blank')); ?>
+            <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district); ?>,</span>
+            <span><?php echo CHtml::encode($data->{$address}); ?></span>
         </div>
+    </div>
+    <div class="view-item">
+        <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $placeId, array('target' => '_blank')); ?>
     </div>
 </li>

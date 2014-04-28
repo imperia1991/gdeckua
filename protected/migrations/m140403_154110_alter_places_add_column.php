@@ -4,6 +4,7 @@ class m140403_154110_alter_places_add_column extends CDbMigration
 {
 	public function up()
 	{
+        return true;
         $this->execute('
 				ALTER TABLE `places` CHANGE `description` `description_ru` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT "Описание на русском";
                 ALTER TABLE `places` CHANGE `address` `address_ru` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;

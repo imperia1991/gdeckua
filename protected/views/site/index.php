@@ -23,12 +23,6 @@ $this->renderPartial('/partials/_search', array(
                 ));
             ?>
         </div>
-        <div class="content-ad">
-            <img src="images/rek492x70.png" alt="">
-        </div>
-
-        <?php $this->renderPartial('/partials/_find_' . Yii::app()->language); ?>
-
     </div>
     <div class="line"></div>
     <div class="pagination">
@@ -53,6 +47,12 @@ $this->renderPartial('/partials/_search', array(
         ));
         ?>
     </div>
+    <div class="line"></div>
+    <?php $this->renderPartial('/partials/_ads'); ?>
+    <div class="line"></div>
+    <div class="container-text">
+        <?php $this->renderPartial('/partials/_find_' . Yii::app()->getLanguage()); ?>
+    </div>
 </div><!-- .container-->
 <div class="left-sidebar">
     <div id="search-content">
@@ -61,18 +61,12 @@ $this->renderPartial('/partials/_search', array(
             <?php
             $this->widget('zii.widgets.CListView', array(
                 'dataProvider' => $dataProvider,
-                'cssFile'=>Yii::app()->baseUrl."/css/search-list.css",
+//                'cssFile'=>Yii::app()->baseUrl."/css/search-list.css",
                 'itemView' => 'partials/_item', // представление для одной записи
                 'ajaxUpdate' => false, // отключаем ajax поведение
                 'emptyText' => 'Места не найдены.',
                 'summaryText' => "",
-                'itemsTagName'=>'ul',
-    //    'template'=>'{summary} {sorter} {items} <hr> {pager}',
-    //    'sorterHeader'=>'Сортировать по:',
-                // ключи, которые были описаны $sort->attributes
-                // если не описывать $sort->attributes, можно использовать атрибуты модели
-                // настройки CSort перекрывают настройки sortableAttributes
-    //    'sortableAttributes'=>array('title', 'price'),
+                'itemsTagName' => 'ul',
                 'enablePagination' => false,
             ));
             ?>

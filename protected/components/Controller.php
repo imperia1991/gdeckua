@@ -27,6 +27,8 @@ class Controller extends CController
 
     public $modelUser;
 
+    public $keywords;
+
     public function __construct($id, $module = null)
     {
         parent::__construct($id, $module);
@@ -61,7 +63,7 @@ class Controller extends CController
         Yii::app()->sourceLanguage = Yii::app()->getLocale();
 
         $this->modelUser = Yii::app()->user->isGuest ? new Users('login') : Users::model()->findByPk(Yii::app()->user->id);
-        
+
         new JsTrans('main', Yii::app()->language, Yii::app()->language);
     }
 

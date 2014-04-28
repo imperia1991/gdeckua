@@ -2,3 +2,22 @@
     color: #FF0000;
     font-size: 13px;
 }
+.captcha-wrap {
+	width: 250px;
+}
+.captcha-wrap a {
+	/*margin-top: 5px;*/
+    background-image: url("../images/close-bg.png");
+    background-repeat: repeat-x;
+    color: #FFF;
+    padding: 5px 15px;
+    text-decoration: none;
+    position: relative;
+    top: -19px;
+    /*font-size: 16px;*/
+    border-color: #2a2a2a;
+    border-style: solid;
+    border-width: 2px 0 0;
+	margin-left: 5px;
+    /*left: 15px;*/
+}

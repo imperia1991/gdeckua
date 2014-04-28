@@ -4,11 +4,12 @@
 	<meta charset="utf-8" />
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title><?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?></title>
-	<meta name="keywords" content="" />
+    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
 	<meta name="description" content="" />
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet">
     <link href="/css/highslide.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
 
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <script type="text/javascript" src="/js/jquery.mCustomScrollbar.min.js"></script>
@@ -73,9 +74,12 @@
 <div class="footer-bg">
     <div class="footer">
         <div class="footer-wrap">
-            <a href="<?php echo Yii::app()->request->hostInfo; ?>"><?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?></a> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
+            <?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
+            <?php /*
             <a href="#feedback" class="link call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
             <a href="/add-object.html" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
+             *
+             */?>
         </div>
         <div class="popup popup-hidden" id="feedback">
             <h2><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></h2>
@@ -83,7 +87,7 @@
                 <a href="#" class="btn close-popup"><?php echo Yii::t('main', 'Закрыть'); ?></a>
             </div>
             <div class="popup-bg">
-                <form>
+                <form id="feeadback">
                     <input type="text" placeholder="<?php echo Yii::t('main', 'Введите Ваши имя и фамилию'); ?>" name="name" id="name" value="">
                     <label class="error" for="name"></label>
                     <input type="text" placeholder="<?php echo Yii::t('main', 'Введите Ваш E-mail'); ?>" name="email" id="email" value="">
@@ -92,7 +96,9 @@
                     <label class="error" for="message"></label>
                 </form>
                 <div class="captcha-wrap">
-                    <img src="/images/captcha.png" alt="">
+                    <?if(CCaptcha::checkRequirements()):?>
+                        <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
+                    <?endif?>
                 </div>
                 <input class="captcha-input" type="text" placeholder="<?php echo Yii::t('main', 'Введите код с картинки'); ?>" name="captcha" id="captcha" value="">
                 <input type="submit" value="<?php echo Yii::t('main', 'Отправить'); ?>" class="btn submit-popup">
