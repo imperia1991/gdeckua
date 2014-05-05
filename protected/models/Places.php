@@ -33,9 +33,11 @@ class Places extends ActiveRecord
     const SCENARIO_RU = 'ru';
     const SCENARIO_UK = 'uk';
     const SCENARIO_ADMIN = 'admin';
+    const SCENARIO_GUEST = 'guest';
 
     public $search;
     public $districtId;
+    public $verifyCode;
 
     /**
      * @return string the associated database table name
@@ -59,6 +61,7 @@ class Places extends ActiveRecord
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
             array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
+            array('verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),

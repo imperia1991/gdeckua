@@ -5,56 +5,119 @@ $district = 'district_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
 ?>
-<div class="search-block">
-    <?php
-    $this->renderPartial('/partials/_search', array(
-            'currentPage' => 1,
-            'model' => $model,
-        ));
-    ?>
-</div>
 <div class="container">
-    <div class="content" style="padding-left: 0;width: 100%;">
-        <div>
-            <?php $form = $this->beginWidget('CActiveForm',
-                array(
-                    'id' => 'place-model-form',
-                    'enableAjaxValidation' => false,
-                    'htmlOptions' => array('enctype' => 'multipart/form-data'),
-                )); ?>
+    <div class="content">
+    </div><!-- .content -->
+    <p>Для того чтобы добавить объект, организацию на сайт, Вам нужно заполнить все обязательные поля достоверной информацией.  После чего все будет проверено модератором и добавлено в поиск.</p>
 
-                <div>
-                    <?php echo $form->labelEx($model, $title, array()); ?>
-                    <?php echo $form->textField($model, $title, array()); ?>
+    <div class="line"></div>
+    <?php $form = $this->beginWidget('CActiveForm',
+        array(
+            'id' => 'place-model-form',
+            'enableAjaxValidation' => false,
+            'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        )); ?>
+        <div class="form-item">
+            <label class="label"><?php echo Yii::t('main', 'Название'); ?> <span>*</span></label>
+            <div class="item-wrap">
+                <?php echo $form->textField($model, $title, array()); ?>
+                <span class="error-block">
                     <?php echo $form->error($model, $title, array('class' => 'error')); ?>
-                </div>
-                <div>
-                    <?php echo $form->labelEx($model, 'district_id', array()); ?>
-                    <?php echo $form->dropDownList($model, 'district_id', $districts); ?>
-                    <?php echo $form->error($model, 'district_id', array('class' => 'error')); ?>
-                </div>
-                <div>
-                    <?php echo $form->labelEx($model, $address, array()); ?>
-                    <?php echo $form->textField($model, $address, array()); ?>
-                    <?php echo $form->error($model, $address, array('class' => 'error')); ?>
-                </div>
-                <div>
-                    <?php echo $form->labelEx($model, $description, array()); ?>
-                    <?php echo $form->textField($model, $description, array()); ?>
-                    <?php echo $form->error($model, $description, array('class' => 'error')); ?>
-                </div>
-                <div>
-                    <?php echo CHtml::submitButton(Yii::t('main', 'Добавить')); ?>
-                </div>
+                </span>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="label"><?php echo Yii::t('main', 'Район'); ?> <span>*</span></label>
+            <?php echo $form->dropDownList($model, 'district_id', $districts, array('style' => 'width:575px')); ?>
+            <span class="error-block">
+                <?php echo $form->error($model, 'district_id', array('class' => 'error')); ?>
+            </span>
+        </div>
+        <div class="form-item">
+            <label class="label"><?php echo Yii::t('main', 'Адрес'); ?> <span>*</span></label>
+            <?php echo $form->textField($model, $address, array()); ?>
+            <span class="error-block">
+                <?php echo $form->error($model, $address, array('class' => 'error')); ?>
+            </span>
+        </div>
+        <div class="form-item">
+            <label class="label"><?php echo Yii::t('main', 'Краткое описание'); ?> <span>*</span></label>
+            <?php echo $form->textArea($model, $description, array('row' => 10)); ?>
+            <span class="error-block">
+                <?php echo $form->error($model, $description, array('class' => 'error')); ?>
+            </span>
+        </div>
+        <div class="line"></div>
 
-            <?php $this->endWidget(); ?>
-        </div>
-        <div class="content-ad">
-            <img src="/images/rek492x70.png" alt="">
-        </div>
+        <?php
+            $this->widget('ext.EAjaxUpload.EAjaxUpload',
+                    array(
+                        'id' => 'uploadPhoto',
+                        'config' => array(
+                            'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/upload'),
+                            'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
+                            'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
+                            'multiple' => true,
+                            'template' => '
+                                <div class="qq-uploader">
+                                    <div class="qq-upload-drop-area"></span></div>
+                                    <div class="qq-upload-button">
+                                    <a href="javascript:void(0)" class="add-photo"><i class="icon-photo"></i> ' . Yii::t('main', 'Загрузить фотографии (не более трех)') . ' <span>*</span></a>
+                                    </div>
+                                    <span class="qq-drop-processing"><span class="qq-drop-processing-spinner"></span></span>
+                                    <ul class="qq-upload-list"></ul>
+                                </div>',
+                            'messages' => array(
+                                'typeError'    => "{file} имеет недопустимый формат. Допустимые форматы: {extensions}.",
+                                'sizeError'    => "{file} имеет слишком большой объём, максимальный объём файла – {sizeLimit}.",
+                                'minSizeError' => "{file} имеет слишком маленький объём, минимальный объём файла – {minSizeLimit}.",
+                                'emptyError'   => "{file} пуст, пожалуйста, выберите другой файл.",
+                                'noFilesError' => "Файлы для загрузки не выбраны.",
+                                'onLeave'      => "В данный момент идёт загрузка файлов, если вы покинете страницу, загрузка будет отменена."
+                            ),
+                            'text' => array(
+                                'failUpload'   => 'Загрузка не удалась',
+                                'dragZone'     => 'Перетащите файл для загрузки',
+                                'cancelButton' => 'Отмена',
+                                'waitingForResponse' => 'Обработка...'
+                            ),
+                            'onComplete' => 'js:function(id, fileName, responseJSON){
+                                                if (responseJSON.success)
+                                                {
+                                                    $("#uploadPhoto").append(
+                                                            "<div class=\"add-photo-item\">" +
+                                                                "<img class=\"delClass\" src=\"/' . Yii::app()->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"195\" height=\"170\" data-filename=\"" + responseJSON.filename + "\" />" +
+                                                                 "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" data-filename=\"" + responseJSON.filename + "\" rel=\"" + responseJSON.filename + "\" class=\"delClass remove-photo\"><i></i> ' . Yii::t('main', 'Удалить') . '</a>" +
+                                                            "</div>"
+                                                        );
 
-        <div style="margin-bottom: 20px;">
-            <?php $this->renderPartial('/partials/_find_' . Yii::app()->language); ?>
+                                                    $("#uploadPhoto").append(
+                                                             "<input name=\"Photos[]\" type=\"hidden\" value=\"" + responseJSON.filename + "\" data-filename=\"" + responseJSON.filename + "\" class=\"delClass\"/>"
+                                                        );
+                                                }
+                                            }'
+                        )
+                    )
+            );
+        ?>
+        <?php echo $form->error($model, 'photo'); ?>
+
+        <div id="uploadPhoto" class="add-photo-wrap">
         </div>
-    </div>
+        <div class="line"></div>
+        <div class="center">
+            <?if(CCaptcha::checkRequirements()):?>
+                <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
+            <?endif?>
+            <div class="form-item" style="margin-top: 0;">
+                <label class="label block"><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></label>
+                <?php echo $form->textField($model, 'verifyCode', array('class' => 'small')); ?>
+            </div>
+            <div class="line"></div>
+
+            <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), array('class' => 'add-object')); ?>
+        </div>
+    <?php $this->endWidget(); ?>
 </div><!-- .container-->
+<div class="left-sidebar"></div><!-- .left-sidebar -->
+

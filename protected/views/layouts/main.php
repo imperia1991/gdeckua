@@ -68,7 +68,9 @@
 
         <?php echo $content; ?>
 
-        <div class="back-top"></div>
+        <a href="#" class="tooltip-top">
+            <div class="back-top"><span><?php echo Yii::t('main', 'Наверх'); ?></span></div>
+        </a>
     </div>
 </div>
 <div class="footer-bg">
@@ -77,9 +79,8 @@
             <?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
             <?php /*
             <a href="#feedback" class="link call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
-            <a href="/add-object.html" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
-             *
              */?>
+            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
         </div>
         <div class="popup popup-hidden" id="feedback">
             <h2><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></h2>

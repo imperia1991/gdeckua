@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+    private static $countPhoto = 0;
 //    public function filters()
 //    {
 //        return array(
@@ -35,7 +36,7 @@ class SiteController extends Controller
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha' => array(
                 'class' => 'CCaptchaAction',
-                'backColor' => 0x404040,
+                'backColor' => 0x494949,
 				'foreColor' => 0xFFFFFF
             ),
         );
@@ -114,12 +115,12 @@ class SiteController extends Controller
 
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', 'Место добавлено');
+                unset(Yii::app()->session['countImages']);
+                unset(Yii::app()->session['images']);
 
                 $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
             } else {
-     echo '<pre>';
-     print_r($model->getErrors());
-     echo '</pre>';
+
             }
         }
 
@@ -132,6 +133,54 @@ class SiteController extends Controller
             'model' => $model,
             'districts' => $districts
         ));
+    }
+
+    public function actionUpload()
+    {
+        $countImages = isset(Yii::app()->session['countImages']) ? Yii::app()->session['countImages'] : 0;
+
+        if ($countImages > 2) {
+            $this->respondJSON(array('success' => false));
+        } else {
+            $countImages++;
+            Yii::app()->session['countImages'] = $countImages;
+        }
+
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+
+        $sessionImages = Yii::app()->session['images'];
+        $sessionImages[] = $result['filename'];
+        Yii::app()->session['images'] = $sessionImages;
+
+        $this->respondJSON($result);
+    }
+
+    public function actionDeletePreviewUpload()
+    {
+        if (isset(Yii::app()->session['countImages'])) {
+            $countImages = Yii::app()->session['countImages'];
+            Yii::app()->session['countImages'] = $countImages - 1;
+        }
+
+        $request = Yii::app()->request;
+
+        if (!$request->isAjaxRequest || !$request->isPostRequest) {
+            Yii::app()->end();
+        }
+
+        $filename = $request->getPost('filename', '');
+
+        $result = false;
+        if ($filename && file_exists(Yii::app()->params['admin']['files']['tmp'] . $filename)) {
+            $result = unlink(Yii::app()->params['admin']['files']['tmp'] . $filename);
+        }
+
+        $this->respondJSON($result);
+
+        Yii::app()->end();
     }
 
 }

@@ -28,15 +28,3 @@
          background-color: #365e8a;
          color: #FFF;
      }
-
-@media screen and (max-width: 800px) {
-    .pagination ul li {
-        margin: 0 1px;
-    }
-    .pagination ul li.active{
-        padding: 0 4px;
-    }
-    .pagination ul li a{
-        padding:  1px 4px;
-    }
-}
