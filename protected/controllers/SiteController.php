@@ -107,20 +107,59 @@ class SiteController extends Controller
     public function actionAdd()
     {
         $model = new Places(Yii::app()->getLanguage());
+//        unset(Yii::app()->session['countImages']);
+//        unset(Yii::app()->session['images']);
 
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('Places', array());
+            $postPhotos = Yii::app()->request->getPost('Photos', array());
 
-            $model->setAttributes($post);
+            $transaction = $model->dbConnection->beginTransaction();
+            try{
+                $model->setAttributes($post);
+                $model->images = $postPhotos;
 
-            if ($model->save()) {
-                Yii::app()->user->setFlash('success', 'Место добавлено');
-                unset(Yii::app()->session['countImages']);
-                unset(Yii::app()->session['images']);
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'Место добавлено');
 
-                $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
-            } else {
+                    if ($postPhotos) {
+                        $photoQuery = array();
+                        foreach ($postPhotos as $photo) {
+                            $photoQuery[] = '(' . $model->id . ', "' . $photo . '")';
+                        }
 
+                        $photoQueries = join(',', $photoQuery);
+                        Yii::app()->db->createCommand('
+                            INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)->execute();
+                    }
+
+                    $transaction->commit();
+
+                    if ($postPhotos) {
+                        foreach ($postPhotos as $photo) {
+                            $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
+                            $image = Yii::app()->image->load($photoPath);
+                            $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+
+                            if (file_exists($photoPath)) {
+                                unlink($photoPath);
+                            }
+                        }
+
+                        unset(Yii::app()->session['images']);
+                    }
+
+                    unset(Yii::app()->session['countImages']);
+
+                    $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
+                } else {
+                    Yii::app()->user->setFlash('error', 'Вы допустили ошибки при добавлении объекта');
+    //                echo '<pre>';
+    //                print_r($model->getErrors());
+    //                echo '</pre>';
+                }
+            } catch (Exception $e) {
+                $transaction->rollback();
             }
         }
 
@@ -160,11 +199,6 @@ class SiteController extends Controller
 
     public function actionDeletePreviewUpload()
     {
-        if (isset(Yii::app()->session['countImages'])) {
-            $countImages = Yii::app()->session['countImages'];
-            Yii::app()->session['countImages'] = $countImages - 1;
-        }
-
         $request = Yii::app()->request;
 
         if (!$request->isAjaxRequest || !$request->isPostRequest) {
@@ -176,6 +210,22 @@ class SiteController extends Controller
         $result = false;
         if ($filename && file_exists(Yii::app()->params['admin']['files']['tmp'] . $filename)) {
             $result = unlink(Yii::app()->params['admin']['files']['tmp'] . $filename);
+
+            if (isset(Yii::app()->session['countImages'])) {
+                $countImages = Yii::app()->session['countImages'];
+                Yii::app()->session['countImages'] = $countImages - 1;
+            }
+
+            $imagesOld = $images = Yii::app()->session['images'];
+            foreach ($images as $key => $image) {
+                if ($filename == $image) {
+                    unset($imagesOld[$key]);
+
+                    break;
+                }
+            }
+
+            Yii::app()->session['images'] = $imagesOld;
         }
 
         $this->respondJSON($result);

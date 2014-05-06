@@ -702,7 +702,7 @@ input.small {
 }
 .remove-photo{
     color: #FF0000;
-    position: relative;
+    /*position: relative;*/
     top: 175px;
     text-decoration: none;
     font-size: 16px;
@@ -711,7 +711,7 @@ input.small {
     background-image: url("../images/remove.png");
     display: inline-block;
     height: 15px;
-    position: relative;
+    /*position: relative;*/
     width: 15px;
 }
 input[placeholder], textarea[placeholder]{

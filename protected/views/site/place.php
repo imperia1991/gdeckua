@@ -1,4 +1,8 @@
 <?php
+Yii::app()->clientScript->registerScriptFile('/js/mainPlace.js', CClientScript::POS_BEGIN);
+?>
+
+<?php
 $this->pageTitle = CHtml::encode('main', 'Добавить объект');
 $title = 'title_' . Yii::app()->getLanguage();
 $district = 'district_' . Yii::app()->getLanguage();
@@ -62,7 +66,7 @@ $description = 'description_' . Yii::app()->getLanguage();
                                 <div class="qq-uploader">
                                     <div class="qq-upload-drop-area"></span></div>
                                     <div class="qq-upload-button">
-                                    <a href="javascript:void(0)" class="add-photo"><i class="icon-photo"></i> ' . Yii::t('main', 'Загрузить фотографии (не более трех)') . ' <span>*</span></a>
+                                    <a href="javascript:void(0)" class="add-photo"><i class="icon-photo"></i> ' . Yii::t('main', 'Загрузить фотографий (не более трех)') . ' <span>*</span></a>
                                     </div>
                                     <span class="qq-drop-processing"><span class="qq-drop-processing-spinner"></span></span>
                                     <ul class="qq-upload-list"></ul>
@@ -85,9 +89,9 @@ $description = 'description_' . Yii::app()->getLanguage();
                                                 if (responseJSON.success)
                                                 {
                                                     $("#uploadPhoto").append(
-                                                            "<div class=\"add-photo-item\">" +
+                                                            "<div class=\"add-photo-item delClass\" data-filename=\"" + responseJSON.filename + "\">" +
                                                                 "<img class=\"delClass\" src=\"/' . Yii::app()->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"195\" height=\"170\" data-filename=\"" + responseJSON.filename + "\" />" +
-                                                                 "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" data-filename=\"" + responseJSON.filename + "\" rel=\"" + responseJSON.filename + "\" class=\"delClass remove-photo\"><i></i> ' . Yii::t('main', 'Удалить') . '</a>" +
+                                                                 "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" rel=\"" + responseJSON.filename + "\" class=\"remove-photo\"><i></i> ' . Yii::t('main', 'Удалить') . '</a>" +
                                                             "</div>"
                                                         );
 
@@ -100,9 +104,18 @@ $description = 'description_' . Yii::app()->getLanguage();
                     )
             );
         ?>
-        <?php echo $form->error($model, 'photo'); ?>
+        <?php echo $form->error($model, 'images', array('class' => 'error')); ?>
 
         <div id="uploadPhoto" class="add-photo-wrap">
+            <?php if (count(Yii::app()->session['images'])): ?>
+                <?php $images = Yii::app()->session['images'] ?>
+                <?php foreach ($images as $image): ?>
+                    <div class="add-photo-item delClass" data-filename="<?php echo $image; ?>">
+                        <img src="/<?php echo Yii::app()->params['admin']['files']['tmp'] . $image; ?>" width="195" height="170" />
+                        <a id="image_<?php echo $image; ?>" href="javascript:void(0);" onclick="photo.deletePreviewUpload(this);" rel="<?php echo $image; ?>" class="remove-photo"><i></i> <?php echo Yii::t('main', 'Удалить'); ?></a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
         <div class="line"></div>
         <div class="center">
@@ -112,6 +125,9 @@ $description = 'description_' . Yii::app()->getLanguage();
             <div class="form-item" style="margin-top: 0;">
                 <label class="label block"><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></label>
                 <?php echo $form->textField($model, 'verifyCode', array('class' => 'small')); ?>
+                <span class="error-block">
+                    <?php echo $form->error($model, 'verifyCode', array('class' => 'error')); ?>
+                </span>
             </div>
             <div class="line"></div>
 
@@ -120,4 +136,5 @@ $description = 'description_' . Yii::app()->getLanguage();
     <?php $this->endWidget(); ?>
 </div><!-- .container-->
 <div class="left-sidebar"></div><!-- .left-sidebar -->
+<input id="deleteUrl" type="hidden" value="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/deletePreviewUpload') ?>" />
 

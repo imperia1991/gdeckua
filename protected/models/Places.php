@@ -38,6 +38,7 @@ class Places extends ActiveRecord
     public $search;
     public $districtId;
     public $verifyCode;
+    public $images;
 
     /**
      * @return string the associated database table name
@@ -55,13 +56,14 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title_ru, address_ru, created_at, district_id', 'required', 'on' => self::SCENARIO_RU),
-            array('title_uk, address_uk, created_at, district_id', 'required', 'on' => self::SCENARIO_UK),
+            array('title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU),
+            array('title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK),
             array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id', 'required', 'on' => self::SCENARIO_ADMIN),
             array('is_deleted', 'numerical', 'integerOnly' => true),
             array('title_ru, title_uk', 'length', 'max' => 255),
             array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
             array('verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK),
+            array('images', 'required', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK, 'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
@@ -97,8 +99,8 @@ class Places extends ActiveRecord
             'title_ru' => Yii::t('main', 'Название'),
             'title_uk' => Yii::t('main', 'Название'),
             'district_id' => Yii::t('main', 'Район'),
-            'description_ru' => Yii::t('main', 'Короткое описание'),
-            'description_uk' => Yii::t('main', 'Короткое описание'),
+            'description_ru' => Yii::t('main', 'Краткое описание'),
+            'description_uk' => Yii::t('main', 'Краткое описание'),
             'country_id' => Yii::t('main', 'Страна'),
             'region_id' => Yii::t('main', 'Область'),
             'city_id' => Yii::t('main', 'Населенный пункт'),
@@ -111,6 +113,7 @@ class Places extends ActiveRecord
             'is_deleted' => Yii::t('main', 'Активно'),
             'districtId' => Yii::t('main', 'Район'),
             'search' => Yii::t('main', 'Название'),
+            'images' => Yii::t('main', 'Загрузка фотографий'),
         );
     }
 
