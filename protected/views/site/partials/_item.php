@@ -67,6 +67,7 @@ if (isset($data->photos) && is_array($data->photos)) {
         <div class="address">
             <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district); ?>,</span>
             <span><?php echo CHtml::encode($data->{$address}); ?></span>
+            <span><?php echo CHtml::encode($data->{$description}); ?></span>
         </div>
     </div>
     <div class="view-item">

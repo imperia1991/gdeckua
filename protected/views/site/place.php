@@ -3,7 +3,7 @@ Yii::app()->clientScript->registerScriptFile('/js/mainPlace.js', CClientScript::
 ?>
 
 <?php
-$this->pageTitle = CHtml::encode('main', 'Добавить объект');
+$this->pageTitle = CHtml::encode(Yii::t('main', 'Добавить объект'));
 $title = 'title_' . Yii::app()->getLanguage();
 $district = 'district_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
@@ -12,7 +12,7 @@ $description = 'description_' . Yii::app()->getLanguage();
 <div class="container">
     <div class="content">
     </div><!-- .content -->
-    <p>Для того чтобы добавить объект, организацию на сайт, Вам нужно заполнить все обязательные поля достоверной информацией.  После чего все будет проверено модератором и добавлено в поиск.</p>
+    <?php $this->renderPartial('partials/_addDescription_' . Yii::app()->getLanguage()); ?>
 
     <div class="line"></div>
     <?php $form = $this->beginWidget('CActiveForm',
@@ -113,6 +113,7 @@ $description = 'description_' . Yii::app()->getLanguage();
                     <div class="add-photo-item delClass" data-filename="<?php echo $image; ?>">
                         <img src="/<?php echo Yii::app()->params['admin']['files']['tmp'] . $image; ?>" width="195" height="170" />
                         <a id="image_<?php echo $image; ?>" href="javascript:void(0);" onclick="photo.deletePreviewUpload(this);" rel="<?php echo $image; ?>" class="remove-photo"><i></i> <?php echo Yii::t('main', 'Удалить'); ?></a>
+                        <input name="Photos[]" type="hidden" value="<?php echo $image; ?>" />
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

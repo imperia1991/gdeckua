@@ -8,6 +8,7 @@
 	<meta name="description" content="" />
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet">
+    <link href="/css/jquery.jgrowl.css" rel="stylesheet">
     <link href="/css/highslide.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
@@ -15,6 +16,7 @@
     <script type="text/javascript" src="/js/jquery.mCustomScrollbar.min.js"></script>
     <script type="text/javascript" src="/js/highslide-with-gallery.js"></script>
     <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
     <script type="text/javascript">
         hs.graphicsDir = '/js/graphics/';
@@ -79,8 +81,10 @@
             <?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
             <?php /*
             <a href="#feedback" class="link call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
+*
              */?>
             <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
+
         </div>
         <div class="popup popup-hidden" id="feedback">
             <h2><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></h2>
@@ -105,6 +109,7 @@
                 <input type="submit" value="<?php echo Yii::t('main', 'Отправить'); ?>" class="btn submit-popup">
             </div>
         </div>
+        <?php $this->renderPartial('/partials/_notify'); ?>
     </div>
 </div><!-- .footer -->
 

@@ -118,10 +118,9 @@ class SiteController extends Controller
             try{
                 $model->setAttributes($post);
                 $model->images = $postPhotos;
+                $model->is_deleted = 1;
 
                 if ($model->save()) {
-                    Yii::app()->user->setFlash('success', 'Место добавлено');
-
                     if ($postPhotos) {
                         $photoQuery = array();
                         foreach ($postPhotos as $photo) {
@@ -147,10 +146,11 @@ class SiteController extends Controller
                         }
 
                         unset(Yii::app()->session['images']);
+                        unset(Yii::app()->session['countImages']);
                     }
 
-                    unset(Yii::app()->session['countImages']);
-
+                    Yii::app()->user->setFlash('success', 'Место добавлено');
+                    
                     $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
                 } else {
                     Yii::app()->user->setFlash('error', 'Вы допустили ошибки при добавлении объекта');

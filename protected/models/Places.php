@@ -114,6 +114,8 @@ class Places extends ActiveRecord
             'districtId' => Yii::t('main', 'Район'),
             'search' => Yii::t('main', 'Название'),
             'images' => Yii::t('main', 'Загрузка фотографий'),
+            'address_ru_admin' => Yii::t('main', 'Название (русский)'),
+            'address_uk_admin' => Yii::t('main', 'Название (украинский)'),
         );
     }
 

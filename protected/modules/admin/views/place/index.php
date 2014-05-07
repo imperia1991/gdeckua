@@ -13,8 +13,14 @@
         'filter' => $model,
         'columns'=>array(
             'id',
-            'title_ru',
-            'title_uk',
+            array(
+                'name' => 'title_ru',
+                'header' => 'Название (русский)'
+            ),
+            array(
+                'name' => 'title_uk',
+                'header' => 'Название (украинский)'
+            ),
             array(
                 'name' => 'districtId',
                 'value' => '$data->getDistrict()',
@@ -22,11 +28,13 @@
             ),
             array(
                 'name' => 'address_ru',
+                'header' => 'Адресс (русский)',
                 'filter' => false,
                 'sortable' => false,
             ),
             array(
                 'name' => 'address_uk',
+                'header' => 'Адресс (украинский)',
                 'filter' => false,
                 'sortable' => false,
             ),
@@ -40,10 +48,6 @@
             ),
             array(
                 'name' => 'created_at',
-                'filter' => false,
-            ),
-            array(
-                'name' => 'updated_at',
                 'filter' => false,
             ),
             array(
