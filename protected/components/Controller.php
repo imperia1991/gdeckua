@@ -29,6 +29,8 @@ class Controller extends CController
 
     public $keywords;
 
+    public $feedback;
+
     public function __construct($id, $module = null)
     {
         parent::__construct($id, $module);
@@ -65,6 +67,8 @@ class Controller extends CController
         $this->modelUser = Yii::app()->user->isGuest ? new Users('login') : Users::model()->findByPk(Yii::app()->user->id);
 
         new JsTrans('main', Yii::app()->language, Yii::app()->language);
+
+        $this->feedback = new Feedback();
     }
 
     public function createMultilanguageReturnUrl($lang = 'ru')

@@ -73,7 +73,7 @@ class SiteController extends Controller
             'model' => $model,
             'search' => $model->search,
             'results' => $results,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ));
     }
 
@@ -150,7 +150,7 @@ class SiteController extends Controller
                     }
 
                     Yii::app()->user->setFlash('success', 'Место добавлено');
-                    
+
                     $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
                 } else {
                     Yii::app()->user->setFlash('error', 'Вы допустили ошибки при добавлении объекта');
@@ -229,6 +229,25 @@ class SiteController extends Controller
         }
 
         $this->respondJSON($result);
+
+        Yii::app()->end();
+    }
+
+    public function actionFeedback()
+    {
+        $model = new Feedback();
+        $model->setAttributes(Yii::app()->request->getPost('Feedback', array()));
+
+        if ($model->save()) {
+            $this->respondJSON(array(
+                'error' => 0,
+            ));
+        } else {
+            $this->respondJSON(array(
+                'error' => 1,
+                'errors' => $model->getErrors(),
+            ));
+        }
 
         Yii::app()->end();
     }

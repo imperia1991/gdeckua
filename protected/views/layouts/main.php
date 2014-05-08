@@ -18,6 +18,7 @@
     <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="/js/feedback.js"></script>
     <script type="text/javascript">
         hs.graphicsDir = '/js/graphics/';
         hs.showCredits = false;
@@ -79,12 +80,8 @@
     <div class="footer">
         <div class="footer-wrap">
             <?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
-            <?php /*
             <a href="#feedback" class="link call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
-*
-             */?>
             <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
-
         </div>
         <div class="popup popup-hidden" id="feedback">
             <h2><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></h2>
@@ -92,21 +89,52 @@
                 <a href="#" class="btn close-popup"><?php echo Yii::t('main', 'Закрыть'); ?></a>
             </div>
             <div class="popup-bg">
-                <form id="feeadback">
-                    <input type="text" placeholder="<?php echo Yii::t('main', 'Введите Ваши имя и фамилию'); ?>" name="name" id="name" value="">
-                    <label class="error" for="name"></label>
-                    <input type="text" placeholder="<?php echo Yii::t('main', 'Введите Ваш E-mail'); ?>" name="email" id="email" value="">
-                    <label class="error" for="name"></label>
-                    <textarea rows="7" placeholder="<?php echo Yii::t('main', 'Введите текст сообщения'); ?>" name="message" id="message"></textarea>
-                    <label class="error" for="message"></label>
-                </form>
-                <div class="captcha-wrap">
-                    <?if(CCaptcha::checkRequirements()):?>
-                        <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
-                    <?endif?>
-                </div>
-                <input class="captcha-input" type="text" placeholder="<?php echo Yii::t('main', 'Введите код с картинки'); ?>" name="captcha" id="captcha" value="">
-                <input type="submit" value="<?php echo Yii::t('main', 'Отправить'); ?>" class="btn submit-popup">
+                <?php
+                $feedback = $this->feedback;
+                ?>
+                <?php $form = $this->beginWidget('CActiveForm',
+                    array(
+                        'id' => 'feedback-form',
+                        'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/feedback'),
+                        'enableAjaxValidation' => false,
+                        'htmlOptions' => array(),
+                    )); ?>
+                    <?php echo $form->textField($feedback, 'name', array(
+                            'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
+                            'id' => 'name',
+                        ));
+                    ?>
+                    <label id="error_name" class="error" for="name"></label>
+                    <?php echo $form->textField($feedback, 'email', array(
+                            'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
+                            'id' => 'email',
+                        ));
+                    ?>
+                    <label id="error_email" class="error" for="email"></label>
+                    <?php echo $form->textArea($feedback, 'message', array(
+                            'placeholder' => Yii::t('main', 'Введите текст сообщения'),
+                            'id' => 'message',
+                            'rows' => 7,
+                        ));
+                    ?>
+                    <label id="error_message" class="error" for="message"></label>
+                    <div class="captcha-wrap">
+                        <?if(CCaptcha::checkRequirements()):?>
+                            <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
+                        <?endif?>
+                        <br/>
+                        <label id="error_verifyCode" class="error" for="verifyCode"></label>
+                    </div>
+                    <?php echo $form->textField($feedback, 'verifyCode', array(
+                            'class' => 'captcha-input',
+                            'placeholder' => Yii::t('main', 'Введите код с картинки'),
+                            'id' => 'verifyCode',
+                            'rows' => 7,
+                        ));
+                    ?>
+
+                    <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), array('class' => 'btn submit-popup')); ?>
+                <?php $this->endWidget('feedback'); ?>
             </div>
         </div>
         <?php $this->renderPartial('/partials/_notify'); ?>

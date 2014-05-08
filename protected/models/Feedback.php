@@ -12,7 +12,7 @@
  * @property integer $is_reading
  * @property integer $is_answer
  */
-class Feedback extends CActiveRecord
+class Feedback extends ActiveRecord
 {
     public $verifyCode;
 
@@ -60,9 +60,9 @@ class Feedback extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'email' => 'Email',
-			'message' => 'Message',
+			'name' => CHtml::encode(Yii::t('main', '"Введите имя и фамилию"')),
+			'email' => CHtml::encode(Yii::t('main', '"Введите Ваш e-mail"')),
+			'message' => CHtml::encode(Yii::t('main', '"Введите текст сообщения"')),
 			'created_at' => 'Created At',
 			'is_reading' => 'Is Reading',
 			'is_answer' => 'Is Answer',
