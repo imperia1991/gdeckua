@@ -72,8 +72,5 @@ $this->renderPartial('/partials/_search', array(
             ?>
         </ul>
     </div>
-<div class="left-sidebar-ad">
-    <img src="images/rek305x70.png" alt="">
-</div>
 </div><!-- .left-sidebar -->
 
