@@ -2,7 +2,7 @@ var feedback = {
 	send: function() {
 		$('#feedback-form').on('submit', function(e){
 			$('.error').html('');
-			
+
 			var form = $(this);
 			$.ajax({
 				type: 'post',
@@ -16,7 +16,7 @@ var feedback = {
 							$('#error_' + fieldName).html(errorText);
 						});
 					} else {
-//						location.reload();
+						location.reload();
 					}
 
 					return false;

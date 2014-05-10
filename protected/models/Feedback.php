@@ -33,6 +33,7 @@ class Feedback extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, email, message, created_at', 'required'),
+			array('email', 'email'),
             array('verifyCode', 'captcha'),
 			array('is_reading, is_answer', 'numerical', 'integerOnly'=>true),
 			array('name, email', 'length', 'max'=>255),

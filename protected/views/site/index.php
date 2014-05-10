@@ -11,6 +11,8 @@ $this->renderPartial('/partials/_search', array(
     'currentPage' => ($dataProvider->getPagination()->currentPage + 1),
     'model' => $model,
 ));
+
+$currentPage = ($dataProvider->getPagination()->currentPage + 1);
 ?>
 </div>
 <div class="container">
@@ -26,26 +28,28 @@ $this->renderPartial('/partials/_search', array(
     </div>
     <div class="line"></div>
     <div class="pagination">
-        <?php
-        $this->widget('CLinkPager', array(
-            'pages' => $dataProvider->getPagination(),
-            'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
-            'header' => '',
-            'selectedPageCssClass' => 'active',
-            'footer' => '',
-            'internalPageCssClass' => '',
-            'prevPageLabel' => '<',
-            'nextPageLabel' => '>',
-            'previousPageCssClass' => 'prev',
-            'htmlOptions' => array('class' => ''),
-            'firstPageCssClass' => 'first',
-            'firstPageLabel' => '<<',
-            'lastPageCssClass' => 'last',
-            'lastPageLabel' => '>>',
-            'nextPageCssClass' => 'next',
-            'maxButtonCount' => 5
-        ));
-        ?>
+        <form action="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?page=' . $currentPage); ?>" method="get">
+            <?php
+            $this->widget('CLinkPager', array(
+                'pages' => $dataProvider->getPagination(),
+                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
+                'header' => '',
+                'selectedPageCssClass' => 'active',
+                'footer' => '',
+                'internalPageCssClass' => '',
+                'prevPageLabel' => '<',
+                'nextPageLabel' => '>',
+                'previousPageCssClass' => 'prev',
+                'htmlOptions' => array('class' => ''),
+                'firstPageCssClass' => 'first',
+                'firstPageLabel' => '<<',
+                'lastPageCssClass' => 'last',
+                'lastPageLabel' => '>>',
+                'nextPageCssClass' => 'next',
+                'maxButtonCount' => 5
+            ));
+            ?>
+        </form>
     </div>
     <div class="line"></div>
     <?php $this->renderPartial('/partials/_ads'); ?>

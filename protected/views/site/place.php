@@ -104,6 +104,8 @@ $description = 'description_' . Yii::app()->getLanguage();
                                                         $("#uploadPhoto").append(
                                                                  "<input name=\"Photos[]\" type=\"hidden\" value=\"" + responseJSON.filename + "\" data-filename=\"" + responseJSON.filename + "\" class=\"delClass\"/>"
                                                             );
+
+                                                        $("#errorPhotos").html("");
                                                     }
                                                 }'
                             )
@@ -111,7 +113,7 @@ $description = 'description_' . Yii::app()->getLanguage();
                 );
             ?>
             <span class="error-block">
-                <?php echo $form->error($model, 'images', array('class' => 'error')); ?>
+                <?php echo $form->error($model, 'images', array('class' => 'error', 'id' => 'errorPhotos')); ?>
             </span>
         </div>
 
@@ -134,7 +136,7 @@ $description = 'description_' . Yii::app()->getLanguage();
             <?endif?>
             <div class="form-item" style="margin-top: 0;">
                 <label class="label block"><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></label>
-                <div class="item-wrap">
+                <div class="item-wrap" style="display: inline-block;">
                     <?php echo $form->textField($model, 'verifyCode', array('class' => 'small')); ?>
                     <span class="error-block">
                         <?php echo $form->error($model, 'verifyCode', array('class' => 'error')); ?>

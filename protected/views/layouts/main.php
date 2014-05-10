@@ -102,12 +102,14 @@
                     <?php echo $form->textField($feedback, 'name', array(
                             'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
                             'id' => 'name',
+                            'class' => 'message'
                         ));
                     ?>
                     <label id="error_name" class="error" for="name"></label>
                     <?php echo $form->textField($feedback, 'email', array(
                             'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
                             'id' => 'email',
+                            'class' => 'message'
                         ));
                     ?>
                     <label id="error_email" class="error" for="email"></label>
@@ -115,6 +117,7 @@
                             'placeholder' => Yii::t('main', 'Введите текст сообщения'),
                             'id' => 'message',
                             'rows' => 7,
+                            'class' => 'message'
                         ));
                     ?>
                     <label id="error_message" class="error" for="message"></label>
@@ -130,6 +133,7 @@
                             'placeholder' => Yii::t('main', 'Введите код с картинки'),
                             'id' => 'verifyCode',
                             'rows' => 7,
+                            'class' => 'message'
                         ));
                     ?>
 
@@ -140,7 +144,6 @@
         <?php $this->renderPartial('/partials/_notify'); ?>
     </div>
 </div><!-- .footer -->
-
 
 </body>
 </html>

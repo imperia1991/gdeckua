@@ -2,7 +2,9 @@
 
 class SiteController extends Controller
 {
+
     private static $countPhoto = 0;
+
 //    public function filters()
 //    {
 //        return array(
@@ -37,7 +39,7 @@ class SiteController extends Controller
             'captcha' => array(
                 'class' => 'CCaptchaAction',
                 'backColor' => 0x494949,
-				'foreColor' => 0xFFFFFF
+                'foreColor' => 0xFFFFFF
             ),
         );
     }
@@ -115,7 +117,7 @@ class SiteController extends Controller
             $postPhotos = Yii::app()->request->getPost('Photos', array());
 
             $transaction = $model->dbConnection->beginTransaction();
-            try{
+            try {
                 $model->setAttributes($post);
                 $model->images = $postPhotos;
                 $model->is_deleted = 1;
@@ -149,16 +151,18 @@ class SiteController extends Controller
                         unset(Yii::app()->session['countImages']);
                     }
 
-                    Yii::app()->user->setFlash('success', 'Место добавлено');
+                    Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске'));
 
                     $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
-                } else {
-                    Yii::app()->user->setFlash('error', 'Вы допустили ошибки при добавлении объекта');
-    //                echo '<pre>';
-    //                print_r($model->getErrors());
-    //                echo '</pre>';
                 }
-            } catch (Exception $e) {
+                else {
+                    Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
+                    //                echo '<pre>';
+                    //                print_r($model->getErrors());
+                    //                echo '</pre>';
+                }
+            }
+            catch (Exception $e) {
                 $transaction->rollback();
             }
         }
@@ -180,7 +184,8 @@ class SiteController extends Controller
 
         if ($countImages > 2) {
             $this->respondJSON(array('success' => false));
-        } else {
+        }
+        else {
             $countImages++;
             Yii::app()->session['countImages'] = $countImages;
         }
@@ -237,12 +242,25 @@ class SiteController extends Controller
     {
         $model = new Feedback();
         $model->setAttributes(Yii::app()->request->getPost('Feedback', array()));
+        $model->message = nl2br($model->message);
 
         if ($model->save()) {
+            $message = new YiiMailMessage;
+            $message->view = 'feedback';
+            $message->setBody(array('model' => $model), 'text/html');
+            $message->subject = Yii::app()->baseUrl . ': Обратная связь';
+            $message->addTo('support@gde.ck.ua');
+            $message->from = $model->email;
+
+            Yii::app()->mail->send($message);
+
+            Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваше письмо отправлено. Мы ответим Вам в ближайшее время'));
+
             $this->respondJSON(array(
                 'error' => 0,
             ));
-        } else {
+        }
+        else {
             $this->respondJSON(array(
                 'error' => 1,
                 'errors' => $model->getErrors(),

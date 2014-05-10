@@ -171,6 +171,7 @@ class Places extends ActiveRecord
                     ),
                     'pagination' => array(
                         'pageSize' => Yii::app()->params['admin']['pageSize'],
+                        'pageVar' => 'page',
                     ),
             ));
     }
@@ -180,6 +181,7 @@ class Places extends ActiveRecord
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->condition = 'is_deleted = 0';
         $criteria->with = array('photos');
 
         return new CActiveDataProvider($this,
