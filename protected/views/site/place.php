@@ -148,6 +148,8 @@ $description = 'description_' . Yii::app()->getLanguage();
             <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), array('class' => 'add-object')); ?>
         </div>
     <?php $this->endWidget(); ?>
+ <div class="line"></div>
+ <?php $this->renderPartial('/partials/_ads'); ?>
 </div><!-- .container-->
 <div class="left-sidebar"></div><!-- .left-sidebar -->
 <input id="deleteUrl" type="hidden" value="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/deletePreviewUpload') ?>" />

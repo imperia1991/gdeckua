@@ -55,6 +55,11 @@ class SiteController extends Controller
 
         $results = array();
         if ($model->search) {
+            $statistics = new WordStatistics();
+            $statistics->words = $model->search;
+            $statistics->save();
+            unset($statistics);
+
             $controller = Yii::app()->createController('/search');
             $results = $controller[0]->search($model->search);
 
@@ -69,6 +74,7 @@ class SiteController extends Controller
         }
         else {
             $dataProvider = $model->searchMain();
+//            $dataProvider->getPagination()->route = '/' . Yii::app()->getLanguage() . '/';
         }
 
         $this->render('index', array(

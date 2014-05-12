@@ -28,7 +28,6 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
     </div>
     <div class="line"></div>
     <div class="pagination">
-        <form action="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?page=' . $currentPage); ?>" method="get">
             <?php
             $this->widget('CLinkPager', array(
                 'pages' => $dataProvider->getPagination(),
@@ -49,7 +48,6 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
                 'maxButtonCount' => 5
             ));
             ?>
-        </form>
     </div>
     <div class="line"></div>
     <?php $this->renderPartial('/partials/_ads'); ?>

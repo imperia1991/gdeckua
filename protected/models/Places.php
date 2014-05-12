@@ -171,7 +171,6 @@ class Places extends ActiveRecord
                     ),
                     'pagination' => array(
                         'pageSize' => Yii::app()->params['admin']['pageSize'],
-                        'pageVar' => 'page',
                     ),
             ));
     }
@@ -192,6 +191,9 @@ class Places extends ActiveRecord
                     ),
                     'pagination' => array(
                         'pageSize' => Yii::app()->params['pageSize'],
+                        'pageVar' => 'page',
+                        'route' => '/' . Yii::app()->getLanguage() .'/',
+                        'params' => array(),
                     ),
             ));
     }
