@@ -30,6 +30,7 @@
  */
 class Places extends ActiveRecord
 {
+
     const SCENARIO_RU = 'ru';
     const SCENARIO_UK = 'uk';
     const SCENARIO_ADMIN = 'admin';
@@ -161,6 +162,12 @@ class Places extends ActiveRecord
         if ($this->is_deleted == 0 || $this->is_deleted == 1) {
             $criteria->compare('is_deleted', $this->is_deleted);
         }
+        if ($this->address_uk == 'empty') {
+            $criteria->addCondition('(address_uk = "" OR address_uk IS NULL)');
+        }
+        if ($this->address_uk == 'notempty') {
+            $criteria->addCondition('(address_uk <> "" AND address_uk IS NOT NULL)');
+        }
         $criteria->with = array('photos');
 
         return new CActiveDataProvider($this,
@@ -196,7 +203,7 @@ class Places extends ActiveRecord
                     'pagination' => array(
                         'pageSize' => Yii::app()->params['pageSize'],
                         'pageVar' => 'page',
-                        'route' => '/' . Yii::app()->getLanguage() .'/',
+                        'route' => '/' . Yii::app()->getLanguage() . '/',
                         'params' => array(),
                     ),
             ));
@@ -248,6 +255,14 @@ class Places extends ActiveRecord
     public function getDistrict()
     {
         return is_object($this->district) ? $this->district->title_ru : Yii::t('main', 'Не указан');
+    }
+
+    public function getEmptyAddress()
+    {
+        return array(
+            'notempty' => 'Заполнено',
+            'empty' => 'Не заполнено'
+        );
     }
 
 }

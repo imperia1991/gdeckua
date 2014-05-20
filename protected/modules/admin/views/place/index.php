@@ -35,7 +35,7 @@
             array(
                 'name' => 'address_uk',
                 'header' => 'Адресс (украинский)',
-                'filter' => false,
+                'filter' => $model->getEmptyAddress(),
                 'sortable' => false,
             ),
             array(

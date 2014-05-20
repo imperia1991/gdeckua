@@ -10,7 +10,10 @@
         'filter' => $model,
         'columns'=>array(
             'words',
-            'wordCount',
+            array(
+                'name' => 'created_at',
+                'filter' => false,
+            ),
         ),
         'pager' => array(
             'header'=>'',

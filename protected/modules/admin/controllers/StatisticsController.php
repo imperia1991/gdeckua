@@ -15,6 +15,11 @@ class StatisticsController extends AdminController
     {
         $model = new WordStatistics();
 
+        if (Yii::app()->request->isAjaxRequest) {
+            $get = Yii::app()->request->getQuery('WordStatistics');
+            $model->setAttributes($get);
+        }
+
         $this->render('index', array(
             'model' => $model,
         ));
