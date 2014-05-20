@@ -31,7 +31,7 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
             <?php
             $this->widget('CLinkPager', array(
                 'pages' => $dataProvider->getPagination(),
-                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
+//                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
                 'header' => '',
                 'selectedPageCssClass' => 'active',
                 'footer' => '',
@@ -45,7 +45,7 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
                 'lastPageCssClass' => 'last',
                 'lastPageLabel' => '>>',
                 'nextPageCssClass' => 'next',
-                'maxButtonCount' => 5
+                'maxButtonCount' => 11
             ));
             ?>
     </div>

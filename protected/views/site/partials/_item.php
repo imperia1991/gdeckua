@@ -13,7 +13,7 @@ if (isset($data->photos) && is_array($data->photos)) {
     $titleDistrict = 'district_' . Yii::app()->getLanguage();
     $district= $data->{$titleDistrict};
     $placeId = $data->place_id;
-    $this->keywords .= $data->{$title} . ',';
+    $this->keywords .= $data->{$title} . ', ';
 }
 
 $photos = array();

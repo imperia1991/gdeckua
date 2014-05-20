@@ -175,13 +175,17 @@ class Places extends ActiveRecord
             ));
     }
 
-    public function searchMain()
+    public function searchMain($isFirst = false)
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'is_deleted = 0';
         $criteria->with = array('photos');
+
+        if ($isFirst) {
+            $criteria->order = 'RAND()';
+        }
 
         return new CActiveDataProvider($this,
                 array(

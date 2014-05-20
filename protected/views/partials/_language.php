@@ -6,7 +6,7 @@ if (!Yii::app()->request->queryString) {
     $url = '/' . $tmp[1];
 }
 ?>
-
+<?php /*
 <div class="flag">
     <div style="float: right;">
         <a href="<?php echo Yii::app()->baseUrl . '/ru' . $url; ?>" class="tooltip-rus">
@@ -19,5 +19,7 @@ if (!Yii::app()->request->queryString) {
         </a>
     </div>
 </div>
+ *
+ */?>
 
 

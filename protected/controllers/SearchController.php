@@ -23,20 +23,27 @@ class SearchController extends Controller
 
         $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $this->_indexFiles));
 
-        $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
-
         $termsArray = explode(' ', trim(mb_strtolower($search, 'utf-8')));
-        $terms = array();
-        foreach ($termsArray as $term) {
-            $term = str_replace('"', '', $term);
-            $term = str_replace("'", '', $term);
-            $term = trim(strip_tags($term));
+//        $query = new Zend_Search_Lucene_Search_Query_Phrase($termsArray);
+//        $results = $index->find($query);
+//
+//        if (!count($results)) {
+            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
 
-            $query->addTerm(new Zend_Search_Lucene_Index_Term($term), null);
-        }
 
-//        $query = new Zend_Search_Lucene_Search_Query_Phrase($terms);
-        $results = $index->find($query);
+            $terms = array();
+            foreach ($termsArray as $term) {
+                $term = str_replace('"', '', $term);
+                $term = str_replace("'", '', $term);
+                $term = trim(strip_tags($term));
+
+                $query->addTerm(new Zend_Search_Lucene_Index_Term($term), null);
+            }
+
+    //        $query = new Zend_Search_Lucene_Search_Query_Phrase($terms);
+            $results = $index->find($query);
+//        }
+
 //        echo '<pre>';
 //        print_r($results);
 //        echo '</pre>';exit;

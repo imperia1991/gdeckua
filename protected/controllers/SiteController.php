@@ -73,8 +73,8 @@ class SiteController extends Controller
             );
         }
         else {
-            $dataProvider = $model->searchMain();
-//            $dataProvider->getPagination()->route = '/' . Yii::app()->getLanguage() . '/';
+            $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
+            $dataProvider = $model->searchMain($isFirst);
         }
 
         $this->render('index', array(
@@ -254,7 +254,7 @@ class SiteController extends Controller
             $message = new YiiMailMessage;
             $message->view = 'feedback';
             $message->setBody(array('model' => $model), 'text/html');
-            $message->subject = Yii::app()->baseUrl . ': Обратная связь';
+            $message->subject = 'gde.ck.ua: Обратная связь';
             $message->addTo('support@gde.ck.ua');
             $message->from = $model->email;
 
