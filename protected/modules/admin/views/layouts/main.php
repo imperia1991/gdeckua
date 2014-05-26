@@ -28,6 +28,7 @@
                         array('label'=>'Районы', 'url'=>'/admin/district', 'active' => $this->menuActive == 'district', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Настройки поиска', 'url'=>'/admin/search', 'active' => $this->menuActive == 'search', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Статистика', 'url'=>'/admin/statistics', 'active' => $this->menuActive == 'statistic', 'visible' => Yii::app()->user->checkAccess('admin')),
+                        array('label'=>'Категории', 'url'=>'/admin/category', 'active' => $this->menuActive == 'category', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')),
                     ),
                 ),

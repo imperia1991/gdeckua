@@ -57,8 +57,8 @@ class Categories extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title_ru' => 'Title Ru',
-			'title_uk' => 'Title Uk',
+			'title_ru' => Yii::t('main', 'Категории'),
+			'title_uk' => Yii::t('main', 'Категории'),
 			'aliases' => 'Aliases',
 		);
 	}
