@@ -134,6 +134,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php $form->error($model, ''); ?>
         </div>
     </div>
+    <?php echo $form->dropDownListRow($model, 'category_id', $categories, array('empty' => 'Выберите категорию', 'multiple'=>true, 'size' => 10, 'options' => $model->getCategoriesSelected())); ?>
 </div>
 
 <div class="form-actions">

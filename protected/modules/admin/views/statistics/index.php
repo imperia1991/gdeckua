@@ -13,6 +13,10 @@
             array(
                 'name' => 'created_at',
                 'filter' => false,
+                'value' => function ($data, $row){
+                        echo Yii::app()->dateFormatter->format('dd.MM.yyyy', strtotime($data->created_at)) .
+                        '&nbsp;&nbsp;&nbsp;&nbsp;' .  Yii::app()->dateFormatter->format('HH:mm:ss', strtotime($data->created_at));;
+                    }
             ),
         ),
         'pager' => array(

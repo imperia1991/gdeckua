@@ -26,9 +26,12 @@ class PlaceController extends AdminController
         $districts = CHtml::listData(Districts::model()->findAll(), 'id', 'title_ru');
         $districts[-1] = Yii::t('main', 'Не указан');
 
+        $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title_ru');
+
         $this->render('index', array(
             'model' => $model,
             'districts' => $districts,
+            'categories' => $categories,
         ));
     }
 
@@ -138,10 +141,11 @@ class PlaceController extends AdminController
         Yii::app()->end();
     }
 
-    private function processForm($model)
+    private function processForm(Places $model)
     {
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('Places', array());
+            $postCategoryIds = $post['category_id'];
             $postPlacetags = Yii::app()->request->getPost('PlaceTags', array());
             $postPhotos = Yii::app()->request->getPost('Photos', array());
 
@@ -150,6 +154,7 @@ class PlaceController extends AdminController
             try {
                 $model->setAttributes($post);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+
                 if ($isNewRecord) {
                     $model->created_at = $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
                 }
@@ -178,6 +183,20 @@ class PlaceController extends AdminController
                         $photoQueries = join(',', $photoQuery);
                         Yii::app()->db->createCommand('
                             INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)->execute();
+                    }
+
+                    if ($postCategoryIds) {
+                        PlacesCategories::model()->deleteAllByAttributes(array(
+                                'place_id' => $model->id
+                            ));
+
+                        foreach ($postCategoryIds as $id) {
+                            $placesCategories = new PlacesCategories();
+                            $placesCategories->place_id = $model->id;
+                            $placesCategories->category_id = $id;
+
+                            $placesCategories->save();
+                        }
                     }
 
                     $transaction->commit();
@@ -211,7 +230,7 @@ class PlaceController extends AdminController
             }
         }
 
-        $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title');
+        $categories = CHtml::listData(Categories::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
         $districts = CHtml::listData(Districts::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
 
         $this->render('create', array(

@@ -8,6 +8,7 @@
  * @property string $title_ru
  * @property string $title_uk
  * @property string $aliases
+ * @property integer $parent_id
  *
  * The followings are the available model relations:
  * @property Promo[] $promos
@@ -30,11 +31,12 @@ class Categories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title_ru, title_uk, aliases', 'required'),
+			array('title_ru, title_uk', 'required'),
 			array('title_ru, title_uk, aliases', 'length', 'max'=>255),
+            array('parent_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title_ru, title_uk, aliases', 'safe', 'on'=>'search'),
+			array('id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +48,9 @@ class Categories extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'promos' => array(self::HAS_MANY, 'Promo', 'category_id'),
+            'places' => array(self::HAS_MANY, 'Places', 'category_id'),
+            'parent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
+            'placesCategories' => array(self::HAS_MANY, 'PlacesCategories', 'category_id'),
 		);
 	}
 
@@ -57,9 +61,10 @@ class Categories extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title_ru' => Yii::t('main', 'Категории'),
-			'title_uk' => Yii::t('main', 'Категории'),
+			'title_ru' => Yii::t('main', 'Категории (русский)'),
+			'title_uk' => Yii::t('main', 'Категории (украинский)'),
 			'aliases' => 'Aliases',
+			'parent_id' => Yii::t('main', 'Родительская категория'),
 		);
 	}
 
@@ -77,17 +82,29 @@ class Categories extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('title_ru',$this->title_ru,true);
-		$criteria->compare('title_uk',$this->title_uk,true);
-		$criteria->compare('aliases',$this->aliases,true);
+        if ($this->id) {
+            $criteria->compare('t.id', $this->id);
+        }
+        if ($this->title_ru) {
+            $criteria->compare('title_ru', $this->title_ru, true);
+        }
+        if ($this->title_uk) {
+            $criteria->compare('title_uk', $this->title_uk, true);
+        }
+        if ($this->parent_id) {
+            $criteria->compare('parent_id', $this->parent_id);
+        }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'sort' => array(
+                'defaultOrder' => 'title_ru ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ),
 		));
 	}
 
@@ -101,4 +118,9 @@ class Categories extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getParentsCategories()
+    {
+        return CHtml::listData(Categories::model()->findAll('parent_id IS NULL'), 'id', 'title_ru');
+    }
 }

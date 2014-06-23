@@ -81,3 +81,11 @@ $this->renderPartial('/partials/_search', array(
     </div>
 </div>
 
+
+<div class="comments">
+    <?php $this->renderpartial('partials/_comments', array(
+            'model' => $model,
+            'comment' => $comment,
+        )) ?>
+</div>
+

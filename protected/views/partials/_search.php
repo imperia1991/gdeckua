@@ -21,7 +21,14 @@ echo $form->textField($model, 'search', array(
     'placeholder' => Yii::t('main', 'Введите, например, кафе крещатик'),
 ));
 ?>
+<?php
+echo CHtml::dropDownList('districts', $selectDistrict, $districts, array('empty' => 'Весь город'));
+?>
 
 <?php echo CHtml::submitButton(Yii::t('main', 'Поиск'), array('name' => '')); ?>
 
 <?php $this->endWidget(); ?>
+
+<?php if ($checkedString): ?>
+    "Возможно вы имели ввиду: <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?search=' . urlencode($checkedString) . '&districts=' . $selectDistrict) ?>"><?php echo $checkedString; ?></a>";
+<?php endif; ?>

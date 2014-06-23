@@ -36,10 +36,14 @@ class Places extends ActiveRecord
     const SCENARIO_ADMIN = 'admin';
     const SCENARIO_GUEST = 'guest';
 
+    private $categories = array();
+
     public $search;
     public $districtId;
     public $verifyCode;
     public $images;
+    public $photo;
+    public $category_id;
 
     /**
      * @return string the associated database table name
@@ -67,7 +71,7 @@ class Places extends ActiveRecord
             array('images', 'required', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK, 'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search', 'safe', 'on' => 'search'),
+            array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,6 +90,8 @@ class Places extends ActiveRecord
             'tags' => array(self::HAS_ONE, 'PlaceTags', 'place_id'),
             'photos' => array(self::HAS_MANY, 'Photos', 'place_id'),
             'district' => array(self::BELONGS_TO, 'Districts', 'district_id'),
+            'placesCategories' => array(self::HAS_MANY, 'PlacesCategories', 'place_id'),
+            'comments' => array(self::HAS_MANY, 'Comments', 'place_id'),
         );
     }
 
@@ -117,6 +123,8 @@ class Places extends ActiveRecord
             'images' => Yii::t('main', 'Загрузка фотографий'),
             'address_ru_admin' => Yii::t('main', 'Название (русский)'),
             'address_uk_admin' => Yii::t('main', 'Название (украинский)'),
+            'category_id' => Yii::t('main', 'Категория'),
+            'photo' => Yii::t('main', 'Фото'),
         );
     }
 
@@ -139,7 +147,7 @@ class Places extends ActiveRecord
         $criteria = new CDbCriteria;
 
         if ($this->id) {
-            $criteria->compare('id', $this->id);
+            $criteria->compare('t.id', $this->id);
         }
         if ($this->title_ru) {
             $criteria->compare('title_ru', $this->title_ru, true);
@@ -168,7 +176,15 @@ class Places extends ActiveRecord
         if ($this->address_uk == 'notempty') {
             $criteria->addCondition('(address_uk <> "" AND address_uk IS NOT NULL)');
         }
-        $criteria->with = array('photos');
+        if ($this->category_id) {
+            $criteria->compare('placesCategories.category_id', $this->category_id);
+        }
+        if ($this->photo == 'notPhoto') {
+            $criteria->addCondition('photos.place_id IS NULL');
+            $criteria->together = true;
+        }
+        $criteria->together = true;
+        $criteria->with = array('photos', 'placesCategories');
 
         return new CActiveDataProvider($this,
                 array(
@@ -184,8 +200,6 @@ class Places extends ActiveRecord
 
     public function searchMain($isFirst = false)
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
         $criteria->condition = 'is_deleted = 0';
         $criteria->with = array('photos');
@@ -263,6 +277,49 @@ class Places extends ActiveRecord
             'notempty' => 'Заполнено',
             'empty' => 'Не заполнено'
         );
+    }
+
+    public function getCategories()
+    {
+        $this->categories = CHtml::listData(Categories::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
+
+        return $this->categories;
+    }
+
+    public function getCategory()
+    {
+        if (!count($this->placesCategories)) {
+            return null;
+        }
+
+        $result = array();
+        foreach ($this->placesCategories as $item) {
+            $result[] = $item->category->title_ru;
+        }
+
+        return join(', ', $result);
+    }
+
+    public function isPhoto()
+    {
+        return array(
+            'photo' => 'С фото',
+            'notPhoto' => 'Без фото'
+        );
+    }
+
+    public function getCategoriesSelected()
+    {
+        if (!count($this->placesCategories)) {
+            return array();
+        }
+
+        $result = array();
+        foreach ($this->placesCategories as $item) {
+            $result[$item->category_id] = array('selected' => 'selected');
+        }
+
+        return $result;
     }
 
 }

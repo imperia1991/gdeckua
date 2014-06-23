@@ -3,8 +3,6 @@
 class SiteController extends Controller
 {
 
-    private static $countPhoto = 0;
-
 //    public function filters()
 //    {
 //        return array(
@@ -52,6 +50,7 @@ class SiteController extends Controller
     {
         $model = new Places();
         $model->search = Yii::app()->request->getQuery('search', '');
+        $selectDistrict = '';
 
         $results = array();
         if ($model->search) {
@@ -60,29 +59,44 @@ class SiteController extends Controller
             $statistics->save();
             unset($statistics);
 
+            $selectDistrict = Yii::app()->request->getQuery('districts', '');
+
             $controller = Yii::app()->createController('/search');
-            $results = $controller[0]->search($model->search);
+            $results = $controller[0]->search($model->search, $selectDistrict);
 
             $dataProvider = new CArrayDataProvider(
-                    $results['results'],
-                    array(
-                        'pagination' => array(
-                            'pageSize' => Yii::app()->params['pageSize'],
-                        ),
-                    )
+                $results['results'],
+                array(
+                    'pagination' => array(
+                        'pageSize' => Yii::app()->params['pageSize'],
+                    ),
+                )
             );
-        }
-        else {
+        } else {
             $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
             $dataProvider = $model->searchMain($isFirst);
         }
 
-        $this->render('index', array(
-            'model' => $model,
-            'search' => $model->search,
-            'results' => $results,
-            'dataProvider' => $dataProvider,
-        ));
+        $criteria = new CDbCriteria();
+        $criteria->order = 'title_' . Yii::app()->getLanguage() . ' ASC';
+        $districts = CHtml::listData(
+            Districts::model()->findAllByAttributes(array(), $criteria),
+            'id',
+            'title_' . Yii::app()->getLanguage()
+        );
+
+        $this->render(
+            'index',
+            array(
+                'model' => $model,
+                'search' => $model->search,
+                'results' => $results,
+                'dataProvider' => $dataProvider,
+                'districts' => $districts,
+                'selectDistrict' => $selectDistrict,
+                'checkedString' => $this->checkedSearchString($model->search)
+            )
+        );
     }
 
     /**
@@ -91,25 +105,47 @@ class SiteController extends Controller
     public function actionError()
     {
         if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest)
+            if (Yii::app()->request->isAjaxRequest) {
                 echo $error['message'];
-            else
+            } else {
                 $this->render('error', $error);
+            }
         }
     }
 
     public function actionView()
     {
         $id = Yii::app()->request->getQuery('object', 0);
-        $model = Places::model()->findByPk((int) $id);
+        $model = Places::model()->findByPk((int)$id);
+        $comment = new Comments(Comments::SCENARIO_USER);
 
         if (!is_object($model)) {
             throw new CHttpException(404, Yii::t('main', 'Такой объект не найден'));
         }
 
-        $this->render('view', array(
-            'model' => $model,
-        ));
+        if (Yii::app()->request->isPostRequest) {
+            $post = Yii::app()->request->getPost('Comments', array());
+
+            $comment->setAttributes($post);
+            $comment->message = nl2br($comment->message);
+            $comment->place_id = $model->id;
+
+            if ($comment->save()) {
+                Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш комментарий добавлен'));
+
+                $comment = new Comments(Comments::SCENARIO_USER);
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении комментария'));
+            }
+        }
+
+        $this->render(
+            'view',
+            array(
+                'model' => $model,
+                'comment' => $comment,
+            )
+        );
     }
 
     public function actionAdd()
@@ -136,8 +172,10 @@ class SiteController extends Controller
                         }
 
                         $photoQueries = join(',', $photoQuery);
-                        Yii::app()->db->createCommand('
-                            INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)->execute();
+                        Yii::app()->db->createCommand(
+                            '
+                                                        INSERT INTO photos (place_id, title) VALUES ' . $photoQueries
+                        )->execute();
                     }
 
                     $transaction->commit();
@@ -157,18 +195,16 @@ class SiteController extends Controller
                         unset(Yii::app()->session['countImages']);
                     }
 
-                    Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске'));
+                    Yii::app()->user->setFlash(
+                        'success',
+                        Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске')
+                    );
 
                     $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
-                }
-                else {
+                } else {
                     Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
-                    //                echo '<pre>';
-                    //                print_r($model->getErrors());
-                    //                echo '</pre>';
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $transaction->rollback();
             }
         }
@@ -178,10 +214,13 @@ class SiteController extends Controller
         $districts = CHtml::listData(Districts::model()->findAll(), 'id', $title);
         $districts[-1] = Yii::t('main', 'Не указан');
 
-        $this->render('place', array(
-            'model' => $model,
-            'districts' => $districts
-        ));
+        $this->render(
+            'place',
+            array(
+                'model' => $model,
+                'districts' => $districts
+            )
+        );
     }
 
     public function actionUpload()
@@ -190,15 +229,15 @@ class SiteController extends Controller
 
         if ($countImages > 2) {
             $this->respondJSON(array('success' => false));
-        }
-        else {
+        } else {
             $countImages++;
             Yii::app()->session['countImages'] = $countImages;
         }
 
         Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app(
+        )->params['admin']['images']['sizeLimit']);
         $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
         $sessionImages = Yii::app()->session['images'];
@@ -260,20 +299,45 @@ class SiteController extends Controller
 
             Yii::app()->mail->send($message);
 
-            Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваше письмо отправлено. Мы ответим Вам в ближайшее время'));
+            Yii::app()->user->setFlash(
+                'success',
+                Yii::t('main', 'Спасибо. Ваше письмо отправлено. Мы ответим Вам в ближайшее время')
+            );
 
-            $this->respondJSON(array(
-                'error' => 0,
-            ));
-        }
-        else {
-            $this->respondJSON(array(
-                'error' => 1,
-                'errors' => $model->getErrors(),
-            ));
+            $this->respondJSON(
+                array(
+                    'error' => 0,
+                )
+            );
+        } else {
+            $this->respondJSON(
+                array(
+                    'error' => 1,
+                    'errors' => $model->getErrors(),
+                )
+            );
         }
 
         Yii::app()->end();
+    }
+
+    private function checkedSearchString($search)
+    {
+        $checker = json_decode(
+            file_get_contents(
+                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search)
+            )
+        );
+        $checkedStr = $search;
+        foreach ($checker as $word) {
+            if ($word->s[0]) {
+                $checkedStr = str_replace($word->word, $word->s[0], $checkedStr);
+            }
+        }
+
+        return mb_strtolower($checkedStr, 'utf8') != mb_strtolower($search, 'utf8') && !empty($checkedStr)
+            ? $checkedStr
+            : '';
     }
 
 }

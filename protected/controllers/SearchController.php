@@ -11,11 +11,13 @@ class SearchController extends Controller
      */
     private $_indexFiles = 'runtime.search';
 
+
     /**
      * @param string $search
+     * @param string $selectDistrict
      * @return array
      */
-    public function search($search = '')
+    public function search($search = '', $selectDistrict = '')
     {
         Yii::import('application.vendors.*');
         require_once('Zend/Search/Lucene.php');
@@ -236,17 +238,30 @@ class SearchController extends Controller
                 4 => true,
                 5 => true,
             ),
-            26 => array(
-                0 => null,
-                1 => null,
-                2 => null,
-                3 => null,
-                4 => null,
-                5 => null,
-            ),
+//            26 => array(
+//                0 => null,
+//                1 => null,
+//                2 => null,
+//                3 => null,
+//                4 => null,
+//                5 => null,
+//            ),
         );
 
         $termsArray = explode(' ', trim(mb_strtolower($search, 'utf-8')));
+        $termsArray = array_slice($termsArray, 0, 6);
+
+        if ($selectDistrict) {
+            $title = 'title_' . Yii::app()->getLanguage();
+            $criteria = new CDbCriteria();
+            $criteria->select = $title;
+            $criteria->condition = 'id = ' . (int)$selectDistrict;
+            $district = Districts::model()->find($criteria);
+
+            array_unshift($termsArray, trim(mb_strtolower($district->{$title}, 'utf-8')));
+
+            $termsArray = array_unique($termsArray);
+        }
 
         $results = array();
         if (count($termsArray) < 3) {
@@ -258,7 +273,6 @@ class SearchController extends Controller
                 $term = trim(strip_tags($term));
 
                 $query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
-
             }
 
             $results = $index->find($query);

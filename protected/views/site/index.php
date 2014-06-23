@@ -10,6 +10,9 @@ $this->renderPartial('/partials/_search', array(
     'dataProvider' => $dataProvider,
     'currentPage' => ($dataProvider->getPagination()->currentPage + 1),
     'model' => $model,
+    'selectDistrict' => $selectDistrict,
+    'districts' => $districts,
+    'checkedString' => $checkedString
 ));
 
 $currentPage = ($dataProvider->getPagination()->currentPage + 1);

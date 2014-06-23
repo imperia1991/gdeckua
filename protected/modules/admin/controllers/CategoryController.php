@@ -49,6 +49,8 @@ class CategoryController extends AdminController
 
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('Categories');
+
+            /** @var Categories $model */
             $model->attributes = $post;
 
             $isNewRecord = $model->isNewRecord;
@@ -59,8 +61,11 @@ class CategoryController extends AdminController
             }
         }
 
+        $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title_ru');
+
         $this->render('index', array(
             'model' => $model,
+            'categories' => $categories,
         ));
     }
 }

@@ -64,15 +64,15 @@ class ActiveRecord extends CActiveRecord
         }
 
         if ($this->hasAttribute('last_login')) {
-            $this->last_login = Yii::app()->dateFormatter->format('dd.MM.yyyy hh:mm:ss', strtotime($this->last_login));
+            $this->last_login = Yii::app()->dateFormatter->format('dd.MM.yyyy HH:mm:ss', strtotime($this->last_login));
         }
 
         if ($this->hasAttribute('created_at')) {
-            $this->created_at = Yii::app()->dateFormatter->format('dd.MM.yyyy hh:mm:ss', strtotime($this->created_at));
+            $this->created_at = Yii::app()->dateFormatter->format('dd.MM.yyyy HH:mm:ss', strtotime($this->created_at));
         }
 
         if ($this->hasAttribute('updated_at')) {
-            $this->updated_at = Yii::app()->dateFormatter->format('dd.MM.yyyy hh:mm:ss', strtotime($this->updated_at));
+            $this->updated_at = Yii::app()->dateFormatter->format('dd.MM.yyyy HH:mm:ss', strtotime($this->updated_at));
         }
     }
 
