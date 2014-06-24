@@ -25,7 +25,8 @@ function init()
 				hintContent: point.text
             },
 			{
-				preset: 'twirl#blueDotIcon'
+                iconImageHref: '/images/blue1.png',
+                iconImageSize: [24, 34]
 			}
         );
 
@@ -33,13 +34,16 @@ function init()
 			.add('mouseenter', function (e) {
 				// Ссылку на объект, вызвавший событие,
 				// можно получить из поля 'target'.
-				e.get('target').options.set('preset', 'twirl#darkorangeDotIcon');
+				e.get('target').options.set('iconImageHref', '/images/green1.png');
+				e.get('target').options.set('iconImageSize', [24, 34]);
 			})
 			.add('mouseleave', function (e) {
-				e.get('target').options.set('preset', 'twirl#blueDotIcon');
+				e.get('target').options.set('iconImageHref', '/images/blue1.png');
+				e.get('target').options.set('iconImageSize', [24, 34]);
 			})
 			.add('click', function (e) {
-				e.get('target').options.set('preset', 'twirl#blueDotIcon');
+				e.get('target').options.set('iconImageHref', '/images/blue1.png');
+				e.get('target').options.set('iconImageSize', [24, 34]);
 			});
 
 		placemarks[point.id] = placemark;

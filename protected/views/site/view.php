@@ -12,6 +12,9 @@ $this->renderPartial('/partials/_search', array(
     'dataProvider' => $dataProvider,
     'currentPage' => 1,
     'model' => $model,
+    'selectDistrict' => '',
+    'districts' => $districts,
+    'checkedString' => ''
 ));
 ?>
 </div>
