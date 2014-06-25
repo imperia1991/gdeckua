@@ -7,14 +7,23 @@
  * @property integer $id
  * @property string $name
  * @property string $message
- * @property string $created_at
+ * @property integer $created_at
  * @property Places $place_id
  */
 class Comments extends ActiveRecord
 {
+    /**
+     *
+     */
     const SCENARIO_ADMIN = 'admin';
+    /**
+     *
+     */
     const SCENARIO_USER = 'user';
 
+    /**
+     * @var
+     */
     public $verifyCode;
 	/**
 	 * @return string the associated database table name
@@ -63,26 +72,38 @@ class Comments extends ActiveRecord
 			'name' => Yii::t('main', 'Имя'),
 			'message' => Yii::t('main', 'Комментарий'),
 			'created_at' => Yii::t('main', 'Добавлено'),
+			'place_id' => Yii::t('main', 'Название места'),
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+    /**
+     * @param int $placeId
+     * @return CActiveDataProvider
+     */
+    public function search($placeId = 0)
+	{
+		$criteria = new CDbCriteria;
+
+        $criteria->compare('place_id', $placeId);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+            'sort' => array(
+                'defaultOrder' => 'created_at DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->params['pageSize'],
+            ),
+		));
+	}
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function searchAdmin()
+    {
+        $criteria = new CDbCriteria;
 
 		if ($this->id) {
             $criteria->compare('id',$this->id);
@@ -96,17 +117,20 @@ class Comments extends ActiveRecord
         if ($this->created_at) {
 		    $criteria->compare('created_at',$this->created_at,true);
         }
+        if ($this->place_id) {
+            $criteria->compare('place_id', $this->place_id);
+        }
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
             'sort' => array(
                 'defaultOrder' => 'created_at DESC',
             ),
             'pagination' => array(
-                'pageSize' => Yii::app()->params['pageSize'],
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
             ),
-		));
-	}
+        ));
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.

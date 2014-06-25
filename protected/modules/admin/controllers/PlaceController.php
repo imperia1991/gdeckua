@@ -152,6 +152,7 @@ class PlaceController extends AdminController
             $isNewRecord = $model->isNewRecord;
             $transaction = $model->dbConnection->beginTransaction();
             try {
+                $oldCreatedAt = $model->created_at;
                 $model->setAttributes($post);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
@@ -159,6 +160,7 @@ class PlaceController extends AdminController
                     $model->created_at = $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
                 }
                 else {
+                    $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $oldCreatedAt);
                     $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
                 }
 

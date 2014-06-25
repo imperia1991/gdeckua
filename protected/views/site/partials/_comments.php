@@ -57,7 +57,7 @@
     <div class="line"></div>
 
     <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$comment->search(),
+            'dataProvider'=>$comment->search($model->id),
             'itemView'=>'partials/_comment', // представление для одной записи
             'ajaxUpdate'=>false, // отключаем ajax поведение
             'emptyText'=>'Комментарии еще не добавлены',
