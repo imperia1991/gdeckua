@@ -44,7 +44,7 @@ class LocoTranslitFilter extends CValidator
      * @param string $text the text being translit.
      * @return string
      */
-    protected static function cyrillicToLatin($text, $toLowCase = TRUE)
+    public static function cyrillicToLatin($text, $toLowCase = TRUE)
     {
         $matrix = array(
             "й" => "i", "ц" => "c", "у" => "u", "к" => "k", "е" => "e", "н" => "n",

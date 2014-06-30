@@ -52,6 +52,7 @@ class SearchController extends AdminController
         $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $this->_indexFiles), true);
 
         $places = Places::model()->with(array('tags'))->findAll('is_deleted = 0');
+        /** @var Places $place */
         foreach ($places as $place) {
             $doc = new Zend_Search_Lucene_Document();
 //            $doc->addField(Zend_Search_Lucene_Field::unIndexed('place_id', CHtml::encode($place->id), 'UTF-8'));
@@ -71,6 +72,7 @@ class SearchController extends AdminController
             $doc->addField(Zend_Search_Lucene_Field::keyword('region_id', $place->region_id));
             $doc->addField(Zend_Search_Lucene_Field::keyword('city_id', $place->city_id));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('place_id', $place->id));
+            $doc->addField(Zend_Search_Lucene_Field::unIndexed('alias', $place->alias));
 
             $number = 0;
             foreach ($place->photos as $photo) {

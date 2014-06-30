@@ -34,16 +34,44 @@ function init()
 			.add('mouseenter', function (e) {
 				// Ссылку на объект, вызвавший событие,
 				// можно получить из поля 'target'.
-				e.get('target').options.set('iconImageHref', '/images/green1.png');
+				e.get('target').options.set('iconImageHref', '/images/orrange1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
+
+                var placeId = 0;
+                placemarks.forEach(function(item, index){
+                    if (item == e.get('target')) {
+                        placeId = index;
+                    }
+                });
+
+                $('.item-active').removeClass('item-active');
+                $('.places li[item="' + placeId + '"]').addClass('item-active');
+
+//                $('.places input[value="' + placeId + '"]').focus(function() {
+//                    alert(3);
+//                    $("#search-content").mCustomScrollbar("scrollTo", this);
+//                });
 			})
 			.add('mouseleave', function (e) {
 				e.get('target').options.set('iconImageHref', '/images/blue1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
+
+                $('.item-active').removeClass('item-active');
 			})
 			.add('click', function (e) {
 				e.get('target').options.set('iconImageHref', '/images/blue1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
+
+                var placeId = 0;
+                placemarks.forEach(function(item, index){
+                    if (item == e.get('target')) {
+                        placeId = index;
+                    }
+                });
+
+                $('.places li[item="' + placeId + '"]').addClass('item-active');
+
+
 			});
 
 		placemarks[point.id] = placemark;
@@ -100,6 +128,8 @@ function clickPlacemark(id)
 			coordPosition: placemarks[id].geometry.getCoordinates(),
 			target: placemarks[id]
 	});
+
+//    $('.places li[item="' + id + '"]').addClass('item-active');
 
 	placeMap.setCenter(placemarks[id].geometry.getCoordinates());
 	placeMap.setZoom(16);

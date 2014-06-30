@@ -263,6 +263,8 @@ class SearchController extends Controller
             $termsArray = array_unique($termsArray);
         }
 
+        $termsArray = array_diff($termsArray, array(''));
+
         $results = array();
         if (count($termsArray) < 3) {
             $query = new Zend_Search_Lucene_Search_Query_MultiTerm();

@@ -3,7 +3,7 @@ $items = $dataProvider->getData();
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
-$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/object/');
+$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view');
 ?>
 <script type="text/javascript">
 var currLang = '<?php echo Yii::app()->getLanguage(); ?>';
@@ -14,7 +14,7 @@ var searchPoints = [];
     <?php
     $district = '';
     $id = $item->id;
-    if ($model->search) {
+    if ($model->search || $selectDistrict) {
         $titleDistrict = 'district_' . Yii::app()->getLanguage();
         $district= $item->{$titleDistrict};
         $id = $item->place_id;
@@ -29,7 +29,7 @@ var searchPoints = [];
         body: '<?php echo CHtml::encode($item->{$description}); ?>',
         footer: '<?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>',
         text: '<?php echo '<strong>' . CHtml::encode($item->{$title}) . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>',
-        view: '<?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id, array('target' => '_blank')); ?>'
+        view: '<?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id . '/' . $item->alias, array('target' => '_blank')); ?>'
     });
 <?php endforeach; ?>
 var placemark;

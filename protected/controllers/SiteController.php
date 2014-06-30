@@ -27,6 +27,13 @@ class SiteController extends Controller
 //        );
 //    }
 
+    public function init()
+    {
+        parent::init();
+
+        Yii::import('application.extensions.LocoTranslitFilter');
+    }
+
     /**
      * Declares class-based actions.
      */
@@ -50,16 +57,16 @@ class SiteController extends Controller
     {
         $model = new Places();
         $model->search = Yii::app()->request->getQuery('search', '');
-        $selectDistrict = '';
+        $selectDistrict = Yii::app()->request->getQuery('districts', '');
 
         $results = array();
-        if ($model->search) {
-            $statistics = new WordStatistics();
-            $statistics->words = $model->search;
-            $statistics->save();
-            unset($statistics);
-
-            $selectDistrict = Yii::app()->request->getQuery('districts', '');
+        if ($model->search || $selectDistrict) {
+            if ($model->search) {
+                $statistics = new WordStatistics();
+                $statistics->words = $model->search;
+                $statistics->save();
+                unset($statistics);
+            }
 
             $controller = Yii::app()->createController('/search');
             $results = $controller[0]->search($model->search, $selectDistrict);
@@ -115,7 +122,7 @@ class SiteController extends Controller
 
     public function actionView()
     {
-        $id = Yii::app()->request->getQuery('object', 0);
+        $id = Yii::app()->request->getQuery('id', 0);
         $model = Places::model()->findByPk((int)$id);
         $comment = new Comments(Comments::SCENARIO_USER);
 
@@ -172,6 +179,7 @@ class SiteController extends Controller
                 $model->setAttributes($post);
                 $model->images = $postPhotos;
                 $model->is_deleted = 1;
+                $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
 
                 if ($model->save()) {
                     if ($postPhotos) {

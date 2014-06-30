@@ -9,6 +9,8 @@ class PlaceController extends AdminController
 
         $this->menuActive = 'place';
         $this->pageTitle = Yii::app()->name . ' - Места';
+
+        Yii::import('application.extensions.LocoTranslitFilter');
     }
 
     public function actionIndex()
@@ -155,6 +157,7 @@ class PlaceController extends AdminController
                 $oldCreatedAt = $model->created_at;
                 $model->setAttributes($post);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+                $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
 
                 if ($isNewRecord) {
                     $model->created_at = $model->updated_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());

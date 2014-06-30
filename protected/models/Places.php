@@ -21,6 +21,7 @@
  * @property integer $updated_at
  * @property integer $is_deleted
  * @property integer $district_id
+ * @property string $alias
  *
  * The followings are the available model relations:
  * @property Users $user
@@ -65,7 +66,7 @@ class Places extends ActiveRecord
             array('title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK),
             array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id', 'required', 'on' => self::SCENARIO_ADMIN),
             array('is_deleted', 'numerical', 'integerOnly' => true),
-            array('title_ru, title_uk', 'length', 'max' => 255),
+            array('title_ru, title_uk, alias', 'length', 'max' => 255),
             array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
             array('verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK),
             array('images', 'required', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK, 'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')),

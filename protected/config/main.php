@@ -75,6 +75,7 @@ $mainConfig = array(
                 '<module:(admin)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<language:(ru|uk)>/' => 'site/index',
                 '<language:(ru|uk)>/page/<page:\d+>' => 'site/index',
+                '<language:(ru|uk)>/view/<id:\d+>/<alias>' => 'site/view',
                 '<language:(ru|uk)>/<action:\w+>/*' => 'site/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<language:(ru|uk)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

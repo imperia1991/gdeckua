@@ -2,7 +2,7 @@
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
-$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/object/');
+$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view');
 
 $district = '';
 $placeId = $data->id;
@@ -39,7 +39,7 @@ if (isset($data->photos) && is_array($data->photos)) {
 }
 ?>
 
-<li onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)" class="highslide-gallery" style="cursor: pointer;">
+<li item="<?php echo $data->id; ?>" onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)" class="highslide-gallery" style="cursor: pointer;">
     <a id="thumb<?php echo $placeId; ?>" href="<?php echo $photos[0]; ?>" class="big-photo" onclick="return hs.expand(this, { thumbnailId: 'thumb<?php echo $placeId; ?>', slideshowGroup: <?php echo $placeId; ?> })">
         <?php
         echo Yii::app()->easyImage->thumbOf($photos[0],
@@ -71,6 +71,6 @@ if (isset($data->photos) && is_array($data->photos)) {
         </div>
     </div>
     <div class="view-item">
-        <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $placeId, array('target' => '_blank')); ?>
+        <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $placeId . '/' . $data->alias, array('target' => '_blank')); ?>
     </div>
 </li>

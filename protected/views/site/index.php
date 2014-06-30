@@ -25,6 +25,7 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
                 $this->renderPartial('partials/_map', array(
                     'dataProvider' => $dataProvider,
                     'model' => $model,
+                    'selectDistrict' => $selectDistrict,
                 ));
             ?>
         </div>
@@ -61,7 +62,7 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
 </div><!-- .container-->
 <div class="left-sidebar">
     <div id="search-content">
-        <ul>
+        <ul class="places">
 
             <?php
             $this->widget('zii.widgets.CListView', array(

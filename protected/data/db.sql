@@ -28,3 +28,5 @@ CREATE TABLE comments (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
+
+ALTER TABLE places ADD COLUMN alias VARCHAR(255) NULL AFTER address_uk;
