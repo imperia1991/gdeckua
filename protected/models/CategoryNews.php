@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "categories".
+ * This is the model class for table "category_news".
  *
- * The followings are the available columns in table 'categories':
+ * The followings are the available columns in table 'category_news':
  * @property integer $id
  * @property string $title_ru
  * @property string $title_uk
@@ -11,16 +11,18 @@
  * @property integer $parent_id
  *
  * The followings are the available model relations:
- * @property Promo[] $promos
+ * @property CategoryNews $parent
+ * @property CategoryNews[] $categoryNews
+ * @property News[] $news
  */
-class Categories extends CActiveRecord
+class CategoryNews extends ActiveRecord
 {
-    /**
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'categories';
+		return 'category_news';
 	}
 
 	/**
@@ -31,9 +33,9 @@ class Categories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title_ru, title_uk', 'required'),
+			array('title_ru, title_uk, aliases', 'required'),
+			array('parent_id', 'numerical', 'integerOnly'=>true),
 			array('title_ru, title_uk, aliases', 'length', 'max'=>255),
-            array('parent_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'),
@@ -48,9 +50,9 @@ class Categories extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'places' => array(self::HAS_MANY, 'Places', 'category_id'),
-            'parent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
-            'placesCategories' => array(self::HAS_MANY, 'PlacesCategories', 'category_id'),
+			'parent' => array(self::BELONGS_TO, 'CategoryNews', 'parent_id'),
+			'categoryNews' => array(self::HAS_MANY, 'CategoryNews', 'parent_id'),
+			'news' => array(self::HAS_MANY, 'News', 'category_news_id'),
 		);
 	}
 
@@ -60,11 +62,11 @@ class Categories extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'title_ru' => Yii::t('main', 'Категории (русский)'),
-			'title_uk' => Yii::t('main', 'Категории (украинский)'),
+			'id' => '№',
+			'title_ru' => Yii::t('main', 'Название (русский)'),
+			'title_uk' => Yii::t('main', 'Название (украинский)'),
 			'aliases' => 'Aliases',
-			'parent_id' => Yii::t('main', 'Родительская категория'),
+			'parent_id' => 'Parent',
 		);
 	}
 
@@ -84,27 +86,15 @@ class Categories extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 
-        if ($this->id) {
-            $criteria->compare('t.id', $this->id);
-        }
-        if ($this->title_ru) {
-            $criteria->compare('title_ru', $this->title_ru, true);
+		if ($this->title_ru) {
+            $criteria->compare('title_ru',$this->title_ru,true);
         }
         if ($this->title_uk) {
-            $criteria->compare('title_uk', $this->title_uk, true);
-        }
-        if ($this->parent_id) {
-            $criteria->compare('parent_id', $this->parent_id);
+            $criteria->compare('title_uk',$this->title_uk,true);
         }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-            'sort' => array(
-                'defaultOrder' => 'title_ru ASC',
-            ),
-            'pagination' => array(
-                'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ),
 		));
 	}
 
@@ -112,15 +102,18 @@ class Categories extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Categories the static model class
+	 * @return CategoryNews the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-    public function getParentsCategories()
+    public function getCategories()
     {
-        return CHtml::listData(Categories::model()->findAll('parent_id IS NULL'), 'id', 'title_ru');
+        $criteria = new CDbCriteria();
+        $criteria->order = 'title_ru';
+
+        return CHtml::listData($this->findAll($criteria), 'id', 'title_ru');
     }
 }

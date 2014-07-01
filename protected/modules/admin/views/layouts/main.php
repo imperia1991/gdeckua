@@ -30,6 +30,10 @@
                         array('label'=>'Статистика', 'url'=>'/admin/statistics', 'active' => $this->menuActive == 'statistic', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Категории', 'url'=>'/admin/category', 'active' => $this->menuActive == 'category', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Комментарии', 'url'=>'/admin/comments', 'active' => $this->menuActive == 'comments', 'visible' => Yii::app()->user->checkAccess('admin')),
+                        array('label'=>'Новости', 'url'=>'/admin/news', 'active' => $this->menuActive == 'news', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => array(
+                            array('label'=>'Новости', 'url'=>'/admin/news'),
+                            array('label'=>'Категории', 'url'=>'/admin/categoryNews'),
+                        )),
 //                        array('label'=>'Разработка', 'url'=>'/admin/develop', 'active' => $this->menuActive == 'develop', 'visible' => Yii::app()->user->checkAccess('admin')),
                         array('label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')),
                     ),

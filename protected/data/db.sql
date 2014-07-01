@@ -30,3 +30,29 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
 ALTER TABLE places ADD COLUMN alias VARCHAR(255) NULL AFTER address_uk;
+
+CREATE TABLE category_news (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	title_ru VARCHAR(255) NOT NULL,
+	title_uk VARCHAR(255) NOT NULL,
+	aliases VARCHAR(255) NOT NULL,
+	parent_id INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (id),
+	INDEX FK_category_news (parent_id),
+	CONSTRAINT FK_category_news FOREIGN KEY (parent_id) REFERENCES category_news (id) ON UPDATE SET NULL ON DELETE SET NULL
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE news (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	category_news_id INT(11) NULL DEFAULT NULL,
+	title VARCHAR(255) NOT NULL,
+	text TEXT NOT NULL,
+	created_at DATETIME NOT NULL,
+	is_deleted TINYINT(4) NOT NULL,
+	PRIMARY KEY (id),
+	INDEX FK_news_category_news (category_news_id),
+	CONSTRAINT FK_news_category_news FOREIGN KEY (category_news_id) REFERENCES category_news (id) ON UPDATE SET NULL ON DELETE SET NULL
+)
+ENGINE=InnoDB;
