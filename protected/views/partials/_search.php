@@ -22,13 +22,13 @@ echo $form->textField($model, 'search', array(
 ));
 ?>
 <?php
-echo CHtml::dropDownList('districts', $selectDistrict, $districts, array('empty' => 'Весь город'));
+//echo CHtml::dropDownList('districts', $selectDistrict, $districts, array('empty' => 'Весь город'));
 ?>
 
 <?php echo CHtml::submitButton(Yii::t('main', 'Поиск'), array('name' => '')); ?>
 
 <?php $this->endWidget(); ?>
 
-<?php if ($checkedString): ?>
+<?php /* if ($checkedString): ?>
     "Возможно вы имели ввиду: <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?search=' . urlencode($checkedString) . '&districts=' . $selectDistrict) ?>"><?php echo $checkedString; ?></a>";
-<?php endif; ?>
+<?php endif; */ ?>

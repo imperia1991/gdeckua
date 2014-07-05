@@ -2,3 +2,5 @@
 /protected/runtime
 /protected/config/local.php
 /framework
+/.idea
+/uploads

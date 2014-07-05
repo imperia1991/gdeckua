@@ -15,74 +15,70 @@ class NewsController extends AdminController
         $newsModel = new News();
         $categoriesModel = new CategoryNews();
 
+        if (Yii::app()->request->isAjaxRequest) {
+            $get = Yii::app()->request->getQuery('News');
+
+            $newsModel->setAttributes($get);
+        }
+
         $this->render('index', array(
                 'newsModel' => $newsModel,
                 'categoriesModel' => $categoriesModel,
             ));
     }
 
-    public function actionCategories()
+    public function actionCreate()
     {
-        $categoriesModel = new Categories();
+        $newsModel = new News();
 
-        $this->render('indexCategories', array(
-                'categoriesModel' => $categoriesModel,
-            ));
+        $this->processForm($newsModel);
     }
 
-    public function actionCreateCategory()
-    {
-        $categoryModel = new CategoryNews();
-
-        $this->processFormCategory($categoryModel);    }
-
-    public function actionUpdateCategory()
+    public function actionUpdate()
     {
         $id = Yii::app()->request->getQuery('id', 0);
 
-        $categoryModel = CategoryNews::model()->findByPk((int) $id);
+        $newsModel = News::model()->findByPk((int) $id);
 
-        $this->processFormCategory($categoryModel);
+        $this->processForm($newsModel);
     }
 
-    public function actionDeleteCategory()
+    public function actionDelete()
     {
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getQuery('id');
 
-            CategoryNews::model()->deleteByPk((int)$id);
+            News::model()->deleteByPk((int)$id);
 
-            Yii::app()->user->setFlash('success', 'Категория удалена');
+            Yii::app()->user->setFlash('success', 'Новость удалена');
 
             Yii::app()->end();
         }
     }
 
-    private function processFormCategory($categoryModel)
+    /** @var News $newsModel */
+    private function processForm($newsModel)
     {
-        /** @car CategoryNews $categoryModel */
-        if (Yii::app()->request->isAjaxRequest) {
-            $get = Yii::app()->request->getQuery('CategoryNews');
-
-            $categoryModel->setAttributes($get);
-        }
-
         if (Yii::app()->request->isPostRequest) {
-            $post = Yii::app()->request->getPost('CategoryNews');
+            $post = Yii::app()->request->getPost('News');
 
-            /** @var Categories $model */
-            $categoryModel->setAttributes($post);
+            $newsModel->setAttributes($post);
 
-            $isNewRecord = $categoryModel->isNewRecord;
-            if ($categoryModel->save()) {
-                Yii::app()->user->setFlash('success', $isNewRecord ? 'Категория добавлена' : 'Название категории изменено');
+            $isNewRecord = $newsModel->isNewRecord;
+            if ($newsModel->save()) {
+                Yii::app()->user->setFlash('success', $isNewRecord ? 'Новость добавлена' : 'Новость изменена');
 
-                $this->redirect($this->createUrl('/admin/categories'));
+                $this->redirect($this->createUrl('/admin/news'));
+            } else {
+                Yii::app()->user->setFlash('error', 'Допущены ошибки при вводе новости. Исправьте их.');
             }
         }
 
-        $this->render('categoryForm', array(
-            'categoryModel' => $categoryModel,
+        $categories = CHtml::listData(CategoryNews::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
+
+        $this->render('form', array(
+            'newsModel' => $newsModel,
+            'categories' => $categories,
         ));
     }
 }

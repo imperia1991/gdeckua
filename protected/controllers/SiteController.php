@@ -115,7 +115,7 @@ class SiteController extends Controller
             if (Yii::app()->request->isAjaxRequest) {
                 echo $error['message'];
             } else {
-                $this->render('error', $error);
+                $this->render('/system/error' . $error['code'], $error);
             }
         }
     }
@@ -336,6 +336,15 @@ class SiteController extends Controller
         }
 
         Yii::app()->end();
+    }
+
+    public function actionAbout()
+    {
+        $settingsModel = Settings::model()->find();
+
+        $this->render('about', array(
+            'settingsModel' => $settingsModel
+            ));
     }
 
     private function checkedSearchString($search)

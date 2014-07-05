@@ -7,7 +7,7 @@
 </div>
 <div class="row">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/news/createCategory', 'label'=> 'Добавить категорию')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/news/createNews', 'label'=> 'Добавить новость')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/news/create', 'label'=> 'Добавить новость')); ?>
 </div>
 <div class="row">
     <?php $this->widget(

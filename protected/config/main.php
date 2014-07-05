@@ -23,6 +23,8 @@ $mainConfig = array(
         'ext.Scalar.*',
         'application.extensions.CAdvancedArFindBehavior',
         'ext.easyimage.EasyImage',
+        'ext.tinymce.*',
+        'ext.elFinder.*',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -71,6 +73,7 @@ $mainConfig = array(
             'urlFormat' => 'path',
             'rules' => array(
                 '<module:(admin)>' => '<module>/default/index',
+                '<module:(admin)>/sitemap.xml' => '<module>/sitemap/index',
                 '<module:(admin)>/<controller:\w+>' => '<module>/<controller>/index',
                 '<module:(admin)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<language:(ru|uk)>/' => 'site/index',

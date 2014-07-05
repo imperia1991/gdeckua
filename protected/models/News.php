@@ -43,7 +43,8 @@ class News extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, text, created_at, category_news_id', 'required'),
+            array('title, created_at, category_news_id', 'required'),
+            array('text', 'required', 'message' => 'Введите текст новости'),
             array('category_news_id, is_deleted', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 255),
             // The following rule is used by search().
@@ -79,14 +80,6 @@ class News extends ActiveRecord
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
@@ -94,15 +87,31 @@ class News extends ActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('category_news_id', $this->category_news_id);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('text', $this->text, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('is_deleted', $this->is_deleted);
+        if ($this->id) {
+            $criteria->compare('id', $this->id);
+        }
+
+        if ($this->category_news_id) {
+            $criteria->compare('category_news_id', $this->category_news_id);
+        }
+        if ($this->title) {
+            $criteria->compare('title', $this->title);
+        }
+        if ($this->created_at) {
+            $criteria->compare('created_at', $this->created_at);
+        }
+        if ($this->is_deleted) {
+            $criteria->compare('is_deleted', $this->is_deleted);
+        }
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'created_at DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ),
         ));
     }
 }

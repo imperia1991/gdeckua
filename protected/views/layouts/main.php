@@ -6,6 +6,7 @@
 	<title><?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?></title>
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
 	<meta name="description" content="Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид" />
+    <meta name='yandex-verification' content='72cc09e6d8e79d9c' />
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet">
     <link href="/css/jquery.jgrowl.css" rel="stylesheet">
