@@ -66,3 +66,39 @@
 -- 	PRIMARY KEY (id)
 -- )
 -- ENGINE=InnoDB;gdeckuagdeckua
+
+CREATE TABLE IF NOT EXISTS comments_news (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  message text NOT NULL,
+  created_at datetime NOT NULL,
+  news_id int(11) NOT NULL,
+  PRIMARY KEY (id),
+  KEY FK_news_comment_news (news_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS photo_blog (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  author varchar(255) NOT NULL,
+  caption varchar(255) NOT NULL,
+  created_at datetime NOT NULL,
+  is_deleted tinyint(1) NOT NULL DEFAULT '0',
+  type tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 - фото города, 2 - фото мероприятий',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS photo_blog_photos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  caption varchar(255) DEFAULT NULL,
+  photo_blog_id int(11) NOT NULL,
+  created_at datetime NOT NULL,
+  is_deleted tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
+  KEY FK_photo_blog_photos (photo_blog_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE comments_news
+  ADD CONSTRAINT FK_news_comment_news FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE photo_blog_photos
+  ADD CONSTRAINT FK_photo_blog_photos FOREIGN KEY (photo_blog_id) REFERENCES photo_blog (id) ON DELETE CASCADE ON UPDATE CASCADE;
