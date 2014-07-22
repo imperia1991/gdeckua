@@ -36,15 +36,24 @@ class Places extends ActiveRecord
     const SCENARIO_UK = 'uk';
     const SCENARIO_ADMIN = 'admin';
     const SCENARIO_GUEST = 'guest';
-
-    private $categories = array();
-
     public $search;
     public $districtId;
     public $verifyCode;
     public $images;
     public $photo;
     public $category_id;
+    private $categories = [];
+
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return Services the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
     /**
      * @return string the associated database table name
@@ -61,19 +70,35 @@ class Places extends ActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU),
-            array('title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK),
-            array('title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id', 'required', 'on' => self::SCENARIO_ADMIN),
-            array('is_deleted', 'numerical', 'integerOnly' => true),
-            array('title_ru, title_uk, alias', 'length', 'max' => 255),
-            array('user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search', 'safe'),
-            array('verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK),
-            array('images', 'required', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK, 'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')),
+        return [
+            ['title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU],
+            ['title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK],
+            [
+                'title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id',
+                'required',
+                'on' => self::SCENARIO_ADMIN
+            ],
+            ['is_deleted', 'numerical', 'integerOnly' => true],
+            ['title_ru, title_uk, alias', 'length', 'max' => 255],
+            [
+                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search',
+                'safe'
+            ],
+            ['verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK],
+            [
+                'images',
+                'required',
+                'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK,
+                'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')
+            ],
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo', 'safe', 'on' => 'search'),
-        );
+            [
+                'id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo',
+                'safe',
+                'on' => 'search'
+            ],
+        ];
     }
 
     /**
@@ -83,17 +108,17 @@ class Places extends ActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'country' => array(self::BELONGS_TO, 'Countries', 'country_id'),
-            'region' => array(self::BELONGS_TO, 'Regions', 'region_id'),
-            'city' => array(self::BELONGS_TO, 'Cities', 'city_id'),
-            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-            'tags' => array(self::HAS_ONE, 'PlaceTags', 'place_id'),
-            'photos' => array(self::HAS_MANY, 'Photos', 'place_id'),
-            'district' => array(self::BELONGS_TO, 'Districts', 'district_id'),
-            'placesCategories' => array(self::HAS_MANY, 'PlacesCategories', 'place_id'),
-            'comments' => array(self::HAS_MANY, 'Comments', 'place_id'),
-        );
+        return [
+            'country' => [self::BELONGS_TO, 'Countries', 'country_id'],
+            'region' => [self::BELONGS_TO, 'Regions', 'region_id'],
+            'city' => [self::BELONGS_TO, 'Cities', 'city_id'],
+            'user' => [self::BELONGS_TO, 'Users', 'user_id'],
+            'tags' => [self::HAS_ONE, 'PlaceTags', 'place_id'],
+            'photos' => [self::HAS_MANY, 'Photos', 'place_id'],
+            'district' => [self::BELONGS_TO, 'Districts', 'district_id'],
+            'placesCategories' => [self::HAS_MANY, 'PlacesCategories', 'place_id'],
+            'comments' => [self::HAS_MANY, 'Comments', 'place_id'],
+        ];
     }
 
     /**
@@ -101,7 +126,7 @@ class Places extends ActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('main', '№'),
             'user_id' => Yii::t('main', 'Пользователь'),
             'title_ru' => Yii::t('main', 'Название'),
@@ -126,7 +151,7 @@ class Places extends ActiveRecord
             'address_uk_admin' => Yii::t('main', 'Название (украинский)'),
             'category_id' => Yii::t('main', 'Категория'),
             'photo' => Yii::t('main', 'Фото'),
-        );
+        ];
     }
 
     /**
@@ -143,8 +168,6 @@ class Places extends ActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         if ($this->id) {
@@ -185,77 +208,58 @@ class Places extends ActiveRecord
             $criteria->together = true;
         }
         $criteria->together = true;
-        $criteria->with = array('photos', 'placesCategories');
+        $criteria->with = ['photos', 'placesCategories'];
 
         return new CActiveDataProvider($this,
-                array(
-                    'criteria' => $criteria,
-                    'sort' => array(
-                        'defaultOrder' => 'title_ru ASC',
-                    ),
-                    'pagination' => array(
-                        'pageSize' => Yii::app()->params['admin']['pageSize'],
-                    ),
-            ));
+            [
+                'criteria' => $criteria,
+                'sort' => [
+                    'defaultOrder' => 'title_ru ASC',
+                ],
+                'pagination' => [
+                    'pageSize' => Yii::app()->params['admin']['pageSize'],
+                ],
+            ]);
     }
 
     public function searchMain($isFirst = false)
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'is_deleted = 0';
-        $criteria->with = array('photos');
+        $criteria->with = ['photos'];
 
         if ($isFirst) {
             $criteria->order = 'RAND()';
         }
 
         return new CActiveDataProvider($this,
-                array(
-                    'criteria' => $criteria,
-                    'sort' => array(
-                        'defaultOrder' => 'title_' . Yii::app()->getLanguage() . ' ASC',
-                    ),
-                    'pagination' => array(
-                        'pageSize' => Yii::app()->params['pageSize'],
-                        'pageVar' => 'page',
-                        'route' => '/' . Yii::app()->getLanguage() . '/',
-                        'params' => array(),
-                    ),
-            ));
+            [
+                'criteria' => $criteria,
+                'sort' => [
+                    'defaultOrder' => 'title_' . Yii::app()->getLanguage() . ' ASC',
+                ],
+                'pagination' => [
+                    'pageSize' => Yii::app()->params['pageSize'],
+                    'pageVar' => 'page',
+                    'route' => '/' . Yii::app()->getLanguage() . '/',
+                    'params' => [],
+                ],
+            ]);
     }
 
-    /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
-     * @param string $className active record class name.
-     * @return Services the static model class
-     */
-    public static function model($className = __CLASS__)
+    public function getTotalItemCount()
     {
-        return parent::model($className);
-    }
-
-    protected function beforeSave()
-    {
-        if (parent::beforeSave()) {
-            $this->description_ru = nl2br($this->description_ru);
-            $this->description_uk = nl2br($this->description_uk);
-
-            return true;
-        }
-
-        return false;
+        return $this->count('is_deleted = 0');
     }
 
     public function getIsDeletes($all = true)
     {
         if ($all) {
-            return array(
+            return [
                 0 => 'Активно',
                 1 => 'Не активно'
-            );
-        }
-        else {
+            ];
+        } else {
             switch ($this->is_deleted) {
                 case 0:
                     return 'Активно';
@@ -274,15 +278,15 @@ class Places extends ActiveRecord
 
     public function getEmptyAddress()
     {
-        return array(
+        return [
             'notempty' => 'Заполнено',
             'empty' => 'Не заполнено'
-        );
+        ];
     }
 
     public function getCategories()
     {
-        $this->categories = CHtml::listData(Categories::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
+        $this->categories = CHtml::listData(Categories::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
         return $this->categories;
     }
@@ -293,7 +297,7 @@ class Places extends ActiveRecord
             return null;
         }
 
-        $result = array();
+        $result = [];
         foreach ($this->placesCategories as $item) {
             $result[] = $item->category->title_ru;
         }
@@ -303,24 +307,36 @@ class Places extends ActiveRecord
 
     public function isPhoto()
     {
-        return array(
+        return [
             'photo' => 'С фото',
             'notPhoto' => 'Без фото'
-        );
+        ];
     }
 
     public function getCategoriesSelected()
     {
         if (!count($this->placesCategories)) {
-            return array();
+            return [];
         }
 
-        $result = array();
+        $result = [];
         foreach ($this->placesCategories as $item) {
-            $result[$item->category_id] = array('selected' => 'selected');
+            $result[$item->category_id] = ['selected' => 'selected'];
         }
 
         return $result;
+    }
+
+    protected function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            $this->description_ru = nl2br($this->description_ru);
+            $this->description_uk = nl2br($this->description_uk);
+
+            return true;
+        }
+
+        return false;
     }
 
 }

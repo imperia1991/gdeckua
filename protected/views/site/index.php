@@ -1,39 +1,30 @@
 <?php
-$this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введите, например "Кафе Крещатик"');
+$this->pageTitle = $model->search ? $model->search : Yii::t('main', 'Введите, что ищете');
 ?>
 
 <?php $this->renderPartial('/partials/_welcome_' . Yii::app()->language); ?>
 
 <div class="search-block">
 <?php
-$this->renderPartial('/partials/_search', array(
-    'dataProvider' => $dataProvider,
-    'currentPage' => ($dataProvider->getPagination()->currentPage + 1),
-    'model' => $model,
-    'selectDistrict' => $selectDistrict,
-    'districts' => $districts,
-    'checkedString' => $checkedString
-));
-
-$currentPage = ($dataProvider->getPagination()->currentPage + 1);
+$currentPage = is_object($this->dataProvider) ? ($this->dataProvider->getPagination()->currentPage + 1) : 0;
 ?>
 </div>
 <div class="container">
     <div class="content">
         <div id="placeMap" class="map-wrap">
             <?php
-                $this->renderPartial('partials/_map', array(
-                    'dataProvider' => $dataProvider,
+                $this->renderPartial('partials/_map', [
+                    'dataProvider' => $this->dataProvider,
                     'model' => $model,
                     'selectDistrict' => $selectDistrict,
-                ));
+                ]);
             ?>
         </div>
     </div>
     <div class="line"></div>
     <div class="pagination">
             <?php
-            $this->widget('CLinkPager', array(
+            $this->widget('CLinkPager', [
                 'pages' => $dataProvider->getPagination(),
 //                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
                 'header' => '',
@@ -50,7 +41,7 @@ $currentPage = ($dataProvider->getPagination()->currentPage + 1);
                 'lastPageLabel' => '>>',
                 'nextPageCssClass' => 'next',
                 'maxButtonCount' => 11
-            ));
+            ]);
             ?>
     </div>
     <div class="line"></div>

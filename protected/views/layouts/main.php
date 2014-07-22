@@ -7,70 +7,86 @@
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
 	<meta name="description" content="Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид" />
     <meta name='yandex-verification' content='72cc09e6d8e79d9c' />
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet">
-    <link href="/css/jquery.jgrowl.css" rel="stylesheet">
-    <link href="/css/highslide.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/foundation.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+    <link rel="stylesheet" href="/css/scroll.css" />
+    <link rel="stylesheet" href="/css/jquery.searchselect.css">
     <link href="/css/custom.css" rel="stylesheet">
 
+    <script src="/js/vendor/modernizr.js"></script>
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-    <script type="text/javascript" src="/js/jquery.mCustomScrollbar.min.js"></script>
-    <script type="text/javascript" src="/js/highslide-with-gallery.js"></script>
-    <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
+    <script src="/js/jquery.slimscroll.min.js"></script>
+    <script src="/js/jquery.searchselect.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
-    <script type="text/javascript">
-        hs.graphicsDir = '/js/graphics/';
-        hs.showCredits = false;
-        hs.align = 'center';
-        hs.transitions = ['expand', 'crossfade'];
-        hs.fadeInOut = true;
-        hs.outlineType = 'glossy-dark';
-        hs.wrapperClassName = 'dark';
-        //hs.captionEval = 'this.a.title';
-        //hs.numberPosition = 'caption';
-        hs.useBox = true;
-        hs.width = 600;
-        hs.height = 400;
-        hs.dimmingOpacity = 0.8;
 
-        // Add the slideshow providing the controlbar and the thumbstrip
-        hs.addSlideshow({
-            //slideshowGroup: 'group1',
-            interval: 5000,
-            repeat: false,
-            useControls: true,
-            fixedControls: 'fit',
-            overlayOptions: {
-                position: 'bottom center',
-                opacity: 0.75,
-                hideOnMouseOut: true
-            },
-            thumbstrip: {
-                position: 'above',
-                mode: 'horizontal',
-                relativeTo: 'expander'
-            }
-        });
-    </script>
+<!--    <script>-->
+<!--        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+<!--        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+<!--        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+<!--        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+<!---->
+<!--        ga('create', 'UA-50948800-1', 'gde.ck.ua');-->
+<!--        ga('send', 'pageview');-->
+<!---->
+<!--    </script>-->
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-50948800-1', 'gde.ck.ua');
-        ga('send', 'pageview');
-
-    </script>
-
-    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.png" />
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/img/favicon.png" />
     <base href="<?php echo Yii::app()->baseUrl; ?>">
 </head>
 
 <body>
+    <header>
+        <div class="top-menu">
+            <div class="row collapse top-menu">
+                <div class="large-12 columns">
+                    <nav class="top-bar" data-topbar>
+                        <ul class="title-area">
+                            <li class="name">
+                                <h1></h1>
+                            </li>
+                            <li class="toggle-topbar menu-icon"><a href="#"><?php echo Yii::t('main', 'Меню'); ?></a></li>
+                        </ul>
+
+                        <section class="top-bar-section">
+                            <!-- Right Nav Section -->
+                            <div class="right currency">
+                                <a href="#"><img src="/img/soc-fb.png" alt=""></a>
+                                <a href="#"><img src="/img/soc-vk.png" alt=""></a>
+                                <a href="#"><img src="/img/soc-odn.png" alt=""></a>
+                                <a href="#"><img src="/img/soc-twitter.png" alt=""></a>
+                                <a href="#"><img src="/img/soc-google.png" alt=""></a>
+                                <a href="#"><img src="/img/soc-mailru.png" alt=""></a>
+                            </div>
+                            <div class="right lang">
+                                <a href="#"><img src="/img/lang-ru.png" alt=""></a>
+                                <a href="#"><img src="/img/lang-ua.png" alt=""></a>
+                            </div>
+                            <!-- Left Nav Section -->
+                            <ul class="left">
+                                <li><a href="/"><?php echo Yii::t('main', 'Главная'); ?></a></li>
+                                <li><a href="#"><?php echo Yii::t('main', 'Новости'); ?></a></li>
+                                <li><a href="#"><?php echo Yii::t('main', 'Веб-камера'); ?></a></li>
+                                <li class="last-menu-item"><a href="Page2(о проекте).html"><?php echo Yii::t('main', 'О проекте'); ?></a></li>
+                                <li><a href="#"><?php echo Yii::t('main', 'ДОБАВИТЬ ОБЪЕКТ'); ?></a></li>
+                            </ul>
+                        </section>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="row collapse search-panel">
+            <div class="large-3 columns">
+                <a href="/"><img src="/img/logo.png"></a>
+                <p><?php echo Yii::t('main', 'Уже'); ?> <?php echo Yii::app()->session['totalItemCount']; ?> <?php echo CHtml::encode(Yii::t('main', 'объектов')); ?></p>
+            </div>
+            <div class="large-9 columns">
+                <?php $this->renderPartial('/partials/_search', []); ?>
+            </div>
+        </div>
+    </header>
 <div class="wrapper">
     <?php $this->renderPartial('/partials/_language'); ?>
     <div class="header-bg">
@@ -157,30 +173,30 @@
     </div>
 </div><!-- .footer -->
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter24984920 = new Ya.Metrika({id:24984920,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true});
-        } catch(e) { }
-    });
-
-    var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-    if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-})(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="//mc.yandex.ru/watch/24984920" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!--<script type="text/javascript">-->
+<!--(function (d, w, c) {-->
+<!--    (w[c] = w[c] || []).push(function() {-->
+<!--        try {-->
+<!--            w.yaCounter24984920 = new Ya.Metrika({id:24984920,-->
+<!--                    clickmap:true,-->
+<!--                    trackLinks:true,-->
+<!--                    accurateTrackBounce:true});-->
+<!--        } catch(e) { }-->
+<!--    });-->
+<!---->
+<!--    var n = d.getElementsByTagName("script")[0],-->
+<!--        s = d.createElement("script"),-->
+<!--        f = function () { n.parentNode.insertBefore(s, n); };-->
+<!--    s.type = "text/javascript";-->
+<!--    s.async = true;-->
+<!--    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";-->
+<!---->
+<!--    if (w.opera == "[object Opera]") {-->
+<!--        d.addEventListener("DOMContentLoaded", f, false);-->
+<!--    } else { f(); }-->
+<!--})(document, window, "yandex_metrika_callbacks");-->
+<!--</script>-->
+<!--<noscript><div><img src="//mc.yandex.ru/watch/24984920" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
 </body>
 </html>

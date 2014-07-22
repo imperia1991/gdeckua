@@ -24,12 +24,13 @@ class Controller extends CController
      * for more details on how to specify this property.
      */
     public $breadcrumbs = array();
-
     public $modelUser;
-
     public $keywords;
-
     public $feedback;
+    public $districts;
+    public $modelPlaces;
+    public $selectDistrict = '';
+    public $checkedString = '';
 
     public function __construct($id, $module = null)
     {
@@ -69,6 +70,18 @@ class Controller extends CController
         new JsTrans('main', Yii::app()->language, Yii::app()->language);
 
         $this->feedback = new Feedback();
+
+        if (!isset(Yii::app()->session['totalItemCount'])) {
+            Yii::app()->session['totalItemCount'] = (new Places())->getTotalItemCount();
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 'title_' . Yii::app()->getLanguage() . ' ASC';
+        $this->districts = CHtml::listData(
+            Districts::model()->findAllByAttributes([], $criteria),
+            'id',
+            'title_' . Yii::app()->getLanguage()
+        );
     }
 
     public function createMultilanguageReturnUrl($lang = 'ru')

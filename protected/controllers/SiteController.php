@@ -39,14 +39,14 @@ class SiteController extends Controller
      */
     public function actions()
     {
-        return array(
+        return [
             // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => array(
+            'captcha' => [
                 'class' => 'CCaptchaAction',
                 'backColor' => 0x494949,
                 'foreColor' => 0xFFFFFF
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -55,54 +55,43 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = new Places();
-        $model->search = Yii::app()->request->getQuery('search', '');
-        $selectDistrict = Yii::app()->request->getQuery('districts', '');
+        $this->modelPlaces = new Places();
+        $this->modelPlaces->search = Yii::app()->request->getQuery('search', '');
+        $this->selectDistrict = Yii::app()->request->getQuery('districts', '');
 
-        $results = array();
-        if ($model->search || $selectDistrict) {
-            if ($model->search) {
+        $results = [];
+        if ($this->modelPlaces->search || $this->selectDistrict) {
+            if ($this->modelPlaces->search) {
                 $statistics = new WordStatistics();
-                $statistics->words = $model->search;
+                $statistics->words = $this->modelPlaces->search;
                 $statistics->save();
                 unset($statistics);
             }
 
             $controller = Yii::app()->createController('/search');
-            $results = $controller[0]->search($model->search, $selectDistrict);
+            $results = $controller[0]->search($this->modelPlaces->search, $this->selectDistrict);
 
             $dataProvider = new CArrayDataProvider(
                 $results['results'],
-                array(
-                    'pagination' => array(
+                [
+                    'pagination' => [
                         'pageSize' => Yii::app()->params['pageSize'],
-                    ),
-                )
+                    ],
+                ]
             );
         } else {
             $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
-            $dataProvider = $model->searchMain($isFirst);
+            $dataProvider = $this->modelPlaces->searchMain($isFirst);
         }
 
-        $criteria = new CDbCriteria();
-        $criteria->order = 'title_' . Yii::app()->getLanguage() . ' ASC';
-        $districts = CHtml::listData(
-            Districts::model()->findAllByAttributes(array(), $criteria),
-            'id',
-            'title_' . Yii::app()->getLanguage()
-        );
+        $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
 
         $this->render(
             'index',
-            array(
-                'model' => $model,
-                'search' => $model->search,
+            [
                 'results' => $results,
                 'dataProvider' => $dataProvider,
-                'districts' => $districts,
-                'selectDistrict' => $selectDistrict,
-                'checkedString' => $this->checkedSearchString($model->search)
-            )
+            ]
         );
     }
 
