@@ -6,20 +6,12 @@ if (!Yii::app()->request->queryString) {
     $url = '/' . $tmp[1];
 }
 ?>
-<?php /*
-<div class="flag">
-    <div style="float: right;">
-        <a href="<?php echo Yii::app()->baseUrl . '/ru' . $url; ?>" class="tooltip-rus">
-            <i class="rus"></i>
-            <span>Русский</span>
-        </a>
-        <a href="<?php echo Yii::app()->baseUrl . '/uk' . $url; ?>" class="tooltip-ua">
-            <i class="ua"></i>
-            <span>Українська</span>
-        </a>
-    </div>
-</div>
- *
- */?>
+
+<a href="<?php echo Yii::app()->baseUrl . '/ru' . $url; ?>">
+    <img src="/img/lang-ru.png" alt="Русский" title="Русский">
+</a>
+<a href="<?php echo Yii::app()->baseUrl . '/uk' . $url; ?>">
+    <img src="/img/lang-ua.png" alt="Українська" title="Українська">
+</a>
 
 

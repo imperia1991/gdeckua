@@ -16,7 +16,8 @@ if (isset($data->photos) && is_array($data->photos)) {
     $this->keywords .= $data->{$title} . ', ';
 }
 
-$photos = array();
+$photos = [];
+
 if (isset($data->photos) && is_array($data->photos)) {
     foreach ($data->photos as $photo) {
         $photos[] = '/' . Yii::app()->params['admin']['files']['images'] . $photo->title;
@@ -33,44 +34,64 @@ if (isset($data->photos) && is_array($data->photos)) {
             $index++;
             $photoTitle = $photoTitleString . $data->place_id . '_' . $index;
         }
+
+        echo '<pre>';
+        print_r($photos);
+        echo '</pre>';exit;
     } catch (Zend_Search_Lucene_Exception $e){
 
     }
 }
 ?>
 
-<li item="<?php echo $data->id; ?>" onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)" class="highslide-gallery" style="cursor: pointer;">
-    <a id="thumb<?php echo $placeId; ?>" href="<?php echo $photos[0]; ?>" class="big-photo" onclick="return hs.expand(this, { thumbnailId: 'thumb<?php echo $placeId; ?>', slideshowGroup: <?php echo $placeId; ?> })">
-        <?php
-        echo Yii::app()->easyImage->thumbOf($photos[0],
-            array(
-                'resize' => array('width' => 150, 'height' => 150),
-                'crop' => array('width' => 97, 'height' => 99),
-                'quality' => 100,
-        ));
-        ?>
-        <i class="enlarge"><?php echo Yii::t('main', 'Увеличить'); ?></i>
-    </a>
-    <div class="hidden-container">
-        <?php $index = 0; foreach ($photos as $photo): ?>
-        <?php if ($index++ == 0) continue; ?>
-        <a href="<?php echo $photo; ?>" onclick="return hs.expand(this, { thumbnailId: 'thumb<?php echo $placeId; ?>', slideshowGroup: <?php echo $placeId; ?> })">
-            <?php
-            echo CHtml::image($photo, CHtml::encode($data->{$title}));
-            ?>
-        </a>
-        <?php endforeach; ?>
-    </div>
+<div class="large-12 medium-12 small-12 columns establishment">
+    <div class="establishment-box" item="<?php echo $data->id; ?>">
+        <div class="row collapse">
+            <div class="columns right-text">
+                <div class="columns left-img">
+                    <ul class="clearing-thumbs">
+                        <li>
+                            <a href="<?php
+                            echo Yii::app()->easyImage->thumbSrcOf($photos[0],
+                                [
+                                    'resize' => ['width' => 800, 'height' => 600],
+                                    'quality' => 100,
+                                ]);
+                            ?>" class="gallery" title="<?php echo CHtml::encode($data->{$title}); ?>">
+                                <?php
+                                echo Yii::app()->easyImage->thumbOf($photos[0],
+                                    [
+                                        'resize' => ['width' => 150, 'height' => 150],
+                                        'crop' => ['width' => 100, 'height' => 100],
+                                        'quality' => 100,
+                                    ]);
+                                ?>
+                                <span class="enlarge">
+                                    <img src="img/large.png">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <h6>
+                    <b>
+                        <a href="<?php echo $url . '/' . $placeId . '/' . $data->alias; ?>" target="_blank">
+                            <?php echo CHtml::encode($data->{$title}); ?>
+                        </a>
+                    </b>
+                </h6>
 
-    <div class="item">
-        <h1><?php echo CHtml::encode($data->{$title}); ?></h1>
-        <div class="address">
-            <span><?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district); ?>,</span>
-            <span><?php echo CHtml::encode($data->{$address}); ?></span>
-            <span><?php echo CHtml::encode($data->{$description}); ?></span>
+                <div class="information">
+                    <p>
+                        <?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district); ?><br>
+                        <?php echo CHtml::encode($data->{$address}); ?><br>
+                        <?php echo CHtml::encode($data->{$description}); ?>
+                    </p>
+                </div>
+                <div class="view-item">
+                    <a href="<?php echo $url . '/' . $placeId . '/' . $data->alias; ?>" align="center" data-dropdown="drop3" target="_blank"><?php echo Yii::t('main', 'Показать на отдельной странице'); ?>></a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="view-item">
-        <?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $placeId . '/' . $data->alias, array('target' => '_blank')); ?>
-    </div>
-</li>
+</div>

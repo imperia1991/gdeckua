@@ -1250,41 +1250,52 @@ width: 33.3%;
 	text-align: center;
 }
 
-.left-sector-error .error {
-	padding: 200px;
-	padding-top: 160px;
-	padding-right: 240px;
-	margin: 40px auto;
-	height: 100%;
-	width: 100%;
-	background: url(../img/error-bg.png) no-repeat center;
+
+.error {
+	width: 700px;
+	height: 570px;
+	background: url(../img/error-bg.png) no-repeat right;
 }
 
-.left-sector-error .error p {
+.error ul {
+	padding-top: 140px;
+	list-style: none;
+	vertical-align: middle;
+}
+
+.error ul li {
 	color: #fff;
 	font-size: 1.1em;
 	font-weight: 800;
 	line-height: 0.9;
 }
 
-.left-sector-error p.large-font-error {
+.error ul li.large-font-error {
 	color: #16af1a;
-	margin-top: -20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	font-family: arial;
-	font-size: 120pt;
+	font-size: 130pt;
 }
 
 .left-sector-error p a {
-	color: #333;
+	text-align: center;
+}
+
+.left-sector-error div:last-child {
+	width: 700px;
+	height: auto;
+	margin-top: 0px;
+	text-align: center;
+}
+
+.left-sector-error div:last-child a {
 	font-size: 1.1em;
-	font-weight: 800;
-	line-height: 1;
+	color: #666;
+	font-weight: 800; 
 	text-decoration: underline;
 }
 
-.left-sector-error p a:hover {
-	color: blue;
-}
 
 
 /***************************************Error Page*****************************/

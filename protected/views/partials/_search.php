@@ -24,7 +24,7 @@ $form = $this->beginWidget('CActiveForm', [
         ?>
     </div>
     <div class="large-1 medium-1 small-2 columns">
-        <?php echo CHtml::submitButton(Yii::t('main', 'Поиск'), ['name' => '', 'class' => 'button postfix']); ?>
+        <?php echo CHtml::submitButton(Yii::t('main', 'найти'), ['name' => '', 'class' => 'button postfix']); ?>
     </div>
 </div>
 <?php $this->endWidget(); ?>

@@ -12,12 +12,14 @@
     <link rel="stylesheet" href="/css/mobile.css" />
     <link rel="stylesheet" href="/css/scroll.css" />
     <link rel="stylesheet" href="/css/jquery.searchselect.css">
+    <link rel="stylesheet" href="/css/colorbox.css">
     <link href="/css/custom.css" rel="stylesheet">
 
     <script src="/js/vendor/modernizr.js"></script>
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <script src="/js/jquery.slimscroll.min.js"></script>
     <script src="/js/jquery.searchselect.min.js"></script>
+    <script src="/js/jquery.colorbox-min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
 
@@ -60,8 +62,7 @@
                                 <a href="#"><img src="/img/soc-mailru.png" alt=""></a>
                             </div>
                             <div class="right lang">
-                                <a href="#"><img src="/img/lang-ru.png" alt=""></a>
-                                <a href="#"><img src="/img/lang-ua.png" alt=""></a>
+                                <?php $this->renderPartial('/partials/_language'); ?>
                             </div>
                             <!-- Left Nav Section -->
                             <ul class="left">
@@ -87,91 +88,186 @@
             </div>
         </div>
     </header>
-<div class="wrapper">
-    <?php $this->renderPartial('/partials/_language'); ?>
-    <div class="header-bg">
-        <div class="header">
-            <a href="/">
-                <img class="d" src="/images/logo_<?php echo Yii::app()->language ?>.png" alt="<?php echo CHtml::encode(Yii::t('main', Yii::app()->name)); ?>">
-            </a>
-        </div>
-    </div><!-- .header-->
-    <div class="middle">
 
-        <?php echo $content; ?>
-
-        <a href="#" class="tooltip-top">
-            <div class="back-top"><span><?php echo Yii::t('main', 'Наверх'); ?></span></div>
-        </a>
+    <!-- REKLAMA -->
+    <div class="row collapse">
+        <?php $this->renderPartial('/partials/_ads'); ?>
     </div>
-</div>
-<div class="footer-bg">
-    <div class="footer">
-        <div class="footer-wrap">
-            <?php echo Yii::app()->request->serverName; ?> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> © <?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?>
-            <a href="#feedback" class="link call-popup"><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></a>
-            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>" class="link" style="border-right: none;"><?php echo CHtml::encode(Yii::t('main', 'Добавить объект')); ?></a>
-        </div>
-        <div class="popup popup-hidden" id="feedback">
-            <h2><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></h2>
-            <div class="block">
-                <a href="#" class="btn close-popup"><?php echo Yii::t('main', 'Закрыть'); ?></a>
+
+    <div id="content">
+        <div class="row content-inner">
+            <div class="row">
+                <?php echo $content; ?>
             </div>
-            <div class="popup-bg">
-                <?php
-                $feedback = $this->feedback;
-                ?>
-                <?php $form = $this->beginWidget('CActiveForm',
-                    array(
-                        'id' => 'feedback-form',
-                        'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/feedback'),
-                        'enableAjaxValidation' => false,
-                        'htmlOptions' => array(),
-                    )); ?>
-                    <?php echo $form->textField($feedback, 'name', array(
-                            'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
-                            'id' => 'name',
-                            'class' => 'message'
-                        ));
-                    ?>
-                    <label id="error_name" class="error" for="name"></label>
-                    <?php echo $form->textField($feedback, 'email', array(
-                            'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
-                            'id' => 'email',
-                            'class' => 'message'
-                        ));
-                    ?>
-                    <label id="error_email" class="error" for="email"></label>
-                    <?php echo $form->textArea($feedback, 'message', array(
-                            'placeholder' => Yii::t('main', 'Введите текст сообщения'),
-                            'id' => 'message',
-                            'rows' => 7,
-                            'class' => 'message'
-                        ));
-                    ?>
-                    <label id="error_message" class="error" for="message"></label>
-                    <div class="captcha-wrap">
-                        <?if(CCaptcha::checkRequirements()):?>
-                            <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
-                        <?endif?>
-                        <br/>
-                        <label id="error_verifyCode" class="error" for="verifyCode"></label>
+        </div>
+    </div>
+
+    <footer>
+        <div class="some-text">
+            <div class="row">
+                <hr>
+                <div class="large-12 columns">
+                    <p>
+                        <?php $this->renderPartial('/partials/_find_' . Yii::app()->getLanguage()); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-menu">
+            <div class="row collapse">
+                <div class="large-12 columns">
+                    <div class="row collapse" id='cssmenu'>
+                        <div class="large-6  medium-12 small-12 columns">
+                            <p><a href="/">www.gde.ck.ua</a> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> ©<?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></p>
+                        </div>
+                        <div class='large-6 medium-12 small-12 columns'>
+                            <ul class="right">
+                                <li><a href='#'><span><?php echo Yii::t('main', 'Новости'); ?></span></a></li>
+                                <li><a href='<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>'><span><?php echo Yii::t('main', 'Добавить объект'); ?></span></a></li>
+                                <?php
+                                $feedback = $this->feedback;
+                                ?>
+                                <div id="back">
+                                    <a href="#" class="button close-button tiny"><?php echo Yii::t('main', 'Закрыть'); ?></a> <span><p><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></p></span>
+                                    <div class="input-form-footer">
+                                        <?php $form = $this->beginWidget('CActiveForm',
+                                            [
+                                                'id' => 'feedback-form',
+                                                'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/feedback'),
+                                                'enableAjaxValidation' => false,
+                                                'htmlOptions' => [],
+                                            ]); ?>
+                                            <div class="name-field">
+                                                <?php echo $form->textField($feedback, 'name', [
+                                                        'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
+                                                        'id' => 'name',
+                                                        'class' => 'message'
+                                                    ]);
+                                                ?>
+                                                <small id="error_name" class="error"></small>
+                                            </div>
+                                            <div class="name-field">
+                                                <?php echo $form->textField($feedback, 'email', [
+                                                        'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
+                                                        'id' => 'email',
+                                                        'class' => 'message'
+                                                    ]);
+                                                ?>
+                                                <small id="error_email" class="error"></small>
+                                            </div>
+                                            <div class="name-field">
+                                                <?php echo $form->textArea($feedback, 'message', [
+                                                        'placeholder' => Yii::t('main', 'Введите текст сообщения'),
+                                                        'id' => 'message',
+                                                        'class' => 'message'
+                                                    ]);
+                                                ?>
+                                                <small id="error_message" class="error">Ошибка</small>
+                                            </div>
+                                            <div class="row">
+                                                <div class="large-4 columns">
+                                                    <?if(CCaptcha::checkRequirements()):?>
+                                                        <?php $this->widget('CCaptcha', ['buttonLabel' => '']); ?>
+                                                    <?endif?>
+                                                </div>
+                                                <div class="large-8 columns">
+                                                    <a href="/site/captcha/refresh/1" class="button refresh small left"><?php echo Yii::t('main', 'Обновить'); ?></a>
+                                                </div>
+                                                <div class="large-8 columns">
+                                                    <div class="name-field">
+                                                        <?php echo $form->textField($feedback, 'verifyCode', [
+                                                                'placeholder' => Yii::t('main', 'Введите код с картинки'),
+                                                                'id' => 'verifyCode',
+                                                                'rows' => 7,
+                                                                'class' => 'captcha-input message'
+                                                            ]);
+                                                        ?>
+                                                        <small id="error_verifyCode" class="error">Ошибка</small>
+                                                    </div>
+                                                </div>
+                                                <div class="large-4 columns">
+                                                    <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'button refresh-button left']); ?>
+                                                </div>
+                                            </div>
+                                        <?php $this->endWidget('feedback'); ?>
+                                    </div>
+                                </div>
+                                <li><a href='javascript:void(0)' class="obratnaya"><span><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></span></a></li>
+                                <li><a href='#'><span><?php echo Yii::t('main', 'О проекте'); ?></span></a></li>
+                            </ul>
+                        </div>
+                        <?php $this->renderPartial('/partials/_notify'); ?>
                     </div>
-                    <?php echo $form->textField($feedback, 'verifyCode', array(
-                            'placeholder' => Yii::t('main', 'Введите код с картинки'),
-                            'id' => 'verifyCode',
-                            'rows' => 7,
-                            'class' => 'captcha-input message'
-                        ));
-                    ?>
-
-                    <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), array('class' => 'btn submit-popup')); ?>
-                <?php $this->endWidget('feedback'); ?>
+                </div>
             </div>
         </div>
-        <?php $this->renderPartial('/partials/_notify'); ?>
-    </div>
-</div><!-- .footer -->
+    </footer>
+
+    <script>
+        $(document).ready(function(){
+            $(".obratnaya").on('click', function(){
+                $("#back").slideToggle("slow");
+                $(this).toggleClass("active");
+                return false
+            });
+            $(".close-button").on('click', function(){
+                $("#back").slideToggle("slow");
+                return false
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            var columnHeight = $(".right-section-cont").height();
+            var showAllNews = $(".show-news").height();
+            var newsBlockHeight = $(".right-section").height();
+            $(".reklama-news-box img").height(columnHeight-showAllNews-newsBlockHeight);
+
+        });
+    </script>
+
+    <script>
+        (function($){
+            $(window).load(function(){
+                $(".scroll-pane").mCustomScrollbar({
+
+                });
+            });
+        })(jQuery);
+    </script>
+
+    <script type="text/javascript">
+        (function($){
+            $(window).load(function(){
+                $(".styled-select select .select-inner").mCustomScrollbar({
+
+
+                });
+            });
+        })(jQuery);
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var itemsMount = $(".establishment").length;
+            if($(itemsMount) <= 5){
+                $(".pagination-centered").hide();
+            }
+        });
+    </script>
+
+    <script src="/js/jquery.searchselect.min.js"></script>
+    <script src="/js/jquery.mCustomScrollbar.min.js"></script>
+    <script src="/js/jquery.mousewheel.min.js"></script>
+    <script src="/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+
+
+<!-- .footer -->
 <!-- Yandex.Metrika counter -->
 <!--<script type="text/javascript">-->
 <!--(function (d, w, c) {-->
