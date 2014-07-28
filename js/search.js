@@ -3,6 +3,17 @@ ymaps.ready(init);
 var placemarks = [];
 function init()
 {
+//    var newBalloonContentLayout = ymaps.templateLayoutFactory.createClass('<div id="tooltip"><div class="tooltip-inner">$[[options.contentBodyLayout]]</div></div>');
+//    var newBalloonLayout = ymaps.templateLayoutFactory.createClass(
+//        '<div id="tooltip"><div class="tooltip-inner"><div class="tooltip-title"><h1>$[titleText]</h1></div><div><div class="tooltip-description"><p>$[addressText]</p></div><div class="go-full">$[view]</div></div></div>', {
+//            build: function () {
+//                this.constructor.superclass.build.call(this);
+//            },
+//            clear: function () {
+//                this.constructor.superclass.clear.call(this);
+//            }
+//        });
+
 	placeMap = new ymaps.Map('placeMap', {
 		center: placeCenter,
 		zoom: 16
@@ -19,13 +30,15 @@ function init()
 		var placemark = new ymaps.Placemark(
             point.coords,
 			{
-                balloonContentHeader: point.header,
-				balloonContentBody: point.body,
-				balloonContentFooter: point.footer + '<br/>' + point.view,
+                balloonContentHeader: point.titleText,
+//                balloonContentBodyLayout: newBalloonContentBodyLayout,
+//                balloonContentLayout: newBalloonContentLayout,
+				balloonContentBody: point.addressText,
+				balloonContentFooter: point.view,
 				hintContent: point.text
             },
 			{
-                iconImageHref: '/images/blue1.png',
+                iconImageHref: '/img/blue1.png',
                 iconImageSize: [24, 34]
 			}
         );
@@ -34,7 +47,7 @@ function init()
 			.add('mouseenter', function (e) {
 				// Ссылку на объект, вызвавший событие,
 				// можно получить из поля 'target'.
-				e.get('target').options.set('iconImageHref', '/images/orrange1.png');
+				e.get('target').options.set('iconImageHref', '/img/orrange1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
 
                 var placeId = 0;
@@ -45,7 +58,7 @@ function init()
                 });
 
                 $('.item-active').removeClass('item-active');
-                $('.places li[item="' + placeId + '"]').addClass('item-active');
+                $('.places div[item="' + placeId + '"]').addClass('item-active');
 
 //                $('.places input[value="' + placeId + '"]').focus(function() {
 //                    alert(3);
@@ -53,13 +66,21 @@ function init()
 //                });
 			})
 			.add('mouseleave', function (e) {
-				e.get('target').options.set('iconImageHref', '/images/blue1.png');
+				e.get('target').options.set('iconImageHref', '/img/blue1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
 
                 $('.item-active').removeClass('item-active');
 			})
 			.add('click', function (e) {
-				e.get('target').options.set('iconImageHref', '/images/blue1.png');
+//                placeMap.balloon.open(e.get('coordPosition'), {
+//                    titleText: point.titleText,
+//                    addressText: point.addressText,
+//                    view: point.view
+//                }, {
+//                    layout: newBalloonLayout
+//                });
+
+				e.get('target').options.set('iconImageHref', '/img/blue1.png');
 				e.get('target').options.set('iconImageSize', [24, 34]);
 
                 var placeId = 0;
@@ -69,7 +90,7 @@ function init()
                     }
                 });
 
-                $('.places li[item="' + placeId + '"]').addClass('item-active');
+                $('.places div[item="' + placeId + '"]').addClass('item-active');
 
 
 			});
@@ -129,7 +150,7 @@ function clickPlacemark(id)
 			target: placemarks[id]
 	});
 
-//    $('.places li[item="' + id + '"]').addClass('item-active');
+    $('.places div[item="' + id + '"]').addClass('item-active');
 
 	placeMap.setCenter(placemarks[id].geometry.getCoordinates());
 	placeMap.setZoom(16);

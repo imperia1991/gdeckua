@@ -44,7 +44,7 @@ if (isset($data->photos) && is_array($data->photos)) {
 }
 ?>
 
-<div class="large-12 medium-12 small-12 columns establishment">
+<div class="large-12 medium-12 small-12 columns establishment" onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)">
     <div class="establishment-box" item="<?php echo $data->id; ?>">
         <div class="row collapse">
             <div class="columns right-text">
@@ -89,7 +89,7 @@ if (isset($data->photos) && is_array($data->photos)) {
                     </p>
                 </div>
                 <div class="view-item">
-                    <a href="<?php echo $url . '/' . $placeId . '/' . $data->alias; ?>" align="center" data-dropdown="drop3" target="_blank"><?php echo Yii::t('main', 'Показать на отдельной странице'); ?>></a>
+                    <a href="<?php echo $url . '/' . $placeId . '/' . $data->alias; ?>" align="center" data-dropdown="drop3" target="_blank"><?php echo Yii::t('main', 'Показать на отдельной странице'); ?></a>
                 </div>
             </div>
         </div>

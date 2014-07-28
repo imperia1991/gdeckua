@@ -144,7 +144,7 @@
                                                         'class' => 'message'
                                                     ]);
                                                 ?>
-                                                <small id="error_name" class="error"></small>
+                                                <label id="error_name" class="error"></label>
                                             </div>
                                             <div class="name-field">
                                                 <?php echo $form->textField($feedback, 'email', [
@@ -153,7 +153,7 @@
                                                         'class' => 'message'
                                                     ]);
                                                 ?>
-                                                <small id="error_email" class="error"></small>
+                                                <label id="error_email" class="error"></label>
                                             </div>
                                             <div class="name-field">
                                                 <?php echo $form->textArea($feedback, 'message', [
@@ -162,31 +162,35 @@
                                                         'class' => 'message'
                                                     ]);
                                                 ?>
-                                                <small id="error_message" class="error">Ошибка</small>
+                                                <label id="error_message" class="error">Ошибка</label>
                                             </div>
                                             <div class="row">
-                                                <div class="large-4 columns">
+                                                <div class="large-12 columns">
                                                     <?if(CCaptcha::checkRequirements()):?>
-                                                        <?php $this->widget('CCaptcha', ['buttonLabel' => '']); ?>
+                                                        <?php $this->widget('CCaptcha', ['buttonLabel' => Yii::t('main', 'Обновить'),
+                                                                'buttonOptions' => [
+                                                                    'class' => 'button refresh small left'
+                                                                ],
+                                                                'buttonType' => 'button'
+                                                            ]); ?>
                                                     <?endif?>
                                                 </div>
-                                                <div class="large-8 columns">
-                                                    <a href="/site/captcha/refresh/1" class="button refresh small left"><?php echo Yii::t('main', 'Обновить'); ?></a>
-                                                </div>
-                                                <div class="large-8 columns">
-                                                    <div class="name-field">
-                                                        <?php echo $form->textField($feedback, 'verifyCode', [
-                                                                'placeholder' => Yii::t('main', 'Введите код с картинки'),
-                                                                'id' => 'verifyCode',
-                                                                'rows' => 7,
-                                                                'class' => 'captcha-input message'
-                                                            ]);
-                                                        ?>
-                                                        <small id="error_verifyCode" class="error">Ошибка</small>
+                                                <div class="large-12 columns">
+                                                    <div class="name-field row">
+                                                        <div class="large-8 columns">
+                                                            <?php echo $form->textField($feedback, 'verifyCode', [
+                                                                    'placeholder' => Yii::t('main', 'Введите код с картинки'),
+                                                                    'id' => 'verifyCode',
+                                                                    'rows' => 7,
+                                                                    'class' => 'captcha-input message'
+                                                                ]);
+                                                            ?>
+                                                            <label id="error_verifyCode" class="error">Ошибка</label>
+                                                        </div>
+                                                        <div class="large-4 columns">
+                                                            <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'button refresh-button left']); ?>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="large-4 columns">
-                                                    <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'button refresh-button left']); ?>
                                                 </div>
                                             </div>
                                         <?php $this->endWidget('feedback'); ?>

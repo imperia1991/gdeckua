@@ -5,7 +5,7 @@ $localConfig = file_exists(dirname(__FILE__) . '/local.php') ? require_once(dirn
 Yii::setPathOfAlias('bootstrap', realpath(__DIR__ . '/../extensions/bootstrap'));
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-$mainConfig = array(
+$mainConfig = [
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Где в Черкассах?',
@@ -13,9 +13,9 @@ $mainConfig = array(
 //    'sourceLanguage' => 'ru',
 //    'language' => 'ru',
     // preloading 'log' component
-    'preload' => array('log'),
+    'preload' => ['log'],
     // autoloading model and component classes
-    'import' => array(
+    'import' => [
         'application.models.*',
         'application.components.*',
         'ext.mail.YiiMailMessage',
@@ -25,104 +25,105 @@ $mainConfig = array(
         'ext.easyimage.EasyImage',
         'ext.tinymce.*',
         'ext.elFinder.*',
-    ),
-    'modules' => array(
+    ],
+    'modules' => [
         // uncomment the following to enable the Gii tool
-        'gii' => array(
+        'gii' => [
             'class' => 'system.gii.GiiModule',
             'password' => '123456',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('127.0.0.1', '::1'),
-        ),
-        'admin' => array(
+            'ipFilters' => ['127.0.0.1', '::1'],
+        ],
+        'admin' => [
 //			'layout' => 'application.modules.admin.views.layouts.main',
-            'preload' => array('bootstrap'),
-            'components' => array(
-                'bootstrap' => array(
+            'preload' => ['bootstrap'],
+            'components' => [
+                'bootstrap' => [
                     'class' => 'bootstrap.components.Bootstrap',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
     // application components
-    'components' => array(
-        'user' => array(
+    'components' => [
+        'user' => [
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'class' => 'WebUser',
-        ),
-        'request' => array(
+        ],
+        'request' => [
             'enableCookieValidation' => true,
 //            'enableCsrfValidation' => true,
-        ),
-        'clientScript' => array(
-            'packages' => array(
-                'jquery' => array(
+        ],
+        'clientScript' => [
+            'packages' => [
+                'jquery' => [
                     'baseUrl' => '/js',
-                    'js' => array('jquery-1.11.1.min.js')
-                ),
+                    'js' => ['jquery-1.11.1.min.js']
+                ],
 //                'jquery.ui' => array(
 //                    'baseUrl' => '/libraries/jquery-ui-1.10.2.custom/js',
 //                    'js' => array('jquery-ui-1.10.2.custom.min.js')
 //                )
-            )
-        ),
+            ]
+        ],
         // uncomment the following to enable URLs in path-format
-        'urlManager' => array(
+        'urlManager' => [
             'showScriptName' => false,
             'urlFormat' => 'path',
-            'rules' => array(
+            'rules' => [
                 '<module:(admin)>' => '<module>/default/index',
                 '<module:(admin)>/sitemap.xml' => '<module>/sitemap/index',
                 '<module:(admin)>/<controller:\w+>' => '<module>/<controller>/index',
                 '<module:(admin)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<language:(ru|uk)>/' => 'site/index',
                 '<language:(ru|uk)>/page/<page:\d+>' => 'site/index',
+//                '<language:(ru|uk)>/view/object/<id:\d+>' => 'site/view',
                 '<language:(ru|uk)>/view/<id:\d+>/<alias>' => 'site/view',
                 '<language:(ru|uk)>/<action:\w+>/*' => 'site/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<language:(ru|uk)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<action:\w+>/*' => '<controller>/<action>',
-            ),
-        ),
+            ],
+        ],
 //        'db' => array(
 //            'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../data/testdrive.db',
 //        ),
         // uncomment the following to use a MySQL database
-        'db' => array(
+        'db' => [
             'connectionString' => 'mysql:host=gangstas.mysql.ukraine.com.ua;dbname=gangstas_gde',
             'emulatePrepare' => true,
             'username' => 'gangstas_gde',
             'password' => 'tflk4mrq',
             'charset' => 'utf8',
-        ),
-        'errorHandler' => array(
+        ],
+        'errorHandler' => [
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
-        ),
-        'log' => array(
+        ],
+        'log' => [
             'class' => 'CLogRouter',
-            'routes' => array(
-                array(
+            'routes' => [
+                [
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning',
-                ),
+                ],
             // uncomment the following to show log messages on web pages
             /*
               array(
               'class'=>'CWebLogRoute',
               ),
              */
-            ),
-        ),
-        'image' => array(
+            ],
+        ],
+        'image' => [
             'class' => 'application.extensions.image.CImageComponent',
             // GD or ImageMagick
             'driver' => 'GD',
             // ImageMagick setup path
-            'params' => array('directory' => '/imagemagick'),
-        ),
-        'mail' => array(
+            'params' => ['directory' => '/imagemagick'],
+        ],
+        'mail' => [
             'class' => 'ext.mail.YiiMail',
 //			'transportType' => 'smtp',
 //			'transportOptions'=>array(
@@ -135,44 +136,44 @@ $mainConfig = array(
             'viewPath' => 'application.views.mail',
             'logging' => true,
             'dryRun' => false
-        ),
-        'easyImage' => array(
+        ],
+        'easyImage' => [
             'class' => 'application.extensions.easyimage.EasyImage',
-        )
-    ),
+        ]
+    ],
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
-    'params' => array(
+    'params' => [
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         'supportEmail' => 'support@rabotenka.com.ua',
-        'languages' => array('ru' => 'Русский', 'uk' => 'Українська'),
+        'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
         'pageSize' => 12,
-        'admin' => array(
+        'admin' => [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
-            'files' => array(
+            'files' => [
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
-            ),
-            'images' => array(
-                'small' => array(
+            ],
+            'images' => [
+                'small' => [
                     'height' => 80,
                     'width' => 80,
-                ),
-                'middle' => array(
+                ],
+                'middle' => [
                     'height' => 195,
                     'width' => 195,
-                ),
-                'big' => array(
+                ],
+                'big' => [
                     'height' => 950,
                     'width' => 466,
-                ),
-                'allowedExtensions' => array('jpg', 'jpeg', 'png'),
+                ],
+                'allowedExtensions' => ['jpg', 'jpeg', 'png'],
                 'sizeLimit' => 2 * 1024 * 1024
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
 
 return is_array($localConfig) ? CMap::mergeArray($mainConfig, $localConfig) : $mainConfig;

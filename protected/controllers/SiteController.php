@@ -89,6 +89,7 @@ class SiteController extends Controller
         $this->render(
             'index',
             [
+                'model' => $this->modelPlaces,
                 'results' => $results,
                 'dataProvider' => $dataProvider,
             ]
@@ -100,6 +101,17 @@ class SiteController extends Controller
      */
     public function actionError()
     {
+        if (isset($_GET['object'])) {
+            $id = Yii::app()->request->getQuery('object', 0);
+            if ($id) {
+                $placeModel = Places::model()->findByPk($id);
+
+                if ($placeModel) {
+                    $this->redirect(Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/' . $placeModel->id . '/' . $placeModel->alias));
+                }
+            }
+        }
+
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest) {
                 echo $error['message'];
@@ -145,11 +157,11 @@ class SiteController extends Controller
 
         $this->render(
             'view',
-            array(
+            [
                 'model' => $model,
                 'comment' => $comment,
                 'districts' => $districts,
-            )
+            ]
         );
     }
 

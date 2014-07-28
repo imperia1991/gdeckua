@@ -27,7 +27,7 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
             <div class="row collapse mCustomScrollbar">
 <!-- LEFT SECTION -->
                 <div class="large-12 columns left-section scroll-pane">
-                    <div class="row collapse">
+                    <div class="row collapse places">
                         <?php foreach ($dataProvider->getData() as $data): ?>
                             <?php $this->renderPartial('partials/_item', ['data' => $data]); ?>
                         <?php endforeach; ?>
@@ -39,8 +39,15 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
 
 <!-- CENTRAL MAP -->
         <div class="large-6 small-12 columns central-content">
-            <div class="map-section">
-                <img src="/img/map.png">
+            <div id="placeMap" class="map-section">
+                <?php
+                $this->renderPartial('partials/_map', [
+                    'dataProvider' => $dataProvider,
+                    'model' => $model,
+                    'selectDistrict' => $this->selectDistrict,
+                ]);
+
+                ?>
             </div>
         </div>
 
@@ -51,7 +58,7 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
 
             <!-- news block -->
             <div class="right-section">
-                <h4>Новости</h4>
+                <h4><?php echo Yii::t('main', 'Новости'); ?></h4>
 
                 <div class="news-box row">
                     <div class="row collapse">
@@ -72,7 +79,7 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
                             <p>Всепришли на выборы что бы
                                 поддержать своего кандидата
                                 на пост главы города......</p>
-                            <a align="center" href="#">прочитать статью полностью</a>
+                            <a align="center" href="#"><?php echo Yii::t('main', 'прочитать статью полностью'); ?></a>
                         </div>
 
                     </div>
@@ -84,7 +91,7 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
             <!-- read more news -->
             <div class="row collapse show-news">
                 <div class="large-12 columns">
-                    <p><a href="#">Читать все новости</a></p>
+                    <p><a href="#"><?php echo Yii::t('main', 'Читать все новости'); ?></a></p>
                 </div>
             </div>
             <!-- read more news -->
@@ -126,59 +133,6 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
     ]);
 ?>
 </div>
-
-<!--</div>-->
-<!--<div class="container">-->
-<!--    <div class="content">-->
-<!--        <div id="placeMap" class="map-wrap">-->
-<!--            --><?php
-//                $this->renderPartial('partials/_map', [
-//                    'dataProvider' => $dataProvider,
-//                    'model' => $model,
-//                    'selectDistrict' => $selectDistrict,
-//                ]);
-//
-?>
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="line"></div>-->
-<!--    <div class="pagination">-->
-<!--            --><?php
-//            $this->widget('CLinkPager', [
-//                'pages' => $dataProvider->getPagination(),
-////                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
-//                'header' => '',
-//                'selectedPageCssClass' => 'active',
-//                'footer' => '',
-//                'internalPageCssClass' => '',
-//                'prevPageLabel' => '<',
-//                'nextPageLabel' => '>',
-//                'previousPageCssClass' => 'prev',
-//                'htmlOptions' => array('class' => ''),
-//                'firstPageCssClass' => 'first',
-//                'firstPageLabel' => '<<',
-//                'lastPageCssClass' => 'last',
-//                'lastPageLabel' => '>>',
-//                'nextPageCssClass' => 'next',
-//                'maxButtonCount' => 11
-//            ]);
-//
-?>
-<!--    </div>-->
-<!--    <div class="line"></div>-->
-<!--    --><?php //$this->renderPartial('/partials/_ads'); ?>
-<!--    <div class="line"></div>-->
-<!--    <div class="container-text">-->
-<!--        --><?php //$this->renderPartial('/partials/_find_' . Yii::app()->getLanguage()); ?>
-<!--    </div>-->
-<!--</div><!-- .container-->-->
-<!--<div class="left-sidebar">-->
-<!--    <div id="search-content">-->
-<!--        <ul class="places">-->
-<!---->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</div><!-- .left-sidebar -->-->
 
 <script type="text/javascript">
     jQuery('a.gallery').colorbox();

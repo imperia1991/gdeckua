@@ -21,15 +21,19 @@ var searchPoints = [];
     } else {
         $district = $item->district->{$title};
     }
+
+    $titleText = CHtml::encode($item->{$title});
+    $addressText = Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address});
+//    $view = CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id . '/' . $item->alias, ['target' => '_blank', 'style' => 'font-size:12px']);
     ?>
+
     searchPoints.push({
         id: <?php echo $item->id ?>,
         coords:[<?php echo $item->lat; ?>, <?php echo $item->lng; ?>],
-        header: '<?php echo CHtml::encode($item->{$title}); ?>',
-        body: '<?php echo CHtml::encode($item->{$description}); ?>',
-        footer: '<?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>',
+        titleText: '<?php echo $titleText; ?>',
+        addressText: '<?php echo $addressText; ?>',
         text: '<?php echo '<strong>' . CHtml::encode($item->{$title}) . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address}); ?>',
-        view: '<?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id . '/' . $item->alias, array('target' => '_blank')); ?>'
+        view: '<?php echo CHtml::link(Yii::t('main', 'Показать на отдельной странице'), $url . '/' . $id . '/' . $item->alias, ['target' => '_blank', 'style' => 'font-size:12px']); ?>'
     });
 <?php endforeach; ?>
 var placemark;
