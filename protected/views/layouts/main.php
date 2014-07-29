@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/scroll.css" />
     <link rel="stylesheet" href="/css/jquery.searchselect.css">
     <link rel="stylesheet" href="/css/colorbox.css">
+    <link href="/css/jquery.jgrowl.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
     <script src="/js/vendor/modernizr.js"></script>
@@ -159,19 +160,22 @@
                                                 <?php echo $form->textArea($feedback, 'message', [
                                                         'placeholder' => Yii::t('main', 'Введите текст сообщения'),
                                                         'id' => 'message',
-                                                        'class' => 'message'
+                                                        'class' => 'message',
+                                                        'row' => 15
                                                     ]);
                                                 ?>
-                                                <label id="error_message" class="error">Ошибка</label>
+                                                <label id="error_message" class="error"></label>
                                             </div>
                                             <div class="row">
-                                                <div class="large-12 columns">
+                                                <div class="large-12 columns captcha">
                                                     <?if(CCaptcha::checkRequirements()):?>
                                                         <?php $this->widget('CCaptcha', ['buttonLabel' => Yii::t('main', 'Обновить'),
+                                                                'showRefreshButton' => true,
                                                                 'buttonOptions' => [
                                                                     'class' => 'button refresh small left'
                                                                 ],
-                                                                'buttonType' => 'button'
+                                                                'buttonType' => 'button',
+                                                                'clickableImage' => true
                                                             ]); ?>
                                                     <?endif?>
                                                 </div>
@@ -185,7 +189,7 @@
                                                                     'class' => 'captcha-input message'
                                                                 ]);
                                                             ?>
-                                                            <label id="error_verifyCode" class="error">Ошибка</label>
+                                                            <label id="error_verifyCode" class="error"></label>
                                                         </div>
                                                         <div class="large-4 columns">
                                                             <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'button refresh-button left']); ?>

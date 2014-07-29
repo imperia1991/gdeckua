@@ -5,3 +5,25 @@
     width: 100%;
     height: 832px;
 }
+#feedback-form .name-field {
+    margin-bottom: 15px;
+}
+#feedback-form .button {
+    cursor: pointer;
+}
+#feedback-form .message {
+    height: auto;
+}
+.captcha {
+    padding-top: 10px;
+}
+.captcha img {
+    float: left;
+    margin-top: -10px;
+}
+.captcha input {
+    margin-left: 25px;
+}
+.map-of-object .map-section {
+    height: 595px;
+}
