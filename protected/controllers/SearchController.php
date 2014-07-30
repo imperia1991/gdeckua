@@ -238,6 +238,38 @@ class SearchController extends Controller
                 4 => true,
                 5 => true,
             ),
+            26 => array(
+                0 => true,
+                1 => null,
+                2 => null,
+                3 => null,
+                4 => null,
+                5 => null,
+            ),
+            27 => array(
+                0 => null,
+                1 => true,
+                2 => null,
+                3 => null,
+                4 => null,
+                5 => null,
+            ),
+            28 => array(
+                0 => null,
+                1 => null,
+                2 => true,
+                3 => null,
+                4 => null,
+                5 => null,
+            ),
+            29 => array(
+                0 => null,
+                1 => null,
+                2 => null,
+                3 => true,
+                4 => null,
+                5 => null,
+            ),
 //            26 => array(
 //                0 => null,
 //                1 => null,
@@ -263,22 +295,22 @@ class SearchController extends Controller
             $termsArray = array_unique($termsArray);
         }
 
-        $termsArray = array_diff($termsArray, array(''));
+        $termsArray = array_diff($termsArray, ['']);
 
-        $results = array();
-        if (count($termsArray) < 3) {
-            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
-
-            foreach ($termsArray as $term) {
-                $term = str_replace('"', '', $term);
-                $term = str_replace("'", '', $term);
-                $term = trim(strip_tags($term));
-
-                $query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
-            }
-
-            $results = $index->find($query);
-        } else {
+        $results = [];
+//        if (count($termsArray) < 3) {
+//            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
+//
+//            foreach ($termsArray as $term) {
+//                $term = str_replace('"', '', $term);
+//                $term = str_replace("'", '', $term);
+//                $term = trim(strip_tags($term));
+//
+//                $query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
+//            }
+//
+//            $results = $index->find($query);
+//        } else {
             $countModeSearch = count($modeSearch);
 
             $step = 0;
@@ -304,7 +336,7 @@ class SearchController extends Controller
 
                 unset($query);
             }
-        }
+//        }
 
         return compact('results', 'term', 'query');
     }

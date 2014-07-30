@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS photo_blog (
   caption varchar(255) NOT NULL,
   created_at datetime NOT NULL,
   is_deleted tinyint(1) NOT NULL DEFAULT '0',
-  type tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 - фото города, 2 - фото мероприятий',
+  type tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, 2 - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -102,3 +102,7 @@ ALTER TABLE comments_news
   
 ALTER TABLE photo_blog_photos
   ADD CONSTRAINT FK_photo_blog_photos FOREIGN KEY (photo_blog_id) REFERENCES photo_blog (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE news
+	CHANGE COLUMN title title VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci' AFTER category_news_id,
+	ADD COLUMN photo VARCHAR(255) NULL COLLATE 'utf8_general_ci' AFTER is_deleted;

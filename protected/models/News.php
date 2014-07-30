@@ -10,6 +10,7 @@
  * @property string $text
  * @property string $created_at
  * @property integer $is_deleted
+ * @property string $photo
  *
  * The followings are the available model relations:
  * @property CategoryNews $categoryNews
@@ -42,14 +43,16 @@ class News extends ActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('title, created_at, category_news_id', 'required'),
-            array('text', 'required', 'message' => 'Введите текст новости'),
-            array('category_news_id, is_deleted', 'numerical', 'integerOnly' => true),
-            array('title', 'length', 'max' => 255),
+        return [
+            ['title, created_at, category_news_id', 'required'],
+            ['photo', 'required', 'message' => 'Фото для анонса новсти обязательно'],
+            ['text', 'required', 'message' => 'Введите текст новости'],
+            ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],
+            ['title', 'length', 'max' => 255],
+            ['photo', 'safe'],
             // The following rule is used by search().
-            array('id, category_news_id, title, text, created_at, is_deleted', 'safe', 'on' => 'search'),
-        );
+            ['id, category_news_id, title, text, created_at, is_deleted', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -59,9 +62,9 @@ class News extends ActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'categoryNews' => array(self::BELONGS_TO, 'CategoryNews', 'category_news_id'),
-        );
+        return [
+            'categoryNews' => [self::BELONGS_TO, 'CategoryNews', 'category_news_id'],
+        ];
     }
 
     /**
@@ -69,14 +72,15 @@ class News extends ActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => '№',
             'category_news_id' => Yii::t('main', 'Категория'),
             'title' => Yii::t('main', 'Заголовок'),
             'text' => Yii::t('main', 'Текст новости'),
             'created_at' => Yii::t('main', 'Добавлено'),
             'is_deleted' => Yii::t('main', 'Статус'),
-        );
+            'photo' => Yii::t('main', 'Фото для анонса новости')
+        ];
     }
 
     /**
@@ -104,14 +108,29 @@ class News extends ActiveRecord
             $criteria->compare('is_deleted', $this->is_deleted);
         }
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria' => $criteria,
-            'sort' => array(
+            'sort' => [
                 'defaultOrder' => 'created_at DESC',
-            ),
-            'pagination' => array(
+            ],
+            'pagination' => [
                 'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ),
-        ));
+            ],
+        ]);
+    }
+
+    public function getPreviewNews()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->compare('is_deleted', 0);
+        $criteria->order = 'created_at DESC';
+        $criteria->limit = 4;
+
+        return $this->findAll($criteria);
+    }
+
+    public function getShortText()
+    {
+        return substr($this->text, 0, 80);
     }
 }

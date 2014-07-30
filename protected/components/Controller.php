@@ -31,6 +31,8 @@ class Controller extends CController
     public $modelPlaces;
     public $selectDistrict = '';
     public $checkedString = '';
+    /** @var News[] */
+    public $previewNews;
 
     public function __construct($id, $module = null)
     {
@@ -82,6 +84,8 @@ class Controller extends CController
             'id',
             'title_' . Yii::app()->getLanguage()
         );
+
+        $this->previewNews = News::model()->getPreviewNews();
     }
 
     public function createMultilanguageReturnUrl($lang = 'ru')

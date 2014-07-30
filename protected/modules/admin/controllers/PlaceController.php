@@ -30,11 +30,11 @@ class PlaceController extends AdminController
 
         $categories = CHtml::listData(Categories::model()->findAll(), 'id', 'title_ru');
 
-        $this->render('index', array(
+        $this->render('index', [
             'model' => $model,
             'districts' => $districts,
             'categories' => $categories,
-        ));
+        ]);
     }
 
     public function actionCreate()
@@ -146,10 +146,10 @@ class PlaceController extends AdminController
     private function processForm(Places $model)
     {
         if (Yii::app()->request->isPostRequest) {
-            $post = Yii::app()->request->getPost('Places', array());
+            $post = Yii::app()->request->getPost('Places', []);
             $postCategoryIds = $post['category_id'];
-            $postPlacetags = Yii::app()->request->getPost('PlaceTags', array());
-            $postPhotos = Yii::app()->request->getPost('Photos', array());
+            $postPlacetags = Yii::app()->request->getPost('PlaceTags', []);
+            $postPhotos = Yii::app()->request->getPost('Photos', []);
 
             $isNewRecord = $model->isNewRecord;
             $transaction = $model->dbConnection->beginTransaction();
@@ -180,7 +180,7 @@ class PlaceController extends AdminController
                     };
 
                     if ($postPhotos) {
-                        $photoQuery = array();
+                        $photoQuery = [];
                         foreach ($postPhotos as $photo) {
                             $photoQuery[] = '(' . $model->id . ', "' . $photo . '")';
                         }
@@ -191,9 +191,9 @@ class PlaceController extends AdminController
                     }
 
                     if ($postCategoryIds) {
-                        PlacesCategories::model()->deleteAllByAttributes(array(
+                        PlacesCategories::model()->deleteAllByAttributes([
                                 'place_id' => $model->id
-                            ));
+                            ]);
 
                         foreach ($postCategoryIds as $id) {
                             $placesCategories = new PlacesCategories();
@@ -235,14 +235,14 @@ class PlaceController extends AdminController
             }
         }
 
-        $categories = CHtml::listData(Categories::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
-        $districts = CHtml::listData(Districts::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
+        $categories = CHtml::listData(Categories::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
+        $districts = CHtml::listData(Districts::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
-        $this->render('create', array(
+        $this->render('create', [
             'model' => $model,
             'categories' => $categories,
             'districts' => $districts,
-        ));
+        ]);
     }
 
 }

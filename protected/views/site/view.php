@@ -182,7 +182,7 @@ $this->pageTitle = CHtml::encode($model->{$title});
 
         </div>
 
-        <?php echo $this->renderPartial('/partials/_news'); ?>
+        <?php echo $this->renderPartial('/partials/_previewNews'); ?>
 
     </div>
 </div>

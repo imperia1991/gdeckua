@@ -145,8 +145,8 @@ $mainConfig = [
     // using Yii::app()->params['paramName']
     'params' => [
         // this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
-        'supportEmail' => 'support@rabotenka.com.ua',
+        'adminEmail' => 'support@gde.ck.ua',
+        'supportEmail' => 'support@gde.ck.ua',
         'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
         'pageSize' => 12,
         'admin' => [
@@ -155,6 +155,8 @@ $mainConfig = [
             'files' => [
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
+                'news' => 'uploads/photos/news',
+                'blogs' => 'uploads/photos/blogs'
             ],
             'images' => [
                 'small' => [
