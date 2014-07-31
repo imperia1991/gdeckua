@@ -27,3 +27,24 @@
 .map-of-object .map-section {
     height: 595px;
 }
+#comment-model-form .error {
+    color: red;
+    font-size: 14px;
+}
+.jGrowl-message {
+    font-size: 15px;
+}
+.comment-block .empty {
+    margin-top: 147px;
+}
+.comment-block .items > div{
+    margin-bottom: 10px;
+}
+.comment-block .items .row {
+    width: 100%;
+}
+
+/*margins*/
+.marginTop13 {
+    margin-top: 13px !important;
+}

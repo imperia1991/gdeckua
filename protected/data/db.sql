@@ -106,3 +106,6 @@ ALTER TABLE photo_blog_photos
 ALTER TABLE news
 	CHANGE COLUMN title title VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci' AFTER category_news_id,
 	ADD COLUMN photo VARCHAR(255) NULL COLLATE 'utf8_general_ci' AFTER is_deleted;
+
+ALTER TABLE news
+	ADD COLUMN short_text VARCHAR(80) NULL COLLATE 'utf8_general_ci' AFTER text;

@@ -40,14 +40,14 @@ class Comments extends ActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('name, message, created_at', 'required'),
-			array('name', 'length', 'max'=>255),
-			array('message', 'length', 'max'=>1024),
-            array('verifyCode', 'captcha', 'on' => self::SCENARIO_USER),
+		return [
+			['name, message, created_at', 'required'],
+			['name', 'length', 'max'=>255],
+			['message', 'length', 'max'=>1024],
+            ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
 			// The following rule is used by search().
-			array('id, name, message, created_at', 'safe', 'on'=>'search'),
-		);
+			['id, name, message, created_at', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -57,9 +57,9 @@ class Comments extends ActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-            'place' => array(self::BELONGS_TO, 'Places', 'place_id'),
-		);
+		return [
+            'place' => [self::BELONGS_TO, 'Places', 'place_id'],
+		];
 	}
 
 	/**
@@ -67,13 +67,13 @@ class Comments extends ActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => '№',
 			'name' => Yii::t('main', 'Имя'),
 			'message' => Yii::t('main', 'Комментарий'),
 			'created_at' => Yii::t('main', 'Добавлено'),
 			'place_id' => Yii::t('main', 'Название места'),
-		);
+		];
 	}
 
 
@@ -87,15 +87,15 @@ class Comments extends ActiveRecord
 
         $criteria->compare('place_id', $placeId);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-            'sort' => array(
+            'sort' => [
                 'defaultOrder' => 'created_at DESC',
-            ),
-            'pagination' => array(
+            ],
+            'pagination' => [
                 'pageSize' => Yii::app()->params['pageSize'],
-            ),
-		));
+            ],
+		]);
 	}
 
     /**
@@ -121,15 +121,15 @@ class Comments extends ActiveRecord
             $criteria->compare('place_id', $this->place_id);
         }
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria'=>$criteria,
-            'sort' => array(
+            'sort' => [
                 'defaultOrder' => 'created_at DESC',
-            ),
-            'pagination' => array(
+            ],
+            'pagination' => [
                 'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ),
-        ));
+            ],
+        ]);
     }
 
 	/**

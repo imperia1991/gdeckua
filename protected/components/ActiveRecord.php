@@ -11,23 +11,25 @@ class ActiveRecord extends CActiveRecord
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'title' => Yii::t('main', 'Название'),
-        );
+        ];
     }
 
     public function behaviors()
     {
-        return array(
+        return [
             'EScalarBehavior' => 'ext.scalar.EScalarBehavior',
-        );
+        ];
     }
 
     protected function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            if ($this->hasAttribute('created_at') && !$this->created_at) {
+            if ($this->scenario == 'insert' && $this->hasAttribute('created_at')) {
                 $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+            } else {
+                $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $this->created_at);
             }
 
             return true;
@@ -77,4 +79,4 @@ class ActiveRecord extends CActiveRecord
     }
 
 }
-?>
+

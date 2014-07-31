@@ -95,20 +95,23 @@ class NewsController extends AdminController
     {
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('News');
+            $oldPhoto = $newsModel->photo;
 
             $newsModel->setAttributes($post);
 
             $isNewRecord = $newsModel->isNewRecord;
             if ($newsModel->save()) {
-                $photoPath = Yii::app()->params['admin']['files']['tmp'] . $newsModel->photo;
-                $image = Yii::app()->image->load($photoPath);
-                $image->save(Yii::app()->params['admin']['files']['photos']['news'] . $newsModel->photo);
+                if ($oldPhoto != $newsModel->photo) {
+                    $photoPath = Yii::app()->params['admin']['files']['tmp'] . $newsModel->photo;
+                    $image = Yii::app()->image->load($photoPath);
+                    $image->save(Yii::app()->params['admin']['files']['photos']['news'] . $newsModel->photo);
 
-                if (file_exists($photoPath)) {
-                    unlink($photoPath);
+                    if (file_exists($photoPath)) {
+                        unlink($photoPath);
+                    }
+
+                    unset(Yii::app()->session['newsImage']);
                 }
-
-                unset(Yii::app()->session['newsImage']);
 
                 Yii::app()->user->setFlash('success', $isNewRecord ? 'Новость добавлена' : 'Новость изменена');
 

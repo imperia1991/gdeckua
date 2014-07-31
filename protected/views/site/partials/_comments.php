@@ -1,77 +1,86 @@
-<div class="container">
-    <div class="content"></div>
-    <!-- .content -->
-    <div class="line"></div>
+<?php
+/** @var Comments $comment */
+?>
+<div class="large-12 columns comments">
+    <?php echo CHtml::encode(Yii::t('main', 'Комментарии к объекту')); ?>
+</div>
+<div class="row collapse input-form">
     <?php $form = $this->beginWidget(
-        'CActiveForm',
-        array(
-            'id' => 'comment-model-form',
-            'enableAjaxValidation' => false,
-            'htmlOptions' => array(),
-        )
-    ); ?>
-
-    <div class="form-item">
-        <label class="label"><?php echo Yii::t('main', 'Имя'); ?> <span>*</span></label>
-
-        <div class="item-wrap">
-            <?php echo $form->textField($comment, 'name', array()); ?>
-            <span class="error-block">
-                    <?php echo $form->error($comment, 'name', array('class' => 'error')); ?>
-            </span>
+            'CActiveForm',
+            [
+                'id' => 'comment-model-form',
+                'enableAjaxValidation' => false,
+                'htmlOptions' => [
+                    'class' => 'row collapse'
+                ],
+            ]
+        ); ?>
+        <div class="large-7 columns">
+            <?php echo $form->textArea($comment, 'message', ['placeholder' => Yii::t('main', 'Напишите Ваш комментарий') . "...", 'value' => StringHelper::br2nl($comment->message)]); ?>
+            <?php echo $form->error($comment, 'message', ['class' => 'error']); ?>
         </div>
-    </div>
-    <div class="form-item">
-        <label class="label"><?php echo Yii::t('main', 'Сообщение'); ?> <span>*</span></label>
-
-        <div class="item-wrap">
-            <?php echo $form->textArea($comment, 'message', array('row' => 10, 'value' => StringHelper::br2nl($comment->message))); ?>
-            <span class="error-block">
-                <?php echo $form->error($comment, 'message', array('class' => 'error')); ?>
-            </span>
-        </div>
-    </div>
-    <div class="center">
-        <? if (CCaptcha::checkRequirements()): ?>
-            <?php $this->widget('CCaptcha', array('buttonLabel' => Yii::t('main', 'Обновить'))); ?>
-        <? endif ?>
-        <div class="form-item" style="margin-top: 0;">
-            <label class="label block"><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></label>
-
-            <div class="item-wrap" style="display: inline-block;">
-                <?php echo $form->textField($comment, 'verifyCode', array('class' => 'small')); ?>
-                <span class="error-block">
-                        <?php echo $form->error($comment, 'verifyCode', array('class' => 'error')); ?>
-                    </span>
+        <div class="large-5 columns">
+            <div class="row collapse" style="padding-left: 5px !important;">
+                <div class="large-12 columns">
+                    <?php echo $form->textField($comment, 'name', ['placeholder' => CHtml::encode(Yii::t('main', 'Ваше Имя'))]); ?>
+                    <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
+                </div>
+                <div class="large-6 columns">
+                    <? if (CCaptcha::checkRequirements()): ?>
+                        <?php $this->widget('CCaptcha', [
+                                'buttonLabel' => Yii::t('main', 'Обновить'),
+                                'showRefreshButton' => true,
+                                'buttonOptions' => [
+                                    'class' => 'button tiny marginTop13'
+                                ],
+                                'buttonType' => 'button',
+                                'clickableImage' => true
+                            ]); ?>
+                    <? endif ?>
+                </div>
+                <div class="large-6 columns">
+                    <?php echo $form->textField($comment, 'verifyCode', ['placeholder' => Yii::t('main', 'Введите код')]); ?>
+                    <?php echo $form->error($comment, 'verifyCode', ['class' => 'error']); ?>
+                </div>
+                <div class="large-12 columns">
+                    <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), ['class' => 'button small']); ?>
+                </div>
             </div>
         </div>
-        <div class="line"></div>
-
-        <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), array('class' => 'add-object')); ?>
-    </div>
-
-    <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), array('class' => 'add-object')); ?>
-
     <?php $this->endWidget(); ?>
 
-    <div class="line"></div>
-
-    <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$comment->search($model->id),
-            'itemView'=>'partials/_comment', // представление для одной записи
-            'ajaxUpdate'=>false, // отключаем ajax поведение
-            'emptyText'=>'Комментарии еще не добавлены',
-            'summaryText'=>"{start}&mdash;{end} из {count}",
-            'template'=>'{summary} {sorter} {items} <hr> {pager}',
-            // ключи, которые были описаны $sort->attributes
-            // если не описывать $sort->attributes, можно использовать атрибуты модели
-            // настройки CSort перекрывают настройки sortableAttributes
-            'pager'=>array(
-                'class'=>'CLinkPager',
-                'header'=>false,
-//                'cssFile'=>'/css/pager.css', // устанавливаем свой .css файл
-                'htmlOptions'=>array('class'=>'pager'),
-            ),
-        )); ?>
-
 </div>
+
+<?php
+/** @var CActiveDataProvider $dataProvider */
+$dataProvider = $comment->search($model->id);
+?>
+<?php $this->widget('zii.widgets.CListView', [
+        'dataProvider'=>$dataProvider,
+        'itemView'=>'partials/_comment', // представление для одной записи
+        'ajaxUpdate'=>true, // отключаем ajax поведение
+        'emptyText' => Yii::t('main', 'Комментарии еще не добавлены'),
+        'summaryText'=>"",
+        'emptyTagName' => 'div',
+        'htmlOptions' => [
+            'class' => 'row collapse comment-block'
+        ],
+//            'template'=>'{summary} {sorter} {items} <hr> {pager}',
+        // ключи, которые были описаны $sort->attributes
+        // если не описывать $sort->attributes, можно использовать атрибуты модели
+        // настройки CSort перекрывают настройки sortableAttributes
+//            'pager'=>[
+//                'class'=>'CLinkPager',
+//                'header'=>false,
+////                'cssFile'=>'/css/pager.css', // устанавливаем свой .css файл
+//                'htmlOptions'=>['class'=>'pager'],
+//            ],
+    ]); ?>
+<?php if ($dataProvider->getTotalItemCount()): ?>
+<br>
+<div class="row collapse">
+    <div class="show-other-news">
+        <a href="#">Показать больше комментариев</a>
+    </div>
+</div>
+<?php endif;

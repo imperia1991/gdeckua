@@ -137,12 +137,16 @@ class SiteController extends Controller
             $comment->setAttributes($post);
             $comment->message = nl2br($comment->message);
             $comment->place_id = $model->id;
+            $comment->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
             if ($comment->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш комментарий добавлен'));
 
                 $comment = new Comments(Comments::SCENARIO_USER);
             } else {
+                echo '<pre>';
+                print_r($comment->getErrors());
+                echo '</pre>';
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении комментария'));
             }
         }

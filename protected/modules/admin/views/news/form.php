@@ -24,6 +24,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
             'style' => 'width:90%'
         ]); ?>
     <?php echo $form->dropDownListRow($newsModel, 'category_news_id', $categories, ['empty' => 'Выберите категорию']); ?>
+    <?php echo $form->textFieldRow($newsModel, 'short_text', [
+            'style' => 'width:90%'
+        ]); ?>
 </div>
 <div class="row">
     <?php echo $form->error($newsModel, 'text'); ?>

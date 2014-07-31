@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="large-12 columns medium-9 small-12 description">
-                    <p><?php echo $oneNews->getShortText(); ?>>...</p>
+                    <p><?php echo $oneNews->short_text; ?>...</p>
                     <a align="center" href="<?php echo Yii::app()->createUrl('/news/' . $oneNews->id); ?>"><?php echo Yii::t('main', 'прочитать статью полностью'); ?></a>
                 </div>
 

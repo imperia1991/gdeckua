@@ -8,6 +8,7 @@
  * @property integer $category_news_id
  * @property string $title
  * @property string $text
+ * @property string $short_text
  * @property string $created_at
  * @property integer $is_deleted
  * @property string $photo
@@ -44,7 +45,7 @@ class News extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title, created_at, category_news_id', 'required'],
+            ['title, created_at, category_news_id, short_text', 'required'],
             ['photo', 'required', 'message' => 'Фото для анонса новсти обязательно'],
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],
@@ -79,7 +80,8 @@ class News extends ActiveRecord
             'text' => Yii::t('main', 'Текст новости'),
             'created_at' => Yii::t('main', 'Добавлено'),
             'is_deleted' => Yii::t('main', 'Статус'),
-            'photo' => Yii::t('main', 'Фото для анонса новости')
+            'photo' => Yii::t('main', 'Фото для анонса новости'),
+            'short_text' => Yii::t('main', 'Текст для анонса новости'),
         ];
     }
 
@@ -127,10 +129,5 @@ class News extends ActiveRecord
         $criteria->limit = 4;
 
         return $this->findAll($criteria);
-    }
-
-    public function getShortText()
-    {
-        return substr($this->text, 0, 80);
     }
 }

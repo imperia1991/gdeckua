@@ -1,4 +1,6 @@
 <?php
+/** @var Places $model */
+
 $title = 'title_' . Yii ::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
@@ -114,71 +116,11 @@ $this->pageTitle = CHtml::encode($model->{$title});
                     </div>
                 </div>
             </div>
-            <div class="large-12 columns comments">
-                Комментарии к объекту
-            </div>
-            <div class="row collapse input-form">
 
-                <form class="row collapse">
-                    <div class="large-7 columns">
-                        <textarea placeholder="Напишите Ваш комментарий..."></textarea>
-                    </div>
-                    <div class="large-5 columns">
-                        <div class="row collapse" style="padding-left: 5px !important;">
-                            <div class="large-12 columns">
-                                <input type="text" placeholder="Ваше Имя (обязательно)">
-                            </div>
-                            <div class="large-6 columns">
-                                <img src="img/capcha.png"><br><br>
-                                <input type="submit" value="Сменить"class="button tiny">
-                            </div>
-                            <div class="large-6 columns">
-                                <input type="text" placeholder="Введите код">
-                            </div>
-                            <div class="large-12 columns">
-                                <input type="submit" value="Написать"class="button small">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-
-            <div class="row collapse comment-block">
-                <div class="large-12 columns row">
-                    <div class="large-1 medium-1 columns comment-icon">
-                        <img src="img/comment.png" class="left">
-                    </div>
-
-                    <div class="large-11 medium-11 columns comment-box-inner-left">
-                        <div class="large-6 medium-5 small-4 columns right"><p class="right"><a href="#">Владислав</a></p></div>
-                        <div class="large-6 medium-7 small-8 columns left"><p class="left">23 октября 2014 16:39</p></div>
-                        <p>Etiam ullamcorper. Supendisse a pellentesque dui, non felis.
-                            Maecenas malesuada elit lectus fe, malesuada ultricies. Lorem ipsum  dolor sit amet enim. Etiam ullamcorper. Supendisse a</p>
-                    </div>
-
-                </div>
-                <div class="large-12 columns"></div>
-                <div class="large-12 columns row">
-
-                    <div class="large-11 medium-11 columns comment-box-inner-right">
-                        <div class="large-6 medium-5 small-4 columns left"><p class="left"><a href="#">Елена</a></p></div>
-                        <div class="large-6 medium-7 small-8 columns right"><p class="right">23 октября 2014 16:39</p></div>
-                        <p>Etiam ullamcorper. Supendisse a pellentesque dui, non felis.
-                            Maecenas malesuada elit lectus fe, malesuada ultricies. Lorem ipsum  dolor sit amet enim. Etiam ullamcorper. Supendisse</p>
-                    </div>
-
-                    <div class="large-1 medium-1 columns comment-icon-right">
-                        <img src="img/comment-right.png" class="right">
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row collapse">
-                <div class="show-other-news">
-                    <a href="#">Показать больше комментариев</a>
-                </div>
-            </div>
+            <?php echo $this->renderPartial('partials/_comments', [
+                    'comment' => $comment,
+                    'model' => $model
+                ]); ?>
 
         </div>
 
