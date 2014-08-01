@@ -24,16 +24,41 @@ class Controller extends CController
      * for more details on how to specify this property.
      */
     public $breadcrumbs = array();
+    /**
+     * @var CActiveRecord|Users
+     */
     public $modelUser;
+    /**
+     * @var
+     */
     public $keywords;
+    /**
+     * @var Feedback
+     */
     public $feedback;
+    /**
+     * @var array
+     */
     public $districts;
+    /**
+     * @var
+     */
     public $modelPlaces;
+    /**
+     * @var string
+     */
     public $selectDistrict = '';
+    /**
+     * @var string
+     */
     public $checkedString = '';
     /** @var News[] */
     public $previewNews;
 
+    /**
+     * @param string $id
+     * @param null $module
+     */
     public function __construct($id, $module = null)
     {
         parent::__construct($id, $module);
@@ -55,19 +80,23 @@ class Controller extends CController
             $cookie = new CHttpCookie('language', $getLanguage);
             $cookie->expire = time() + (60 * 60 * 24 * 365); // (1 year)
             Yii::app()->request->cookies['language'] = $cookie;
-        }
-        else if (Yii::app()->user->hasState('language')) {
-            Yii::app()->language = Yii::app()->user->getState('language');
-        }
-        else if (isset(Yii::app()->request->cookies['language'])) {
-            Yii::app()->language = Yii::app()->request->cookies['language']->value;
         } else {
-            Yii::app()->language = 'ru';
+            if (Yii::app()->user->hasState('language')) {
+                Yii::app()->language = Yii::app()->user->getState('language');
+            } else {
+                if (isset(Yii::app()->request->cookies['language'])) {
+                    Yii::app()->language = Yii::app()->request->cookies['language']->value;
+                } else {
+                    Yii::app()->language = 'ru';
+                }
+            }
         }
 
         Yii::app()->sourceLanguage = Yii::app()->getLocale();
 
-        $this->modelUser = Yii::app()->user->isGuest ? new Users('login') : Users::model()->findByPk(Yii::app()->user->id);
+        $this->modelUser = Yii::app()->user->isGuest ? new Users('login') : Users::model()->findByPk(
+            Yii::app()->user->id
+        );
 
         new JsTrans('main', Yii::app()->language, Yii::app()->language);
 
@@ -88,22 +117,40 @@ class Controller extends CController
         $this->previewNews = News::model()->getPreviewNews();
     }
 
+    /**
+     * @param string $lang
+     * @return string
+     */
     public function createMultilanguageReturnUrl($lang = 'ru')
     {
         if (count($_GET) > 0) {
             $arr = $_GET;
             $arr['language'] = $lang;
-        }
-        else
+        } else {
             $arr = array('language' => $lang);
+        }
+
         return $this->createUrl('', $arr);
     }
 
-	protected function respondJSON($data)
-	{
-		header('Content-type: application/json');
-		echo CJSON::encode($data);
+    /**
+     * @param $data
+     */
+    protected function respondJSON($data)
+    {
+        header('Content-type: application/json');
+        echo CJSON::encode($data);
 
-		Yii::app()->end();
-	}
+        Yii::app()->end();
+    }
+
+    /**
+     * @param string $param
+     */
+    protected function processPageRequest($param = 'page')
+    {
+        if (Yii::app()->request->isAjaxRequest && null !== Yii::app()->getRequest()->getPost($param, null)) {
+            $_GET[$param] = Yii::app()->request->getPost($param);
+        }
+    }
 }

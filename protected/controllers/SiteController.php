@@ -144,9 +144,6 @@ class SiteController extends Controller
 
                 $comment = new Comments(Comments::SCENARIO_USER);
             } else {
-                echo '<pre>';
-                print_r($comment->getErrors());
-                echo '</pre>';
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении комментария'));
             }
         }

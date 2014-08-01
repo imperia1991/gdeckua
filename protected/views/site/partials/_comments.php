@@ -55,32 +55,86 @@
 /** @var CActiveDataProvider $dataProvider */
 $dataProvider = $comment->search($model->id);
 ?>
-<?php $this->widget('zii.widgets.CListView', [
-        'dataProvider'=>$dataProvider,
-        'itemView'=>'partials/_comment', // представление для одной записи
-        'ajaxUpdate'=>true, // отключаем ajax поведение
-        'emptyText' => Yii::t('main', 'Комментарии еще не добавлены'),
-        'summaryText'=>"",
-        'emptyTagName' => 'div',
-        'htmlOptions' => [
-            'class' => 'row collapse comment-block'
-        ],
-//            'template'=>'{summary} {sorter} {items} <hr> {pager}',
-        // ключи, которые были описаны $sort->attributes
-        // если не описывать $sort->attributes, можно использовать атрибуты модели
-        // настройки CSort перекрывают настройки sortableAttributes
-//            'pager'=>[
-//                'class'=>'CLinkPager',
-//                'header'=>false,
-////                'cssFile'=>'/css/pager.css', // устанавливаем свой .css файл
-//                'htmlOptions'=>['class'=>'pager'],
-//            ],
-    ]); ?>
-<?php if ($dataProvider->getTotalItemCount()): ?>
+<div id="commentsView" class="row collapse comment-block">
+<?php $this->renderPartial('partials/_commentsView', [
+        'dataProvider' => $dataProvider,
+        'model' => $model
+    ]) ?>
+</div>
+<?php if ($dataProvider->getTotalItemCount() > $dataProvider->getPagination()->pageSize): ?>
+
 <br>
-<div class="row collapse">
+<div id="showComments" class="row collapse">
     <div class="show-other-news">
-        <a href="#">Показать больше комментариев</a>
+        <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
+        <a id="showMore" href="javascript:void(0)"><?php echo Yii::t('main', 'Показать больше комментариев') ?></a>
     </div>
 </div>
-<?php endif;
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        (function($)
+        {
+            // скрываем стандартный навигатор
+//            $('.paginator').hide();
+
+            // запоминаем текущую страницу и их максимальное количество
+            var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
+            var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
+
+            var loadingFlag = false;
+
+            $('#showMore').on('click', function()
+            {
+                // защита от повторных нажатий
+                if (!loadingFlag)
+                {
+                    // выставляем блокировку
+                    loadingFlag = true;
+
+                    // отображаем анимацию загрузки
+                    $('#showMore').hide();
+                    $('#loading').show();
+
+                    $.ajax({
+                        type: 'post',
+                        url: '<?php echo Yii::app()->createUrl('/comments/comments') ?>',
+                        data: {
+                            // передаём номер нужной страницы методом POST
+                            'page': page + 1,
+                            'place_id': <?php echo $model->id ?>
+                        },
+                        success: function(data)
+                        {
+                            // увеличиваем номер текущей страницы и снимаем блокировку
+                            page++;
+                            loadingFlag = false;
+
+                            // прячем анимацию загрузки
+                            $('#loading').hide();
+                            $('#showMore').show();
+
+                            // вставляем полученные записи после имеющихся в наш блок
+                            $('#commentsView').append(data);
+
+                            // если достигли максимальной страницы, то прячем кнопку
+                            if (page >= pageCount)
+                                $('#showComments').hide();
+
+                            var n = $(document).height();
+                            $('html, body').animate({ scrollTop: n }, 1000);
+                        },
+                        done: function()
+                        {
+                            $('#loading').hide();
+                            $('#showMore').show();
+                        }
+                    });
+                }
+                return false;
+            })
+        })(jQuery);
+        /*]]>*/
+    </script>
+
+<?php endif; ?>

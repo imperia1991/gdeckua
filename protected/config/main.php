@@ -149,6 +149,7 @@ $mainConfig = [
         'supportEmail' => 'support@gde.ck.ua',
         'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
         'pageSize' => 12,
+        'pageSizeComment' => 3,
         'admin' => [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',

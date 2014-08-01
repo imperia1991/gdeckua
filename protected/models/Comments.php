@@ -93,7 +93,9 @@ class Comments extends ActiveRecord
                 'defaultOrder' => 'created_at DESC',
             ],
             'pagination' => [
-                'pageSize' => Yii::app()->params['pageSize'],
+                'pageSize' => Yii::app()->params['pageSizeComment'],
+                'pageVar' =>'page',
+//                'currentPage' => Yii::app()->getRequest()->getParam('page', 0)
             ],
 		]);
 	}
