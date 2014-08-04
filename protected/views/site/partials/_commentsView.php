@@ -1,3 +1,4 @@
+<?php /** @var CActiveDataProvider $dataProvider */ ?>
 <?php $this->widget(
     'zii.widgets.CListView',
     [
@@ -8,6 +9,9 @@
         'summaryText' => "",
         'emptyTagName' => 'div',
         'enablePagination' => false,
+        'viewData' => [
+            'page' => isset($page) ? $page : 1,
+        ],
         'htmlOptions' => [
             'class' => 'row collapse comment-block'
         ],

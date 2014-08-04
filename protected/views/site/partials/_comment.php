@@ -1,4 +1,11 @@
-<?php $odd = ($index % 2) ? false : true ?>
+<?php
+$odd = false;
+if (isset($page) && $page > 1) {
+    $odd = (($index + $page) % 2) ? true : false;
+} else {
+    $odd = ($index % 2) ? false : true;
+}
+?>
 <div class="large-12 columns row">
     <?php if ($odd): ?>
     <div class="large-1 medium-1 columns comment-icon">

@@ -44,6 +44,18 @@
     width: 100%;
 }
 
+.qq-upload-button {
+    background: none;
+    border-bottom: 0;
+    color: transparent;
+    width: auto;
+    display: inline;
+}
+
+.qq-upload-list {
+    display: none;
+}
+
 /*margins*/
 .marginTop13 {
     margin-top: 13px !important;
