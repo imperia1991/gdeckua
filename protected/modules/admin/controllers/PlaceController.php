@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Class PlaceController
+ */
 class PlaceController extends AdminController
 {
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -13,6 +19,9 @@ class PlaceController extends AdminController
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Places();
@@ -37,14 +46,27 @@ class PlaceController extends AdminController
         ]);
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Places('admin');
+        if (!is_object($model->contact)) {
+            $model->contact = new Contacts();
+        }
 
         if (Yii::app()->request->isAjaxRequest && 'addPlaceForm' == Yii::app()->request->getPost('ajax', '')) {
-            $model->setAttributes(Yii::app()->request->getPost('Places', array()));
+            $model->setAttributes(Yii::app()->request->getPost('Places', []));
+            $placeValidate = CActiveForm::validate($model);
 
-            echo CActiveForm::validate($model);
+            $model->contact->setAttributes(Yii::app()->request->getPost('Contacts', []));
+            $placeContactValidate = CActiveForm::validate($model->contact);
+
+            $placeValidateArray = CJSON::decode($placeValidate);
+            $placeContactValidateArray = CJSON::decode($placeContactValidate);
+
+            echo CJSON::encode(CMap::mergeArray($placeValidateArray, $placeContactValidateArray));
 
             Yii::app()->end();
         }
@@ -52,6 +74,9 @@ class PlaceController extends AdminController
         $this->processForm($model);
     }
 
+    /**
+     *
+     */
     public function actionUpdate()
     {
         $id = Yii::app()->request->getQuery('id', 0);
@@ -59,10 +84,21 @@ class PlaceController extends AdminController
         $model = Places::model()->findByPk((int) $id);
         $model->scenario = Places::SCENARIO_ADMIN;
 
-        if (Yii::app()->request->isAjaxRequest) {
-            $model->setAttributes(Yii::app()->request->getPost('Places', array()));
+        if (!is_object($model->contact)) {
+            $model->contact = new Contacts();
+        }
 
-            echo CActiveForm::validate($model);
+        if (Yii::app()->request->isAjaxRequest) {
+            $model->setAttributes(Yii::app()->request->getPost('Places', []));
+            $placeValidate = CActiveForm::validate($model);
+
+            $model->contact->setAttributes(Yii::app()->request->getPost('Contacts', []));
+            $placeContactValidate = CActiveForm::validate($model->contact);
+
+            $placeValidateArray = CJSON::decode($placeValidate);
+            $placeContactValidateArray = CJSON::decode($placeContactValidate);
+
+            echo CJSON::encode(CMap::mergeArray($placeValidateArray, $placeContactValidateArray));
 
             Yii::app()->end();
         }
@@ -70,6 +106,9 @@ class PlaceController extends AdminController
         $this->processForm($model);
     }
 
+    /**
+     *
+     */
     public function actionDelete()
     {
         if (Yii::app()->request->isAjaxRequest) {
@@ -92,6 +131,9 @@ class PlaceController extends AdminController
         }
     }
 
+    /**
+     *
+     */
     public function actionUpload()
     {
         Yii::import("ext.EAjaxUpload.qqFileUploader");
@@ -106,6 +148,9 @@ class PlaceController extends AdminController
         $this->respondJSON($result);
     }
 
+    /**
+     *
+     */
     public function actionDeletePreviewUpload()
     {
         $request = Yii::app()->request;
@@ -126,6 +171,9 @@ class PlaceController extends AdminController
         Yii::app()->end();
     }
 
+    /**
+     *
+     */
     public function actionDeletePhoto()
     {
         $id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
@@ -143,6 +191,9 @@ class PlaceController extends AdminController
         Yii::app()->end();
     }
 
+    /**
+     * @param Places $model
+     */
     private function processForm(Places $model)
     {
         if (Yii::app()->request->isPostRequest) {
@@ -150,6 +201,7 @@ class PlaceController extends AdminController
             $postCategoryIds = $post['category_id'];
             $postPlacetags = Yii::app()->request->getPost('PlaceTags', []);
             $postPhotos = Yii::app()->request->getPost('Photos', []);
+            $postContacts = Yii::app()->request->getPost('Contacts', []);
 
             $isNewRecord = $model->isNewRecord;
             $transaction = $model->dbConnection->beginTransaction();
@@ -174,10 +226,19 @@ class PlaceController extends AdminController
 
                     $model->tags->place_id = $model->id;
                     $model->tags->tags = $postPlacetags;
-
                     if (!$model->tags->save(false)) {
                         Yii::app()->user->setFlash('error', 'Ошибка при добавлении тегов');
+
+                        $transaction->rollback();
                     };
+
+                    $model->contact->setAttributes($postContacts);
+                    $model->contact->place_id = $model->id;
+                    if (!$model->contact->save(false)) {
+                        $model->addErrors($model->contact->getErrors());
+
+                        $transaction->rollback();
+                    }
 
                     if ($postPhotos) {
                         $photoQuery = [];

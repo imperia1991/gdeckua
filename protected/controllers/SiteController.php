@@ -182,6 +182,7 @@ class SiteController extends Controller
                 $model->images = $postPhotos;
                 $model->is_deleted = 1;
                 $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
+                $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
                 if ($model->save()) {
                     if ($postPhotos) {
@@ -192,9 +193,8 @@ class SiteController extends Controller
 
                         $photoQueries = join(',', $photoQuery);
                         Yii::app()->db->createCommand(
-                            '
-                                                        INSERT INTO photos (place_id, title) VALUES ' . $photoQueries
-                        )->execute();
+                            'INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)
+                            ->execute();
                     }
 
                     $transaction->commit();
@@ -235,10 +235,10 @@ class SiteController extends Controller
 
         $this->render(
             'place',
-            array(
+            [
                 'model' => $model,
                 'districts' => $districts
-            )
+            ]
         );
     }
 

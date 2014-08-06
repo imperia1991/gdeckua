@@ -98,6 +98,7 @@ class NewsController extends AdminController
             $oldPhoto = $newsModel->photo;
 
             $newsModel->setAttributes($post);
+            $newsModel->alias = LocoTranslitFilter::cyrillicToLatin($newsModel->title);
 
             $isNewRecord = $newsModel->isNewRecord;
             if ($newsModel->save()) {

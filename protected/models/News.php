@@ -12,6 +12,7 @@
  * @property string $created_at
  * @property integer $is_deleted
  * @property string $photo
+ * @property string $alias
  *
  * The followings are the available model relations:
  * @property CategoryNews $categoryNews
@@ -45,7 +46,7 @@ class News extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title, created_at, category_news_id, short_text', 'required'],
+            ['title, created_at, category_news_id, short_text, alias', 'required'],
             ['photo', 'required', 'message' => 'Фото для анонса новсти обязательно'],
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],

@@ -28,6 +28,7 @@
  * @property Cities $city
  * @property Regions $region
  * @property PlaceTags $tags
+ * @property Contacts $contact
  */
 class Places extends ActiveRecord
 {
@@ -118,6 +119,7 @@ class Places extends ActiveRecord
             'district' => [self::BELONGS_TO, 'Districts', 'district_id'],
             'placesCategories' => [self::HAS_MANY, 'PlacesCategories', 'place_id'],
             'comments' => [self::HAS_MANY, 'Comments', 'place_id'],
+            'contact' => [self::HAS_ONE, 'Contacts', 'place_id'],
         ];
     }
 
@@ -151,6 +153,7 @@ class Places extends ActiveRecord
             'address_uk_admin' => Yii::t('main', 'Название (украинский)'),
             'category_id' => Yii::t('main', 'Категория'),
             'photo' => Yii::t('main', 'Фото'),
+            'contact' => Yii::t('main', 'Контакты'),
         ];
     }
 

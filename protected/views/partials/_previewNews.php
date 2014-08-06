@@ -24,7 +24,7 @@
                         </div>
                         <div class="large-8 medium-8 small-10 columns">
                             <p><?php echo $oneNews->created_at; ?></p>
-                            <h4><?php echo $oneNews->title; ?></h4>
+                            <a href="<?php echo Yii::app()->createUrl('/news/' . $oneNews->id . '/' . $oneNews->alias); ?>"><h4><?php echo $oneNews->title; ?></h4></a>
                         </div>
                     </div>
                 </div>

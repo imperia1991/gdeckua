@@ -14,46 +14,48 @@
 <body id="top">
 <div class="container" id="page" style="margin-top: 80px;">
 	<div id="mainmenu">
-        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
+        <?php $this->widget('bootstrap.widgets.TbNavbar', [
             'type'=>'inverse', // null or 'inverse'
             'brand'=>Yii::app()->name,
             'brandUrl'=>'/',
             'collapse'=>true, // requires bootstrap-responsive.css
-            'items'=>array(
-                array(
+            'items'=>[
+                [
                     'class'=>'bootstrap.widgets.TbMenu',
-                    'items'=>array(
-                        array('label'=>'Пользователи', 'url'=>'/admin/user', 'active' => $this->menuActive == 'user', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Места', 'url'=>'/admin/place', 'active' => $this->menuActive == 'place', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Районы', 'url'=>'/admin/district', 'active' => $this->menuActive == 'district', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Настройки', 'url'=>'/admin/search', 'active' => $this->menuActive == 'settings', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => array(
-                            array('label'=>'Поиск', 'url'=>'/admin/search'),
-                            array('label'=>'О проекте', 'url'=>'/admin/settings'),
-                        )),
-                        array('label'=>'Статистика', 'url'=>'/admin/statistics', 'active' => $this->menuActive == 'statistic', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Категории', 'url'=>'/admin/category', 'active' => $this->menuActive == 'category', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Комментарии', 'url'=>'/admin/comments', 'active' => $this->menuActive == 'comments', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Новости', 'url'=>'/admin/news', 'active' => $this->menuActive == 'news', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => array(
-                            array('label'=>'Новости', 'url'=>'/admin/news'),
-                            array('label'=>'Категории', 'url'=>'/admin/categoryNews'),
-                        )),
+                    'items'=>[
+                        ['label'=>'Пользователи', 'url'=>'/admin/user', 'active' => $this->menuActive == 'user', 'visible' => Yii::app()->user->checkAccess('admin')],
+                        ['label'=>'Места', 'url'=>'/admin/place', 'active' => $this->menuActive == 'place', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
+                            ['label'=>'Места', 'url'=>'/admin/place'],
+                            ['label'=>'Категории', 'url'=>'/admin/category'],
+                            ['label'=>'Комментарии', 'url'=>'/admin/comments'],
+                        ]],
+                        ['label'=>'Районы', 'url'=>'/admin/district', 'active' => $this->menuActive == 'district', 'visible' => Yii::app()->user->checkAccess('admin')],
+                        ['label'=>'Настройки', 'url'=>'/admin/search', 'active' => $this->menuActive == 'settings', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
+                            ['label'=>'Поиск', 'url'=>'/admin/search'],
+                            ['label'=>'О проекте', 'url'=>'/admin/settings'],
+                        ]],
+                        ['label'=>'Статистика', 'url'=>'/admin/statistics', 'active' => $this->menuActive == 'statistic', 'visible' => Yii::app()->user->checkAccess('admin')],
+                        ['label'=>'Новости', 'url'=>'/admin/news', 'active' => $this->menuActive == 'news', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
+                            ['label'=>'Новости', 'url'=>'/admin/news'],
+                            ['label'=>'Категории', 'url'=>'/admin/categoryNews'],
+                        ]],
 //                        array('label'=>'Разработка', 'url'=>'/admin/develop', 'active' => $this->menuActive == 'develop', 'visible' => Yii::app()->user->checkAccess('admin')),
-                        array('label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')),
-                    ),
-                ),
-            ),
-        )); ?>
+                        ['label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')],
+                    ],
+                ],
+            ],
+        ]); ?>
     </div>
     <div class="row">
-        <?php $this->widget('bootstrap.widgets.TbAlert', array(
+        <?php $this->widget('bootstrap.widgets.TbAlert', [
             'block'=>true, // display a larger alert block?
             'fade'=>true, // use transitions?
             'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
-            'alerts'=>array( // configurations per alert type
-                'success'=>array('block'=>true, 'fade'=>true), // success, info, warning, error or danger
-                'error'=>array('block'=>true, 'fade'=>true), // success, info, warning, error or danger
-            ),
-        )); ?>
+            'alerts'=>[ // configurations per alert type
+                'success'=>['block'=>true, 'fade'=>true], // success, info, warning, error or danger
+                'error'=>['block'=>true, 'fade'=>true], // success, info, warning, error or danger
+            ],
+        ]); ?>
     </div>
 	<?php echo $content; ?>
 

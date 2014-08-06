@@ -27,7 +27,7 @@
 .map-of-object .map-section {
     height: 595px;
 }
-#comment-model-form .error {
+#comment-model-form .error, #place-model-form .error {
     color: red;
     font-size: 14px;
 }
@@ -51,9 +51,30 @@
     width: auto;
     display: inline;
 }
-
+.qq-upload-button input {
+    height: 38px;
+    border: 0;
+}
+.added-images .qq-uploader {
+    text-align: left;
+}
+.object-img-box {
+    border: 0;
+}
+.object-img-box img {
+    width: 182px;
+    height: 170px;
+}
+.add-foto-btn {
+    width: auto;
+    font-size: 15px;
+}
 .qq-upload-list {
     display: none;
+}
+.add-object-captcha-button {
+    margin-left: 10px;
+    font-size: 13px;
 }
 
 /*margins*/

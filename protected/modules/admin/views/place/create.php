@@ -29,18 +29,18 @@ Yii::app()->clientScript->registerScriptFile('/js/place.js', CClientScript::POS_
     }
 </style>
 <?php /** @var BootActiveForm $form */
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     'id'=>'addPlaceForm',
     'type'=>'horizontal',
-    'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    'htmlOptions' => ['enctype' => 'multipart/form-data'],
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,
-    'clientOptions' => array(
+    'clientOptions' => [
         'validateOnSubmit' => true,
         'validateOnChange' => false,
-    ),
-    'focus' => ($model->hasErrors()) ? '.error:first' : array($model, 'title_ru'),
-)); ?>
+    ],
+    'focus' => ($model->hasErrors()) ? '.error:first' : [$model, 'title_ru'],
+]); ?>
 
 <div class="row">
     <h4>Добавление места</h4>
@@ -58,9 +58,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class="row">
     <?php
         $this->widget('ext.EAjaxUpload.EAjaxUpload',
-                array(
+                [
                     'id' => 'uploadPhoto',
-                    'config' => array(
+                    'config' => [
                         'action' => Yii::app()->createUrl('/admin/place/upload'),
                         'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
                         'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
@@ -72,20 +72,20 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                                 <span class="qq-drop-processing"><span class="qq-drop-processing-spinner"></span></span>
                                 <ul class="qq-upload-list"></ul>
                             </div>',
-                        'messages' => array(
+                        'messages' => [
                             'typeError'    => "{file} имеет недопустимый формат. Допустимые форматы: {extensions}.",
                             'sizeError'    => "{file} имеет слишком большой объём, максимальный объём файла – {sizeLimit}.",
                             'minSizeError' => "{file} имеет слишком маленький объём, минимальный объём файла – {minSizeLimit}.",
                             'emptyError'   => "{file} пуст, пожалуйста, выберите другой файл.",
                             'noFilesError' => "Файлы для загрузки не выбраны.",
                             'onLeave'      => "В данный момент идёт загрузка файлов, если вы покинете страницу, загрузка будет отменена."
-                        ),
-                        'text' => array(
+                        ],
+                        'text' => [
                             'failUpload'   => 'Загрузка не удалась',
                             'dragZone'     => 'Перетащите файл для загрузки',
                             'cancelButton' => 'Отмена',
                             'waitingForResponse' => 'Обработка...'
-                        ),
+                        ],
                         'onComplete' => 'js:function(id, fileName, responseJSON){
                                             if (responseJSON.success)
                                             {
@@ -100,46 +100,60 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                                                     );
                                             }
                                         }'
-                    )
-                )
+                    ]
+                ]
         );
     ?>
     <?php echo $form->error($model, 'photo'); ?>
 </div>
 <div id="placeMap" class="row" style="height:600px; width: 100%"></div>
-<div class="row">
-    <?php echo $form->textFieldRow($model, 'address_ru', array()); ?>
-    <?php echo $form->textFieldRow($model, 'address_uk', array()); ?>
-    <?php echo $form->textFieldRow($model, 'lat', array('readonly' => 'readonly')); ?>
-    <?php echo $form->textFieldRow($model, 'lng', array('readonly' => 'readonly')); ?>
+<div class="row" style="margin-top: 20px;">
+    <?php echo $form->textFieldRow($model, 'address_ru', []); ?>
+    <?php echo $form->textFieldRow($model, 'address_uk', []); ?>
+    <?php echo $form->textFieldRow($model, 'lat', ['readonly' => 'readonly']); ?>
+    <?php echo $form->textFieldRow($model, 'lng', ['readonly' => 'readonly']); ?>
     <?php echo $form->dropDownListRow($model, 'is_deleted', $model->getIsDeletes()); ?>
     <?php echo $form->textFieldRow($model, 'title_ru'); ?>
     <?php echo $form->textFieldRow($model, 'title_uk'); ?>
-    <?php echo $form->dropDownListRow($model, 'district_id', $districts, array('empty' => 'Выберите район')); ?>
-    <?php echo $form->textAreaRow($model, 'description_ru', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_ru))); ?>
-    <?php echo $form->textAreaRow($model, 'description_uk', array('class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_uk))); ?>
+    <?php echo $form->dropDownListRow($model, 'district_id', $districts, ['empty' => 'Выберите район']); ?>
+    <?php echo $form->textAreaRow($model, 'description_ru', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_ru)]); ?>
+    <?php echo $form->textAreaRow($model, 'description_uk', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_uk)]); ?>
     <div class="control-group ">
         <label for="Places_title_uk" class="control-label required">Теги (через запятую) <span class="required">*</span></label>
         <div class="controls">
             <?php
-                $this->widget('application.extensions.PTags.PTags', array(
+                $this->widget('application.extensions.PTags.PTags', [
                     'id' => 'PlaceTags',
                     'value' => is_object($model->tags) ? $model->tags->tags : NULL,
-                    'options' => array(
+                    'options' => [
                         'editable' => true,
                         'remover' => true,
-                    )
-                ));
+                    ]
+                ]);
             ?>
             <?php $form->error($model, ''); ?>
         </div>
     </div>
-    <?php echo $form->dropDownListRow($model, 'category_id', $categories, array('empty' => 'Выберите категорию', 'multiple'=>true, 'size' => 10, 'options' => $model->getCategoriesSelected())); ?>
+    <?php echo $form->dropDownListRow($model, 'category_id', $categories, ['empty' => 'Выберите категорию', 'multiple'=>true, 'size' => 10, 'options' => $model->getCategoriesSelected()]); ?>
+</div>
+<div class="row" style="margin-top: 20px">
+    <h5>Контакты</h5>
+</div>
+<div class="row" style="margin-top: 20px">
+    <?php echo $form->textFieldRow($model->contact, 'phone_city', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'phone_mobile1', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'phone_mobile2', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'phax', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'email', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'skype', []); ?>
+    <?php echo $form->textFieldRow($model->contact, 'operation_time', [
+            'style' => 'width: 80%',
+        ]); ?>
 </div>
 
 <div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>$model->isNewRecord ? 'Добавить' : 'Сохранить')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/place', 'label'=>'Отмена')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'submit', 'type'=>'primary', 'label'=>$model->isNewRecord ? 'Добавить' : 'Сохранить']); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'link', 'url' => '/admin/place', 'label'=>'Отмена']); ?>
 </div>
 
 <?php $this->endWidget(); ?>
