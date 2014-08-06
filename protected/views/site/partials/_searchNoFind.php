@@ -1,6 +1,9 @@
-<div class="large-12 columns navigation-top">
-    <p> <?php echo CHtml::encode(Yii::t('main', 'Объект не найден')); ?> </p><hr>
-</div>
+<?php
+$this->breadcrumbs = [
+    '' => CHtml::encode(Yii::t('main', 'Объект не найден'))
+];
+$this->renderPartial('/partials/_breadcrumbs');
+?>
 
 <div class="large-12 columns">
     <div class="row collapse">

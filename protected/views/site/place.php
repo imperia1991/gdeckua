@@ -10,10 +10,13 @@ $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
 ?>
 
-<div class="large-12 columns navigation-top">
-    <p><a href="/"><?php echo Yii::t('main', 'Главная') ?></a> > <?php echo Yii::t('main', 'Добавить объект'); ?> </p>
-    <hr>
-</div>
+<?php
+$this->breadcrumbs = [
+    '' => Yii::t('main', 'Добавить объект')
+];
+$this->renderPartial('/partials/_breadcrumbs');
+?>
+
 <div class="large-12 columns">
     <div class="row collapse">
 

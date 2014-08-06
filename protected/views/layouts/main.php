@@ -67,11 +67,11 @@
                             </div>
                             <!-- Left Nav Section -->
                             <ul class="left">
-                                <li><a href="/"><?php echo Yii::t('main', 'Главная'); ?></a></li>
-                                <li><a href="#"><?php echo Yii::t('main', 'Новости'); ?></a></li>
-                                <li><a href="#"><?php echo Yii::t('main', 'Веб-камера'); ?></a></li>
-                                <li class="last-menu-item"><a href="Page2(о проекте).html"><?php echo Yii::t('main', 'О проекте'); ?></a></li>
-                                <li><a href="#"><?php echo Yii::t('main', 'ДОБАВИТЬ ОБЪЕКТ'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><?php echo Yii::t('main', 'Главная'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>"><?php echo Yii::t('main', 'Новости'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webCamera'); ?>"><?php echo Yii::t('main', 'Веб-камера'); ?></a></li>
+                                <li class="last-menu-item"><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about'); ?>"><?php echo Yii::t('main', 'О проекте'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add'); ?>"><?php echo Yii::t('main', 'ДОБАВИТЬ ОБЪЕКТ'); ?></a></li>
                             </ul>
                         </section>
                     </nav>
@@ -81,7 +81,7 @@
 
         <div class="row collapse search-panel">
             <div class="large-3 columns">
-                <a href="/"><img src="/img/logo.png"></a>
+                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><img src="/img/logo.png"></a>
                 <p><?php echo Yii::t('main', 'Уже'); ?> <?php echo Yii::app()->session['totalItemCount']; ?> <?php echo CHtml::encode(Yii::t('main', 'объектов')); ?></p>
             </div>
             <div class="large-9 columns">
@@ -119,11 +119,11 @@
                 <div class="large-12 columns">
                     <div class="row collapse" id='cssmenu'>
                         <div class="large-6  medium-12 small-12 columns">
-                            <p><a href="/">www.gde.ck.ua</a> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> ©<?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></p>
+                            <p><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">www.gde.ck.ua</a> - <?php echo Yii::t('main', 'Сервис поиска "Где в Черкассах?"'); ?> ©<?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?> <?php echo Yii::t('main', 'Все права защищены'); ?></p>
                         </div>
                         <div class='large-6 medium-12 small-12 columns'>
                             <ul class="right">
-                                <li><a href='#'><span><?php echo Yii::t('main', 'Новости'); ?></span></a></li>
+                                <li><a href='<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>'><span><?php echo Yii::t('main', 'Новости'); ?></span></a></li>
                                 <li><a href='<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add/'); ?>'><span><?php echo Yii::t('main', 'Добавить объект'); ?></span></a></li>
                                 <?php
                                 $feedback = $this->feedback;
@@ -201,7 +201,7 @@
                                     </div>
                                 </div>
                                 <li><a href='javascript:void(0)' class="obratnaya"><span><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></span></a></li>
-                                <li><a href='#'><span><?php echo Yii::t('main', 'О проекте'); ?></span></a></li>
+                                <li><a href='<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about'); ?>'><span><?php echo Yii::t('main', 'О проекте'); ?></span></a></li>
                             </ul>
                         </div>
                         <?php $this->renderPartial('/partials/_notify'); ?>

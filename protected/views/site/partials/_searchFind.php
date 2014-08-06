@@ -4,18 +4,12 @@
 <?php
 $currentPage = $dataProvider->getPagination()->currentPage + 1;
 ?>
-
-<!-- NAVIGATION TOP BAR -->
-<div class="large-12 columns navigation-top">
-    <p>
-        <a href="/"><?php echo Yii::t('main', 'Главная'); ?></a> >
-        <?php echo Yii::t('main', 'Поиск'); ?>:
-        <?php echo CHtml::encode($model->search); ?>
-        (<?php echo Yii::t('main', 'найдено {n} объект|найдено {n} объекта|найдено {n} объектов', [$dataProvider->getTotalItemCount()]); ?>) </p>
-    <hr>
-</div>
-<!-- NAVIGATION TOP BAR -->
-
+<?php
+$this->breadcrumbs = [
+    '' => Yii::t('main', 'Поиск') . ': ' . CHtml::encode($model->search) . ' (' . Yii::t('main', 'найдено {n} объект|найдено {n} объекта|найдено {n} объектов', [$dataProvider->getTotalItemCount()]) . ')'
+];
+$this->renderPartial('/partials/_breadcrumbs');
+?>
 
 <div class="large-12 columns">
     <div class="row collapse">

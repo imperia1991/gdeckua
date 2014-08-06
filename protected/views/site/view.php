@@ -8,10 +8,12 @@ $this->keywords = $model->tags->tags . ', ' . $model->{$title};
 
 $this->pageTitle = CHtml::encode($model->{$title});
 ?>
-
-<div class="large-12 columns navigation-top">
-    <p><a href="/"><?php echo Yii::t('main', 'Главная'); ?></a> > <?php echo Yii::t('main', 'Расширенный просмотр'); ?> - <?php echo CHtml::encode($model->{$title}); ?></p><hr>
-</div>
+<?php
+$this->breadcrumbs = [
+    '' => Yii::t('main', 'Расширенный просмотр') . ' - ' . CHtml::encode($model->{$title})
+];
+$this->renderPartial('/partials/_breadcrumbs');
+?>
 
 <div class="large-12 columns">
     <div class="row collapse">
