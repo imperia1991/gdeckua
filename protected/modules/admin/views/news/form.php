@@ -20,6 +20,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     ]); ?>
 
 <div class="row">
+    <?php echo $form->checkboxRow($newsModel, 'is_opinion'); ?>
     <?php echo $form->textFieldRow($newsModel, 'title', [
             'style' => 'width:90%'
         ]); ?>

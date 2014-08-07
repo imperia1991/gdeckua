@@ -1,7 +1,9 @@
-<div class="large-12 columns navigation-top">
-    <p><a href="#"><?php echo Yii::t('main', 'Главная'); ?></a> > <?php echo Yii::t('main', 'Ошибка 404'); ?> </p>
-    <hr>
-</div>
+<?php
+$this->breadcrumbs = [
+    '' => Yii::t('main', 'Ошибка 404')
+];
+$this->renderPartial('/partials/_breadcrumbs');
+?>
 <div class="large-12 columns">
     <div class="row collapse">
 

@@ -13,12 +13,22 @@
  * @property integer $is_deleted
  * @property string $photo
  * @property string $alias
+ * @property integer $is_opinion
  *
  * The followings are the available model relations:
  * @property CategoryNews $categoryNews
  */
 class News extends ActiveRecord
 {
+    /**
+     * Новость
+     */
+    const IS_OPINION = 0;
+    /**
+     * Мнение
+     */
+    const IS_NOT_OPINION = 1;
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -51,9 +61,9 @@ class News extends ActiveRecord
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],
             ['title', 'length', 'max' => 255],
-            ['photo', 'safe'],
+            ['photo, is_opinion', 'safe'],
             // The following rule is used by search().
-            ['id, category_news_id, title, text, created_at, is_deleted', 'safe', 'on' => 'search'],
+            ['id, category_news_id, title, text, created_at, is_deleted, is_opinion', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -83,6 +93,7 @@ class News extends ActiveRecord
             'is_deleted' => Yii::t('main', 'Статус'),
             'photo' => Yii::t('main', 'Фото для анонса новости'),
             'short_text' => Yii::t('main', 'Текст для анонса новости'),
+            'is_opinion' => Yii::t('main', 'Мнение'),
         ];
     }
 
@@ -110,6 +121,9 @@ class News extends ActiveRecord
         if ($this->is_deleted) {
             $criteria->compare('is_deleted', $this->is_deleted);
         }
+        if ($this->is_opinion == 0 || $this->is_opinion == 1) {
+            $criteria->compare('is_opinion', $this->is_opinion);
+        }
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
@@ -122,13 +136,61 @@ class News extends ActiveRecord
         ]);
     }
 
-    public function getPreviewNews()
+    /**
+     * Возвращает превью новостей или мнений
+     * @param int $is_opinion (0 - новость, 1 - мнение)
+     * @param int $limit количество на страницу
+     * @return CActiveRecord[]
+     */
+    public function getPreviewNews($is_opinion = 0, $limit = 4)
     {
         $criteria = new CDbCriteria();
         $criteria->compare('is_deleted', 0);
+        $criteria->compare('is_opinion', $is_opinion);
         $criteria->order = 'created_at DESC';
-        $criteria->limit = 4;
+        $criteria->limit = $limit;
 
         return $this->findAll($criteria);
+    }
+
+    /**
+     * Возвращает тип(ы) новостей (0 - новость, 1 - мнение)
+     * @param bool $all true - все типы, false - конкретный тип
+     * @param int $opinion число обозначающее тип новости (0 - новость, 1 - мнение)
+     * @return array|string
+     */
+    public function getOpinions($all = true, $opinion = 0)
+    {
+        if ($all) {
+            return [
+                '0' => Yii::t('main', 'Новость'),
+                '1' => Yii::t('main', 'Мнение'),
+            ];
+        }
+
+        return $opinion ? Yii::t('main', 'Мнение') : Yii::t('main', 'Новость');
+    }
+
+
+    /**
+     * Возвращает массив состоящий из предыдущей, текущей и следующей новостей
+     * @param $id int текущая новость
+     * @return News[]
+     */
+    public function getViewNews($id)
+    {
+        $query = 'SELECT * FROM news WHERE (
+                    id = (SELECT MAX(id) FROM news WHERE id < ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
+                    OR id = (SELECT MIN(id) FROM news WHERE id > ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
+                    OR id = ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
+                  ORDER BY created_at DESC';
+
+        $dataReader = Yii::app()->db->createCommand($query)->query();
+        $items = [];
+        while ($item = $dataReader->readObject('News', News::model()->getAttributes())) {
+            $items[] = $item;
+        }
+
+        return $items;
     }
 }

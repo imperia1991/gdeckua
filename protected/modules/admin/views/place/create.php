@@ -118,6 +118,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     <?php echo $form->dropDownListRow($model, 'district_id', $districts, ['empty' => 'Выберите район']); ?>
     <?php echo $form->textAreaRow($model, 'description_ru', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_ru)]); ?>
     <?php echo $form->textAreaRow($model, 'description_uk', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->description_uk)]); ?>
+    <?php echo $form->textAreaRow($model, 'how_to_get_ru', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->how_to_get_ru)]); ?>
+    <?php echo $form->textAreaRow($model, 'how_to_get_uk', ['class' => 'span8', 'rows' => 5, 'value' => StringHelper::br2nl($model->how_to_get_uk)]); ?>
     <div class="control-group ">
         <label for="Places_title_uk" class="control-label required">Теги (через запятую) <span class="required">*</span></label>
         <div class="controls">

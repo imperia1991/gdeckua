@@ -22,6 +22,8 @@
  * @property integer $is_deleted
  * @property integer $district_id
  * @property string $alias
+ * @property string $how_to_get_ru
+ * @property string $how_to_get_uk
  *
  * The followings are the available model relations:
  * @property Users $user
@@ -82,7 +84,7 @@ class Places extends ActiveRecord
             ['is_deleted', 'numerical', 'integerOnly' => true],
             ['title_ru, title_uk, alias', 'length', 'max' => 255],
             [
-                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search',
+                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search, how_to_get_ru, how_to_get_uk',
                 'safe'
             ],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK],
@@ -93,7 +95,6 @@ class Places extends ActiveRecord
                 'message' => Yii::t('main', 'Добавьте хотя бы одну фотографию')
             ],
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             [
                 'id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo',
                 'safe',
@@ -154,6 +155,8 @@ class Places extends ActiveRecord
             'category_id' => Yii::t('main', 'Категория'),
             'photo' => Yii::t('main', 'Фото'),
             'contact' => Yii::t('main', 'Контакты'),
+            'how_to_get_ru' => Yii::t('main', 'Как добраться (р)'),
+            'how_to_get_uk' => Yii::t('main', 'Как добраться (у)'),
         ];
     }
 
@@ -335,6 +338,8 @@ class Places extends ActiveRecord
         if (parent::beforeSave()) {
             $this->description_ru = nl2br($this->description_ru);
             $this->description_uk = nl2br($this->description_uk);
+            $this->how_to_get_ru = nl2br($this->how_to_get_ru);
+            $this->how_to_get_uk = nl2br($this->how_to_get_uk);
 
             return true;
         }

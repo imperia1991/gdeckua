@@ -21,7 +21,7 @@
             'columns' => [
                 [
                     'name' => 'title',
-                    'header' => 'Название',
+                    'header' => Yii::t('main', 'Название'),
                     'value' => function ($data, $row) {
                             /** @var News $data */
                             echo CHtml::encode($data->title);
@@ -36,6 +36,15 @@
                             }
                         },
                     'filter' => $categoriesModel->getCategories(),
+                ],
+                [
+                    'name' => 'is_opinion',
+                    'header' => Yii::t('main', 'Новость/Мнение'),
+                    'value' => function ($data, $row) {
+                            /** @var News $data */
+                            echo $data->getOpinions(false, $data->is_opinion);
+                        },
+                    'filter' => $newsModel->getOpinions(),
                 ],
                 [
                     'name' => 'created_at',

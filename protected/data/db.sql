@@ -127,3 +127,12 @@
 
 ALTER TABLE news
 	ADD COLUMN alias VARCHAR(255) NOT NULL AFTER photo;
+
+LTER TABLE news
+	ADD COLUMN is_opinion TINYINT(1) NULL DEFAULT '0' AFTER alias;
+	
+ALTER TABLE places
+	ADD COLUMN how_to_get_ru TEXT(1024) NULL COMMENT 'Как добраться' AFTER alias;
+
+ALTER TABLE places
+	ADD COLUMN how_to_get_uk TEXT(1024) NULL COMMENT 'Как добраться' AFTER alias;

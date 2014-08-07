@@ -31,12 +31,13 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <p><?php echo CHtml::encode($model->{$description}); ?></p>
                     </div>
                     <div class="row mod-images-gallery">
-                        <?php /*
+
                         <ul class="tabs" data-tab>
-                            <li class="tab-title active"><a href="#panel2-1">Фотографии</a></li>
-                            <li class="tab-title"><a href="#panel2-2">Как добраться</a></li>
+                            <li class="tab-title active"><a href="#panel2-1"><?php echo Yii::t('main', 'Фотографии'); ?></a></li>
+                            <li class="tab-title"><a href="#panel2-2"><?php echo Yii::t('main', 'Как добраться'); ?></a></li>
+                            <li class="tab-title"><a href="#panel2-3"><?php echo Yii::t('main', 'Контакты'); ?></a></li>
                         </ul>
-                        */ ?>
+
                         <div class="tabs-content">
                             <div class="content active" id="panel2-1">
                                 <div class="large-12 small-12 columns">
@@ -100,8 +101,32 @@ $this->renderPartial('/partials/_breadcrumbs');
                                     </ul>
                                 </div>
                             </div>
-                            <div class="content" id="panel2-2">
-                                <p>Second panel content goes here...</p>
+                            <div class="content" id="panel2-2" style="padding: 5px;">
+                                <?php $howToGet = 'how_to_get_' . Yii::app()->getLanguage(); ?>
+                                <p><?php echo $model->{$howToGet}; ?></p>
+                            </div>
+                            <div class="content" id="panel2-3" style="padding: 5px;">
+                                <?php if ($model->contact->phone_city): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Телефон городской'); ?>:</strong> <?php echo $model->contact->phone_city; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->phone_mobile1): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Телефон мобильный'); ?>:</strong> <?php echo $model->contact->phone_mobile1; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->phone_mobile2): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</strong> <?php echo $model->contact->phone_mobile2; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->phax): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Факс'); ?>:</strong> <?php echo $model->contact->phax; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->email): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Электронный адрес (email)'); ?>:</strong> <?php echo $model->contact->email; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->skype): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Скайп (skype)'); ?>:</strong> <?php echo $model->contact->skype; ?></p>
+                                <?php endif; ?>
+                                <?php if ($model->contact->operation_time): ?>
+                                    <p><strong><?php echo Yii::t('main', 'Время работы'); ?>:</strong> <?php echo $model->contact->operation_time; ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
 
