@@ -44,9 +44,9 @@
                         }
                 ],
                 [
-                    'name' => 'place_id',
+                    'name' => 'news_id',
                     'value' => function ($data, $row) {
-                            echo $data->place->title_ru;
+                            echo $data->news->title;
                         },
 //                    'filter' => $model->getParentsCategories(),
                 ],

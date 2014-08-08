@@ -29,13 +29,12 @@ class PlacesCategories extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('place_id, category_id', 'required'),
-			array('place_id, category_id', 'numerical', 'integerOnly'=>true),
+		return [
+			['place_id, category_id', 'required'],
+			['place_id, category_id', 'numerical', 'integerOnly'=>true],
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, place_id, category_id', 'safe', 'on'=>'search'),
-		);
+			['id, place_id, category_id', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -45,10 +44,10 @@ class PlacesCategories extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'place' => array(self::BELONGS_TO, 'Places', 'place_id'),
-			'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
-		);
+		return [
+			'place' => [self::BELONGS_TO, 'Places', 'place_id'],
+			'category' => [self::BELONGS_TO, 'Categories', 'category_id'],
+		];
 	}
 
 	/**
@@ -56,11 +55,11 @@ class PlacesCategories extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'place_id' => 'Place',
 			'category_id' => 'Category',
-		);
+		];
 	}
 
 	/**
@@ -77,17 +76,15 @@ class PlacesCategories extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('place_id',$this->place_id);
 		$criteria->compare('category_id',$this->category_id);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**

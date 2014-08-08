@@ -81,6 +81,7 @@ $mainConfig = [
 //                '<language:(ru|uk)>/view/object/<id:\d+>' => 'site/view',
                 '<language:(ru|uk)>/view/<id:\d+>/<alias>' => 'site/view',
                 '<language:(ru|uk)>/news/<id:\d+>/<alias>' => 'news/view',
+                '<language:(ru|uk)>/<controller:(news)>' => 'news/index',
                 '<language:(ru|uk)>/<action:\w+>/*' => 'site/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<language:(ru|uk)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -151,14 +152,15 @@ $mainConfig = [
         'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
         'pageSize' => 12,
         'pageSizeComment' => 3,
+        'pageSizeNews' => 3,
         'admin' => [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
             'files' => [
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
-                'news' => 'uploads/photos/news',
-                'blogs' => 'uploads/photos/blogs'
+                'news' => 'uploads/photos/news/',
+                'blogs' => 'uploads/photos/blogs/'
             ],
             'images' => [
                 'small' => [

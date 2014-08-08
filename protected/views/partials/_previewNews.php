@@ -14,7 +14,7 @@
                     <div class="row collapse">
                         <div class="large-4 medium-4 small-2 columns">
                             <?php
-                            echo Yii::app()->easyImage->thumbOf('/' . Yii::app()->params['files']['photos']['news'] . $oneNews->photo,
+                            echo Yii::app()->easyImage->thumbOf('/' . Yii::app()->params['admin']['files']['news'] . $oneNews->photo,
                                 [
                                     'resize' => ['width' => 100, 'height' => 80],
                                     'crop' => ['width' => 71, 'height' => 60],

@@ -151,7 +151,7 @@ class SiteController extends Controller
         $criteria = new CDbCriteria();
         $criteria->order = 'title_' . Yii::app()->getLanguage() . ' ASC';
         $districts = CHtml::listData(
-            Districts::model()->findAllByAttributes(array(), $criteria),
+            Districts::model()->findAllByAttributes([], $criteria),
             'id',
             'title_' . Yii::app()->getLanguage()
         );

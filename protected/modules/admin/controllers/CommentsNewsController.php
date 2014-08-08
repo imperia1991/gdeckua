@@ -1,16 +1,16 @@
 <?php
 
-class CommentsController extends AdminController
+class CommentsNewsController extends AdminController
 {
     public function init()
     {
         parent::init();
 
-        $this->menuActive = 'comments';
+        $this->menuActive = 'news';
     }
     public function actionIndex()
     {
-        $model = new Comments();
+        $model = new CommentsNews();
 
         $this->processForm($model);
     }
@@ -19,7 +19,7 @@ class CommentsController extends AdminController
     {
         $id = Yii::app()->request->getQuery('id', 0);
 
-        $model = Comments::model()->findByPk((int) $id);
+        $model = CommentsNews::model()->findByPk((int) $id);
 
         $this->processForm($model);
     }
@@ -29,7 +29,7 @@ class CommentsController extends AdminController
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getQuery('id');
 
-            Comments::model()->deleteByPk((int)$id);
+            CommentsNews::model()->deleteByPk((int)$id);
 
             Yii::app()->user->setFlash('success', 'Комментарий удален');
 
@@ -40,7 +40,7 @@ class CommentsController extends AdminController
     private function processForm($model)
     {
         if (Yii::app()->request->isAjaxRequest) {
-            $get = Yii::app()->request->getQuery('Comments');
+            $get = Yii::app()->request->getQuery('CommentsNews');
 
             $model->setAttributes($get);
 
@@ -48,15 +48,15 @@ class CommentsController extends AdminController
         }
 
         if (Yii::app()->request->isPostRequest) {
-            $post = Yii::app()->request->getPost('Comments');
-            /** @var Comments $model */
+            $post = Yii::app()->request->getPost('CommentsNews');
+            /** @var CommentsNews $model */
             $model->attributes = $post;
             $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $model->created_at);
 
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', 'Комментарий отредактирован');
 
-                $this->redirect($this->createUrl('/admin/comments'));
+                $this->redirect($this->createUrl('/admin/CommentsNews'));
             }
         }
 

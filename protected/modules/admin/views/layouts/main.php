@@ -38,6 +38,7 @@
                         ['label'=>'Новости', 'url'=>'/admin/news', 'active' => $this->menuActive == 'news', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
                             ['label'=>'Новости', 'url'=>'/admin/news'],
                             ['label'=>'Категории', 'url'=>'/admin/categoryNews'],
+                            ['label'=>'Комментарии', 'url'=>'/admin/commentsNews'],
                         ]],
 //                        array('label'=>'Разработка', 'url'=>'/admin/develop', 'active' => $this->menuActive == 'develop', 'visible' => Yii::app()->user->checkAccess('admin')),
                         ['label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')],

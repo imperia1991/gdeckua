@@ -37,7 +37,18 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-//
+        $news = News::model()->getAll();
+        $previewComments = CommentsNews::model()->getPreviewComments();
+        $previewOpinions = News::model()->getPreviewNews(News::IS_OPINION);
+
+        $this->render(
+            'index',
+            [
+                'news' => $news,
+                'previewComments' => $previewComments,
+                'previewOpinions' => $previewOpinions,
+            ]
+        );
     }
 
     /**
@@ -75,6 +86,7 @@ class NewsController extends Controller
 
         /** @var News[] $newsModels  */
         $newsModels = News::model()->getViewNews($id);
+        $comment = new CommentsNews(CommentsNews::SCENARIO_USER);
 
         if (!is_array($newsModels)) {
             throw new CHttpException(404, Yii::t('main', 'Такая новость не найдена'));
@@ -89,14 +101,14 @@ class NewsController extends Controller
 
 
         if (count($newsModels) == 3) {
-            $prevNewsModel = $newsModels[0];
+            $prevNewsModel = $newsModels[2];
             $currentNewsModel = $newsModels[1];
-            $nextNewsModel = $newsModels[2];
+            $nextNewsModel = $newsModels[0];
         } elseif (count($newsModels) == 2) {
             if ($id == $newsModels[1]->id) {
                 $prevNewsModel = null;
                 $currentNewsModel = $newsModels[1];
-                $nextModels = $newsModels[0];
+                $nextNewsModel = $newsModels[0];
             } else {
                 $prevNewsModel = $newsModels[1];
                 $currentNewsModel = $newsModels[0];
@@ -108,12 +120,30 @@ class NewsController extends Controller
             $nextNewsModel = null;
         }
 
+        if (Yii::app()->request->isPostRequest) {
+            $post = Yii::app()->request->getPost('CommentsNews', []);
+
+            $comment->setAttributes($post);
+            $comment->message = nl2br($comment->message);
+            $comment->news_id = $currentNewsModel->id;
+            $comment->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+
+            if ($comment->save()) {
+                Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш комментарий добавлен'));
+
+                $comment = new CommentsNews(CommentsNews::SCENARIO_USER);
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении комментария'));
+            }
+        }
+
         $this->render(
             'view',
             [
-                'prevNewsModels' => $prevNewsModel,
+                'prevNewsModel' => $prevNewsModel,
                 'currentNewsModel' => $currentNewsModel,
                 'nextNewsModel' => $nextNewsModel,
+                'comment' => $comment
             ]
         );
     }

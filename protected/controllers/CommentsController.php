@@ -6,10 +6,6 @@
 class CommentsController extends Controller
 {
 
-    /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
-     */
     public function actionComments()
     {
         if (!Yii::app()->getRequest()->isAjaxRequest || !Yii::app()->getRequest()->isPostRequest) {
@@ -31,7 +27,7 @@ class CommentsController extends Controller
 //        print_r(Yii::app()->getRequest()->getQuery('page', 0));
 //        echo '</pre>';
         $this->renderPartial(
-            '/site/partials/_commentsView',
+            '/partials/_commentsView',
             [
                 'dataProvider' => $dataProvider,
                 'model' => Places::model()->findByPk($placeId),
@@ -40,13 +36,38 @@ class CommentsController extends Controller
         );
 
         Yii::app()->end();
+    }
 
-//        $this->respondJSON([
-//                'error' => 0,
-//                'commentsView' => $this->renderPartial('/site/partials/_commentsView', [
-//                            $comment->search($placeId),
-//                        ]),
-//            ]);
+    public function actionCommentsNews()
+    {
+        if (!Yii::app()->getRequest()->isAjaxRequest || !Yii::app()->getRequest()->isPostRequest) {
+            $this->respondJSON(
+                [
+                    'error' => 1
+                ]
+            );
+        }
+
+        $this->processPageRequest('page');
+
+        $id = Yii::app()->getRequest()->getPost('id');
+        $comment = new CommentsNews(CommentsNews::SCENARIO_USER);
+
+        /** @var CActiveDataProvider $dataProvider */
+        $dataProvider = $comment->search($id);
+//        echo '<pre>';
+//        print_r(Yii::app()->getRequest()->getQuery('page', 0));
+//        echo '</pre>';
+        $this->renderPartial(
+            '/partials/_commentsView',
+            [
+                'dataProvider' => $dataProvider,
+                'model' => News::model()->findByPk($id),
+                'page' => Yii::app()->getRequest()->getQuery('page', 0)
+            ]
+        );
+
+        Yii::app()->end();
     }
 
 }

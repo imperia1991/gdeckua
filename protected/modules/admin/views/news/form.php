@@ -63,7 +63,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         $newsPhoto = '/' . Yii::app()->params['admin']['files']['tmp'] . Yii::app()->session['newsImage'] . '?r=' . rand(0, 10000);
     } elseif (!empty($newsModel->photo)) {
         $namePhoto = $newsModel->photo;
-        $newsPhoto = '/' . Yii::app()->params['files']['photos']['news'] . $newsModel->photo . '?r=' . rand(0, 10000);
+        $newsPhoto = '/' . Yii::app()->params['admin']['files']['news'] . $newsModel->photo . '?r=' . rand(0, 10000);
     }
     ?>
 

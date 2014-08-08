@@ -2,9 +2,9 @@
 /** @var Comments $comment */
 ?>
 <div class="large-12 columns comments">
-    <?php echo CHtml::encode(Yii::t('main', 'Комментарии к объекту')); ?>
+    <?php echo $caption; ?>
 </div>
-<div class="row collapse input-form">
+<div class="row collapse input-form-new">
     <?php $form = $this->beginWidget(
             'CActiveForm',
             [
@@ -56,7 +56,7 @@
 $dataProvider = $comment->search($model->id);
 ?>
 <div id="commentsView" class="row collapse comment-block">
-<?php $this->renderPartial('partials/_commentsView', [
+<?php $this->renderPartial('/partials/_commentsView', [
         'dataProvider' => $dataProvider,
         'model' => $model
     ]) ?>
@@ -98,11 +98,11 @@ $dataProvider = $comment->search($model->id);
 
                     $.ajax({
                         type: 'post',
-                        url: '<?php echo Yii::app()->createUrl('/comments/comments') ?>',
+                        url: '<?php echo $url; ?>',
                         data: {
                             // передаём номер нужной страницы методом POST
                             'page': page + 1,
-                            'place_id': <?php echo $model->id ?>
+                            'id': <?php echo $model->id ?>
                         },
                         success: function(data)
                         {

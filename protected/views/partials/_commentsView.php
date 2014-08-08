@@ -3,7 +3,7 @@
     'zii.widgets.CListView',
     [
         'dataProvider' => $dataProvider,
-        'itemView' => '/site/partials/_comment', // представление для одной записи
+        'itemView' => '/partials/_comment', // представление для одной записи
         'ajaxUpdate' => true, // отключаем ajax поведение
         'emptyText' => Yii::t('main', 'Комментарии еще не добавлены'),
         'summaryText' => "",

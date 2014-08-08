@@ -144,9 +144,11 @@ $this->renderPartial('/partials/_breadcrumbs');
                 </div>
             </div>
 
-            <?php echo $this->renderPartial('partials/_comments', [
+            <?php echo $this->renderPartial('/partials/_comments', [
                     'comment' => $comment,
-                    'model' => $model
+                    'model' => $model,
+                    'caption' => Yii::t('main', 'Комментарии к объекту'),
+                    'url' => Yii::app()->createUrl('/comments/comments'),
                 ]); ?>
 
         </div>

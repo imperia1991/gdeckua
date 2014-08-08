@@ -20,14 +20,15 @@
  */
 class News extends ActiveRecord
 {
+
     /**
      * Новость
      */
-    const IS_OPINION = 0;
+    const IS_OPINION = 1;
     /**
      * Мнение
      */
-    const IS_NOT_OPINION = 1;
+    const IS_NOT_OPINION = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -180,9 +181,9 @@ class News extends ActiveRecord
     public function getViewNews($id)
     {
         $query = 'SELECT * FROM news WHERE (
-                    id = (SELECT MAX(id) FROM news WHERE id < ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
-                    OR id = (SELECT MIN(id) FROM news WHERE id > ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
-                    OR id = ' . $id . ' AND is_deleted = 0 AND is_opinion = 0)
+                    id = (SELECT MAX(id) FROM news WHERE id < ' . $id . ' AND is_deleted = 0)
+                    OR id = (SELECT MIN(id) FROM news WHERE id > ' . $id . ' AND is_deleted = 0)
+                    OR id = ' . $id . ' AND is_deleted = 0)
                   ORDER BY created_at DESC';
 
         $dataReader = Yii::app()->db->createCommand($query)->query();
@@ -192,5 +193,32 @@ class News extends ActiveRecord
         }
 
         return $items;
+    }
+
+    /**
+     * @param int $isOpinion
+     * @param int $categoryNewsId
+     * @return CActiveDataProvider
+     */
+    public function getAll($isOpinion = 0, $categoryNewsId = 0)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->compare('is_deleted', 0);
+        $criteria->compare('is_opinion', $isOpinion);
+
+        if ($categoryNewsId) {
+            $criteria->compare('category_news_id', $categoryNewsId);
+        }
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['pageSizeNews'],
+                'pageVar' => 'page',
+            ],
+        ]);
     }
 }
