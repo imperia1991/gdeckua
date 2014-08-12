@@ -67,8 +67,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     }
     ?>
 
-    <label class="control-label required" style="width: auto"><?php echo Yii::t('main', 'Фото для анонса новости') ?> <span class="required">*</span></label><br/>
-    <img id="newsPhoto" width="71" height="60" alt="" src="<?php echo $newsPhoto; ?>" style="margin-bottom: 20px;margin-top: 20px; margin-left: -177px;" />
+    <label class="control-label required" style="width: auto"><?php echo Yii::t('main', 'Фото для анонса новости (Обязательно загружайте в папку news! Фото желательно 491х340, иначе оно на слайдере будет мутным)') ?> <span class="required">*</span></label>
+    <br/><br/>
+    <img id="newsPhoto" width="71" height="60" alt="" src="<?php echo $newsPhoto; ?>" style="margin-bottom: 20px;margin-top: 20px;" />
     <input id="uploadInputPhoto" name="News[photo]" type="hidden" value="<?php echo $namePhoto; ?>"/>
     <?php
     $this->widget('ext.EAjaxUpload.EAjaxUpload', [

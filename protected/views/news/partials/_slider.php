@@ -22,7 +22,7 @@
 
                 echo Yii::app()->easyImage->thumbOf($path,
                     [
-                        'resize' => ['width' => 600, 'height' => 500],
+                        'resize' => ['width' => 500, 'height' => 400],
                         'crop' => ['width' => 491, 'height' => 350],
                         'quality' => 100,
                     ]);

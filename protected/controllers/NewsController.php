@@ -38,9 +38,23 @@ class NewsController extends Controller
     public function actionIndex()
     {
         $category = Yii::app()->getRequest()->getQuery('alias', '');
-        $isOpinion = $category == News::OPINION ? News::OPINION : News::IS_NOT_OPINION;
-
+        $isOpinion = $category == News::OPINION ? News::IS_OPINION : News::IS_NOT_OPINION;
         $news = News::model()->getAll($isOpinion, $category);
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $this->processPageRequest('page');
+
+            $this->renderPartial(
+                '/news/partials/_newsView',
+                [
+                    'news' => $news,
+                    'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                ]
+            );
+
+            Yii::app()->end();
+        }
+
         $previewComments = CommentsNews::model()->getPreviewComments();
         $previewOpinions = News::model()->getPreviewNews(News::IS_OPINION);
         $categories = CategoryNews::model()->findAll();
@@ -52,6 +66,7 @@ class NewsController extends Controller
                 'previewComments' => $previewComments,
                 'previewOpinions' => $previewOpinions,
                 'categories' => $categories,
+                'currentCategory' => $category,
             ]
         );
     }

@@ -76,6 +76,12 @@
     margin-left: 10px;
     font-size: 13px;
 }
+#newsView .empty {
+   padding: 10px;
+}
+.reklama-news-box img {
+    height: 120px !important;
+}
 
 /*margins*/
 .marginTop13 {

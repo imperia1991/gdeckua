@@ -58,7 +58,7 @@ class News extends ActiveRecord
         // will receive user inputs.
         return [
             ['title, created_at, category_news_id, short_text, alias', 'required'],
-            ['photo', 'required', 'message' => 'Фото для анонса новсти обязательно'],
+            ['photo', 'required', 'message' => 'Фото для анонса новости обязательно'],
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],
             ['title', 'length', 'max' => 255],
@@ -206,7 +206,7 @@ class News extends ActiveRecord
         $criteria->compare('is_deleted', 0);
         $criteria->compare('is_opinion', $isOpinion);
 
-        if ($category) {
+        if ($category && $category != self::OPINION) {
             $criteria->join = 'join category_news cn ON t.category_news_id = cn.id AND cn.aliases = "' . $category . '"';
         }
 

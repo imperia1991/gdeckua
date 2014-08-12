@@ -12,8 +12,9 @@
         'viewData' => [
             'page' => isset($page) ? $page : 1,
         ],
-        'htmlOptions' => [
-            'class' => 'row collapse news-in-accordion'
-        ],
+//        'htmlOptions' => [
+//            'class' => 'content active',
+//            'id' => 'newsView'
+//        ],
     ]
 );
