@@ -2,6 +2,7 @@
 /** @var Comments $comment */
 ?>
 <div class="large-12 columns comments">
+    <a name="comments"></a>
     <?php echo $caption; ?>
 </div>
 <div class="row collapse input-form-new">

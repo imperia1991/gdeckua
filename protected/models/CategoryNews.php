@@ -32,14 +32,13 @@ class CategoryNews extends ActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('title_ru, title_uk, aliases', 'required'),
-			array('parent_id', 'numerical', 'integerOnly'=>true),
-			array('title_ru, title_uk, aliases', 'length', 'max'=>255),
+		return [
+			['title_ru, title_uk, aliases', 'required'],
+			['parent_id', 'numerical', 'integerOnly'=>true],
+			['title_ru, title_uk, aliases', 'length', 'max'=>255],
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'),
-		);
+			['id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -49,11 +48,11 @@ class CategoryNews extends ActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'parent' => array(self::BELONGS_TO, 'CategoryNews', 'parent_id'),
-			'categoryNews' => array(self::HAS_MANY, 'CategoryNews', 'parent_id'),
-			'news' => array(self::HAS_MANY, 'News', 'category_news_id'),
-		);
+		return [
+			'parent' => [self::BELONGS_TO, 'CategoryNews', 'parent_id'],
+			'categoryNews' => [self::HAS_MANY, 'CategoryNews', 'parent_id'],
+			'news' => [self::HAS_MANY, 'News', 'category_news_id'],
+		];
 	}
 
 	/**
@@ -61,13 +60,13 @@ class CategoryNews extends ActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => '№',
 			'title_ru' => Yii::t('main', 'Название (русский)'),
 			'title_uk' => Yii::t('main', 'Название (украинский)'),
 			'aliases' => 'Aliases',
 			'parent_id' => 'Parent',
-		);
+		];
 	}
 
 	/**
@@ -93,9 +92,9 @@ class CategoryNews extends ActiveRecord
             $criteria->compare('title_uk',$this->title_uk,true);
         }
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**

@@ -13,6 +13,7 @@
  * @property string $email
  * @property string $skype
  * @property string $operation_time
+ * @property string $site
  *
  * The followings are the available model relations:
  * @property Places $place
@@ -40,6 +41,7 @@ class Contacts extends CActiveRecord
 			['phone_city, phone_mobile1, phone_mobile2, phax', 'match', 'pattern'=>'/^[0-9]+$/', 'message' => Yii::t('main', 'Должны быть только цифры')],
 			['email, skype', 'length', 'max'=>50],
 			['email', 'email'],
+			['site', 'url'],
 			['operation_time', 'length', 'max'=>255],
 			// The following rule is used by search().
 			['id, place_id, phone_city, phone_mobile1, phone_mobile2, phax, email, skype, operation_time', 'safe', 'on'=>'search'],
@@ -73,6 +75,7 @@ class Contacts extends CActiveRecord
 			'email' => Yii::t('main', 'Электронный адрес (email)'),
 			'skype' => Yii::t('main', 'Скайп (skype)'),
 			'operation_time' => Yii::t('main', 'Время работы'),
+			'site' => Yii::t('main', 'Сайт'),
 		];
 	}
 
@@ -90,8 +93,6 @@ class Contacts extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

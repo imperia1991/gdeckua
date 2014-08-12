@@ -28,7 +28,7 @@ class ActiveRecord extends CActiveRecord
         if (parent::beforeValidate()) {
             if ($this->scenario == 'insert' && $this->hasAttribute('created_at')) {
                 $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
-            } else {
+            } elseif ($this->hasAttribute('created_at')) {
                 $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $this->created_at);
             }
 

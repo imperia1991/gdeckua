@@ -151,6 +151,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     <?php echo $form->textFieldRow($model->contact, 'operation_time', [
             'style' => 'width: 80%',
         ]); ?>
+    <?php echo $form->textFieldRow($model->contact, 'site', [
+            'style' => 'width: 80%',
+        ]); ?>
 </div>
 
 <div class="form-actions">

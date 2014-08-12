@@ -37,9 +37,13 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-        $news = News::model()->getAll();
+        $category = Yii::app()->getRequest()->getQuery('alias', '');
+        $isOpinion = $category == News::OPINION ? News::OPINION : News::IS_NOT_OPINION;
+
+        $news = News::model()->getAll($isOpinion, $category);
         $previewComments = CommentsNews::model()->getPreviewComments();
         $previewOpinions = News::model()->getPreviewNews(News::IS_OPINION);
+        $categories = CategoryNews::model()->findAll();
 
         $this->render(
             'index',
@@ -47,6 +51,7 @@ class NewsController extends Controller
                 'news' => $news,
                 'previewComments' => $previewComments,
                 'previewOpinions' => $previewOpinions,
+                'categories' => $categories,
             ]
         );
     }

@@ -20,7 +20,7 @@
  */
 class News extends ActiveRecord
 {
-
+    const OPINION = 'opinion';
     /**
      * Новость
      */
@@ -197,17 +197,17 @@ class News extends ActiveRecord
 
     /**
      * @param int $isOpinion
-     * @param int $categoryNewsId
+     * @param string $category
      * @return CActiveDataProvider
      */
-    public function getAll($isOpinion = 0, $categoryNewsId = 0)
+    public function getAll($isOpinion = 0, $category = '')
     {
         $criteria = new CDbCriteria();
         $criteria->compare('is_deleted', 0);
         $criteria->compare('is_opinion', $isOpinion);
 
-        if ($categoryNewsId) {
-            $criteria->compare('category_news_id', $categoryNewsId);
+        if ($category) {
+            $criteria->join = 'join category_news cn ON t.category_news_id = cn.id AND cn.aliases = "' . $category . '"';
         }
 
         return new CActiveDataProvider($this, [

@@ -81,6 +81,7 @@ $mainConfig = [
 //                '<language:(ru|uk)>/view/object/<id:\d+>' => 'site/view',
                 '<language:(ru|uk)>/view/<id:\d+>/<alias>' => 'site/view',
                 '<language:(ru|uk)>/news/<id:\d+>/<alias>' => 'news/view',
+                '<language:(ru|uk)>/news/<alias:\w+>' => 'news/index',
                 '<language:(ru|uk)>/<controller:(news)>' => 'news/index',
                 '<language:(ru|uk)>/<action:\w+>/*' => 'site/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<id:\d+>' => '<controller>/view',

@@ -42,7 +42,7 @@
     <!-- read more news -->
     <div class="row collapse show-news">
         <div class="large-12 columns">
-            <p><a href="<?php echo Yii::app()->createUrl('/news'); ?>"><?php echo Yii::t('main', 'Читать все новости'); ?></a></p>
+            <p><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>"><?php echo Yii::t('main', 'Читать все новости'); ?></a></p>
         </div>
     </div>
     <!-- read more news -->

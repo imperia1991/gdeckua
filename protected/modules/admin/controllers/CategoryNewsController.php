@@ -33,9 +33,9 @@ class CategoryNewsController extends AdminController
 
         $this->render(
             'index',
-            array(
+            [
                 'categoriesModel' => $categoriesModel,
-            )
+            ]
         );
     }
 
@@ -119,9 +119,9 @@ class CategoryNewsController extends AdminController
 
         $this->render(
             'form',
-            array(
+            [
                 'categoryModel' => $categoryModel,
-            )
+            ]
         );
     }
 }
