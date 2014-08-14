@@ -82,7 +82,12 @@
 .reklama-news-box img {
     height: 120px !important;
 }
-
+.main-news-inner img {
+    height: auto;
+}
+.news-link {
+    margin-top: 15px;
+}
 /*margins*/
 .marginTop13 {
     margin-top: 13px !important;

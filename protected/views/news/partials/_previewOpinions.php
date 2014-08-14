@@ -21,12 +21,12 @@
                 </div>
                 <div class="large-8 medium-8 small-9 columns">
                     <p><?php echo $opinion->created_at; ?>></p>
-                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>"><h4><?php echo $opinion->title; ?></h4></a>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>"><h4><?php echo $opinion->getShortTitle(); ?></h4></a>
                 </div>
             </div>
         </div>
         <div class="large-12 columns medium-9 small-12 description">
-            <p><?php echo $opinion->short_text; ?></p>
+            <p><?php echo $opinion->getShortText(); ?></p>
         </div>
         <div align="center" class="large-12 columns medium-9 small-12 news-link">
             <a align="center"href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>">

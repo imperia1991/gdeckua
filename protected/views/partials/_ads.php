@@ -12,7 +12,7 @@
     </div>
 
     <div class="large-3 small-6 columns">
-        <div class="reklama-box"><a href="javascript:void(0)"><img src="/img/reklama.png"></a></div>
+        <div class="reklama-box"><a href="http://www.vechirka.net" target="_blank"><img src="/img/banners/www_vechirka_net.png" alt="Сучасний міський портал Черкас"></a></div>
     </div>
 
     <div class="large-3 small-6 columns">

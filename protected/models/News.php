@@ -221,4 +221,24 @@ class News extends ActiveRecord
             ],
         ]);
     }
+
+    public function getShortTitle()
+    {
+        $result = mb_substr($this->title, 0, 20, 'UTF-8');
+        if (strlen($this->title) > 20) {
+            $result .= '...';
+        }
+
+        return $result;
+    }
+
+    public function getShortText()
+    {
+        $result = mb_substr($this->short_text, 0, 100, 'UTF-8');
+        if (strlen($this->short_text) > 100) {
+            $result .= '...';
+        }
+
+        return $result;
+    }
 }

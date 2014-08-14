@@ -2651,8 +2651,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 
 
 
+/*******PRAVKI******/
+.left-sector-large-view .tabs-content > .content.active {
+	padding: 10px 0 0 0;
+	margin-bottom: -17px;
+}
 
+.left-sector-large-view .tabs-content > .content.active p {
+	padding-left: 10px;
+}
 
+.right-section-cont .news-box img {
+    float: left;
+    height: 60px;
+    padding-right: 10px;
+    padding-top: 2px;
+}
+
+.right-section-cont .news-box .oglavlenie h4 {
+    margin-top: -5px;
+}
+/*****PRAVKI*****/
 
 
 #grid[data-columns]::before {

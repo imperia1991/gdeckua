@@ -156,4 +156,25 @@ class CommentsNews extends ActiveRecord
 
         return $this->findAll($criteria);
     }
+
+    public function getShortNewsTitle()
+    {
+        $result = mb_substr($this->news->title, 0, 32, 'UTF-8');
+        if (strlen($this->news->title) > 32) {
+            $result .= '...';
+        }
+
+        return $result;
+    }
+
+    public function getShortMessage()
+    {
+        $result = mb_substr($this->message, 0, 75, 'UTF-8');
+
+        if (strlen($this->news->title) > 75) {
+            $result .= '...';
+        }
+
+        return $result;
+    }
 }

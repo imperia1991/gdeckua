@@ -140,4 +140,28 @@
 # ALTER TABLE contacts
 # 	ADD COLUMN site VARCHAR(255) NULL AFTER operation_time;
 
+CREATE TABLE photo_city (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  author VARCHAR(255) NOT NULL,
+  site VARCHAR(255) NULL DEFAULT NULL,
+  alias VARCHAR(255) NULL DEFAULT NULL,
+  created_at DATETIME NOT NULL,
+  type TINYINT(1) NOT NULL DEFAULT '1' COMMENT '1 - фото города, 2 - фото мероприятия',
+  PRIMARY KEY (id)
+)
+  COLLATE='utf8_general_ci'
+  ENGINE=InnoDB;
 
+CREATE TABLE comments_photo_city (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  created_at DATETIME NOT NULL,
+  photo_city_id BIGINT(20) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX FK1_photo_city_comments (photo_city_id),
+  CONSTRAINT FK1_photo_city_comments FOREIGN KEY (photo_city_id) REFERENCES photo_city (id) ON UPDATE CASCADE ON DELETE CASCADE
+)
+  COLLATE='utf8_general_ci'
+  ENGINE=InnoDB;

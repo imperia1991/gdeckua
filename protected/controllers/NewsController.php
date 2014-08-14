@@ -56,7 +56,7 @@ class NewsController extends Controller
         }
 
         $previewComments = CommentsNews::model()->getPreviewComments();
-        $previewOpinions = News::model()->getPreviewNews(News::IS_OPINION);
+        $previewOpinions = News::model()->getPreviewNews(News::IS_OPINION, 3);
         $categories = CategoryNews::model()->findAll();
 
         $this->render(
