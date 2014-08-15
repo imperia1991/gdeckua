@@ -164,7 +164,8 @@ $mainConfig = [
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
                 'news' => 'uploads/photos/news/',
-                'blogs' => 'uploads/photos/blogs/'
+                'photoBlog' => 'uploads/photos/photoBlog/',
+                'photoCity' => 'uploads/photos/photoCity/',
             ],
             'images' => [
                 'small' => [

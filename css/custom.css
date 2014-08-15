@@ -27,7 +27,7 @@
 .map-of-object .map-section {
     height: 595px;
 }
-#comment-model-form .error, #place-model-form .error {
+#comment-model-form .error, #place-model-form .error, #photoCity-model-form .error {
     color: red;
     font-size: 14px;
 }

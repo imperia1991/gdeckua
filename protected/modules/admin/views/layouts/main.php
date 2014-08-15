@@ -29,6 +29,12 @@
                             ['label'=>'Категории', 'url'=>'/admin/category'],
                             ['label'=>'Комментарии', 'url'=>'/admin/comments'],
                         ]],
+                        ['label'=>'Фотографии', 'url'=>'/admin/photoCity', 'active' => $this->menuActive == 'photo', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
+                            ['label'=>'Город/Мероприятия', 'url'=>'/admin/photoCity'],
+                            ['label'=>'Фотоблог ', 'url'=>'/admin/photoBlog'],
+                            ['label'=>'Комментарии фото города', 'url'=>'/admin/commentsPhotoCity'],
+                            ['label'=>'Комментарии фотоблогов', 'url'=>'/admin/commentsPhotoBlog'],
+                        ]],
                         ['label'=>'Районы', 'url'=>'/admin/district', 'active' => $this->menuActive == 'district', 'visible' => Yii::app()->user->checkAccess('admin')],
                         ['label'=>'Настройки', 'url'=>'/admin/search', 'active' => $this->menuActive == 'settings', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
                             ['label'=>'Поиск', 'url'=>'/admin/search'],

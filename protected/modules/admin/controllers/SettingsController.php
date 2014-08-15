@@ -34,8 +34,8 @@ class SettingsController extends AdminController
             }
         }
 
-        $this->render('form', array(
+        $this->render('form', [
             'settingsModel' => $settingsModel,
-        ));
+        ]);
     }
 }
