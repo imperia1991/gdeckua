@@ -37,10 +37,12 @@ class PhotoController extends Controller
      */
     public function actionIndex()
     {
+        $photos = PhotoCity::model()->getAll();
 
         $this->render(
             'index',
             [
+                'photos' => $photos
             ]
         );
     }

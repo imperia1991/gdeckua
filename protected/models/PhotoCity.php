@@ -163,4 +163,20 @@ class PhotoCity extends ActiveRecord
             'Фотография мероприятия'
         );
     }
+
+    public function getAll()
+    {
+        $criteria = new CDbCriteria();
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['pageSizeNews'],
+                'pageVar' => 'page',
+            ],
+        ]);
+    }
 }
