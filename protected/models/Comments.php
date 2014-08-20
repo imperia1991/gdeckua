@@ -41,7 +41,7 @@ class Comments extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return [
-			['name, message, created_at', 'required'],
+			['name, message, created_at', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
 			['name', 'length', 'max'=>255],
 			['message', 'length', 'max'=>1024],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],

@@ -4,8 +4,13 @@
 	<meta charset="utf-8" />
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title><?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?></title>
+    <meta name="title" content="<?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?>" />
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
-	<meta name="description" content="Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид" />
+	<meta name="description" content="<?php echo Yii::t('main', 'Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид') ?>" />
+    <meta property="og:title" content="<?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?>" />
+    <meta property="og:description" content="<?php echo Yii::t('main', 'Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид') ?>" />
+    <meta property="og:url" content="http://www.gde.ck.ua" />
+    <meta property="og:image" content="/img/logo.png" />
     <meta name='yandex-verification' content='72cc09e6d8e79d9c' />
     <link rel="stylesheet" href="/css/foundation.css" />
     <link rel="stylesheet" href="/css/main.css" />
@@ -16,11 +21,12 @@
     <link href="/css/jquery.jgrowl.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
-    <script src="/js/vendor/modernizr.js"></script>
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+    <script src="/js/vendor/modernizr.js"></script>
     <script src="/js/jquery.slimscroll.min.js"></script>
     <script src="/js/jquery.searchselect.min.js"></script>
     <script src="/js/jquery.colorbox-min.js"></script>
+    <script src="/js/salvattore.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
 
@@ -55,12 +61,7 @@
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
                             <div class="right currency">
-                                <a href="#"><img src="/img/soc-fb.png" alt=""></a>
-                                <a href="#"><img src="/img/soc-vk.png" alt=""></a>
-                                <a href="#"><img src="/img/soc-odn.png" alt=""></a>
-                                <a href="#"><img src="/img/soc-twitter.png" alt=""></a>
-                                <a href="#"><img src="/img/soc-google.png" alt=""></a>
-                                <a href="#"><img src="/img/soc-mailru.png" alt=""></a>
+                                <?php $this->renderPartial('/partials/_social'); ?>
                             </div>
                             <div class="right lang">
                                 <?php $this->renderPartial('/partials/_language'); ?>
@@ -273,7 +274,8 @@
     <script src="/js/jquery.mCustomScrollbar.min.js"></script>
     <script src="/js/jquery.mousewheel.min.js"></script>
     <script src="/js/foundation.min.js"></script>
-    <script>
+    <script type="text/javascript">
+        Foundation.global.namespace = '';
         $(document).foundation();
     </script>
 

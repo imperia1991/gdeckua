@@ -11,15 +11,12 @@
  * @property string $alias
  * @property string $created_at
  * @property string $photo
- * @property integer $type
  *
  * The followings are the available model relations:
  * @property CommentsPhotoCity[] $commentsPhotoCities
  */
 class PhotoCity extends ActiveRecord
 {
-    const PHOTO_CITY = 1;
-    const PHOTO_event = 2;
     const SCENARIO_ADMIN = 'admin';
     const SCENARIO_USER = 'user';
     /**
@@ -59,13 +56,13 @@ class PhotoCity extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title, author, created_at, alias, photo', 'required'],
-            ['verifyCode', 'required', 'on' => self::SCENARIO_USER],
-            ['type', 'numerical', 'integerOnly' => true],
+            ['title, author, created_at, alias', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+            ['photo', 'required', 'message' => Yii::t('main', 'Добавьте фотографию')],
+            ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
             ['title, author, site, alias', 'length', 'max' => 255],
             ['site', 'url'],
             // The following rule is used by search().
-            ['id, title, author, site, type', 'safe', 'on' => 'search'],
+            ['id, title, author, site', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -93,7 +90,6 @@ class PhotoCity extends ActiveRecord
             'site' => Yii::t('main', 'Сайт'),
             'alias' => Yii::t('main', 'Алиас'),
             'created_at' => Yii::t('main', 'Добавлено'),
-            'type' => Yii::t('main', 'Тип'),
             'verifyCode' => Yii::t('main', 'Введите код с картинки'),
         ];
     }
@@ -126,9 +122,6 @@ class PhotoCity extends ActiveRecord
         if ($this->site) {
             $criteria->compare('site', $this->site, true);
         }
-        if ($this->type) {
-            $criteria->compare('type', $this->type);
-        }
 
         return new CActiveDataProvider($this,
             [
@@ -143,17 +136,6 @@ class PhotoCity extends ActiveRecord
     }
 
     /**
-     * @return array
-     */
-    public function getTypes()
-    {
-        return [
-            1 => Yii::t('main', 'Фотография города'),
-            2 => Yii::t('main', 'Фотография мероприятия'),
-        ];
-    }
-
-    /**
      * @return string
      */
     public function getType()
@@ -164,9 +146,10 @@ class PhotoCity extends ActiveRecord
         );
     }
 
-    public function getAll()
+    public function getPhotoCities()
     {
         $criteria = new CDbCriteria();
+        $criteria->order = 'created_at DESC';
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
@@ -174,7 +157,7 @@ class PhotoCity extends ActiveRecord
                 'defaultOrder' => 'created_at DESC',
             ],
             'pagination' => [
-                'pageSize' => Yii::app()->params['pageSizeNews'],
+                'pageSize' => Yii::app()->params['pageSizePhotos'],
                 'pageVar' => 'page',
             ],
         ]);

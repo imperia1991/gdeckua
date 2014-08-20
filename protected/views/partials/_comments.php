@@ -17,13 +17,13 @@
             ]
         ); ?>
         <div class="large-7 columns">
-            <?php echo $form->textArea($comment, 'message', ['placeholder' => Yii::t('main', 'Напишите Ваш комментарий') . "...", 'value' => StringHelper::br2nl($comment->message)]); ?>
+            <?php echo $form->textArea($comment, 'message', ['placeholder' => Yii::t('main', 'Напишите комментарий') . "...", 'value' => StringHelper::br2nl($comment->message)]); ?>
             <?php echo $form->error($comment, 'message', ['class' => 'error']); ?>
         </div>
         <div class="large-5 columns">
             <div class="row collapse" style="padding-left: 5px !important;">
                 <div class="large-12 columns">
-                    <?php echo $form->textField($comment, 'name', ['placeholder' => CHtml::encode(Yii::t('main', 'Ваше Имя'))]); ?>
+                    <?php echo $form->textField($comment, 'name', ['placeholder' => Yii::t('main', 'Ваше Имя')]); ?>
                     <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
                 </div>
                 <div class="large-6 columns">

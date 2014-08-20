@@ -55,6 +55,9 @@
     height: 38px;
     border: 0;
 }
+.qq-upload-button input[type="file"] {
+    font-size: 0px !important;
+}
 .added-images .qq-uploader {
     text-align: left;
 }
@@ -119,6 +122,23 @@
 form.link-add-photo-city {
     margin: 0;
 }
+.cboxTitle {
+    font-size: 13px;
+}
+.item {
+    width: 32%;
+}
+#panelPhotoCity .foto-inner {
+    margin-right: 10px !important;
+}
+/*.foto-inner a > img {*/
+    /*max-height: 168px;*/
+    /*min-height: 168px;*/
+/*}*/
+.added-images .error {
+    text-align: left;
+}
+
 /*margins*/
 .marginTop13 {
     margin-top: 13px !important;

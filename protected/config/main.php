@@ -157,6 +157,7 @@ $mainConfig = [
         'pageSize' => 12,
         'pageSizeComment' => 3,
         'pageSizeNews' => 3,
+        'pageSizePhotos' => 6,
         'admin' => [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',

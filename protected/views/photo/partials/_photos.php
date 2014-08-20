@@ -1,95 +1,103 @@
-<div class="large-12 columns news-accordion">
+<?php
+/** @var CActiveDataProvider $photos */
+?>
+<!--<div class="js-masonry" id="panelPhotoCity" data-masonry-options='{ "itemSelector": ".item" }'>-->
+<div class="" id="panelPhotoCity">
     <?php $this->renderPartial(
-        'partials/_categories',
+        'partials/_photoView',
         [
-            'categories' => $categories,
-            'currentCategory' => $currentCategory,
+            'photos' => $photos,
         ]
-    ); ?>
-    <div class="tabs-content">
-        <div id="newsView" class="content active">
-
-            <?php $this->renderPartial(
-                'partials/_newsView',
-                [
-                    'news' => $news,
-                ]
-            ) ?>
-
-            <?php if ($news->getTotalItemCount() > $news->getPagination()->pageSize): ?>
-            <div id="showNews" class="row collapse">
-                <div class="show-other-news">
-                    <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
-                    <a id="showMore" href="javascript:void(0);"><?php echo Yii::t('main', 'Показать другие новости'); ?></a>
-                </div>
-            </div>
-                <script type="text/javascript">
-                    /*<![CDATA[*/
-                    (function($)
-                    {
-                        // скрываем стандартный навигатор
+    ) ?>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#panelPhotoCity").freetile({
+            selector: '.item',
+            containerResize: false
+        });
+    });
+</script>
+<?php if ($photos->getTotalItemCount() > $photos->getPagination()->pageSize): ?>
+<div id="showPhotos" class="large-12 columns show-other-news">
+    <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
+    <a id="showMore" href="javascript:void(0);"><?php echo Yii::t('main', 'Показать еще фотографии'); ?></a>
+</div>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    (function($)
+    {
+        // скрываем стандартный навигатор
 //            $('.paginator').hide();
 
-                        // запоминаем текущую страницу и их максимальное количество
-                        var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
-                        var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
+        // запоминаем текущую страницу и их максимальное количество
+        var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
+        var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
 
-                        var loadingFlag = false;
+        var loadingFlag = false;
 
-                        $('#showMore').on('click', function()
-                        {
-                            // защита от повторных нажатий
-                            if (!loadingFlag)
-                            {
-                                // выставляем блокировку
-                                loadingFlag = true;
+        $('#showMore').on('click', function()
+        {
+            // защита от повторных нажатий
+            if (!loadingFlag)
+            {
+                // выставляем блокировку
+                loadingFlag = true;
 
-                                // отображаем анимацию загрузки
-                                $('#showMore').hide();
-                                $('#loading').show();
+                // отображаем анимацию загрузки
+                $('#showMore').hide();
+                $('#loading').show();
 
-                                $.ajax({
-                                    type: 'post',
-                                    url: location.href,
-                                    data: {
-                                        // передаём номер нужной страницы методом POST
-                                        'page': page + 1
-                                    },
-                                    success: function(data)
-                                    {
-                                        // увеличиваем номер текущей страницы и снимаем блокировку
-                                        page++;
-                                        loadingFlag = false;
+                $.ajax({
+                    type: 'post',
+                    url: location.href,
+                    data: {
+                        // передаём номер нужной страницы методом POST
+                        'page': page + 1
+                    },
+                    success: function(data)
+                    {
+                        // увеличиваем номер текущей страницы и снимаем блокировку
+                        page++;
+                        loadingFlag = false;
 
-                                        // прячем анимацию загрузки
-                                        $('#loading').hide();
-                                        $('#showMore').show();
+                        // прячем анимацию загрузки
+                        $('#loading').hide();
+                        $('#showMore').show();
 
-                                        // вставляем полученные записи после имеющихся в наш блок
-                                        $('#newsView').append(data);
+                        // вставляем полученные записи после имеющихся в наш блок
+                        $('#panelPhotoCity').append(data);
+                        $('#panelPhotoCity').freetile({
+                            selector: '.item'
+                        });
+//                            var $panel = $('#panelPhotoCity');
+//                            $panel.masonry('reloadItems');
+//                            $panel.masonry('layout');
 
-                                        // если достигли максимальной страницы, то прячем кнопку
-                                        if (page >= pageCount)
-                                            $('#showNews').hide();
+                        $(".gallery").colorbox({
+                            slideshow: false,
+                            rel: 'slideshow',
+                            current: "{current}/{total}"
+                        });
 
-                                        var n = $(document).height();
-                                        $('html, body').animate({ scrollTop: n }, 1000);
-                                    },
-                                    done: function()
-                                    {
-                                        $('#loading').hide();
-                                        $('#showMore').show();
-                                    }
-                                });
-                            }
-                            return false;
-                        })
-                    })(jQuery);
-                    /*]]>*/
-                </script>
+                        // если достигли максимальной страницы, то прячем кнопку
+                        if (page >= pageCount)
+                            $('#showPhotos').hide();
 
-            <?php endif; ?>
-        </div>
+                        var n = $(document).height();
+                        $('html, body').animate({ scrollTop: n }, 1000);
+                    },
+                    done: function()
+                    {
+                        $('#loading').hide();
+                        $('#showMore').show();
+                    }
+                });
+            }
+            return false;
+        })
+    })(jQuery);
+    /*]]>*/
+</script>
 
-    </div>
-</div>
+<?php endif; ?>

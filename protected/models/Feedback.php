@@ -31,16 +31,15 @@ class Feedback extends ActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('name, email, message, created_at', 'required'),
-			array('email', 'email'),
-            array('verifyCode', 'captcha'),
-			array('is_reading, is_answer', 'numerical', 'integerOnly'=>true),
-			array('name, email', 'length', 'max'=>255),
+		return [
+			['name, email, message, created_at', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+			['email', 'email', 'message' => Yii::t('main', '{attribute} не является правильным E-Mail адресом')],
+            ['verifyCode', 'captcha'],
+			['is_reading, is_answer', 'numerical', 'integerOnly'=>true],
+			['name, email', 'length', 'max'=>255],
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, name, email, message, created_at, is_reading, is_answer', 'safe', 'on'=>'search'),
-		);
+			['id, name, email, message, created_at, is_reading, is_answer', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -50,8 +49,8 @@ class Feedback extends ActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return [
+		];
 	}
 
 	/**
@@ -59,7 +58,7 @@ class Feedback extends ActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'name' => CHtml::encode(Yii::t('main', '"Введите имя и фамилию"')),
 			'email' => CHtml::encode(Yii::t('main', '"Введите Ваш e-mail"')),
@@ -67,7 +66,7 @@ class Feedback extends ActiveRecord
 			'created_at' => 'Created At',
 			'is_reading' => 'Is Reading',
 			'is_answer' => 'Is Answer',
-		);
+		];
 	}
 
 	/**
@@ -96,9 +95,9 @@ class Feedback extends ActiveRecord
 		$criteria->compare('is_reading',$this->is_reading);
 		$criteria->compare('is_answer',$this->is_answer);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**

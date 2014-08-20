@@ -45,7 +45,8 @@ class CommentsNews extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return [
-			['name, message, created_at, news_id', 'required'],
+			['name, message, created_at, news_id, verifyCode', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+            ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
 			['news_id', 'numerical', 'integerOnly'=>true],
 			['name', 'length', 'max'=>255],
 			// The following rule is used by search().
@@ -76,6 +77,7 @@ class CommentsNews extends ActiveRecord
             'message' => Yii::t('main', 'Комментарий'),
             'created_at' => Yii::t('main', 'Добавлено'),
 			'news_id' => Yii::t('main', 'Новость'),
+			'verifyCode' => Yii::t('main', 'Введите код'),
 		];
 	}
 

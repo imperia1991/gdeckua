@@ -37,7 +37,21 @@ class PhotoController extends Controller
      */
     public function actionIndex()
     {
-        $photos = PhotoCity::model()->getAll();
+        $photos = PhotoCity::model()->getPhotoCities();
+
+        if (Yii::app()->getRequest()->isAjaxRequest) {
+            $this->processPageRequest('page');
+
+            $this->renderPartial(
+                '/photo/partials/_photoView',
+                [
+                    'photos' => $photos,
+                    'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                ]
+            );
+
+            Yii::app()->end();
+        }
 
         $this->render(
             'index',

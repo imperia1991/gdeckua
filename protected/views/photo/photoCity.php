@@ -45,14 +45,6 @@ $this->renderPartial('/partials/_breadcrumbs');
                         </div>
 
                         <div class="row collapse">
-                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Тип') ?>: <span>*</span></p></div>
-                            <div class="large-9 columns name-field">
-                                <?php echo $form->dropDownList($photoCityModel, 'type', $photoCityModel->getTypes(), []); ?>
-                                <?php echo $form->error($photoCityModel, 'type', ['class' => 'error']); ?>
-                            </div>
-                        </div>
-
-                        <div class="row collapse">
                             <div class="large-3 columns"><p><?php echo Yii::t('main', 'Сайт') ?>: </p></div>
                             <div class="large-9 columns name-field">
                                 <?php echo $form->textField($photoCityModel, 'site', []); ?>
@@ -124,7 +116,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <div class="row collapse">
                             <div class="large-3 small-6 columns">
                                 <div class="object-img-box">
-                                    <img id="photoCity" src="<?php echo $photoCity; ?>" />
+                                    <img id="photoCity" <?php if ($photoCity): ?> src="<?php echo $photoCity; ?>" <?php endif; ?> />
                                     <input id="uploadInputPhotoCity" name="PhotoCity[photo]" type="hidden" value="<?php echo $photoCityName; ?>"/>
                                 </div>
                             </div>

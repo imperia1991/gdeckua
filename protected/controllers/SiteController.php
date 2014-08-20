@@ -230,7 +230,7 @@ class SiteController extends Controller
 
         $title = 'title_' . Yii::app()->getLanguage();
 
-        $districts = CHtml::listData(Districts::model()->findAll(), 'id', $title);
+        $districts = CHtml::listData(Districts::model()->findAll(['order' => $title]), 'id', $title);
         $districts[-1] = Yii::t('main', 'Не указан');
 
         $this->render(

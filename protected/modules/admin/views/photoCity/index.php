@@ -28,11 +28,6 @@
                 ],
                'title',
                'author',
-                [
-                    'name' => 'type',
-                    'value' => '$data->getType()',
-                    'filter' => $photoCityModel->getTypes(),
-                ],
                 'site',
                 [
                     'name' => 'created_at',
