@@ -157,7 +157,7 @@ $mainConfig = [
         'pageSize' => 12,
         'pageSizeComment' => 3,
         'pageSizeNews' => 3,
-        'pageSizePhotos' => 6,
+        'pageSizePhotos' => 3,
         'admin' => [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
@@ -167,6 +167,7 @@ $mainConfig = [
                 'news' => 'uploads/photos/news/',
                 'photoBlog' => 'uploads/photos/photoBlog/',
                 'photoCity' => 'uploads/photos/photoCity/',
+                'photoPoster' => 'uploads/photos/photoPoster/',
             ],
             'images' => [
                 'small' => [

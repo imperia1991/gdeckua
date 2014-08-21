@@ -56,7 +56,7 @@ class PhotoCity extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title, author, created_at, alias', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+            ['title, author, created_at, alias', 'required', 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             ['photo', 'required', 'message' => Yii::t('main', 'Добавьте фотографию')],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
             ['title, author, site, alias', 'length', 'max' => 255],

@@ -21,6 +21,8 @@
 class News extends ActiveRecord
 {
     const OPINION = 'opinion';
+    const SCENARIO_ADMIN = 'admin';
+    const SCENARIO_USER = 'user';
     /**
      * Новость
      */
@@ -58,7 +60,6 @@ class News extends ActiveRecord
         // will receive user inputs.
         return [
             ['title, created_at, category_news_id, short_text, alias', 'required'],
-            ['verifyCode', 'required'],
             ['photo', 'required', 'message' => 'Фото для анонса новости обязательно'],
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],

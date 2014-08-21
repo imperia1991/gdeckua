@@ -33,7 +33,6 @@
 <div class="row">
             <?php echo $form->textFieldRow($photoCityModel, 'title', []); ?>
             <?php echo $form->textFieldRow($photoCityModel, 'author', []); ?>
-            <?php echo $form->textFieldRow($photoCityModel, 'site', []); ?>
 </div>
 <div class="row">
     <?php

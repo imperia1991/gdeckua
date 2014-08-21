@@ -5,7 +5,7 @@
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/place/create', 'label'=> 'Добавить')); ?>
 </div>
 <div class="row">
-    <?php $this->widget('bootstrap.widgets.TbGridView', array(
+    <?php $this->widget('bootstrap.widgets.TbGridView', [
         'type'=>'striped bordered condensed',
         'dataProvider'=>$model->search(),
         'emptyText' => 'Места не найдены',
@@ -91,5 +91,5 @@
             'lastPageLabel'  => '>>',
         ),
         'pagerCssClass'=>'pagination pagination-centered',
-    )); ?>
+    ]); ?>
 </div>

@@ -74,8 +74,8 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU, 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
-            ['title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK, 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+            ['title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
+            ['title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             [
                 'title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id',
                 'required',

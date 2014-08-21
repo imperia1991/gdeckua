@@ -32,7 +32,7 @@ class Feedback extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return [
-			['name, email, message, created_at', 'required', 'message' => Yii::t('main', 'Необхідно заповнити поле «{attribute}»')],
+			['name, email, message, created_at', 'required', 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
 			['email', 'email', 'message' => Yii::t('main', '{attribute} не является правильным E-Mail адресом')],
             ['verifyCode', 'captcha'],
 			['is_reading, is_answer', 'numerical', 'integerOnly'=>true],

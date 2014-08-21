@@ -32,7 +32,7 @@
 
         // запоминаем текущую страницу и их максимальное количество
         var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
-        var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
+        var pageCount = parseInt('<?php echo (int)$photos->pagination->pageCount; ?>');
 
         var loadingFlag = false;
 

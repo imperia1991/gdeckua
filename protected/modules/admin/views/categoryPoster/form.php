@@ -1,5 +1,5 @@
 <div class="row">
-    <h4>Добавление категории новости</h4>
+    <h4>Добавление категории афишы</h4>
 </div>
 <div class="row">
     <?php /** @var BootActiveForm $form */
@@ -13,8 +13,8 @@
     ); ?>
 
     <h4>Добавление категории для новости</h4>
-    <?php echo $form->textFieldRow($categoryModel, 'title_ru', array('style' => 'margin-bottom:0')); ?>
-    <?php echo $form->textFieldRow($categoryModel, 'title_uk', array('style' => 'margin-bottom:0')); ?>
+    <?php echo $form->textFieldRow($categoryModel, 'title_ru', ['style' => 'margin-bottom:0']); ?>
+    <?php echo $form->textFieldRow($categoryModel, 'title_uk', ['style' => 'margin-bottom:0']); ?>
     <br/><br/>
     <?php $this->widget(
         'bootstrap.widgets.TbButton',

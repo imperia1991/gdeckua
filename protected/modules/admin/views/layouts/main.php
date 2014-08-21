@@ -46,6 +46,10 @@
                             ['label'=>'Категории', 'url'=>'/admin/categoryNews'],
                             ['label'=>'Комментарии', 'url'=>'/admin/commentsNews'],
                         ]],
+                        ['label'=>'Афиша', 'url'=>'/admin/poster', 'active' => $this->menuActive == 'poster', 'visible' => Yii::app()->user->checkAccess('admin'), 'items' => [
+                            ['label'=>'Категории', 'url'=>'/admin/categoryPoster'],
+                            ['label'=>'Афишы', 'url'=>'/admin/posters'],
+                        ]],
 //                        array('label'=>'Разработка', 'url'=>'/admin/develop', 'active' => $this->menuActive == 'develop', 'visible' => Yii::app()->user->checkAccess('admin')),
                         ['label'=>'Выйти', 'url'=>'/admin/default/logout', 'visible' => Yii::app()->user->checkAccess('admin')],
                     ],
