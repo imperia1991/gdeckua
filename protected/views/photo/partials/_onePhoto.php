@@ -5,7 +5,15 @@
     <div class="row collapse">
         <div class="large-12 columns foto-inner-title"><h3><?php echo $data->title; ?></h3></div>
         <div class="large-12 columns foto-inner-img">
-            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->params['admin']['files']['photoCity'] . $data->photo) ?>" class="gallery" title="<?php echo $data->title; ?>">
+            <a href="<?php
+                echo Yii::app()->easyImage->thumbSrcOf('/' . Yii::app()->params['admin']['files']['photoCity'] . $data->photo,
+                    [
+                        'resize' => ['width' => 800, 'height' => 600],
+                        'quality' => 100,
+                    ]);
+                ?>"
+               class="gallery" title="<?php echo $data->title; ?>"
+                >
                 <?php
                 echo Yii::app()->easyImage->thumbOf(
                     '/' . Yii::app()->params['admin']['files']['photoCity'] . '/' . $data->photo,
@@ -23,11 +31,10 @@
         </div>
         <div class="large-12 columns foto-inner-text"><p><?php echo Yii::t('main', 'фото'); ?>: <?php echo $data->author; ?></p></div>
         <div class="large-12 columns foto-inner-soc">
-            <ul class="soc-icons-list">
-                <li><img src="/img/vk-like.png"></li>
-                <li><img src="/img/fb-like.png"></li>
-                <li><img src="/img/ok-like.png"></li>
-            </ul>
+<!--            --><?php //$this->renderPartial('/partials/_social', [
+//                    'image' => Yii::app()->createUrl('/uploads/photos/photoCity/' . $data->photo),
+//                    'title' => $data->title,
+//                ]); ?>
         </div>
     </div>
 </div>

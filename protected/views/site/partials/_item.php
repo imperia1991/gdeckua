@@ -67,7 +67,7 @@ if (isset($data->photos) && is_array($data->photos)) {
                                     ]);
                                 ?>
                                 <span class="enlarge">
-                                    <img src="img/large.png">
+                                    <img src="/img/large.png">
                                 </span>
                             </a>
                         </li>

@@ -70,13 +70,10 @@ $this->renderPartial('/partials/_breadcrumbs');
     <div class="row collapse share-new">
         <div class="large-12 columns">
             <div class="left">
-                <a href="#"><img src="/img/soc-fb.png" alt=""></a>
-                <a href="#"><img src="/img/soc-vk.png" alt=""></a>
-                <a href="#"><img src="/img/soc-odn.png" alt=""></a>
-                <a href="#"><img src="/img/soc-twitter.png" alt=""></a>
-                <a href="#"><img src="/img/soc-google.png" alt=""></a>
-                <a href="#"><img src="/img/soc-mailru.png" alt=""></a>
-                <a><?php echo Yii::t('main', 'Поделиться'); ?> </a>
+                <?php $this->renderPartial('/partials/_social', [
+                        'image' => Yii::app()->createUrl('/uploads/photos/news/' . $currentNewsModel->photo),
+                        'title' => $currentNewsModel->title,
+                    ]); ?>
             </div>
         </div>
     </div>

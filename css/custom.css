@@ -24,8 +24,11 @@
 .captcha input {
     margin-left: 25px;
 }
+.map-of-object {
+    height: 479px;
+}
 .map-of-object .map-section {
-    height: 595px;
+    height: 479px;
 }
 #comment-model-form .error, #place-model-form .error, #photoCity-model-form .error {
     color: red;
@@ -69,7 +72,7 @@
     height: 170px;
 }
 .add-foto-btn {
-    width: auto;
+    width: 308px;
     font-size: 15px;
 }
 .qq-upload-list {
@@ -131,12 +134,14 @@ form.link-add-photo-city {
 #panelPhotoCity .foto-inner {
     margin-right: 10px !important;
 }
-/*.foto-inner a > img {*/
-    /*max-height: 168px;*/
-    /*min-height: 168px;*/
-/*}*/
 .added-images .error {
     text-align: left;
+}
+.mod-images-gallery ul.tabs {
+    background: none repeat scroll 0 0 #eee;
+}
+.mod-images-gallery .tab-title a {
+    font-size: 0.9em !important;
 }
 
 /*margins*/

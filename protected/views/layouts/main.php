@@ -4,13 +4,8 @@
 	<meta charset="utf-8" />
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title><?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?></title>
-    <meta name="title" content="<?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?>" />
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
 	<meta name="description" content="<?php echo Yii::t('main', 'Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид') ?>" />
-    <meta property="og:title" content="<?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?>" />
-    <meta property="og:description" content="<?php echo Yii::t('main', 'Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид') ?>" />
-    <meta property="og:url" content="http://www.gde.ck.ua" />
-    <meta property="og:image" content="/img/logo.png" />
     <meta name='yandex-verification' content='72cc09e6d8e79d9c' />
     <link rel="stylesheet" href="/css/foundation.css" />
     <link rel="stylesheet" href="/css/main.css" />
@@ -61,7 +56,7 @@
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
                             <div class="right currency">
-                                <?php $this->renderPartial('/partials/_social'); ?>
+                                <?php //$this->renderPartial('/partials/_social'); ?>
                             </div>
                             <div class="right lang">
                                 <?php $this->renderPartial('/partials/_language'); ?>
@@ -85,7 +80,8 @@
 
         <div class="row collapse search-panel">
             <div class="large-3 columns">
-                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><img src="/img/logo.png"></a>
+                <?php $logo = 'logo_' . Yii::app()->getLanguage(); ?>
+                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><img src="/img/<?php echo $logo; ?>.png"></a>
                 <p><?php echo Yii::t('main', 'Уже'); ?> <?php echo Yii::app()->session['totalItemCount']; ?> <?php echo CHtml::encode(Yii::t('main', 'объектов')); ?></p>
             </div>
             <div class="large-9 columns">
