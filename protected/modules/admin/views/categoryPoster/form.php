@@ -15,6 +15,7 @@
     <h4>Добавление категории для новости</h4>
     <?php echo $form->textFieldRow($categoryModel, 'title_ru', ['style' => 'margin-bottom:0']); ?>
     <?php echo $form->textFieldRow($categoryModel, 'title_uk', ['style' => 'margin-bottom:0']); ?>
+    <?php echo $form->checkboxRow($categoryModel, 'is_affisha', ['style' => 'margin-bottom:0']); ?>
     <br/><br/>
     <?php $this->widget(
         'bootstrap.widgets.TbButton',

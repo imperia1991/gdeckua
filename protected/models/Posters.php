@@ -125,4 +125,33 @@ class Posters extends ActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * @param int $currentCategoryId
+     * @return CActiveDataProvider
+     */
+    public function getPosters($currentCategoryId = 0)
+    {
+        $criteria = new CDbCriteria();
+
+        if ($currentCategoryId) {
+            $criteria->compare('category_poster_id', $currentCategoryId);
+        }
+
+        $criteria->order = 'created_at DESC';
+
+        $dataProvider = new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['pageSizePosters'],
+                'pageVar' => 'page',
+            ],
+        ]);
+
+        return $dataProvider;
+    }
 }

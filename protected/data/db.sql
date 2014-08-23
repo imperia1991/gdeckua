@@ -153,32 +153,37 @@
 #   COLLATE='utf8_general_ci'
 #   ENGINE=InnoDB;
 
-CREATE TABLE category_posters (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  title_ru VARCHAR(255) NOT NULL,
-  title_uk VARCHAR(255) NOT NULL,
-  alias VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-)
-  COLLATE='utf8_general_ci'
-  ENGINE=InnoDB;
+# CREATE TABLE category_posters (
+#   id INT(11) NOT NULL AUTO_INCREMENT,
+#   title_ru VARCHAR(255) NOT NULL,
+#   title_uk VARCHAR(255) NOT NULL,
+#   alias VARCHAR(255) NOT NULL,
+#   PRIMARY KEY (id)
+# )
+#   COLLATE='utf8_general_ci'
+#   ENGINE=InnoDB;
+# 
+# CREATE TABLE posters (
+#   id INT(11) NOT NULL AUTO_INCREMENT,
+#   category_poster_id INT(11) NULL DEFAULT NULL,
+#   title VARCHAR(255) NULL DEFAULT NULL,
+#   description TEXT NULL,
+#   date_from DATETIME NULL DEFAULT NULL,
+#   date_to DATETIME NULL DEFAULT NULL,
+#   photo VARCHAR(255) NULL DEFAULT NULL,
+#   created_at DATETIME NOT NULL,
+#   alias VARCHAR(255) NOT NULL,
+#   PRIMARY KEY (id),
+#   INDEX FK1_category_posters (category_poster_id),
+#   CONSTRAINT FK1_category_posters FOREIGN KEY (category_poster_id) REFERENCES category_posters (id) ON UPDATE SET NULL ON DELETE SET NULL
+# )
+#   ENGINE=InnoDB;
 
-CREATE TABLE posters (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  category_poster_id INT(11) NULL DEFAULT NULL,
-  title VARCHAR(255) NULL DEFAULT NULL,
-  description TEXT NULL,
-  date_from DATETIME NULL DEFAULT NULL,
-  date_to DATETIME NULL DEFAULT NULL,
-  photo VARCHAR(255) NULL DEFAULT NULL,
-  created_at DATETIME NOT NULL,
-  alias VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id),
-  INDEX FK1_category_posters (category_poster_id),
-  CONSTRAINT FK1_category_posters FOREIGN KEY (category_poster_id) REFERENCES category_posters (id) ON UPDATE SET NULL ON DELETE SET NULL
-)
-  ENGINE=InnoDB;
+# ALTER TABLE category_posters
+#   ADD COLUMN orderby TINYINT NULL DEFAULT '0' AFTER alias;
 
+# ALTER TABLE `category_posters`
+#   ADD COLUMN `is_affisha` TINYINT(1) NULL DEFAULT '0' AFTER `orderby`;
 
 CREATE TABLE comments_photo_city (
   id INT(11) NOT NULL AUTO_INCREMENT,

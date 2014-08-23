@@ -12,9 +12,5 @@
         'viewData' => [
             'page' => isset($page) ? $page : 1,
         ],
-//        'htmlOptions' => [
-//            'class' => 'content active',
-//            'id' => 'newsView'
-//        ],
     ]
 );

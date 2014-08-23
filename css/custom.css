@@ -143,6 +143,12 @@ form.link-add-photo-city {
 .mod-images-gallery .tab-title a {
     font-size: 0.9em !important;
 }
+#content .left-section {
+    height: auto;
+}
+.central-content .map-section {
+    height: 1067px;
+}
 
 /*margins*/
 .marginTop13 {

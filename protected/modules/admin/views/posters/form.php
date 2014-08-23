@@ -115,6 +115,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
                 'style'=>'height:20px;'
             ],
             'language' => 'ru',
+            'value' => Yii::app()->dateFormatter->format('dd.MM.yyyy', $posterModel->date_to)
         ]);
     ?>
 <!--    --><?php //echo $form->textFieldRow($posterModel, 'date_from', []); ?>

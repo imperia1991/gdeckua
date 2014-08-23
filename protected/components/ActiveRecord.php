@@ -32,11 +32,6 @@ class ActiveRecord extends CActiveRecord
                 $this->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $this->created_at);
             }
 
-//            if ($this->hasAttribute('date_from')) {
-//
-//
-//            }
-
             return true;
         }
 

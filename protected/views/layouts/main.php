@@ -69,6 +69,7 @@
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webCamera'); ?>"><?php echo Yii::t('main', 'Веб-камера'); ?></a></li>
                                 */ ?>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/photo'); ?>"><?php echo Yii::t('main', 'Фото города'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/poster'); ?>"><?php echo Yii::t('main', 'Афишы'); ?></a></li>
                                 <li class="last-menu-item"><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about'); ?>"><?php echo Yii::t('main', 'О проекте'); ?></a></li>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add'); ?>"><?php echo Yii::t('main', 'ДОБАВИТЬ ОБЪЕКТ'); ?></a></li>
                             </ul>
@@ -238,22 +239,22 @@
 
     <script>
         (function($){
-            $(window).load(function(){
-                $(".scroll-pane").mCustomScrollbar({
-
-                });
-            });
+//            $(window).load(function(){
+//                $(".scroll-pane").mCustomScrollbar({
+//
+//                });
+//            });
         })(jQuery);
     </script>
 
     <script type="text/javascript">
         (function($){
-            $(window).load(function(){
-                $(".styled-select select .select-inner").mCustomScrollbar({
-
-
-                });
-            });
+//            $(window).load(function(){
+//                $(".styled-select select .select-inner").mCustomScrollbar({
+//
+//
+//                });
+//            });
         })(jQuery);
     </script>
 

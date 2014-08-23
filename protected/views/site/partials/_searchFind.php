@@ -13,8 +13,8 @@ $this->renderPartial('/partials/_breadcrumbs');
 
 <div class="large-12 columns">
     <div class="row collapse">
-        <div class="large-4 medium-12 small-12 columns">
-            <div class="row collapse mCustomScrollbar">
+        <div id="findedPlaces" class="large-4 medium-12 small-12 columns">
+            <div class="row collapse">
                 <!-- LEFT SECTION -->
                 <div class="large-12 columns left-section scroll-pane">
                     <div class="row collapse places">
@@ -72,6 +72,13 @@ $this->renderPartial('/partials/_breadcrumbs');
     ?>
 </div>
 
+<?php if ($dataProvider->getTotalItemCount() == (Yii::app()->params['pageSize'])): ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#placeMap').height($('#findedPlaces').height());
+    });
+</script>
+<?php endif; ?>
 <script type="text/javascript">
     jQuery('a.gallery').colorbox();
 </script>

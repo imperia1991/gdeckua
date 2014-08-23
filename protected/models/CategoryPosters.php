@@ -8,11 +8,13 @@
  * @property string $title_ru
  * @property string $title_uk
  * @property string $alias
+ * @property integer $orderby
+ * @property integer $is_affisha
  *
  * The followings are the available model relations:
  * @property Posters[] $posters
  */
-class CategoryPosters extends CActiveRecord
+class CategoryPosters extends ActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -32,6 +34,7 @@ class CategoryPosters extends CActiveRecord
 		return [
 			['title_ru, title_uk, alias', 'required'],
 			['title_ru, title_uk, alias', 'length', 'max'=>255],
+            ['orderby, is_affisha', 'safe'],
 			// The following rule is used by search().
 			['id, title_ru, title_uk, alias', 'safe', 'on'=>'search'],
 		];
@@ -59,6 +62,7 @@ class CategoryPosters extends CActiveRecord
 			'title_ru' => Yii::t('main', 'Название (русский)'),
 			'title_uk' => Yii::t('main', 'Название (украинский)'),
 			'alias' => 'Alias',
+			'is_affisha' => Yii::t('main', 'Афиша'),
 		];
 	}
 
@@ -107,8 +111,17 @@ class CategoryPosters extends CActiveRecord
     public function getCategories()
     {
         $criteria = new CDbCriteria();
-        $criteria->order = 'title_ru';
+        $criteria->order = 'orderby DESC, title_' . Yii::app()->getLanguage();
 
-        return CHtml::listData($this->findAll($criteria), 'id', 'title_ru');
+        return CHtml::listData($this->findAll($criteria), 'id', 'title_' . Yii::app()->getLanguage());
+    }
+
+    public function getAll()
+    {
+        $criteria = new CDbCriteria();
+
+        $criteria->order = 'orderby DESC, title_' . Yii::app()->getLanguage();
+
+        return $this->findAll($criteria);
     }
 }

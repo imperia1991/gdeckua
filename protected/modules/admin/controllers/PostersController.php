@@ -99,6 +99,17 @@ class PostersController extends AdminController
 
             $posterModel->setAttributes($post);
             $posterModel->alias = LocoTranslitFilter::cyrillicToLatin($posterModel->title);
+            if ($posterModel->date_from) {
+                $posterModel->date_from = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $posterModel->date_from);
+            } else {
+                $posterModel->date_from = null;
+            }
+
+            if ($posterModel->date_to) {
+                $posterModel->date_to = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $posterModel->date_to);
+            } else {
+                $posterModel->date_to = null;
+            }
 
             $isNewRecord = $posterModel->isNewRecord;
             if ($posterModel->save()) {
