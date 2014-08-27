@@ -12,7 +12,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="large-12 columns">
     <div class="row collapse">
 
-        <div class="large-10 small-12 columns left-sector-add-foto">
+        <div class="large-10 small-12 medium-9 columns left-sector-add-foto">
             <div class="row collapse">
                 <div class="large-12 columns add-information">
                     <p><?php echo Yii::t('main', 'Вы можете добавлять только по одной фотографии'); ?></p>
@@ -41,14 +41,6 @@ $this->renderPartial('/partials/_breadcrumbs');
                             <div class="large-9 columns name-field">
                                 <?php echo $form->textField($photoCityModel, 'author', []); ?>
                                 <?php echo $form->error($photoCityModel, 'author', ['class' => 'error']); ?>
-                            </div>
-                        </div>
-
-                        <div class="row collapse">
-                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Сайт') ?>: </p></div>
-                            <div class="large-9 columns name-field">
-                                <?php echo $form->textField($photoCityModel, 'site', []); ?>
-                                <?php echo $form->error($photoCityModel, 'site', ['class' => 'error']); ?>
                             </div>
                         </div>
 

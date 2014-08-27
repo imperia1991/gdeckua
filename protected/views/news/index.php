@@ -8,9 +8,9 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="large-12 columns">
     <div class="row collapse">
 
-        <div class="large-10 small-12 columns left-section-news-slider">
+        <div class="large-10 medium-10 small-12 columns left-section-news-slider">
             <div class="row collapse">
-                <div class="large-3 columns">
+                <div class="large-3 medium-3 columns">
                     <div class="right-section">
                         <h4><?php echo Yii::t('main', 'Мнения'); ?></h4>
 
@@ -22,7 +22,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         ) ?>
                     </div>
                 </div>
-                <div class="large-9 columns slider">
+                <div class="large-9 medium-9 columns slider">
                     <?php $this->renderPartial(
                         'partials/_slider',
                         [
@@ -45,7 +45,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
         </div>
 
-        <div class="large-2 small-12 columns">
+        <div class="large-2 medium-2 small-12 columns">
             <?php $this->renderPartial(
                 'partials/_previewComments',
                 [

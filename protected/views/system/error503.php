@@ -1,13 +1,23 @@
 <?php
-$this->renderPartial('/system/_style');
+$this->breadcrumbs = [
+    '' => Yii::t('main', 'Ошибка 503')
+];
+$this->renderPartial('/partials/_breadcrumbs');
 ?>
+<div class="large-12 columns">
+    <div class="row collapse">
 
-<div class="error-page-wrap">
-    <article class="error-page gradient">
-        <hgroup>
-            <h1>503</h1>
-            <h2>Доступ запрещен</h2>
-        </hgroup>
-        <a href="/" title="На главную" class="error-back">На главную</a>
-    </article>
+        <div class="large-4 medium-3 columns left-sector-error">
+            <div class="error-page">
+                <ul>
+                    <li><?php echo Yii::t('main', 'Доступ запрещен!'); ?> :(</li>
+                    <li class="large-font-error">503</li>
+                </ul>
+            </div>
+            <div><p><a href="/"><?php echo Yii::t('main', 'перейти на главную'); ?></a></p></div>
+        </div>
+
+        <?php echo $this->renderPartial('/partials/_previewNews'); ?>
+
+    </div>
 </div>

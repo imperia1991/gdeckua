@@ -20,26 +20,17 @@
                     ?>
                 </div>
                 <div class="large-12 columns foto-inner-soc" style="margin-top: 5px;">
-                    <?php $this->renderPartial(
-                        '/partials/_social',
-                        [
-                            'image' => Yii::app()->createUrl('/uploads/photos/photoPoster/' . $poster->photo),
-                            'title' => $data->title,
-                        ]
-                    ); ?>
+<!--                    --><?php //$this->renderPartial(
+//                        '/partials/_social',
+//                        [
+//                            'image' => Yii::app()->createUrl('/uploads/photos/photoPoster/' . $poster->photo),
+//                            'title' => $data->title,
+//                        ]
+//                    ); ?>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
     <p style="padding-left: 5px;"><?php echo Yii::t('main', 'В данной категории информация отсутствует'); ?></p>
-<?php endif; ?>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#affishesItems").freetile({
-            selector: '.item',
-            containerResize: false
-        });
-    });
-</script>
+<?php endif;

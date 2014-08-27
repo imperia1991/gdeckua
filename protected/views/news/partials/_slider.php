@@ -6,12 +6,12 @@
     <?php foreach ($news->getData() as $oneNews): ?>
     <li data-orbit-slide="headline-1">
         <div class="row slide-title">
-            <div class="large-10 medium-10 columns">
+            <div class="large-10 medium-10 small-10 columns">
                 <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $oneNews->id . '/' . $oneNews->alias); ?>">
                     <h2><?php echo $oneNews->title; ?></h2>
                 </a>
             </div>
-            <div class="large-2 medium-2 columns">
+            <div class="large-2 medium-2 small-2 columns">
                 <h3><?php echo Yii::app()->dateFormatter->format('dd.MM.yyyy', $oneNews->created_at); ?></h3>
             </div>
         </div>

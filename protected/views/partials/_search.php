@@ -10,7 +10,7 @@ $form = $this->beginWidget('CActiveForm', [
 ?>
 
 <div class="row collapse search">
-    <div class="large-8 medium-8 small-4 columns">
+    <div class="large-7 medium-8 small-5 columns">
         <?php
         echo $form->textField($model, 'search', [
                 'name' => 'search',
@@ -18,7 +18,7 @@ $form = $this->beginWidget('CActiveForm', [
             ]);
         ?>
     </div>
-    <div class="large-3 medium-3 small-6 columns styled-select">
+    <div class="large-4 medium-3 small-6 columns styled-select">
         <?php
         echo CHtml::dropDownList('districts', $this->selectDistrict, $this->districts, ['empty' => Yii::t('main', 'Весь город') . '...', 'class' => 'select-inner']);
         ?>

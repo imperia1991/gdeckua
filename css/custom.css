@@ -149,6 +149,12 @@ form.link-add-photo-city {
 .central-content .map-section {
     height: 1067px;
 }
+.unavailable {
+    display: none !important;
+}
+.select-inner {
+    cursor: pointer;
+}
 
 /*margins*/
 .marginTop13 {

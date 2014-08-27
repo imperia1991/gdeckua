@@ -7,7 +7,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="large-12 columns">
     <div class="row collapse">
 
-        <div class="large-4  columns left-sector-error">
+        <div class="large-4 medium-3 columns left-sector-error">
             <div class="error-page">
                 <ul>
                     <li><?php echo Yii::t('main', 'Страница не существует'); ?> :(</li>

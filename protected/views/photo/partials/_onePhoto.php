@@ -1,7 +1,7 @@
 <?php
 /** @var PhotoCity $data */
 ?>
-<div class="large-4 columns foto-inner item">
+<div class="large-4 small-12 medium-6 columns foto-inner item">
     <div class="row collapse">
         <div class="large-12 columns foto-inner-title"><h3><?php echo $data->title; ?></h3></div>
         <div class="large-12 columns foto-inner-img">

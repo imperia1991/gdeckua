@@ -16,17 +16,17 @@
                 ],
             ]
         ); ?>
-        <div class="large-7 columns">
+        <div class="large-7 medium-7 small-7 columns">
             <?php echo $form->textArea($comment, 'message', ['placeholder' => Yii::t('main', 'Напишите комментарий') . "...", 'value' => StringHelper::br2nl($comment->message)]); ?>
             <?php echo $form->error($comment, 'message', ['class' => 'error']); ?>
         </div>
-        <div class="large-5 columns">
+        <div class="large-5 medium-5 small-5 columns">
             <div class="row collapse" style="padding-left: 5px !important;">
-                <div class="large-12 columns">
+                <div class="large-12 medium-12 small-12 columns margin-bottom">
                     <?php echo $form->textField($comment, 'name', ['placeholder' => Yii::t('main', 'Ваше Имя')]); ?>
                     <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
                 </div>
-                <div class="large-6 columns">
+                <div class="large-6 medium-6 small-6 columns">
                     <? if (CCaptcha::checkRequirements()): ?>
                         <?php $this->widget('CCaptcha', [
                                 'buttonLabel' => Yii::t('main', 'Обновить'),
@@ -39,11 +39,11 @@
                             ]); ?>
                     <? endif ?>
                 </div>
-                <div class="large-6 columns">
+                <div class="large-6 medium-6 small-6 columns">
                     <?php echo $form->textField($comment, 'verifyCode', ['placeholder' => Yii::t('main', 'Введите код')]); ?>
                     <?php echo $form->error($comment, 'verifyCode', ['class' => 'error']); ?>
                 </div>
-                <div class="large-12 columns">
+                <div class="large-12 medium-12 small-12 columns">
                     <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), ['class' => 'button small']); ?>
                 </div>
             </div>

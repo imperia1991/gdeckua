@@ -5,7 +5,7 @@
 <?php foreach ($previewOpinions as $opinion): ?>
 <div class="news-box row">
     <div class="row collapse">
-        <div class="large-12 medium-3 small-12 columns oglavlenie">
+        <div class="large-12 medium-12 small-12 columns oglavlenie">
             <div class="row collapse">
                 <div class="large-4 medium-4 small-3 columns">
                     <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>">
@@ -25,10 +25,10 @@
                 </div>
             </div>
         </div>
-        <div class="large-12 columns medium-9 small-12 description">
+        <div class="large-12 columns medium-12 small-12 description">
             <p><?php echo $opinion->getShortText(); ?></p>
         </div>
-        <div align="center" class="large-12 columns medium-9 small-12 news-link">
+        <div align="center" class="large-12 columns medium-12 small-12 news-link">
             <a align="center"href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>">
                 <?php echo Yii::t('main', 'прочитать статью полностью'); ?>
             </a>

@@ -19,7 +19,7 @@
     });
 </script>
 <?php if ($photos->getTotalItemCount() > $photos->getPagination()->pageSize): ?>
-<div id="showPhotos" class="large-12 columns show-other-news">
+<div id="showPhotos" class="large-12 medium-6 columns show-other-news">
     <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
     <a id="showMore" href="javascript:void(0);"><?php echo Yii::t('main', 'Показать еще фотографии'); ?></a>
 </div>

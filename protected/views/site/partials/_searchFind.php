@@ -13,7 +13,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
 <div class="large-12 columns">
     <div class="row collapse">
-        <div id="findedPlaces" class="large-4 medium-12 small-12 columns">
+        <div id="findedPlaces" class="large-4 medium-4 small-12 columns">
             <div class="row collapse">
                 <!-- LEFT SECTION -->
                 <div class="large-12 columns left-section scroll-pane">
@@ -28,7 +28,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
 
         <!-- CENTRAL MAP -->
-        <div class="large-6 small-12 columns central-content">
+        <div class="large-6 medium-5 small-12 columns central-content">
             <div id="placeMap" class="map-section">
                 <?php
                 $this->renderPartial('partials/_map', [
@@ -62,11 +62,12 @@ $this->renderPartial('/partials/_breadcrumbs');
             'nextPageLabel' => '>',
             'previousPageCssClass' => 'arrow',
             'htmlOptions' => ['class' => 'pagination'],
-            'firstPageCssClass' => 'arrow',
+            'firstPageCssClass' => 'first',
             'firstPageLabel' => Yii::t('main', 'Первая'),
             'lastPageCssClass' => 'last',
             'lastPageLabel' => Yii::t('main', 'Последняя'),
             'nextPageCssClass' => 'arrow',
+            'hiddenPageCssClass' => 'unavailable',
             'maxButtonCount' => 11
         ]);
     ?>

@@ -15,7 +15,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
 <div class="large-12 columns">
     <div class="row collapse">
-        <div class="large-10 medium-12 small-12 columns left-foto-section" >
+        <div class="large-10 medium-9 small-12 columns left-foto-section" >
             <ul class="tabs" data-tab>
                 <li class="tab-title active photo">
                     <a href="#panel2-1"><?php echo Yii::t('main', 'Фотографии города'); ?></a>

@@ -141,13 +141,13 @@ header .top-bar {
 /******SEARCH-PANEL*****/
 
 .search {
-	box-shadow: 0px 3px 2px #ccc;
-	margin-top: 20px !important;
-	border: 1px solid #aaa;
-	height: 53px;
-	border-radius: 5px;
-	margin-left: 15px !important;
-    margin-right: 0 !important;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    box-shadow: 0 3px 2px #ccc;
+    height: 53px;
+    margin-left: 15px !important;
+    margin-right: -15px !important;
+    margin-top: 20px !important;
 }
 
 .search input {
@@ -172,12 +172,16 @@ header .top-bar {
                 #fff url(../img/arrow-down.png) no-repeat right; 
 }
 
+.styled-select {
+	width: 32%;
+}
+
 .styled-select select {
    background: transparent;
-   width: 220px;
+   width: 300px;
    height: 51px;
     padding-left: 25px;
-    padding-top: 14px;
+
    font-size: 1em;
 	color: #7d807f;
 	border: none;
@@ -444,12 +448,19 @@ header .maybe p a {
 
 .right-section > h4 {
 	font-size: 0.85em;
-	font-weight: 800;
+	font-weight: 700;
 	margin-bottom: 5px;
-	text-decoration: underline;
 	text-align: center;
 }
 
+.right-section > h4 a {
+    text-decoration: underline;
+    color: #222;
+}
+
+.right-section > h4 a:hover {
+    color: blue;
+}
 .news-box {
 	background: #fff;
 	border-top: 1.5px #aaa solid;
@@ -921,14 +932,13 @@ width: 33.3%;
 	background: #666;
 	color: #fff;
 }
-.mod-images-gallery .tabs dd > a, 
-.mod-images-gallery .tabs .tab-title > a {
+.mod-images-gallery .tabs dd > a, .mod-images-gallery .tabs .tab-title > a {
     background: none repeat scroll 0 0 #eee;
     color: #222222;
     display: block;
     font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
     font-size: 1rem;
-    padding: 0.7rem 1.5rem;
+    padding: 0.6rem 0.5rem;
 }
 
 .map-of-object img {
@@ -1117,7 +1127,7 @@ width: 33.3%;
 
 .input-form-new textarea {
 	resize:none;
-	height: 177px;
+	height: 180px;
 }
 
 .input-form textarea {
@@ -1130,7 +1140,7 @@ width: 33.3%;
 
 .left-sector-news-title {
 	background: #edeeed;
-	height: 60px;
+	height: auto;
 }
 
 .left-sector-news-title div:first-child {
@@ -1211,7 +1221,7 @@ width: 33.3%;
 .left-sector-add-object input,
 .left-sector-add-object select {
 	border: 1px solid #aaa;
-	border-radius: 5px;
+	border-radius: 5px !important;
 }
 
 .left-sector-add-object span {
@@ -1702,7 +1712,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
 	border-radius: 5px;
 	border: 1px solid #000; 
-	margin: 20px;
+	margin: 20px 20px 20px 14px;
 	float: left;
 }
 
@@ -1976,7 +1986,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
     list-style: none outside none;
     margin-bottom: 0 !important;
     position: relative;
-    height: 59px;
+    height: 49px;
     border-radius: 10px 0px 0 0;
 }
 
@@ -1984,7 +1994,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .left-foto-section .tabs {
 	border-radius: 10px 10px 0 0;
 	border: 1px solid #ccc;
-	height: 60px;
+	height: 50px;
 	margin-right: 10px !important;
 }
 
@@ -1998,7 +2008,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .left-foto-section .tabs dd, 
 .left-foto-section .tabs .tab-title {
 	background: #fff;
-	height: 59px;
+	height: 49px;
 	border-right: 1px solid #ccc;
 	border-top: 0px solid #ccc;
 	border-bottom: 1px solid #ccc;
@@ -2013,7 +2023,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .left-foto-section .tabs .tab-title a {
     background: none repeat scroll 0 0 white;
     color: #222222;
-    padding: 15px 5px;
+    padding: 10px 5px;
 }
 
 .left-foto-section .tabs dd.active a, 
@@ -2027,7 +2037,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 
 .left-foto-section .tabs input {
 	margin-right: 10px;
-	margin-top: 15px;
+	margin-top: 10px;
 	background: #5a7185; /* Old browsers */
 	background: -moz-linear-gradient(top,  #5a7185 0%, #d1d5e2 0%, #b4bad0 8%, #abb1c6 24%, #898ea1 68%, #797e90 92%, #a4abb9 100%, #445968 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5a7185), color-stop(0%,#d1d5e2), color-stop(8%,#b4bad0), color-stop(24%,#abb1c6), color-stop(68%,#898ea1), color-stop(92%,#797e90), color-stop(100%,#a4abb9), color-stop(100%,#445968)); /* Chrome,Safari4+ */
@@ -2253,7 +2263,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 
 .afisha-section .afisha-block .afisha-title {
 	background: #edeeed;
-	height: 47px;
+	height: auto;
 	padding: 5px 10px;
 }
 
@@ -2261,6 +2271,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	font-size: 1.2em;
 	font-weight: bold;
 	color: #0364d5;
+	line-height: 1;
 }
 
 .afisha-block {
@@ -2323,7 +2334,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
  }
 
 .afisha-section .filarmonia-afisha .afisha-block .afisha-title {
-    height: 55px !important;
+    height: auto !important;
 }
 
 .afisha-section .filarmonia-afisha .afisha-block .afisha-title h3 {
@@ -2666,6 +2677,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
     height: 60px;
     padding-right: 10px;
     padding-top: 2px;
+    padding-left: 2px;
 }
 
 .right-section-cont .news-box .oglavlenie h4 {
@@ -2690,4 +2702,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 
 .column img {
 	width: 100%;
+}
+
+div.mod-images-gallery ul.tabs {
+	background: #eee;
+}
+
+div#back div.input-form-footer form div.name-field div:first-child  {
+	margin-left: -20px;
+}
+
+div#back div.input-form-footer form div.name-field textarea {
+	height: 100px;
+	resize: none;
+}
+
+.right-section-cont .reklama-news-box {
+	display: none;
+}
+
+.margin-bottom {
+	margin-bottom: 5px;
+}
+
+.left-sector-add-object form .name-field textarea {
+	height: 100px;
+	resize: none;
+	border-radius: 5px !important;
+	border: 1px solid #aaa;
 }

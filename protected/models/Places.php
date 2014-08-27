@@ -333,6 +333,11 @@ class Places extends ActiveRecord
         return $result;
     }
 
+    public function isEmptyContact()
+    {
+        return !is_object($this->contact);
+    }
+
     protected function beforeSave()
     {
         if (parent::beforeSave()) {

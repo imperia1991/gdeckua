@@ -38,6 +38,12 @@ class NewsController extends Controller
     public function actionIndex()
     {
         $category = Yii::app()->getRequest()->getQuery('alias', '');
+
+//        $categoryModel = CategoryNews::model()->findByAttributes(['aliases' => $category]);
+//        if (!is_object($category)) {
+//            throw new CHttpException(404, '');
+//        }
+
         $isOpinion = $category == News::OPINION ? News::IS_OPINION : News::IS_NOT_OPINION;
         $news = News::model()->getAll($isOpinion, $category);
 
@@ -106,6 +112,7 @@ class NewsController extends Controller
 
         /** @var News[] $newsModels  */
         $newsModels = News::model()->getViewNews($id);
+
         $comment = new CommentsNews(CommentsNews::SCENARIO_USER);
 
         if (!is_array($newsModels)) {

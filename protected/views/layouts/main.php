@@ -79,13 +79,13 @@
             </div>
         </div>
 
-        <div class="row collapse search-panel">
-            <div class="large-3 columns">
+        <div class="row search-panel">
+            <div class="large-3 medium-3 columns">
                 <?php $logo = 'logo_' . Yii::app()->getLanguage(); ?>
                 <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><img src="/img/<?php echo $logo; ?>.png"></a>
                 <p><?php echo Yii::t('main', 'Уже'); ?> <?php echo Yii::app()->session['totalItemCount']; ?> <?php echo CHtml::encode(Yii::t('main', 'объектов')); ?></p>
             </div>
-            <div class="large-9 columns">
+            <div class="large-9 medium-12 columns">
                 <?php $this->renderPartial('/partials/_search', []); ?>
             </div>
         </div>
@@ -235,16 +235,6 @@
             $(".reklama-news-box img").height(columnHeight-showAllNews-newsBlockHeight);
 
         });
-    </script>
-
-    <script>
-        (function($){
-//            $(window).load(function(){
-//                $(".scroll-pane").mCustomScrollbar({
-//
-//                });
-//            });
-        })(jQuery);
     </script>
 
     <script type="text/javascript">

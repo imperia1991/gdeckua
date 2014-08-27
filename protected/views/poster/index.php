@@ -18,7 +18,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
 <div class="large-12 columns">
     <div class="row collapse">
-        <div class="large-10 medium-12 small-12 columns afisha-section">
+        <div class="large-10 medium-9 small-12 columns afisha-section">
             <ul class="tabs">
                 <?php foreach ($categories as $key => $category): ?>
                     <li class="tab-title <?php if ($currentCategory->alias == $category->alias): ?>active<?php endif; ?>">
@@ -31,9 +31,9 @@ $this->renderPartial('/partials/_breadcrumbs');
             <?php /*
             <div class="row collapse mounth-pagination">
                 <div class="large-12 columns">
-                    <div align="left" class="large-4 columns"><img src="/img/arrow-left.png"> <a href="#">Июнь</a></div>
-                    <div align="center" class="large-4 columns">Июль</div>
-                    <div align="right" class="large-4 columns"><a href="#">Август</a> <img src="/img/arrow-right.png">
+                    <div align="left" class="large-4 medium-4 small-4 columns"><img src="/img/arrow-left.png"> <a href="#">Июнь</a></div>
+                    <div align="center" class="large-4 medium-4 small-4 columns">Июль</div>
+                    <div align="right" class="large-4 medium-4 small-4 columns"><a href="#">Август</a> <img src="/img/arrow-right.png">
                     </div>
                 </div>
             </div>

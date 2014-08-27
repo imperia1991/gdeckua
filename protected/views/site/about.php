@@ -12,7 +12,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="large-12 columns">
     <div class="row collapse">
 
-        <div class="large-10 small-12 columns left-sector-about-page">
+        <div class="large-10 medium-9 small-12 columns left-sector-about-page">
             <div class="row">
                 <div class="large-12 columns user-information">
                     <?php echo $settingsModel->about; ?>

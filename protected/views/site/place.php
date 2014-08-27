@@ -20,7 +20,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="large-12 columns">
     <div class="row collapse">
 
-        <div class="large-10 small-12 columns left-sector-add-object">
+        <div class="large-10 medium-9 small-12 columns left-sector-add-object">
             <div class="row collapse">
                 <div class="large-12 columns add-information">
                     <?php $this->renderPartial('partials/_addDescription_' . Yii::app()->getLanguage()); ?>
@@ -115,7 +115,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                                                         if (responseJSON.success)
                                                         {
                                                             $("#uploadPhoto").append(
-                                                                    "<div class=\"large-3 small-6 columns delClass\" data-filename=\"" + responseJSON.filename + "\">" +
+                                                                    "<div class=\"large-3 medium-3 small-6 columns delClass\" data-filename=\"" + responseJSON.filename + "\">" +
                                                                         "<div class=\"object-img-box\"><img class=\"delClass\" src=\"/' . Yii::app(
                                         )->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"182\" height=\"170\" data-filename=\"" + responseJSON.filename + "\" /></div>" +
                                                                          "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" rel=\"" + responseJSON.filename + "\" class=\"remove-photo\"><img src=\"/img/delete.png\"> ' . Yii::t(
@@ -144,7 +144,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <?php if (count(Yii::app()->session['images'])): ?>
                                 <?php $images = Yii::app()->session['images'] ?>
                                 <?php foreach ($images as $image): ?>
-                                    <div class="large-3 small-6 columns delClass" data-filename="<?php echo $image; ?>">
+                                    <div class="large-3 medium-3 small-6 columns delClass" data-filename="<?php echo $image; ?>">
                                         <div class="object-img-box">
                                             <img src="/<?php echo Yii::app(
                                                 )->params['admin']['files']['tmp'] . $image; ?>" width="182px"

@@ -28,3 +28,12 @@
         </div>
     </div>
 <?php endif; ?>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+    $("#panelItems").freetile({
+        selector: '.item',
+        containerResize: false
+        });
+    });
+</script>

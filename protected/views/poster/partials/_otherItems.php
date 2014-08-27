@@ -8,7 +8,7 @@
     <?php foreach ($posters->getData() as $poster): ?>
         <div class="large-12 columns afisha-block">
             <div class="row collapse">
-                <div class="large-4 columns">
+                <div class="large-4 medium-4 columns">
                     <div class="row collapse">
                         <div class="large-12 columns ">
                             <?php
@@ -37,13 +37,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="large-8 columns">
+                <div class="large-8 medium-8 columns">
                     <div class="row collapse">
                         <div class="row collapse afisha-title">
                             <?php $columns = (!$poster->date_from && !$poster->date_to) ? 12 : 8; ?>
-                            <div class="large-<?php echo $columns; ?> columns afisha-name"><h3><?php echo $poster->title; ?></h3></div>
+                            <div class="large-<?php echo $columns; ?> medium-8 small-8 columns afisha-name"><h3><?php echo $poster->title; ?></h3></div>
                             <?php if ($poster->date_from && $poster->date_to): ?>
-                                <div class="large-4 columns afisha-date">
+                                <div class="large-4 medium-4 small-4 columns afisha-date">
                                     <h4>
                                         <?php echo Yii::t('main', 'Показ'); ?>
                                         <?php echo Yii::t('main', 'с'); ?>

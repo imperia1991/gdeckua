@@ -17,7 +17,7 @@ function init()
 		placeCenter,
 		{
 			balloonContentHeader: header,
-			balloonContentBody: body,
+//			balloonContentBody: body,
 			balloonContentFooter: footer,
 			hintContent: text
 		},

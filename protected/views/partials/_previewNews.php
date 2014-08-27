@@ -3,7 +3,7 @@
 
     <!-- news block -->
     <div class="right-section">
-        <h4><?php echo Yii::t('main', 'Новости'); ?></h4>
+        <h4><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>" title="<?php echo Yii::t('main', 'Новости'); ?>"><?php echo Yii::t('main', 'Новости'); ?></a></h4>
         <?php
         /** @var News $oneNews */
         ?>
@@ -12,7 +12,7 @@
             <div class="row collapse">
                 <div class="large-12 medium-12 small-12 columns oglavlenie">
                     <div class="row collapse">
-                        <div class="large-12 medium-12 small-2 columns">
+                        <div class="large-12 medium-12 small-12 columns">
                             <?php
                             echo Yii::app()->easyImage->thumbOf('/' . Yii::app()->params['admin']['files']['news'] . $oneNews->photo,
                                 [
@@ -40,7 +40,7 @@
     <!-- read more news -->
     <div class="row collapse show-news">
         <div class="large-12 columns">
-            <p><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>"><?php echo Yii::t('main', 'Читать все новости'); ?></a></p>
+            <p><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>" title="<?php echo Yii::t('main', 'Новости'); ?>"><?php echo Yii::t('main', 'Читать все новости'); ?></a></p>
         </div>
     </div>
     <!-- read more news -->
