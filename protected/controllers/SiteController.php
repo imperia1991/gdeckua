@@ -324,16 +324,16 @@ class SiteController extends Controller
             );
 
             $this->respondJSON(
-                array(
+                [
                     'error' => 0,
-                )
+                ]
             );
         } else {
             $this->respondJSON(
-                array(
+                [
                     'error' => 1,
                     'errors' => $model->getErrors(),
-                )
+                ]
             );
         }
 
@@ -344,16 +344,16 @@ class SiteController extends Controller
     {
         $settingsModel = Settings::model()->find();
 
-        $this->render('about', array(
+        $this->render('about', [
             'settingsModel' => $settingsModel
-            ));
+            ]);
     }
 
     private function checkedSearchString($search)
     {
         $checker = json_decode(
             file_get_contents(
-                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search)
+                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=ru,uk,en'
             )
         );
         $checkedStr = $search;

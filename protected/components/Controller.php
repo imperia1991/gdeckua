@@ -87,7 +87,7 @@ class Controller extends CController
                 if (isset(Yii::app()->request->cookies['language'])) {
                     Yii::app()->language = Yii::app()->request->cookies['language']->value;
                 } else {
-                    Yii::app()->language = 'ru';
+                    Yii::app()->language = 'uk';
                 }
             }
         }

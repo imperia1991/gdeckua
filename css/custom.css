@@ -72,7 +72,7 @@
     height: 170px;
 }
 .add-foto-btn {
-    width: 308px;
+    width: 326px;
     font-size: 15px;
 }
 .qq-upload-list {
@@ -154,6 +154,12 @@ form.link-add-photo-city {
 }
 .select-inner {
     cursor: pointer;
+}
+.afisha-section ul.tabs li.tab-title.year.right select {
+    cursor: pointer;
+}
+.right-section-cont .reklama-news-box {
+    display: block;
 }
 
 /*margins*/

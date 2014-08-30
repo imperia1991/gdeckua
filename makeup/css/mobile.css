@@ -298,3 +298,15 @@
     	width: 100%;
 	}
 }
+
+@media screen and (max-width: 1024px) {
+	header .search-panel > div:first-child {
+	    margin-left: -10px;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	header .search-panel > div:last-child {
+	    width: 100% !important;
+	}
+}

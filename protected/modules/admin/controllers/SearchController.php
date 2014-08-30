@@ -13,21 +13,21 @@ class SearchController extends AdminController
 
     public function filters()
     {
-        return array(
+        return [
             'accessControl', // perform access control for CRUD operations
-        );
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow',
-                'roles' => array('admin'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
-        );
+        return [
+            ['allow',
+                'roles' => ['admin'],
+            ],
+            ['deny', // deny all users
+                'users' => ['*'],
+            ],
+        ];
     }
 
     public function init()
@@ -60,7 +60,11 @@ class SearchController extends AdminController
             $doc->addField(Zend_Search_Lucene_Field::Text('title_uk', CHtml::encode($place->title_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('description_ru', CHtml::encode(strip_tags($place->description_ru)), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('description_uk', CHtml::encode(strip_tags($place->description_uk)), 'UTF-8'));
+            $district = str_replace([' ', '/', '.', ',', '\\', '-'], '', $place->district->title_ru);
+            $doc->addField(Zend_Search_Lucene_Field::Text('district_additional_ru', CHtml::encode($district), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('district_ru', CHtml::encode($place->district->title_ru), 'UTF-8'));
+            $district = str_replace([' ', '/', '.', ',', '\\', '-'], '', $place->district->title_uk);
+            $doc->addField(Zend_Search_Lucene_Field::Text('district_additional_uk', CHtml::encode($district), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('district_uk', CHtml::encode($place->district->title_uk), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('address_ru', CHtml::encode($place->address_ru), 'UTF-8'));
             $doc->addField(Zend_Search_Lucene_Field::Text('address_uk', CHtml::encode($place->address_uk), 'UTF-8'));

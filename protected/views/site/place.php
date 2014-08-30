@@ -67,7 +67,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                             <div class="large-3 columns"><p><?php echo Yii::t('main', 'Краткое описание'); ?>
                                     <span>*</span></p></div>
                             <div class="large-9 columns name-field">
-                                <?php echo $form->textArea($model, $description, ['row' => 10]); ?>
+                                <?php echo $form->textArea($model, $description, []); ?>
                                 <?php echo $form->error($model, $description, ['class' => 'error']); ?>
                             </div>
                         </div>

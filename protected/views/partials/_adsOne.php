@@ -6,5 +6,5 @@
     </div>
 </div>
 <div class="row collapse" style="margin-top: 10px">
-    <?php $this->renderPartial('/partials/_vkclub'); ?>
+<!--    --><?php //$this->renderPartial('/partials/_vkclub'); ?>
 </div>

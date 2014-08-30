@@ -70,9 +70,6 @@
                         $('#panelPhotoCity').freetile({
                             selector: '.item'
                         });
-//                            var $panel = $('#panelPhotoCity');
-//                            $panel.masonry('reloadItems');
-//                            $panel.masonry('layout');
 
                         $(".gallery").colorbox({
                             slideshow: false,

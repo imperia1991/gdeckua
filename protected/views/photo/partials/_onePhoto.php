@@ -24,9 +24,7 @@
                     ]
                 );
                 ?>
-                <span class="large-lupa">
-                    <img src="/img/large(new).png">
-                </span>
+                <span class="enlarge large-lupa"><?php echo Yii::t('main', 'Увеличить'); ?>&nbsp;<img src="/img/lupka.png"></span>
             </a>
         </div>
         <div class="large-12 columns foto-inner-text"><p><?php echo Yii::t('main', 'фото'); ?>: <?php echo $data->author; ?></p></div>

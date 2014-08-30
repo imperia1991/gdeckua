@@ -66,9 +66,7 @@ if (isset($data->photos) && is_array($data->photos)) {
                                         'quality' => 100,
                                     ]);
                                 ?>
-                                <span class="enlarge">
-                                    <img src="/img/large.png">
-                                </span>
+                                <span class="enlarge"><?php echo Yii::t('main', 'Увеличить'); ?>&nbsp;<img src="/img/lupka.png"></span>
                             </a>
                         </li>
                     </ul>

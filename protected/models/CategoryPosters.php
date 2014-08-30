@@ -120,7 +120,7 @@ class CategoryPosters extends ActiveRecord
     {
         $criteria = new CDbCriteria();
 
-        $criteria->order = 'orderby DESC, title_' . Yii::app()->getLanguage();
+        $criteria->order = 'is_affisha DESC, orderby DESC, title_' . Yii::app()->getLanguage();
 
         return $this->findAll($criteria);
     }

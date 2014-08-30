@@ -359,7 +359,7 @@ header .maybe p a {
 	height: 100px;
 }
 
-.establishment-box .clearing-thumbs li img {
+.establishment-box .clearing-thumbs li a > img {
 	height: 100%;
 	width: 100%;
 	padding-right: 1px;
@@ -511,6 +511,7 @@ ul.pagination li:hover a {
 .news-box img {
 	height: 60px;
     padding-top: 2px;
+    padding-left: 3px;
 }
 
 .news-box .oglavlenie h4 {
@@ -829,10 +830,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#101010', end
 
 .left-sector-large-view .three-images-block li:hover .onlarge {
 	display: block;
-	position: absolute;
-bottom: 0;
-height: 40px;
-width: 30.5%;
 }
 
 .left-sector-large-view .main-pic .anlarge {
@@ -841,12 +838,6 @@ width: 30.5%;
 
 .left-sector-large-view .main-pic li:hover .anlarge {
 	display: block;	
-	bottom: 100px;
-    display: block;
-    height: 15%;
-    left: 17px;
-    position: absolute;
-    width: 92%;
 }
 
 
@@ -879,7 +870,7 @@ width: 33.3%;
 	
 }
 
-.left-sector-large-view .clearing-thumbs li img {
+.left-sector-large-view .clearing-thumbs li a > img {
     height: 100%;
     padding: 10px;
     width: 100%;
@@ -918,10 +909,6 @@ width: 33.3%;
 	color: #333;
 	text-align: center;
 	line-height: 1;
-}
-
-.mod-images-gallery ul li a img {
-	width: 100%;
 }
 
 .mod-images-gallery .tabs{
@@ -1131,8 +1118,8 @@ width: 33.3%;
 }
 
 .input-form textarea {
-	resize:none;
-	height: 177px;
+    height: 179px;
+    resize: none;
 }
 
 
@@ -1151,7 +1138,7 @@ width: 33.3%;
 
 .left-sector-news-title div:first-child p {
 	font-size: 12px;
-    line-height: 3px;
+    line-height: 1px;
     margin-top: 9px;
 }
 
@@ -1935,7 +1922,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .event-inner .event-inner-title div:last-child p {
 	font-size: 0.9em;
 	color: #666;
-	line-height: 0.1;	
+	line-height: 0;	
 	text-align: center;
 }
 
@@ -1943,7 +1930,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	color: #0364d5;
 	font-size: 0.9em;
 	font-weight: 600;
-	line-height: 1;
+	line-height: 2.1;
 	padding-left: 10px;
 	padding-top: 12px;
 }
@@ -2182,7 +2169,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 
 .afisha-section .tabs dd, 
 .afisha-section .tabs {
-	border-radius: 10px 10px 0 0;
+	border-radius: 10px 0 0;
 	border: 1px solid #ccc;
 	height: 50px;
 	margin-right: 5px !important;
@@ -2730,4 +2717,111 @@ div#back div.input-form-footer form div.name-field textarea {
 	resize: none;
 	border-radius: 5px !important;
 	border: 1px solid #aaa;
+}
+
+
+.slide-title div:last-child {
+padding: 10px;
+border-left: none;
+}
+.slide-title div:first-child {
+	border-right: 1px solid #ccc;
+}
+
+.title-new p {
+    border-left: none;
+}
+
+.news-in-accordion .new-description .title-new div:first-child {
+	border-right: 1px solid #ccc;
+}
+
+
+.left-sector-news-title div:first-child {
+    border-right: none;
+}
+
+.left-sector-news-title div:last-child {
+    border-left: 1px solid #ccc;
+}
+
+
+
+
+/************ENLARGE****************************/
+.establishment-box span.enlarge {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    bottom: 2px;
+    color: #fff;
+    display: none;
+    font-size: 0.7em;
+    text-align: center;
+}
+
+.foto-inner span.large-lupa img {
+    width: auto;
+}
+
+.foto-inner span.large-lupa {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: #fff;
+    display: none;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 5px 0;
+}
+
+
+.event-inner .event-inner-title div:last-child {
+    border-left: none;
+}
+
+.event-inner .event-inner-title div:first-child {
+    border-right: 1px solid #ccc;
+}
+
+
+.left-sector-large-view .main-pic .anlarge {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: #fff;
+    display: none;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 5px 0;
+    position: relative;
+	bottom: 0;
+	height: 30px;
+	margin: -40px 10px;
+}
+
+.left-sector-large-view .onlarge {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: #fff;
+    display: none;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 0px 0;
+    position: relative;
+	bottom: 0;
+	height: 20px;
+	margin: -30px 10px;
+}
+.afisha-section ul.tabs li.tab-title.year.right {
+	width: 100px;
+	overflow: hidden;
+	border-left: 1px solid #ccc;
+	border-top-left-radius: 0;
+	border-right: none !important;
+}
+
+.afisha-section ul.tabs li.tab-title.year.right select {
+	border-top-right-radius: 5px;
+	border: none;
+	height: 48px;
+	width: 120px;
+	background: transparent;
+    -webkit-appearance: none !important;
 }

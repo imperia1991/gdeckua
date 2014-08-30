@@ -78,7 +78,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                                                     ]
                                                 );
                                                 ?>
-                                                <span class="anlarge"><img src="/img/larger.png"></span>
+                                                <span class="anlarge large-lupa"><?php echo Yii::t('main', 'Увеличить'); ?>&nbsp;<img src="/img/lupka.png"></span>
                                             </a>
                                         </li>
                                     </ul>
@@ -114,9 +114,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                                                         ]
                                                     );
                                                     ?>
-                                                    <span class="onlarge">
-                                                    <img src="/img/large.png">
-                                                </span>
+                                                    <span class="onlarge large-lupa"><?php echo Yii::t('main', 'Увеличить'); ?>&nbsp;<img src="/img/lupka.png">
                                                 </a>
                                             </li>
                                         <?php endforeach; ?>
@@ -167,7 +165,9 @@ $this->renderPartial('/partials/_breadcrumbs');
                                         <?php endif; ?>
 
                                         <?php $howToGet = 'how_to_get_' . Yii::app()->getLanguage(); ?>
-                                        <p><?php echo $model->{$howToGet} ?></p>
+                                        <?php if ($model->{$howToGet}): ?>
+                                            <p><?php echo $model->{$howToGet} ?></p>
+                                        <?php endif; ?>
 
                                         <?php if ($model->isEmptyContact()): ?>
                                             <p><?php echo Yii::t('main', 'Информация уточняется'); ?></p>

@@ -24,15 +24,15 @@
                         </div>
                         <div class="large-12 columns foto-inner-soc">
                             <ul class="soc-icons-list">
-                                <?php $this->renderPartial(
-                                    '/partials/_social',
-                                    [
-                                        'image' => Yii::app()->createUrl(
-                                                '/uploads/photos/photoPoster/' . $poster->photo
-                                            ),
-                                        'title' => $data->title,
-                                    ]
-                                ); ?>
+<!--                                --><?php //$this->renderPartial(
+//                                    '/partials/_social',
+//                                    [
+//                                        'image' => Yii::app()->createUrl(
+//                                                '/uploads/photos/photoPoster/' . $poster->photo
+//                                            ),
+//                                        'title' => $data->title,
+//                                    ]
+//                                ); ?>
                             </ul>
                         </div>
                     </div>

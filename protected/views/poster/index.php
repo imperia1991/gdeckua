@@ -26,6 +26,13 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/poster/' . $category->alias); ?>"><?php echo $category->{$title}; ?></a>
                     </li>
                 <?php endforeach; ?>
+<!--                <li class="tab-title year right">-->
+<!--                    <select name="Posters[year]">-->
+<!--                        <option>2012 год</option>-->
+<!--                        <option>2013 год</option>-->
+<!--                        <option>2014 год</option>-->
+<!--                    </select>-->
+<!--                </li>-->
             </ul>
 
             <?php /*

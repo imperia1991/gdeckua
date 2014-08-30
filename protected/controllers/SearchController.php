@@ -29,247 +29,247 @@ class SearchController extends Controller
 
         $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $this->_indexFiles));
 
-        $modeSearch = array(
-            0 => array(
+        $modeSearch = [
+            0 => [
                 0 => true,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => true,
-            ),
-            1 => array(
+            ],
+            1 => [
                 0 => true,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => false,
-            ),
-            2 => array(
+            ],
+            2 => [
                 0 => true,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
-            3 => array(
+            ],
+            3 => [
                 0 => true,
                 1 => true,
                 2 => true,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            4 => array(
+            ],
+            4 => [
                 0 => true,
                 1 => true,
                 2 => null,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            5 => array(
+            ],
+            5 => [
                 0 => null,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => true,
-            ),
-            6 => array(
+            ],
+            6 => [
                 0 => null,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => null,
-            ),
-            7 => array(
+            ],
+            7 => [
                 0 => null,
                 1 => true,
                 2 => true,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
-            8 => array(
+            ],
+            8 => [
                 0 => null,
                 1 => true,
                 2 => true,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            9 => array(
+            ],
+            9 => [
                 0 => true,
                 1 => null,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => true,
-            ),
-            10 => array(
+            ],
+            10 => [
                 0 => true,
                 1 => null,
                 2 => true,
                 3 => true,
                 4 => true,
                 5 => null,
-            ),
-            11 => array(
+            ],
+            11 => [
                 0 => true,
                 1 => null,
                 2 => true,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
-            12 => array(
+            ],
+            12 => [
                 0 => true,
                 1 => null,
                 2 => true,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            13 => array(
+            ],
+            13 => [
                 0 => true,
                 1 => true,
                 2 => null,
                 3 => true,
                 4 => true,
                 5 => true,
-            ),
-            14 => array(
+            ],
+            14 => [
                 0 => true,
                 1 => true,
                 2 => null,
                 3 => true,
                 4 => true,
                 5 => null,
-            ),
-            15 => array(
+            ],
+            15 => [
                 0 => true,
                 1 => null,
                 2 => null,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
-            16 => array(
+            ],
+            16 => [
                 0 => true,
                 1 => null,
                 2 => null,
                 3 => null,
                 4 => true,
                 5 => null,
-            ),
-            17 => array(
+            ],
+            17 => [
                 0 => true,
                 1 => null,
                 2 => null,
                 3 => null,
                 4 => null,
                 5 => true,
-            ),
-            18 => array(
+            ],
+            18 => [
                 0 => null,
                 1 => true,
                 2 => null,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
-            19 => array(
+            ],
+            19 => [
                 0 => null,
                 1 => true,
                 2 => null,
                 3 => null,
                 4 => true,
                 5 => null,
-            ),
-            20 => array(
+            ],
+            20 => [
                 0 => null,
                 1 => true,
                 2 => null,
                 3 => null,
                 4 => null,
                 5 => true,
-            ),
-            21 => array(
+            ],
+            21 => [
                 0 => null,
                 1 => null,
                 2 => true,
                 3 => null,
                 4 => true,
                 5 => null,
-            ),
-            22 => array(
+            ],
+            22 => [
                 0 => null,
                 1 => null,
                 2 => true,
                 3 => null,
                 4 => null,
                 5 => true,
-            ),
-            23 => array(
+            ],
+            23 => [
                 0 => null,
                 1 => null,
                 2 => null,
                 3 => true,
                 4 => true,
                 5 => null,
-            ),
-            24 => array(
+            ],
+            24 => [
                 0 => null,
                 1 => null,
                 2 => null,
                 3 => true,
                 4 => null,
                 5 => true,
-            ),
-            25 => array(
+            ],
+            25 => [
                 0 => null,
                 1 => null,
                 2 => null,
                 3 => null,
                 4 => true,
                 5 => true,
-            ),
-            26 => array(
+            ],
+            26 => [
                 0 => true,
                 1 => null,
                 2 => null,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            27 => array(
+            ],
+            27 => [
                 0 => null,
                 1 => true,
                 2 => null,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            28 => array(
+            ],
+            28 => [
                 0 => null,
                 1 => null,
                 2 => true,
                 3 => null,
                 4 => null,
                 5 => null,
-            ),
-            29 => array(
+            ],
+            29 => [
                 0 => null,
                 1 => null,
                 2 => null,
                 3 => true,
                 4 => null,
                 5 => null,
-            ),
+            ],
 //            26 => array(
 //                0 => null,
 //                1 => null,
@@ -278,7 +278,7 @@ class SearchController extends Controller
 //                4 => null,
 //                5 => null,
 //            ),
-        );
+        ];
 
         $termsArray = explode(' ', trim(mb_strtolower($search, 'utf-8')));
         $termsArray = array_slice($termsArray, 0, 6);
@@ -290,27 +290,44 @@ class SearchController extends Controller
             $criteria->condition = 'id = ' . (int)$selectDistrict;
             $district = Districts::model()->find($criteria);
 
-            array_unshift($termsArray, trim(mb_strtolower($district->{$title}, 'utf-8')));
+            $districtTitle = CHtml::encode(str_replace([' ', '/', '.', ',', '\\', '-'], '', $district->{$title}));
+            $districtTitle = mb_strtolower($districtTitle, 'utf-8');
+            array_unshift($termsArray, trim($districtTitle));
 
             $termsArray = array_unique($termsArray);
+
+            $districtModeSearch = [];
+            foreach ($modeSearch as $mode) {
+                if ($mode[0] === null) {
+                    continue;
+                } elseif ($mode[1] === null) {
+                    continue;
+                }
+
+                $districtModeSearch[] = $mode;
+            }
+
+            unset($modeSearch);
+
+            $modeSearch = $districtModeSearch;
         }
 
         $termsArray = array_diff($termsArray, ['']);
 
         $results = [];
-//        if (count($termsArray) < 3) {
-//            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
-//
-//            foreach ($termsArray as $term) {
-//                $term = str_replace('"', '', $term);
-//                $term = str_replace("'", '', $term);
-//                $term = trim(strip_tags($term));
-//
-//                $query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
-//            }
-//
-//            $results = $index->find($query);
-//        } else {
+        if (count($termsArray) == 1) {
+            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
+
+            foreach ($termsArray as $term) {
+                $term = str_replace('"', '', $term);
+                $term = str_replace("'", '', $term);
+                $term = trim(strip_tags($term));
+
+                $query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
+            }
+
+            $results = $index->find($query);
+        } else {
             $countModeSearch = count($modeSearch);
 
             $step = 0;
@@ -336,7 +353,7 @@ class SearchController extends Controller
 
                 unset($query);
             }
-//        }
+        }
 
         return compact('results', 'term', 'query');
     }
