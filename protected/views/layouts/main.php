@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/jquery.searchselect.css">
     <link rel="stylesheet" href="/css/colorbox.css">
     <link href="/css/jquery.jgrowl.css" rel="stylesheet">
+    <link href="/css/pace.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
@@ -21,7 +22,7 @@
     <script src="/js/jquery.slimscroll.min.js"></script>
     <script src="/js/jquery.searchselect.min.js"></script>
     <script src="/js/jquery.colorbox-min.js"></script>
-    <script src="/js/salvattore.js"></script>
+    <script src="/js/pace.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
 

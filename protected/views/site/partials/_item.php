@@ -57,7 +57,7 @@ if (isset($data->photos) && is_array($data->photos)) {
                                     'resize' => ['width' => 800, 'height' => 600],
                                     'quality' => 100,
                                 ]);
-                            ?>" class="gallery" title="<?php echo CHtml::encode($data->{$title}); ?>">
+                            ?>" class="gallery" title="<?php echo $data->{$title}; ?>">
                                 <?php
                                 echo Yii::app()->easyImage->thumbOf($photos[0],
                                     [
@@ -74,15 +74,15 @@ if (isset($data->photos) && is_array($data->photos)) {
                 <h6>
                     <b>
                         <a href="<?php echo $url . '/' . $placeId . '/' . $data->alias; ?>" target="_blank">
-                            <?php echo CHtml::encode($data->{$title}); ?>
+                            <?php echo $data->{$title}; ?>
                         </a>
                     </b>
                 </h6>
                 <div class="information" onmouseover="showPlacemark(<?php echo $data->id; ?>)" onclick="clickPlacemark(<?php echo $data->id; ?>)" onmouseout="hidePlacemark(<?php echo $data->id; ?>)">
                     <p>
-                        <?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($district); ?><br>
-                        <?php echo CHtml::encode($data->{$address}); ?><br>
-                        <?php echo CHtml::encode($data->{$description}); ?>
+                        <?php echo Yii::t('main', 'Район') . ' ' . $district; ?><br>
+                        <?php echo $data->{$address}; ?><br>
+                        <?php echo $data->{$description}; ?>
                     </p>
                 </div>
                 <div class="view-item">

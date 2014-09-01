@@ -161,6 +161,9 @@ form.link-add-photo-city {
 .right-section-cont .reklama-news-box {
     display: block;
 }
+header .search-panel div:first-child p {
+    left: 135px !important;
+}
 
 /*margins*/
 .marginTop13 {

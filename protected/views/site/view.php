@@ -125,7 +125,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                                 <div class="row collapse mCustomScrollbar">
                                     <div class="large-12 columns scroll-description scroll-pane" style="height:338px;">
                                         <p>
-                                            <?php echo CHtml::encode($model->{$description}); ?>
+                                            <?php echo $model->{$description}; ?>
                                         </p>
                                     </div>
                                 </div>

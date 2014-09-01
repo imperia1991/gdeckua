@@ -4,20 +4,20 @@ class SitemapController extends AdminController
 {
     public function actionIndex()
     {
-        $urls = array();
+        $urls = [];
 
-        $places = Places::model()->findAll(array(
+        $places = Places::model()->findAll([
                 'condition' => 'is_deleted = 0'
-            ));
+            ]);
 
         /** @var Places $place */
         foreach ($places as $place) {
             $date = $place->updated_at ? $place->updated_at : $place->created_at;
             $date = date('c', strtotime($date));
-            $urls[] = array(
+            $urls[] = [
                 $this->createAbsoluteUrl('/ru/view/' . $place->id . '/' . $place->alias),
                 $date
-            );
+            ];
         }
 
         /** @var Places $place */
@@ -25,10 +25,35 @@ class SitemapController extends AdminController
             $date = $place->updated_at ? $place->updated_at : $place->created_at;
             $date = date('c', strtotime($date));
 
-            $urls[] = array(
-                $this->createAbsoluteUrl('/ua/view/' . $place->id . '/' . $place->alias),
+            $urls[] = [
+                $this->createAbsoluteUrl('/uk/view/' . $place->id . '/' . $place->alias),
                 $date
-            );
+            ];
+        }
+
+
+        $news = News::model()->findAll([
+          'condition' => 'is_deleted = 0'
+        ]);
+
+        /** @var News[] $news */
+        foreach ($news as $item) {
+            $date = $item->created_at;
+            $date = date('c', strtotime($date));
+            $urls[] = [
+                $this->createAbsoluteUrl('/ru/news/' . $item->id . '/' . $item->alias),
+                $date
+            ];
+        }
+
+        /** @var News[] $news */
+        foreach ($news as $item) {
+            $date = $item->created_at;
+            $date = date('c', strtotime($date));
+            $urls[] = [
+                $this->createAbsoluteUrl('/uk/news/' . $item->id . '/' . $item->alias),
+                $date
+            ];
         }
 
         if ($this->create($urls)) {
