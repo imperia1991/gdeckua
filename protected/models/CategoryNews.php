@@ -108,6 +108,9 @@ class CategoryNews extends ActiveRecord
 		return parent::model($className);
 	}
 
+    /**
+     * @return array
+     */
     public function getCategories()
     {
         $criteria = new CDbCriteria();

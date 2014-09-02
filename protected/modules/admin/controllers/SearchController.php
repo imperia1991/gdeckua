@@ -35,7 +35,7 @@ class SearchController extends AdminController
         Yii::import('application.vendors.*');
         require_once('Zend/Search/Lucene.php');
 
-        $this->menuActive = 'settings';
+        $this->menuActive = 'search';
 
         parent::init();
     }

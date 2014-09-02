@@ -165,6 +165,7 @@ $mainConfig = [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
             'files' => [
+                'banners' => 'uploads/banners/',
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
                 'news' => 'uploads/photos/news/',

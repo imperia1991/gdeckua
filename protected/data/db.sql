@@ -193,8 +193,10 @@ CREATE TABLE `banners` (
   `title` VARCHAR(255) NOT NULL,
   `photo` VARCHAR(255) NULL DEFAULT NULL,
   `created_at` DATETIME NOT NULL,
-  `is_deleted` TINYINT(1) NOT NULL DEFAULT '0',
-  `is_right_column` TINYINT(1) NOT NULL DEFAULT '0',
+  `is_showing` TINYINT(1) NOT NULL DEFAULT '-1',
+  `is_right_column` TINYINT(1) NOT NULL DEFAULT '-1',
+  `counter` INT(11) NOT NULL,
+  `orderby` INT(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`id`)
 )
   COLLATE='utf8_general_ci'

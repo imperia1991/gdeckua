@@ -11,7 +11,7 @@
  * @property integer $parent_id
  *
  * The followings are the available model relations:
- * @property Promo[] $promos
+ * @property Banners[] $banners
  */
 class Categories extends CActiveRecord
 {
@@ -30,14 +30,14 @@ class Categories extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('title_ru, title_uk', 'required'),
-			array('title_ru, title_uk, aliases', 'length', 'max'=>255),
-            array('parent_id', 'safe'),
+		return [
+			['title_ru, title_uk', 'required'],
+			['title_ru, title_uk, aliases', 'length', 'max'=>255],
+            ['parent_id', 'safe'],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'),
-		);
+			['id, title_ru, title_uk, aliases, parent_id', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -47,11 +47,12 @@ class Categories extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-            'places' => array(self::HAS_MANY, 'Places', 'category_id'),
-            'parent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
-            'placesCategories' => array(self::HAS_MANY, 'PlacesCategories', 'category_id'),
-		);
+		return [
+            'places' => [self::HAS_MANY, 'Places', 'category_id'],
+            'parent' => [self::BELONGS_TO, 'Categories', 'parent_id'],
+            'placesCategories' => [self::HAS_MANY, 'PlacesCategories', 'category_id'],
+            'banners' => [self::HAS_MANY, 'BannersCategories', 'category_id'],
+		];
 	}
 
 	/**
@@ -59,13 +60,13 @@ class Categories extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'title_ru' => Yii::t('main', 'Категории (русский)'),
 			'title_uk' => Yii::t('main', 'Категории (украинский)'),
 			'aliases' => 'Aliases',
 			'parent_id' => Yii::t('main', 'Родительская категория'),
-		);
+		];
 	}
 
 	/**
@@ -97,15 +98,15 @@ class Categories extends CActiveRecord
             $criteria->compare('parent_id', $this->parent_id);
         }
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-            'sort' => array(
+            'sort' => [
                 'defaultOrder' => 'title_ru ASC',
-            ),
-            'pagination' => array(
+            ],
+            'pagination' => [
                 'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ),
-		));
+            ],
+		]);
 	}
 
 	/**
@@ -119,8 +120,22 @@ class Categories extends CActiveRecord
 		return parent::model($className);
 	}
 
+    /**
+     * @return array
+     */
     public function getParentsCategories()
     {
         return CHtml::listData(Categories::model()->findAll('parent_id IS NULL'), 'id', 'title_ru');
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'title_ru';
+
+        return CHtml::listData($this->findAll($criteria), 'id', 'title_ru');
     }
 }
