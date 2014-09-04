@@ -8,6 +8,7 @@ $title = 'title_' . Yii::app()->getLanguage();
 $district = 'district_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
+$shortDescription = 'short_description_' . Yii::app()->getLanguage();
 ?>
 
 <?php
@@ -64,7 +65,16 @@ $this->renderPartial('/partials/_breadcrumbs');
                         </div>
 
                         <div class="row collapse">
-                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Краткое описание'); ?>
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Краткое описание'); ?> <span>*</span></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($model, $shortDescription, []); ?>
+                                <?php echo $form->error($model, $shortDescription, ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Описание'); ?>
                                     <span>*</span></p></div>
                             <div class="large-9 columns name-field">
                                 <?php echo $form->textArea($model, $description, []); ?>

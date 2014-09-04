@@ -66,11 +66,9 @@
                             <ul class="left">
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><?php echo Yii::t('main', 'Главная'); ?></a></li>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>"><?php echo Yii::t('main', 'Новости'); ?></a></li>
-                                <?php /*
-                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webCamera'); ?>"><?php echo Yii::t('main', 'Веб-камера'); ?></a></li>
-                                */ ?>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/photo'); ?>"><?php echo Yii::t('main', 'Фото города'); ?></a></li>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/poster'); ?>"><?php echo Yii::t('main', 'Афиши'); ?></a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webcams'); ?>"><?php echo Yii::t('main', 'Веб-камеры'); ?></a></li>
                                 <li class="last-menu-item"><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about'); ?>"><?php echo Yii::t('main', 'О проекте'); ?></a></li>
                                 <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/add'); ?>"><?php echo Yii::t('main', 'ДОБАВИТЬ ОБЪЕКТ'); ?></a></li>
                             </ul>

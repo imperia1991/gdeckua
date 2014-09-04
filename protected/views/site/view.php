@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.min.js
 $title = 'title_' . Yii ::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
+$shortDescription = 'short_description_' . Yii::app()->getLanguage();
 $this->keywords = $model->tags->tags . ', ' . $model->{$title};
 
 $this->pageTitle = CHtml::encode($model->{$title});
@@ -51,8 +52,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <div class="tabs-content">
                             <div class="content active" id="panel2-1">
                                 <div class="large-12 small-12 columns">
-                                    <?php $path = '/' . Yii::app(
-                                        )->params['admin']['files']['images'] . $model->photos[0]->title; ?>
+                                    <?php $path = '/' . Yii::app()->params['admin']['files']['images'] . $model->photos[0]->title; ?>
                                     <ul class="clearing-thumbs main-pic clearing-feature">
                                         <li class="clearing-featured-img">
                                             <a href="<?php
@@ -133,40 +133,35 @@ $this->renderPartial('/partials/_breadcrumbs');
                             <div class="content" id="panel2-3" style="padding: 5px;">
                                 <div class="row collapse mCustomScrollbar">
                                     <div class="large-12 columns scroll-description scroll-pane" style="height:338px;">
+                                        <?php if (!$model->isEmptyContact()): ?>
+                                            <h3 style="font-size: 18px; font-weight: bold;"><?php echo Yii::t('main', 'Контакты'); ?>:</h3>
+                                        <?php endif; ?>
                                         <?php if ($model->contact->phone_city): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Телефон городской'); ?>
-                                                    :</strong> <?php echo $model->contact->phone_city; ?></p>
+                                            <label><span style="font-style: italic;"><?php echo Yii::t('main', 'Телефон городской'); ?>:</span> <?php echo $model->contact->phone_city; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->phone_mobile1): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Телефон мобильный'); ?>
-                                                    :</strong> <?php echo $model->contact->phone_mobile1; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Телефон мобильный'); ?>:</span> <?php echo $model->contact->phone_mobile1; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->phone_mobile2): ?>
-                                            <p><strong><?php echo Yii::t(
-                                                        'main',
-                                                        'Телефон мобильный (дополнительный)'
-                                                    ); ?>:</strong> <?php echo $model->contact->phone_mobile2; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</span> <?php echo $model->contact->phone_mobile2; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->phax): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Факс'); ?>
-                                                    :</strong> <?php echo $model->contact->phax; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Факс'); ?>:</span> <?php echo $model->contact->phax; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->email): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Электронный адрес (email)'); ?>
-                                                    :</strong> <?php echo $model->contact->email; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Электронный адрес (email)'); ?>:</span> <?php echo $model->contact->email; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->skype): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Скайп (skype)'); ?>
-                                                    :</strong> <?php echo $model->contact->skype; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Скайп (skype)'); ?>:</span> <?php echo $model->contact->skype; ?></label>
                                         <?php endif; ?>
                                         <?php if ($model->contact->operation_time): ?>
-                                            <p><strong><?php echo Yii::t('main', 'Время работы'); ?>
-                                                    :</strong> <?php echo $model->contact->operation_time; ?></p>
+                                            <label><span style="font-style: italic"><?php echo Yii::t('main', 'Время работы'); ?>:</span> <?php echo $model->contact->operation_time; ?>
                                         <?php endif; ?>
 
                                         <?php $howToGet = 'how_to_get_' . Yii::app()->getLanguage(); ?>
                                         <?php if ($model->{$howToGet}): ?>
-                                            <p><?php echo $model->{$howToGet} ?></p>
+                                            <h3 style="font-size: 18px; font-weight: bold;margin-top: 10px;"><?php echo Yii::t('main', 'Как добраться'); ?>:</h3>
+                                            <label><?php echo $model->{$howToGet} ?></label>
                                         <?php endif; ?>
 
                                         <?php if ($model->isEmptyContact()): ?>

@@ -2,6 +2,7 @@
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
+$shortDescription = 'short_description_' . Yii::app()->getLanguage();
 $url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view');
 
 $district = '';
@@ -82,7 +83,7 @@ if (isset($data->photos) && is_array($data->photos)) {
                     <p>
                         <?php echo Yii::t('main', 'Район') . ' ' . $district; ?><br>
                         <?php echo $data->{$address}; ?><br>
-                        <?php echo $data->{$description}; ?>
+                        <?php echo $data->{$shortDescription}; ?>
                     </p>
                 </div>
                 <div class="view-item">

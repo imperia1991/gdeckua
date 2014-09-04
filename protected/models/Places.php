@@ -24,6 +24,8 @@
  * @property string $alias
  * @property string $how_to_get_ru
  * @property string $how_to_get_uk
+ * @property string $short_description_ru
+ * @property string $short_description_uk
  *
  * The followings are the available model relations:
  * @property Users $user
@@ -74,8 +76,8 @@ class Places extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['title_ru, address_ru, created_at, district_id, description_ru', 'required', 'on' => self::SCENARIO_RU, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
-            ['title_uk, address_uk, created_at, district_id, description_uk', 'required', 'on' => self::SCENARIO_UK, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
+            ['title_ru, address_ru, created_at, district_id, description_ru, short_description_ru', 'required', 'on' => self::SCENARIO_RU, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
+            ['title_uk, address_uk, created_at, district_id, description_uk, short_description_uk', 'required', 'on' => self::SCENARIO_UK, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             [
                 'title_ru, title_uk, address_ru, address_uk, lat, lng, created_at, district_id',
                 'required',
@@ -84,7 +86,7 @@ class Places extends ActiveRecord
             ['is_deleted', 'numerical', 'integerOnly' => true],
             ['title_ru, title_uk, alias', 'length', 'max' => 255],
             [
-                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search, how_to_get_ru, how_to_get_uk',
+                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search, how_to_get_ru, how_to_get_uk, short_description_ru, short_description_uk',
                 'safe'
             ],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK],
@@ -96,7 +98,8 @@ class Places extends ActiveRecord
             ],
             // The following rule is used by search().
             [
-                'id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng, created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo',
+                'id, user_id, title_ru, title_uk, description_ru, description_uk, country_id, region_id, city_id, address_ru, address_uk, lat, lng,
+                created_at, updated_at, is_deleted, district_id, districtId, search, category_id, photo, short_description_ru, short_description_uk',
                 'safe',
                 'on' => 'search'
             ],
@@ -135,8 +138,8 @@ class Places extends ActiveRecord
             'title_ru' => Yii::t('main', 'Название'),
             'title_uk' => Yii::t('main', 'Название'),
             'district_id' => Yii::t('main', 'Район'),
-            'description_ru' => Yii::t('main', 'Краткое описание'),
-            'description_uk' => Yii::t('main', 'Краткое описание'),
+            'description_ru' => Yii::t('main', 'Описание'),
+            'description_uk' => Yii::t('main', 'Описание'),
             'country_id' => Yii::t('main', 'Страна'),
             'region_id' => Yii::t('main', 'Область'),
             'city_id' => Yii::t('main', 'Населенный пункт'),
@@ -157,6 +160,8 @@ class Places extends ActiveRecord
             'contact' => Yii::t('main', 'Контакты'),
             'how_to_get_ru' => Yii::t('main', 'Как добраться (р)'),
             'how_to_get_uk' => Yii::t('main', 'Как добраться (у)'),
+            'short_description_ru' => Yii::t('main', 'Краткое описание'),
+            'short_description_uk' => Yii::t('main', 'Краткое описание'),
         ];
     }
 
