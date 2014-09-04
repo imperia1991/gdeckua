@@ -28,6 +28,8 @@ class BannersController extends AdminController
         if (Yii::app()->request->isAjaxRequest) {
             $get = Yii::app()->request->getQuery('Banners');
 
+            $bannerModel = new Banners('search');
+
             $bannerModel->setAttributes($get);
         }
 
@@ -98,6 +100,7 @@ class BannersController extends AdminController
             $oldPhoto = $bannerModel->photo;
 
             $bannerModel->setAttributes($post);
+            $bannerModel->categoriesStore = $post['categoriesStore'];
 
             $isNewRecord = $bannerModel->isNewRecord;
             if ($bannerModel->save()) {
@@ -121,9 +124,9 @@ class BannersController extends AdminController
             }
         }
 
-        $categories = CHtml::listData(CategoryNews::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
+        $categories = CHtml::listData(Categories::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
-        $this->render('form', [
+        $this->render('banner', [
             'bannerModel' => $bannerModel,
             'categories' => $categories,
         ]);

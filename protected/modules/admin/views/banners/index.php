@@ -23,29 +23,38 @@
                     'name' => 'photo',
                     'value' => function ($data, $row) {
                             if ($data->photo) {
-                                echo CHtml::image('/' . Yii::app()->params['admin']['files']['banners'] . $data->photo, '', ['width' => 60, 'height' => 60]);
+                                echo CHtml::image('/' . Yii::app()->params['admin']['files']['banners'] . $data->photo, '', ['style' => 'width:100%;height:100%']);
                             }
                         },
                     'htmlOptions' => [
-                        'width' => '70px'
-                    ]
+                        'style' => 'width:40px'
+                    ],
+                    'filter' => false,
                 ],
-                'title',
+                [
+                    'name' => 'title',
+                    'htmlOptions' => [
+                        'width' => '280px'
+                    ],
+                ],
                 [
                     'name' => 'categoriesStore',
                     'value' => function ($data, $row) {
-                            $data->getCategoriesStore();
+                            echo $data->getCategoriesStore();
                         },
                     'filter' => $categoriesModel->getCategories(),
+//                    'filter' => CHtml::dropDownList('Banners[categoriesStore]', $bannerModel->getCategoriesStore(), $categoriesModel->getCategories(),
+//                            ['multiple'=>true, 'size' => 1]
+//                        ),
                 ],
-                'counter',
+                [
+                    'name' => 'counter',
+                    'filter' => 'От ' . CHtml::telField('Banners[counterFrom]', $bannerModel->counterFrom) . ' до ' . CHtml::telField('Banners[counterTo]', $bannerModel->counterTo),
+                ],
                 [
                     'name' => 'is_right_column',
                     'value' => function($data, $row) {
                             echo $data->getPosition();
-                            echo '<pre>';
-                            print_r($data->getCurrentPosition());
-                            echo '</pre>';
                         },
                     'filter' => CHtml::dropDownList('Banners[is_right_column]', $bannerModel->getCurrentPosition(), $bannerModel->getPositions()),
                 ],

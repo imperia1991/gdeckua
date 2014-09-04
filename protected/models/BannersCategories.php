@@ -29,12 +29,11 @@ class BannersCategories extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('place_category_id, banner_id', 'numerical', 'integerOnly'=>true),
+		return [
+			['place_category_id, banner_id', 'numerical', 'integerOnly'=>true],
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, place_category_id, banner_id', 'safe', 'on'=>'search'),
-		);
+			['id, place_category_id, banner_id', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -44,10 +43,10 @@ class BannersCategories extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'placeCategory' => array(self::BELONGS_TO, 'Categories', 'place_category_id'),
-			'banner' => array(self::BELONGS_TO, 'Banners', 'banner_id'),
-		);
+		return [
+			'placeCategory' => [self::BELONGS_TO, 'Categories', 'place_category_id'],
+			'banner' => [self::BELONGS_TO, 'Banners', 'banner_id'],
+		];
 	}
 
 	/**
@@ -55,11 +54,11 @@ class BannersCategories extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'place_category_id' => 'Place Category',
 			'banner_id' => 'Banner',
-		);
+		];
 	}
 
 	/**
@@ -84,9 +83,9 @@ class BannersCategories extends CActiveRecord
 		$criteria->compare('place_category_id',$this->place_category_id);
 		$criteria->compare('banner_id',$this->banner_id);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**

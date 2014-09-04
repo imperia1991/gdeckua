@@ -2174,7 +2174,9 @@ meta.foundation-mq-topbar {
   overflow: hidden;
   width: 100%;
   position: relative;
-  background: none; }
+  background: none;
+    height: 452px;
+}
   .orbit-container .orbit-slides-container {
     list-style: none;
     margin: 0;
