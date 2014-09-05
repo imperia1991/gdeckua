@@ -98,7 +98,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                 </div>
                 <div class="content row" id="panel2-4">
                     <div class="row collapse">
-                        <div class="large-12 medium-12 columns webcam-box">
+                        <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
                             <iframe width="450" height="286" frameborder="0" scrolling="no" src="http://www.ustream.tv/embed/17537393?v=3&amp;wmode=direct" style="border: 0px none transparent;"></iframe>
                         </div>
                     </div>
