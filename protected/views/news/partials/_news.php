@@ -72,9 +72,6 @@
                                     // если достигли максимальной страницы, то прячем кнопку
                                     if (page >= pageCount)
                                         $('#showNews').hide();
-
-                                    var n = $(document).height();
-                                    $('html, body').animate({ scrollTop: n }, 1000);
                                 },
                                 done: function()
                                 {

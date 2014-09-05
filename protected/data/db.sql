@@ -192,6 +192,9 @@
 # ADD COLUMN `short_description_ru` VARCHAR(160) NULL COMMENT 'Краткое описание на русском' AFTER `how_to_get_uk`,
 # ADD COLUMN `short_description_uk` VARCHAR(160) NULL COMMENT 'Краткое описание на украинском' AFTER `short_description_ru`;
 
+ALTER TABLE `contacts`
+ADD COLUMN `phone_mobile3` VARCHAR(20) NULL DEFAULT NULL AFTER `phone_mobile2`;
+
 CREATE TABLE `banners` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,

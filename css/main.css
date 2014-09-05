@@ -2825,3 +2825,11 @@ border-left: none;
 	background: transparent;
     -webkit-appearance: none !important;
 }
+noindex:-o-prefocus, .search-panel select {
+    height:35px;
+    margin:7px 0 0;
+    margin-left: 10px;
+    background-position: 100% 100%;
+    background: rgba(0,0,0,0);
+    border-style:none;
+}

@@ -37,6 +37,8 @@ class PosterController extends Controller
      */
     public function actionIndex()
     {
+        $this->currentPageType = PageTypes::PAGE_POSTERS;
+
         $currentCategoryAlias = Yii::app()->getRequest()->getQuery('alias', '');
         /** @var CategoryPosters $currentCategory */
         if ($currentCategoryAlias) {

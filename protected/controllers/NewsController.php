@@ -37,6 +37,8 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        $this->currentPageType = PageTypes::PAGE_NEWS;
+
         $category = Yii::app()->getRequest()->getQuery('alias', '');
 
 //        $categoryModel = CategoryNews::model()->findByAttributes(['aliases' => $category]);
@@ -108,6 +110,8 @@ class NewsController extends Controller
      */
     public function actionView()
     {
+        $this->currentPageType = PageTypes::PAGE_ONE_NEWS_VIEW;
+
         $id = Yii::app()->request->getQuery('id', 0);
 
         /** @var News[] $newsModels  */

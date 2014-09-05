@@ -54,6 +54,8 @@ class Controller extends CController
     public $checkedString = '';
     /** @var News[] */
     public $previewNews;
+    /** @var string Переменная для вывода определнных описаний внизу страниц сайта */
+    public $currentPageType = PageTypes::PAGE_DEFAULT;
 
     /**
      * @param string $id
@@ -127,7 +129,7 @@ class Controller extends CController
             $arr = $_GET;
             $arr['language'] = $lang;
         } else {
-            $arr = array('language' => $lang);
+            $arr = ['language' => $lang];
         }
 
         return $this->createUrl('', $arr);

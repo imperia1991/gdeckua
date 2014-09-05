@@ -143,18 +143,58 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
 <div class="row" style="margin-top: 20px">
     <h5>Контакты</h5>
 </div>
+
 <div class="row" style="margin-top: 20px">
-    <?php echo $form->textFieldRow($model->contact, 'phone_city', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'phone_mobile1', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'phone_mobile2', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'phax', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'email', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'skype', []); ?>
-    <?php echo $form->textFieldRow($model->contact, 'operation_time', [
-            'style' => 'width: 80%',
-        ]); ?>
-    <?php echo $form->textFieldRow($model->contact, 'site', [
-            'style' => 'width: 80%',
+    <?php echo $form->label($model->contact, 'phone_city', ['class' => 'span3']); ?>
+    <?php
+    $this->widget('CMaskedTextField', [
+            'model' => $model->contact,
+            'attribute' => 'phone_city',
+            'mask' => '99 99 99',
+            'placeholder' => '*',
+//            'completed' => 'function(){console.log("ok");}',
+        ]);
+    ?><br/><br/>
+    <?php echo $form->label($model->contact, 'phone_mobile1', ['class' => 'span3']); ?>
+    <?php
+    $this->widget('CMaskedTextField', [
+            'model' => $model->contact,
+            'attribute' => 'phone_mobile1',
+            'mask' => '999 999 9999',
+            'placeholder' => '*',
+        ]);
+    ?><br/><br/>
+    <?php echo $form->label($model->contact, 'phone_mobile2', ['class' => 'span3']); ?>
+    <?php
+    $this->widget('CMaskedTextField', [
+            'model' => $model->contact,
+            'attribute' => 'phone_mobile2',
+            'mask' => '999 999 9999',
+            'placeholder' => '*',
+        ]);
+    ?><br/><br/>
+    <?php echo $form->label($model->contact, 'phone_mobile3', ['class' => 'span3']); ?>
+    <?php
+    $this->widget('CMaskedTextField', [
+            'model' => $model->contact,
+            'attribute' => 'phone_mobile3',
+            'mask' => '999 999 9999',
+            'placeholder' => '*',
+        ]);
+    ?><br/><br/>
+    <?php echo $form->label($model->contact, 'phax', ['class' => 'span3']); ?>
+    <?php echo $form->textField($model->contact, 'phax', []); ?><br/><br/>
+    <?php echo $form->label($model->contact, 'email', ['class' => 'span3']); ?>
+    <?php echo $form->textField($model->contact, 'email', []); ?><br/><br/>
+    <?php echo $form->label($model->contact, 'skype', ['class' => 'span3']); ?>
+    <?php echo $form->textField($model->contact, 'skype', []); ?><br/><br/>
+    <?php echo $form->label($model->contact, 'operation_time', ['class' => 'span3']); ?>
+    <?php echo $form->textField($model->contact, 'operation_time', [
+            'class' => 'span9',
+        ]); ?><br/><br/>
+    <?php echo $form->label($model->contact, 'site', ['class' => 'span3']); ?>
+    <?php echo $form->textField($model->contact, 'site', [
+            'class' => 'span9',
         ]); ?>
 </div>
 

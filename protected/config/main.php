@@ -159,7 +159,7 @@ $mainConfig = [
         'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
         'pageSize' => 10,
         'pageSizeComment' => 20,
-        'pageSizeNews' => 20,
+        'pageSizeNews' => 3,
         'pageSizePhotos' => 20,
         'pageSizePosters' => 10,
         'admin' => [

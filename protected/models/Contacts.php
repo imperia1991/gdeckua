@@ -9,6 +9,7 @@
  * @property string $phone_city
  * @property string $phone_mobile1
  * @property string $phone_mobile2
+ * @property string $phone_mobile3
  * @property string $phax
  * @property string $email
  * @property string $skype
@@ -37,14 +38,14 @@ class Contacts extends CActiveRecord
 		// will receive user inputs.
 		return [
 			['place_id', 'numerical', 'integerOnly'=>true],
-			['phone_city, phone_mobile1, phone_mobile2, phax', 'length', 'max'=>20],
-			['phone_city, phone_mobile1, phone_mobile2, phax', 'match', 'pattern'=>'/^[0-9]+$/', 'message' => Yii::t('main', 'Должны быть только цифры')],
+			['phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax', 'length', 'max'=>20],
+			['phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax', 'match', 'pattern'=>'/^[0-9]+$/', 'message' => Yii::t('main', 'Должны быть только цифры')],
 			['email, skype', 'length', 'max'=>50],
 			['email', 'email'],
 			['site', 'url'],
 			['operation_time', 'length', 'max'=>255],
 			// The following rule is used by search().
-			['id, place_id, phone_city, phone_mobile1, phone_mobile2, phax, email, skype, operation_time', 'safe', 'on'=>'search'],
+			['id, place_id, phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax, email, skype, operation_time', 'safe', 'on'=>'search'],
 		];
 	}
 
@@ -71,6 +72,7 @@ class Contacts extends CActiveRecord
 			'phone_city' => Yii::t('main', 'Телефон городской'),
 			'phone_mobile1' => Yii::t('main', 'Телефон мобильный'),
 			'phone_mobile2' => Yii::t('main', 'Телефон мобильный (дополнительный)'),
+			'phone_mobile3' => Yii::t('main', 'Телефон мобильный (дополнительный)'),
 			'phax' => Yii::t('main', 'Факс'),
 			'email' => Yii::t('main', 'Электронный адрес (email)'),
 			'skype' => Yii::t('main', 'Скайп (skype)'),
@@ -100,6 +102,7 @@ class Contacts extends CActiveRecord
 		$criteria->compare('phone_city',$this->phone_city,true);
 		$criteria->compare('phone_mobile1',$this->phone_mobile1,true);
 		$criteria->compare('phone_mobile2',$this->phone_mobile2,true);
+		$criteria->compare('phone_mobile3',$this->phone_mobile2,true);
 		$criteria->compare('phax',$this->phax,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('skype',$this->skype,true);

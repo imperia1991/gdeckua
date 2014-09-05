@@ -211,6 +211,24 @@
         </div>
     </footer>
 
+    <a href="#" class="scrollup"><?php echo Yii::t('main', 'Наверх'); ?></a>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 100) {
+                    $('.scrollup').fadeIn();
+                } else {
+                    $('.scrollup').fadeOut();
+                }
+            });
+
+            $('.scrollup').click(function(){
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function(){
             $(".obratnaya").on('click', function(){

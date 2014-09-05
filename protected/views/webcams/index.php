@@ -19,6 +19,9 @@ $this->renderPartial('/partials/_breadcrumbs');
                 <li class="tab-title event">
                     <a href="#panel2-3"><?php echo Yii::t('main', 'Горисполком. Президиум') ?></a>
                 </li>
+                <li class="tab-title event">
+                    <a href="#panel2-4"><?php echo Yii::t('main', 'ОГА') ?></a>
+                </li>
             </ul>
             <div class="tabs-content">
                 <div class="content active row" id="panel2-1">
@@ -90,6 +93,13 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <div class="large-12 medium-12 columns webcam-box">
                             <iframe width="820" height="700" frameborder="0" align="middle" src="http://rada.ck.ua/stream/camera2.php">
                             </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="content row" id="panel2-4">
+                    <div class="row collapse">
+                        <div class="large-12 medium-12 columns webcam-box">
+                            <iframe width="450" height="286" frameborder="0" scrolling="no" src="http://www.ustream.tv/embed/17537393?v=3&amp;wmode=direct" style="border: 0px none transparent;"></iframe>
                         </div>
                     </div>
                 </div>

@@ -123,6 +123,8 @@ class SiteController extends Controller
 
     public function actionView()
     {
+        $this->currentPageType = PageTypes::PAGE_PLACE_VIEW;
+
         $id = Yii::app()->request->getQuery('id', 0);
         $model = Places::model()->findByPk((int)$id);
         $comment = new Comments(Comments::SCENARIO_USER);
