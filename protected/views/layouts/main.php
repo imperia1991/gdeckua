@@ -211,20 +211,16 @@
         </div>
     </footer>
 
-    <a href="#" class="scrollup"><?php echo Yii::t('main', 'Наверх'); ?></a>
+    <div id="scroller" class="b-top" style="display: none;"><span class="b-top-but"><?php echo Yii::t('main', 'наверх'); ?></span></div>
     <script type="text/javascript">
         $(document).ready(function(){
-            $(window).scroll(function(){
-                if ($(this).scrollTop() > 100) {
-                    $('.scrollup').fadeIn();
-                } else {
-                    $('.scrollup').fadeOut();
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 0) {
+                    $('#scroller').fadeIn();} else {$('#scroller').fadeOut();
                 }
             });
-
-            $('.scrollup').click(function(){
-                $("html, body").animate({ scrollTop: 0 }, 600);
-                return false;
+            $('#scroller').click(function () {
+                $('body,html').animate({scrollTop: 0}, 400); return false;
             });
         });
     </script>

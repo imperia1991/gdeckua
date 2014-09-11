@@ -29,6 +29,47 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
             'style' => 'width:90%'
         ]); ?>
 </div>
+<div class="row" style="margin-bottom: 30px;">
+    <?php
+    $this->widget('ext.EAjaxUpload.EAjaxUpload', [
+            'id' => 'uploadPhotos',
+            'config' => [
+                'action' => Yii::app()->createUrl('/admin/news/uploadPhotos'),
+                'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
+                'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
+                'multiple' => true,
+                'template' => '
+                <div class="qq-uploader">
+                    <div class="qq-upload-drop-area"></span></div>
+                    <div class="qq-upload-button btn" style="width: 315px;"><a href="javascript:void(0)" class="buttonL bGreyish">Загрузить фотографии новости на сервер</a></div>
+                    <span class="qq-drop-processing"><span class="qq-drop-processing-spinner"></span></span>
+                    <ul class="qq-upload-list" style="display: none;"></ul>
+                </div>',
+                'messages' => [
+                    'typeError' => "{file} имеет недопустимый формат. Допустимые форматы: {extensions}.",
+                    'sizeError' => "{file} имеет слишком большой объём, максимальный объём файла – {sizeLimit}.",
+                    'minSizeError' => "{file} имеет слишком маленький объём, минимальный объём файла – {minSizeLimit}.",
+                    'emptyError' => "{file} пуст, пожалуйста, выберите другой файл.",
+                    'noFilesError' => "Файлы для загрузки не выбраны.",
+                    'onLeave' => "В данный момент идёт загрузка файлов, если вы покинете страницу, загрузка будет отменена."
+                ],
+                'text' => [
+                    'failUpload' => 'загрузка не удалась',
+                    'dragZone' => 'Перетащите файл для загрузки',
+                    'cancelButton' => 'Отмена',
+                    'waitingForResponse' => 'Обработка...'
+                ],
+                'onComplete' => 'js:function(id, fileName, responseJSON){
+                                if (responseJSON.success)
+                                {
+                                    //alert("Фотографии добавлены на сервер")
+                                }
+                            }'
+            ]
+        ]
+    );
+    ?>
+</div>
 <div class="row">
     <?php echo $form->error($newsModel, 'text'); ?>
     <?php
@@ -121,4 +162,4 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'link', 'url' => '/admin/news', 'label'=>'Отмена']); ?>
 </div>
 
-<?php $this->endWidget(); ?>
+<?php $this->endWidget();

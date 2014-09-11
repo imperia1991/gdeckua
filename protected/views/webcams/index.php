@@ -9,7 +9,7 @@ $this->renderPartial('/partials/_breadcrumbs');
     <div class="row collapse">
 
         <div class="large-10 medium-9 small-12 columns left-sector-web-cam afisha-section">
-            <ul class="tabs" data-tab>
+            <ul class="tabs webcams" data-tab>
                 <li class="tab-title active photo">
                     <a href="#panel2-1"><?php echo Yii::t('main', 'Соборная площадь') ?></a>
                 </li>
@@ -21,6 +21,12 @@ $this->renderPartial('/partials/_breadcrumbs');
                 </li>
                 <li class="tab-title event">
                     <a href="#panel2-4"><?php echo Yii::t('main', 'ОГА') ?></a>
+                </li>
+                <li class="tab-title event">
+                    <a href="#panel2-5"><?php echo Yii::t('main', 'КП "МИА "Черкассы"') ?></a>
+                </li>
+                <li class="tab-title event">
+                    <a href="#panel2-6"><?php echo Yii::t('main', 'ЦПАУ') ?></a>
                 </li>
             </ul>
             <div class="tabs-content">
@@ -100,6 +106,25 @@ $this->renderPartial('/partials/_breadcrumbs');
                     <div class="row collapse">
                         <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
                             <iframe width="450" height="286" frameborder="0" scrolling="no" src="http://www.ustream.tv/embed/17537393?v=3&amp;wmode=direct" style="border: 0px none transparent;"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="content row" id="panel2-5">
+                    <div class="row collapse">
+                        <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
+                            <iframe width="820" height="700" frameborder="0" align="middle" src="http://rada.ck.ua/stream/mia.php">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="content row" id="panel2-6">
+                    <div class="row collapse">
+                        <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
+                            <label><?php echo Yii::t('main', 'Центр предоставления административных услуг'); ?></label>
+                        </div>
+                        <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
+                            <iframe width="820" height="700" frameborder="0" align="middle" src="http://rada.ck.ua/stream/cnap.php">
+                            </iframe>
                         </div>
                     </div>
                 </div>

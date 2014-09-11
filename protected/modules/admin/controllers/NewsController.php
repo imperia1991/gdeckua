@@ -122,11 +122,35 @@ class NewsController extends AdminController
             }
         }
 
-        $categories = CHtml::listData(CategoryNews::model()->findAll(array('order' => 'title_ru')), 'id', 'title_ru');
+        $categories = CHtml::listData(CategoryNews::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
         $this->render('form', [
             'newsModel' => $newsModel,
             'categories' => $categories,
         ]);
+    }
+
+
+    /**
+     * Загрузка файлов новости на сервер
+     */
+    public function actionUploadPhotos()
+    {
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+
+        $photoPath = Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
+        $image = Yii::app()->image->load($photoPath);
+        $image->save(Yii::app()->params['admin']['files']['news'] . $result['filename']);
+
+        if (file_exists($photoPath)) {
+            unlink($photoPath);
+        }
+
+        unset($image);
+
+        $this->respondJSON($result);
     }
 }
