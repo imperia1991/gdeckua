@@ -1,4 +1,7 @@
 <?php
+/** @var Places $model */
+/** @var Contacts $modelContacts */
+
 Yii::app()->clientScript->registerScriptFile('/js/mainPlace.js', CClientScript::POS_BEGIN);
 ?>
 
@@ -73,12 +76,123 @@ $this->renderPartial('/partials/_breadcrumbs');
                             </div>
                         </div>
 
-                        <div class="row collapse">
+                        <div class="row collapse" style="margin-bottom: 12px;">
                             <div class="large-3 columns"><p><?php echo Yii::t('main', 'Описание'); ?>
                                     <span>*</span></p></div>
                             <div class="large-9 columns name-field">
                                 <?php echo $form->textArea($model, $description, []); ?>
                                 <?php echo $form->error($model, $description, ['class' => 'error']); ?>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row collapse">
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Телефон городской'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php
+                                $this->widget('CMaskedTextField', [
+                                        'model' => $modelContacts,
+                                        'attribute' => 'phone_city',
+                                        'mask' => '99 99 99',
+                                        'placeholder' => '*',
+                                    ]);
+                                ?>
+                                <?php echo $form->error($model, 'phone_city', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Телефон мобильный'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php
+                                $this->widget('CMaskedTextField', [
+                                        'model' => $modelContacts,
+                                        'attribute' => 'phone_mobile1',
+                                        'mask' => '999 999 9999',
+                                        'placeholder' => '*',
+                                    ]);
+                                ?>
+                                <?php echo $form->error($model, 'phone_mobile1', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php
+                                $this->widget('CMaskedTextField', [
+                                        'model' => $modelContacts,
+                                        'attribute' => 'phone_mobile2',
+                                        'mask' => '999 999 9999',
+                                        'placeholder' => '*',
+                                    ]);
+                                ?>
+                                <?php echo $form->error($model, 'phone_mobile2', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php
+                                $this->widget('CMaskedTextField', [
+                                        'model' => $modelContacts,
+                                        'attribute' => 'phone_mobile3',
+                                        'mask' => '999 999 9999',
+                                        'placeholder' => '*',
+                                    ]);
+                                ?>
+                                <?php echo $form->error($modelContacts, 'phone_mobile3', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Факс'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($modelContacts, 'phax', []); ?>
+                                <?php echo $form->error($model, 'phax', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'E-mail'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($modelContacts, 'email', []); ?>
+                                <?php echo $form->error($model, 'email', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Скайп'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($modelContacts, 'skype', []); ?>
+                                <?php echo $form->error($model, 'skype', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Время работы'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($modelContacts, 'operation_time', []); ?>
+                                <?php echo $form->error($model, 'operation_time', ['class' => 'error']); ?>
+                            </div>
+                        </div>
+
+                        <div class="row collapse">
+                            <div class="large-3 columns"><p><?php echo Yii::t('main', 'Сайт'); ?></p>
+                            </div>
+                            <div class="large-9 columns name-field">
+                                <?php echo $form->textField($modelContacts, 'site', []); ?>
+                                <?php echo $form->error($model, 'site', ['class' => 'error']); ?>
                             </div>
                         </div>
                         <hr>

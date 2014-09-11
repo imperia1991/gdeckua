@@ -96,6 +96,25 @@ class SiteController extends Controller
         );
     }
 
+    private function checkedSearchString($search)
+    {
+        $checker = json_decode(
+            file_get_contents(
+                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=ru,uk,en'
+            )
+        );
+        $checkedStr = $search;
+        foreach ($checker as $word) {
+            if ($word->s[0]) {
+                $checkedStr = str_replace($word->word, $word->s[0], $checkedStr);
+            }
+        }
+
+        return mb_strtolower($checkedStr, 'utf8') != mb_strtolower($search, 'utf8') && !empty($checkedStr)
+            ? $checkedStr
+            : '';
+    }
+
     /**
      * This is the action to handle external exceptions.
      */
@@ -171,12 +190,12 @@ class SiteController extends Controller
     public function actionAdd()
     {
         $model = new Places(Yii::app()->getLanguage());
-//        unset(Yii::app()->session['countImages']);
-//        unset(Yii::app()->session['images']);
+        $modelContacts = new Contacts();
 
         if (Yii::app()->request->isPostRequest) {
-            $post = Yii::app()->request->getPost('Places', array());
-            $postPhotos = Yii::app()->request->getPost('Photos', array());
+            $post = Yii::app()->request->getPost('Places', []);
+            $postPhotos = Yii::app()->request->getPost('Photos', []);
+            $postContacts = Yii::app()->request->getPost('Contacts', []);
 
             $transaction = $model->dbConnection->beginTransaction();
             try {
@@ -186,43 +205,60 @@ class SiteController extends Controller
                 $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
+                $modelContacts->setAttributes($postContacts);
+
                 if ($model->save()) {
                     if ($postPhotos) {
-                        $photoQuery = array();
+                        $photoQuery = [];
                         foreach ($postPhotos as $photo) {
                             $photoQuery[] = '(' . $model->id . ', "' . $photo . '")';
                         }
 
                         $photoQueries = join(',', $photoQuery);
                         Yii::app()->db->createCommand(
-                            'INSERT INTO photos (place_id, title) VALUES ' . $photoQueries)
+                            'INSERT INTO photos (place_id, title) VALUES ' . $photoQueries
+                        )
                             ->execute();
                     }
 
-                    $transaction->commit();
+                    $modelContacts->place_id = $model->id;
 
-                    if ($postPhotos) {
-                        foreach ($postPhotos as $photo) {
-                            $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
-                            $image = Yii::app()->image->load($photoPath);
-                            $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+                    if (!$modelContacts->save()) {
+                        $model->addErrors($modelContacts->getErrors());
 
-                            if (file_exists($photoPath)) {
-                                unlink($photoPath);
+                        Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
+
+                        $transaction->rollback();
+                    } else {
+                        $transaction->commit();
+
+                        if ($postPhotos) {
+                            foreach ($postPhotos as $photo) {
+                                $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
+                                $image = Yii::app()->image->load($photoPath);
+                                $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+
+                                if (file_exists($photoPath)) {
+                                    unlink($photoPath);
+                                }
                             }
+
+                            unset(Yii::app()->session['images']);
+                            unset(Yii::app()->session['countImages']);
                         }
 
-                        unset(Yii::app()->session['images']);
-                        unset(Yii::app()->session['countImages']);
+                        Yii::app()->user->setFlash(
+                            'success',
+                            Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске')
+                        );
+
+                        $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
                     }
-
-                    Yii::app()->user->setFlash(
-                        'success',
-                        Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске')
-                    );
-
-                    $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
                 } else {
+                    if (!$modelContacts->validate()) {
+                        $model->addErrors($modelContacts->getErrors());
+
+                    }
                     Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
                 }
             } catch (Exception $e) {
@@ -239,6 +275,7 @@ class SiteController extends Controller
             'place',
             [
                 'model' => $model,
+                'modelContacts' => $modelContacts,
                 'districts' => $districts
             ]
         );
@@ -257,8 +294,7 @@ class SiteController extends Controller
 
         Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app(
-        )->params['admin']['images']['sizeLimit']);
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
         $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
         $sessionImages = Yii::app()->session['images'];
@@ -346,28 +382,12 @@ class SiteController extends Controller
     {
         $settingsModel = Settings::model()->find();
 
-        $this->render('about', [
-            'settingsModel' => $settingsModel
-            ]);
-    }
-
-    private function checkedSearchString($search)
-    {
-        $checker = json_decode(
-            file_get_contents(
-                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=ru,uk,en'
-            )
+        $this->render(
+            'about',
+            [
+                'settingsModel' => $settingsModel
+            ]
         );
-        $checkedStr = $search;
-        foreach ($checker as $word) {
-            if ($word->s[0]) {
-                $checkedStr = str_replace($word->word, $word->s[0], $checkedStr);
-            }
-        }
-
-        return mb_strtolower($checkedStr, 'utf8') != mb_strtolower($search, 'utf8') && !empty($checkedStr)
-            ? $checkedStr
-            : '';
     }
 
 }

@@ -22,9 +22,11 @@ $this->renderPartial('/partials/_breadcrumbs');
                 <li class="tab-title event">
                     <a href="#panel2-4"><?php echo Yii::t('main', 'ОГА') ?></a>
                 </li>
+                <?php /*
                 <li class="tab-title event">
                     <a href="#panel2-5"><?php echo Yii::t('main', 'КП "МИА "Черкассы"') ?></a>
                 </li>
+                */ ?>
                 <li class="tab-title event">
                     <a href="#panel2-6"><?php echo Yii::t('main', 'ЦПАУ') ?></a>
                 </li>
@@ -109,6 +111,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         </div>
                     </div>
                 </div>
+                <?php /*
                 <div class="content row" id="panel2-5">
                     <div class="row collapse">
                         <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">
@@ -117,6 +120,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         </div>
                     </div>
                 </div>
+                */ ?>
                 <div class="content row" id="panel2-6">
                     <div class="row collapse">
                         <div class="large-12 medium-12 columns webcam-box" style="text-align: center;">

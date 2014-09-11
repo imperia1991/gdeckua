@@ -39,10 +39,9 @@ class Contacts extends CActiveRecord
 		return [
 			['place_id', 'numerical', 'integerOnly'=>true],
 			['phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax', 'length', 'max'=>20],
-			['phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax', 'match', 'pattern'=>'/^[0-9]+$/', 'message' => Yii::t('main', 'Должны быть только цифры')],
 			['email, skype', 'length', 'max'=>50],
-			['email', 'email'],
-			['site', 'url'],
+			['email', 'email', 'message' => Yii::t('main', 'Значение не является правильным E-Mail адресом')],
+			['site', 'url', 'defaultScheme' => 'http', 'allowEmpty' => true, 'validateIDN' => true, 'message' => Yii::t('main', 'Значение не является правильным URL-адресом сайта')],
 			['operation_time', 'length', 'max'=>255],
 			// The following rule is used by search().
 			['id, place_id, phone_city, phone_mobile1, phone_mobile2, phone_mobile3, phax, email, skype, operation_time', 'safe', 'on'=>'search'],
@@ -74,8 +73,8 @@ class Contacts extends CActiveRecord
 			'phone_mobile2' => Yii::t('main', 'Телефон мобильный (дополнительный)'),
 			'phone_mobile3' => Yii::t('main', 'Телефон мобильный (дополнительный)'),
 			'phax' => Yii::t('main', 'Факс'),
-			'email' => Yii::t('main', 'Электронный адрес (email)'),
-			'skype' => Yii::t('main', 'Скайп (skype)'),
+			'email' => Yii::t('main', 'E-mail'),
+			'skype' => Yii::t('main', 'Скайп'),
 			'operation_time' => Yii::t('main', 'Время работы'),
 			'site' => Yii::t('main', 'Сайт'),
 		];
