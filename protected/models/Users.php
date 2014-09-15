@@ -54,29 +54,28 @@ class Users extends ActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
+        return [
 //			array('name, email, password, created_at', 'required'),
-            array('email, password', 'authenticate', 'on' => self::SCENARIO_LOGIN),
-            array('email, password', 'required', 'on' => array(self::SCENARIO_LOGIN, self::SCENARIO_REGISTER)),
-            array('email', 'email'),
-            array('email', 'unique', 'on' => self::SCENARIO_REGISTER),
-            array('email', 'required', 'on' => array(self::SCENARIO_FORGOT, self::SCENARIO_REGISTER)),
-            array('email', 'forgot', 'on' => self::SCENARIO_FORGOT),
-            array('password', 'length', 'min' => 6, 'max' => 50, 'on' => self::SCENARIO_REGISTER),
-            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTER),
-            array('verifyCode', 'captcha', 'on' => self::SCENARIO_REGISTER),
-            array('name, passwordRepeat', 'required', 'on' => self::SCENARIO_REGISTER),
-            array('agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER),
-            array('logins', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 255),
-            array('phone, password', 'length', 'max' => 50),
-            array('email', 'length', 'max' => 30),
-            array('name, phone, email', 'required', 'on' => self::SCENARIO_ADMIN),
-            array('last_login, updated_at', 'safe'),
+            ['email, password', 'authenticate', 'on' => self::SCENARIO_LOGIN],
+            ['email, password', 'required', 'on' => [self::SCENARIO_LOGIN, self::SCENARIO_REGISTER]],
+            ['email', 'email', 'message' => Yii::t('main', 'Значение не является правильным E-Mail адресом')],
+            ['email', 'unique', 'on' => self::SCENARIO_REGISTER],
+            ['email', 'required', 'on' => [self::SCENARIO_FORGOT, self::SCENARIO_REGISTER]],
+            ['email', 'forgot', 'on' => self::SCENARIO_FORGOT],
+            ['password', 'length', 'min' => 6, 'max' => 50, 'on' => self::SCENARIO_REGISTER],
+            ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTER],
+            ['verifyCode', 'captcha', 'on' => self::SCENARIO_REGISTER],
+            ['name, passwordRepeat', 'required', 'on' => self::SCENARIO_REGISTER],
+            ['agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER],
+            ['logins', 'numerical', 'integerOnly' => true],
+            ['name', 'length', 'max' => 255],
+            ['phone, password', 'length', 'max' => 50],
+            ['email', 'length', 'max' => 30],
+            ['name, phone, email', 'required', 'on' => self::SCENARIO_ADMIN],
+            ['last_login, updated_at', 'safe'],
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, name, phone, email, password, logins, last_login, created_at, updated_at', 'safe', 'on' => 'search'),
-        );
+            ['id, name, phone, email, password, logins, last_login, created_at, updated_at', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -86,12 +85,12 @@ class Users extends ActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'ruleUser' => array(self::HAS_ONE, 'RulesUsers', 'user_id'),
-            'promos' => array(self::HAS_MANY, 'Promo', 'user_id'),
-            'serviceReviews' => array(self::HAS_MANY, 'ServiceReviews', 'user_id'),
-            'services' => array(self::HAS_MANY, 'Services', 'user_id'),
-        );
+        return [
+            'ruleUser' => [self::HAS_ONE, 'RulesUsers', 'user_id'],
+            'promos' => [self::HAS_MANY, 'Promo', 'user_id'],
+            'serviceReviews' => [self::HAS_MANY, 'ServiceReviews', 'user_id'],
+            'services' => [self::HAS_MANY, 'Services', 'user_id'],
+        ];
     }
 
     /**
@@ -99,7 +98,7 @@ class Users extends ActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('main', '№'),
             'name' => Yii::t('main', 'Имя'),
             'phone' => Yii::t('main', 'Мобильный телефон'),
@@ -111,7 +110,7 @@ class Users extends ActiveRecord
             'updated_at' => Yii::t('main', 'Дата последнего обновления данных'),
             'passwordRepeat' => Yii::t('main', 'Повторите пароль'),
             'rule' => Yii::t('main', 'Роль'),
-        );
+        ];
     }
 
     /**
@@ -128,8 +127,6 @@ class Users extends ActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         if ($this->id) {
@@ -160,15 +157,15 @@ class Users extends ActiveRecord
             $criteria->compare('userRule.name', $this->rule, true);
         }
 
-        $criteria->with = array(
-            'ruleUser.rule' => array(
+        $criteria->with = [
+            'ruleUser.rule' => [
                 'alias' => 'userRule',
                 'joinType' => 'JOIN',
-            ),
-        );
+            ],
+        ];
 
         $sort = new CSort();
-        $sort->attributes = array(
+        $sort->attributes = [
             'id',
             'name',
             'phone',
@@ -177,21 +174,21 @@ class Users extends ActiveRecord
             'last_login',
             'created_at',
             'updated_at',
-            'rule' => array(
+            'rule' => [
                 'asc'   => 'userRule.name',
                 'desc'  => 'userRule.name DESC',
-            ),
-        );
+            ],
+        ];
 
-        $sort->defaultOrder = array(
+        $sort->defaultOrder = [
             'created_at' => CSort::SORT_DESC,
-        );
+        ];
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
                 'criteria' => $criteria,
-                'pagination' => array('pageSize' => 20),
+                'pagination' => ['pageSize' => 20],
                 'sort' => $sort,
-            ));
+            ]);
     }
 
     /**
@@ -231,7 +228,7 @@ class Users extends ActiveRecord
             $duration = 3600 * 24 * 30; // 30 days
             Yii::app()->user->login($this->_identity, $duration);
 
-            $user = Users::model()->findByAttributes(array('email' => $this->email));
+            $user = Users::model()->findByAttributes(['email' => $this->email]);
             $user->logins = $user->logins + 1;
             $user->last_login = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
             $user->update();
@@ -255,7 +252,7 @@ class Users extends ActiveRecord
 
                 $message = new YiiMailMessage;
                 $message->view = 'forgotPassword_' . Yii::app()->getLanguage();
-                $message->setBody(array('user' => $this, 'newPassword' => $this->newPassword), 'text/html');
+                $message->setBody(['user' => $this, 'newPassword' => $this->newPassword], 'text/html');
                 $message->subject = Yii::t('main', 'Восстановление пароля');
                 $message->addTo($this->email);
                 $message->from = Yii::app()->params['adminEmail'];

@@ -56,6 +56,9 @@
 
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
+                            <ul class="right">
+                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/auth'); ?>" class="signin"><?php echo Yii::t('main', 'Войти / Регистрация'); ?></a></li>
+                            </ul>
                             <div class="right currency">
                                 <?php //$this->renderPartial('/partials/_social'); ?>
                             </div>
@@ -230,10 +233,6 @@
             $(".obratnaya").on('click', function(){
                 $("#back").slideToggle("slow");
                 $(this).toggleClass("active");
-                return false
-            });
-            $(".close-button").on('click', function(){
-                $("#back").slideToggle("slow");
                 return false
             });
         });

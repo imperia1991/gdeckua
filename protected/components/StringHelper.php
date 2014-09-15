@@ -9,7 +9,7 @@ class StringHelper
     public static function getPassword($lenght = 6)
     {
         //набор символов для пароля
-        $symbols = array('a','b','c','d','e','f',
+        $symbols = ['a','b','c','d','e','f',
             'g','h','i','j','k','l',
             'm','n','o','p','r','s',
             't','u','v','x','y','z',
@@ -18,7 +18,7 @@ class StringHelper
             'M','N','O','P','R','S',
             'T','U','V','X','Y','Z',
             '1','2','3','4','5','6',
-            '7','8','9');
+            '7','8','9'];
 
 
         $password = '';

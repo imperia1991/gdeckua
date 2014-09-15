@@ -390,4 +390,20 @@ class SiteController extends Controller
         );
     }
 
+    public function actionAuth()
+    {
+        $modelUser = new Users(Users::SCENARIO_LOGIN);
+
+        if (Yii::app()->getRequest()->isPostRequest) {
+            $post = Yii::app()->getRequest()->getPost('Users', []);
+
+            $modelUser->setAttributes($post);
+
+        }
+
+        $this->render('auth',[
+                'modelUser' => $modelUser,
+            ]);
+    }
+
 }
