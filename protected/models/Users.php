@@ -26,6 +26,9 @@ class Users extends ActiveRecord
     const SCENARIO_FORGOT = 'forgot';
     const SCENARIO_ADMIN = 'admin';
 
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
     public $errorMessage;
     // для капчи
     public $verifyCode;
@@ -57,21 +60,22 @@ class Users extends ActiveRecord
         return [
 //			array('name, email, password, created_at', 'required'),
             ['email, password', 'authenticate', 'on' => self::SCENARIO_LOGIN],
-            ['email, password', 'required', 'on' => [self::SCENARIO_LOGIN, self::SCENARIO_REGISTER]],
+            ['email, password', 'required', 'on' => [self::SCENARIO_LOGIN, self::SCENARIO_REGISTER], 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             ['email', 'email', 'message' => Yii::t('main', 'Значение не является правильным E-Mail адресом')],
             ['email', 'unique', 'on' => self::SCENARIO_REGISTER],
-            ['email', 'required', 'on' => [self::SCENARIO_FORGOT, self::SCENARIO_REGISTER]],
+            ['email', 'required', 'on' => [self::SCENARIO_FORGOT, self::SCENARIO_REGISTER], 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             ['email', 'forgot', 'on' => self::SCENARIO_FORGOT],
-            ['password', 'length', 'min' => 6, 'max' => 50, 'on' => self::SCENARIO_REGISTER],
+            ['password', 'length', 'min' => 6, 'max' => 50, 'on' => self::SCENARIO_REGISTER, 'message' => Yii::t('main', 'Пароль должен быть минимум 6 символов')],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTER],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_REGISTER],
             ['name, passwordRepeat', 'required', 'on' => self::SCENARIO_REGISTER],
-            ['agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER],
+//            ['agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER],
             ['logins', 'numerical', 'integerOnly' => true],
-            ['name', 'length', 'max' => 255],
+            ['name', 'length', 'max' => 25],
+            ['name', 'match', 'pattern'=>'/^[A-Za-zА-Яа-яёЁєЄїЇіІ]+$/u', 'message'=>Yii::t('main', 'Должны быть только буквы')],
             ['phone, password', 'length', 'max' => 50],
             ['email', 'length', 'max' => 30],
-            ['name, phone, email', 'required', 'on' => self::SCENARIO_ADMIN],
+            ['name, phone, email', 'required', 'on' => self::SCENARIO_ADMIN, 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             ['last_login, updated_at', 'safe'],
             // The following rule is used by search().
             ['id, name, phone, email, password, logins, last_login, created_at, updated_at', 'safe', 'on' => 'search'],
@@ -283,9 +287,12 @@ class Users extends ActiveRecord
         parent::afterSave();
 
         if ($this->scenario == self::SCENARIO_REGISTER) {
+            $role = Rules::model()->findByAttributes([
+                    'name' => self::ROLE_USER
+                ]);
             $this->ruleUser = new RulesUsers();
             $this->ruleUser->user_id = $this->id;
-            $this->ruleUser->rule_id = 2;
+            $this->ruleUser->rule_id = $role->id;
 
             $this->ruleUser->save();
         }

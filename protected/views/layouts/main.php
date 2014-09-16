@@ -57,7 +57,13 @@
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
                             <ul class="right">
-                                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/auth'); ?>" class="signin"><?php echo Yii::t('main', 'Войти / Регистрация'); ?></a></li>
+                                <?php if (Yii::app()->user->isGuest):  ?>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/auth'); ?>" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/auth'); ?>" class="signin"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
+                                <?php else: ?>
+                                    <li><a href="javascript:void(0)" class="signin"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="signin"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
+                                <?php endif; ?>
                             </ul>
                             <div class="right currency">
                                 <?php //$this->renderPartial('/partials/_social'); ?>

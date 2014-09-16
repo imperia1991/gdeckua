@@ -4,26 +4,26 @@ class DefaultController extends AdminController
 {
     public function filters()
     {
-        return array(
+        return [
             'accessControl', // perform access control for CRUD operations
-        );
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow',
-                'actions' => array('login', 'error'),
-                'roles' => array('guest', 'user'),
-            ),
-            array('allow',
-                'actions' => array('index', 'error', 'logout'),
-                'roles' => array('admin'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
-        );
+        return [
+            ['allow',
+                'actions' => ['login', 'error'],
+                'roles' => ['guest', 'user'],
+            ],
+            ['allow',
+                'actions' => ['index', 'error', 'logout'],
+                'roles' => ['admin'],
+            ],
+            ['deny', // deny all users
+                'users' => ['*'],
+            ],
+        ];
     }
 
     public function init()
@@ -45,7 +45,7 @@ class DefaultController extends AdminController
         }
 
         $this->modelUser->scenario = Users::SCENARIO_LOGIN;
-        if (Yii::app()->request->isPostRequest && $post = Yii::app()->request->getPost(get_class($this->modelUser), array())) {
+        if (Yii::app()->request->isPostRequest && $post = Yii::app()->request->getPost(get_class($this->modelUser), [])) {
             $this->modelUser->setAttributes($post);
             if ($this->modelUser->validate() && $this->modelUser->login()) {
                 $this->redirect(Yii::app()->baseUrl . '/admin');
@@ -53,9 +53,9 @@ class DefaultController extends AdminController
         }
 
         // display the login form
-        $this->render('login', array(
+        $this->render('login', [
             'login' => true,
-        ));
+        ]);
     }
 
     /**

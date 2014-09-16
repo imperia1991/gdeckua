@@ -349,7 +349,7 @@ class SiteController extends Controller
         if ($model->save()) {
             $message = new YiiMailMessage;
             $message->view = 'feedback';
-            $message->setBody(array('model' => $model), 'text/html');
+            $message->setBody(['model' => $model], 'text/html');
             $message->subject = 'gde.ck.ua: Обратная связь';
             $message->addTo('support@gde.ck.ua');
             $message->from = $model->email;
@@ -393,16 +393,62 @@ class SiteController extends Controller
     public function actionAuth()
     {
         $modelUser = new Users(Users::SCENARIO_LOGIN);
+        $modelUserRegister = new Users(Users::SCENARIO_REGISTER);
+        $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
 
         if (Yii::app()->getRequest()->isPostRequest) {
             $post = Yii::app()->getRequest()->getPost('Users', []);
 
             $modelUser->setAttributes($post);
 
+            if ($modelUser->validate()) {
+
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при авторизации'));
+            }
+
         }
 
         $this->render('auth',[
                 'modelUser' => $modelUser,
+                'modelUserRegister' => $modelUserRegister,
+                'modelUserForgot' => $modelUserForgot,
+            ]);
+    }
+
+    public function actionRegister()
+    {
+        $modelUser = new Users(Users::SCENARIO_LOGIN);
+        $modelUserRegister = new Users(Users::SCENARIO_REGISTER);
+        $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
+
+        if (Yii::app()->getRequest()->isPostRequest) {
+            $post = Yii::app()->getRequest()->getPost('Users', []);
+
+            $modelUserRegister->setAttributes($post);
+
+            if ($modelUserRegister->save()) {
+                $mailWraper = new MailWrapper();
+                $mailWraper->setModel($modelUserRegister);
+                $mailWraper->setView('register_' . Yii::app()->getLanguage());
+                $mailWraper->setSubject(Yii::t('main', 'Регистрация на сайте'));
+                $mailWraper->send();
+
+                $modelUserRegister->login();
+
+                Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Вы зарегистрированы на сайте'));
+
+                $referrer =Yii::app()->getRequest()->getUrlReferrer();
+                Yii::app()->getRequest()->redirect($referrer ? $referrer : '/' . Yii::app()->getLanguage());
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при регистрации'));
+            }
+        }
+
+        $this->render('register',[
+                'modelUser' => $modelUser,
+                'modelUserRegister' => $modelUserRegister,
+                'modelUserForgot' => $modelUserForgot,
             ]);
     }
 

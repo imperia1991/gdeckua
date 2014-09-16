@@ -40,11 +40,16 @@
     height: 479px;
 }
 
-#comment-model-form .error, #place-model-form .error, #photoCity-model-form .error {
+#comment-model-form .error,
+#place-model-form .error,
+#photoCity-model-form .error,
+.auth .error {
     color: red;
     font-size: 14px;
 }
-
+.auth .error {
+    margin-bottom: 10px;
+}
 .jGrowl-message {
     font-size: 15px;
 }

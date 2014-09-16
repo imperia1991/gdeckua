@@ -33,7 +33,7 @@ class UserIdentity extends CUserIdentity
      */
     public function authenticate()
     {
-        $user = Users::model()->findByAttributes(array('email' => $this->email));
+        $user = Users::model()->findByAttributes(['email' => $this->email]);
 
         if (!is_object($user))
             $this->errorCode = self::ERROR_PHONE_INVALID;

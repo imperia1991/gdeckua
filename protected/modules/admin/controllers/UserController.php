@@ -4,21 +4,21 @@ class UserController extends AdminController
 {
     public function filters()
     {
-        return array(
+        return [
             'accessControl', // perform access control for CRUD operations
-        );
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow',
-                'roles' => array('admin'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
-        );
+        return [
+            ['allow',
+                'roles' => ['admin'],
+            ],
+            ['deny', // deny all users
+                'users' => ['*'],
+            ],
+        ];
     }
 
     public function init()
@@ -38,9 +38,9 @@ class UserController extends AdminController
             $model->rule = isset($get['rule']) ? trim($get['rule']) : '';
         }
 
-        $this->render('index', array(
+        $this->render('index', [
             'model' => $model,
-        ));
+        ]);
     }
 
     public function actionUpdate()
@@ -83,9 +83,9 @@ class UserController extends AdminController
 
         $rules = CHtml::listData(Rules::model()->findAll(), 'id', 'name');
 
-        $this->render('user', array(
+        $this->render('user', [
             'model' => $model,
             'rules' => $rules,
-        ));
+        ]);
     }
 }
