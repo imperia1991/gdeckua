@@ -1,6 +1,6 @@
 <?php
 
-$localConfig = file_exists(dirname(__FILE__) . '/local.php') ? require_once(dirname(__FILE__) . '/local.php') : array();
+$localConfig = file_exists(dirname(__FILE__) . '/local.php') ? require_once(dirname(__FILE__) . '/local.php') : [];
 // uncomment the following to define a path alias
 Yii::setPathOfAlias('bootstrap', realpath(__DIR__ . '/../extensions/bootstrap'));
 // This is the main Web application configuration. Any writable
@@ -13,7 +13,9 @@ $mainConfig = [
 //    'sourceLanguage' => 'ru',
 //    'language' => 'ru',
     // preloading 'log' component
-    'preload' => ['log'],
+    'preload' => [
+        'log',
+    ],
     // autoloading model and component classes
     'import' => [
         'application.models.*',
@@ -50,6 +52,7 @@ $mainConfig = [
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'class' => 'WebUser',
+            'loginUrl' => 'signin'
         ],
         'request' => [
             'enableCookieValidation' => true,

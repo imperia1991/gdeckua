@@ -8,9 +8,9 @@ class WebUser extends CWebUser
      * @param mixed $params (opt) Parameters for this operation, usually the object to access.
      * @return bool Permission granted?
      */
-    public function checkAccess($operation, $params = array())
+    public function checkAccess($operation, $params = [])
     {
-        $this->loginUrl = Yii::app()->createUrl('/admin/default/login');
+        $this->loginUrl = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . 'signin');
         if (empty($this->id))
         {
             $this->setState('roles', 'guest');

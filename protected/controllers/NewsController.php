@@ -114,6 +114,10 @@ class NewsController extends Controller
 
         $id = Yii::app()->request->getQuery('id', 0);
 
+        if (null === News::model()->findByPk($id)) {
+            throw new CHttpException(404);
+        }
+
         /** @var News[] $newsModels  */
         $newsModels = News::model()->getViewNews($id);
 

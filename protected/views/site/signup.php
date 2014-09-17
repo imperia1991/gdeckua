@@ -1,7 +1,5 @@
 <?php
-/** @var Users $modelUser */
 /** @var Users $modelUserRegister */
-/** @var Users $modelUserForgot */
 
 $this->breadcrumbs = [
     '' => Yii::t('main', 'Регистрация')
@@ -14,7 +12,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 
         <div class="large-10 medium-9 small-12 columns  left-sector-add-object afisha-section">
             <div class="content row" id="register">
-                <div class="row collapse">
+                <div class="row collapse" style="margin-top: 10px;">
                     <?php $form = $this->beginWidget(
                         'CActiveForm',
                         [

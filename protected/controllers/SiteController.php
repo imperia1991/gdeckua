@@ -1,32 +1,45 @@
 <?php
 
+/**
+ * Class SiteController
+ */
 class SiteController extends Controller
 {
 
-//    public function filters()
-//    {
-//        return array(
-//            'accessControl', // perform access control for CRUD operations
-//        );
-//    }
-//
-//    public function accessRules()
-//    {
-//        return array(
-//            array('allow',
-//                'actions' => array('index', 'login', 'register', 'error'),
-//                'roles' => array('guest'),
-//            ),
-//            array('allow',
-//                'actions' => array('index', 'error', 'logout'),
-//                'roles' => array('user', 'admin'),
-//            ),
-//            array('deny', // deny all users
-//                'users' => array('*'),
-//            ),
-//        );
-//    }
+    /**
+     * @return array
+     */
+    public function filters()
+    {
+        return [
+            'accessControl', // perform access control for CRUD operations
+        ];
+    }
 
+    /**
+     * @return array
+     */
+    public function accessRules()
+    {
+        return [
+            ['allow',
+                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
+                'roles' => ['guest'],
+            ],
+            ['allow',
+                'actions' => ['add', 'logout'],
+                'roles' => ['user', 'admin'],
+            ],
+            ['deny', // deny all users
+                'actions' => ['logout'],
+                'users' => ['*'],
+            ],
+        ];
+    }
+
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -96,6 +109,11 @@ class SiteController extends Controller
         );
     }
 
+    /**
+     * Проверка правописания при поиске
+     * @param $search
+     * @return mixed|string
+     */
     private function checkedSearchString($search)
     {
         $checker = json_decode(
@@ -140,6 +158,11 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * Просмотр объекта
+     *
+     * @throws CHttpException
+     */
     public function actionView()
     {
         $this->currentPageType = PageTypes::PAGE_PLACE_VIEW;
@@ -187,6 +210,9 @@ class SiteController extends Controller
         );
     }
 
+    /**
+     * Добавление объекта
+     */
     public function actionAdd()
     {
         $model = new Places(Yii::app()->getLanguage());
@@ -281,6 +307,9 @@ class SiteController extends Controller
         );
     }
 
+    /**
+     * Загрузка изображений во временную папку
+     */
     public function actionUpload()
     {
         $countImages = isset(Yii::app()->session['countImages']) ? Yii::app()->session['countImages'] : 0;
@@ -304,6 +333,9 @@ class SiteController extends Controller
         $this->respondJSON($result);
     }
 
+    /**
+     * Удалени предпросмотра изображений
+     */
     public function actionDeletePreviewUpload()
     {
         $request = Yii::app()->request;
@@ -340,6 +372,9 @@ class SiteController extends Controller
         Yii::app()->end();
     }
 
+    /**
+     * Обратная связь
+     */
     public function actionFeedback()
     {
         $model = new Feedback();
@@ -378,6 +413,9 @@ class SiteController extends Controller
         Yii::app()->end();
     }
 
+    /**
+     * О проекте
+     */
     public function actionAbout()
     {
         $settingsModel = Settings::model()->find();
@@ -390,10 +428,12 @@ class SiteController extends Controller
         );
     }
 
-    public function actionAuth()
+    /**
+     * Авторизация
+     */
+    public function actionSignin()
     {
         $modelUser = new Users(Users::SCENARIO_LOGIN);
-        $modelUserRegister = new Users(Users::SCENARIO_REGISTER);
         $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
 
         if (Yii::app()->getRequest()->isPostRequest) {
@@ -401,55 +441,65 @@ class SiteController extends Controller
 
             $modelUser->setAttributes($post);
 
-            if ($modelUser->validate()) {
-
+            if ($modelUser->validate() && $modelUser->login()) {
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при авторизации'));
             }
 
         }
 
-        $this->render('auth',[
+        $this->render('signin',[
                 'modelUser' => $modelUser,
-                'modelUserRegister' => $modelUserRegister,
                 'modelUserForgot' => $modelUserForgot,
             ]);
     }
 
-    public function actionRegister()
+    /**
+     * Регистрация
+     */
+    public function actionSignup()
     {
-        $modelUser = new Users(Users::SCENARIO_LOGIN);
         $modelUserRegister = new Users(Users::SCENARIO_REGISTER);
-        $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
 
         if (Yii::app()->getRequest()->isPostRequest) {
             $post = Yii::app()->getRequest()->getPost('Users', []);
 
             $modelUserRegister->setAttributes($post);
 
-            if ($modelUserRegister->save()) {
+            if ($modelUserRegister->validate()) {
+                $modelUserRegister->save(false);
+
                 $mailWraper = new MailWrapper();
                 $mailWraper->setModel($modelUserRegister);
                 $mailWraper->setView('register_' . Yii::app()->getLanguage());
                 $mailWraper->setSubject(Yii::t('main', 'Регистрация на сайте'));
                 $mailWraper->send();
 
+                $modelUserRegister->password = $modelUserRegister->passwordRepeat;
                 $modelUserRegister->login();
 
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Вы зарегистрированы на сайте'));
 
-                $referrer =Yii::app()->getRequest()->getUrlReferrer();
-                Yii::app()->getRequest()->redirect($referrer ? $referrer : '/' . Yii::app()->getLanguage());
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при регистрации'));
             }
         }
 
-        $this->render('register',[
-                'modelUser' => $modelUser,
+        $this->render('signup',[
                 'modelUserRegister' => $modelUserRegister,
-                'modelUserForgot' => $modelUserForgot,
             ]);
+    }
+
+
+    /**
+     * Logs out the current user and redirect to homepage.
+     */
+    public function actionLogout()
+    {
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->homeUrl);
     }
 
 }

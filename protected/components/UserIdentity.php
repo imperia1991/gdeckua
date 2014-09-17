@@ -7,7 +7,6 @@
  */
 class UserIdentity extends CUserIdentity
 {
-
     const ERROR_PHONE_INVALID = 3;
 
     public $name;
@@ -64,6 +63,11 @@ class UserIdentity extends CUserIdentity
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function getRole()
+    {
+        return $this->getState('roles');
     }
 
 }

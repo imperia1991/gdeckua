@@ -11,7 +11,7 @@ $this->renderPartial('/partials/_breadcrumbs');
             <div class="error-page">
                 <ul>
                     <li><?php echo Yii::t('main', 'Доступ запрещен!'); ?> :(</li>
-                    <li class="large-font-error">503</li>
+                    <li class="large-font-error">403</li>
                 </ul>
             </div>
             <div><p><a href="/"><?php echo Yii::t('main', 'перейти на главную'); ?></a></p></div>

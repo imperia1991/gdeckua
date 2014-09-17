@@ -71,7 +71,7 @@ class Users extends ActiveRecord
             ['name, passwordRepeat', 'required', 'on' => self::SCENARIO_REGISTER],
 //            ['agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER],
             ['logins', 'numerical', 'integerOnly' => true],
-            ['name', 'length', 'max' => 25],
+            ['name', 'length', 'max' => 12],
             ['name', 'match', 'pattern'=>'/^[A-Za-zА-Яа-яёЁєЄїЇіІ]+$/u', 'message'=>Yii::t('main', 'Должны быть только буквы')],
             ['phone, password', 'length', 'max' => 50],
             ['email', 'length', 'max' => 30],
@@ -228,6 +228,7 @@ class Users extends ActiveRecord
             $this->_identity = new UserIdentity($this->email, $this->password);
             $this->_identity->authenticate();
         }
+
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
             $duration = 3600 * 24 * 30; // 30 days
             Yii::app()->user->login($this->_identity, $duration);
@@ -281,6 +282,20 @@ class Users extends ActiveRecord
             $this->addError('agree', Yii::t('main', 'Вы должны согласиться с условиями пользовательского соглашения'));
         }
     }
+
+    protected function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            if ($this->hasAttribute('password') && $this->isNewRecord) {
+                $this->password = md5($this->password);
+            }
+
+            return true;
+        };
+
+        return false;
+    }
+
 
     protected function afterSave()
     {
