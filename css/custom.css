@@ -212,7 +212,7 @@ header .search-panel div:first-child p {
     left: 135px !important;
 }
 
-.slide-image img {
+.slide-image, .slide-image img {
     height: 362px;
 }
 

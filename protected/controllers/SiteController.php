@@ -434,7 +434,6 @@ class SiteController extends Controller
     public function actionSignin()
     {
         $modelUser = new Users(Users::SCENARIO_LOGIN);
-        $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
 
         if (Yii::app()->getRequest()->isPostRequest) {
             $post = Yii::app()->getRequest()->getPost('Users', []);
@@ -451,7 +450,6 @@ class SiteController extends Controller
 
         $this->render('signin',[
                 'modelUser' => $modelUser,
-                'modelUserForgot' => $modelUserForgot,
             ]);
     }
 
@@ -492,7 +490,6 @@ class SiteController extends Controller
             ]);
     }
 
-
     /**
      * Logs out the current user and redirect to homepage.
      */
@@ -500,6 +497,48 @@ class SiteController extends Controller
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionForgot()
+    {
+        $modelUserForgot = new Users(Users::SCENARIO_FORGOT);
+
+        if (Yii::app()->getRequest()->isPostRequest) {
+            $post = Yii::app()->getRequest()->getPost('Users', []);
+
+            $modelUserForgot->setAttributes($post);
+
+            if ($modelUserForgot->validate()) {
+                /** @var Users $modelCurrentUser */
+                $modelCurrentUser = Users::model()->findByAttributes([
+                        'email' => $modelUserForgot->email,
+                    ]);
+
+                $modelCurrentUser->passwordRepeat = StringHelper::getPassword();
+                $modelCurrentUser->password = md5($modelCurrentUser->passwordRepeat);
+
+                if ($modelCurrentUser->save(false)) {
+                    $mailWraper = new MailWrapper();
+                    $mailWraper->setModel($modelCurrentUser);
+                    $mailWraper->setView('forgot_' . Yii::app()->getLanguage());
+                    $mailWraper->setSubject(Yii::t('main', 'Востановление пароля'));
+                    $mailWraper->send();
+                }
+
+                Yii::app()->user->setFlash('success',
+                    Yii::t('main', 'На Ваш электронный адрес {email} выслано письмо с новым паролем', [
+                        '{email}' => $modelCurrentUser->email
+                    ]));
+
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
+            } else {
+            }
+
+        }
+
+        $this->render('forgot',[
+                'modelUserForgot' => $modelUserForgot,
+            ]);
     }
 
 }

@@ -13,10 +13,6 @@ class DefaultController extends AdminController
     {
         return [
             ['allow',
-                'actions' => ['login', 'error'],
-                'roles' => ['guest', 'user'],
-            ],
-            ['allow',
                 'actions' => ['index', 'error', 'logout'],
                 'roles' => ['admin'],
             ],

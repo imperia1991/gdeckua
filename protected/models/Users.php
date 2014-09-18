@@ -247,23 +247,13 @@ class Users extends ActiveRecord
 
     public function forgot($attribute, $params)
     {
-        $model = $this->findByAttributes(array('email' => $this->email));
+        $model = $this->findByAttributes([
+                'email' => $this->email
+            ]);
+
         if (!$this->hasErrors()) {
-            if (!$model) {
-                $this->addError('email', Yii::t('main', 'Пользователь с таким e-mail не найден'));
-            }
-            else {
-                $this->setPassword($model);
-
-                $message = new YiiMailMessage;
-                $message->view = 'forgotPassword_' . Yii::app()->getLanguage();
-                $message->setBody(['user' => $this, 'newPassword' => $this->newPassword], 'text/html');
-                $message->subject = Yii::t('main', 'Восстановление пароля');
-                $message->addTo($this->email);
-                $message->from = Yii::app()->params['adminEmail'];
-                Yii::app()->mail->send($message);
-
-                Yii::app()->user->setFlash('success', Yii::t('main', 'На Ваш e-mail "email" выслано письмо с новым паролем', array('email' => $this->email)));
+            if (!is_object($model)) {
+                $this->addError('email', Yii::t('main', 'Пользователь с таким E-Mail не зарегистрирован на сайте'));
             }
         }
     }

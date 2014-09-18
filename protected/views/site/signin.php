@@ -48,6 +48,12 @@ $this->renderPartial('/partials/_breadcrumbs');
                             </div>
                         </div>
 
+                        <div class="row collapse">
+                            <div class="large-12 columns">
+                                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/forgot') ?>"><?php echo Yii::t('main', 'Забыли пароль?'); ?></a>
+                            </div>
+                        </div>
+
                         <div class="row capcha-block" style="margin-top: 10px;">
                             <div class="large-12 columns">
                                 <?php echo CHtml::submitButton(Yii::t('main', 'Войти'), ['class' => 'button']); ?>

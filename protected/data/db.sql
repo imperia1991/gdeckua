@@ -1,4 +1,4 @@
--- ALTER TABLE places ADD category_id INT DEFAULT NULL ;
+ALTER TABLE places ADD category_id INT DEFAULT NULL ;
 
 -- ALTER TABLE categories ADD parent_id INT NULL ,
 -- ADD INDEX (parent_id);
@@ -181,19 +181,19 @@
 
 # ALTER TABLE category_posters
 #   ADD COLUMN orderby TINYINT NULL DEFAULT '0' AFTER alias;
-
+#
 # ALTER TABLE `category_posters`
 #   ADD COLUMN `is_affisha` TINYINT(1) NULL DEFAULT '0' AFTER `orderby`;
-
+#
 # ALTER TABLE `news`
 # CHANGE COLUMN `short_text` `short_text` VARCHAR(160) NULL DEFAULT NULL AFTER `text`;
-
+#
 # ALTER TABLE `places`
 # ADD COLUMN `short_description_ru` VARCHAR(160) NULL COMMENT 'Краткое описание на русском' AFTER `how_to_get_uk`,
 # ADD COLUMN `short_description_uk` VARCHAR(160) NULL COMMENT 'Краткое описание на украинском' AFTER `short_description_ru`;
-
-ALTER TABLE `contacts`
-ADD COLUMN `phone_mobile3` VARCHAR(20) NULL DEFAULT NULL AFTER `phone_mobile2`;
+#
+# ALTER TABLE `contacts`
+# ADD COLUMN `phone_mobile3` VARCHAR(20) NULL DEFAULT NULL AFTER `phone_mobile2`;
 
 CREATE TABLE `banners` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
