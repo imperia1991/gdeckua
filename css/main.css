@@ -1698,7 +1698,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	background: linear-gradient(to bottom, #4c4c4c 0%,#666666 2%,#595959 12%,#2c2c2c 45%,#2b2b2b 76%,#1c1c1c 91%,#111111 95%,#131313 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
 	border-radius: 5px;
-	border: 1px solid #000; 
+	border: 1px solid #000;
 	margin: 20px 20px 20px 14px;
 	float: left;
 }
@@ -1719,7 +1719,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 }
 
 .input-form-footer .name-field:first-child {
-	
+
 }
 
 
@@ -1760,25 +1760,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	margin-top: -5px !important;
 }
 
-#back button.small, 
+#back button.small,
 #back .button.small {
     font-size: 0.8125rem;
     padding: 1rem;
 }
 
-#back input[type="text"], 
-#back input[type="password"], 
-#back input[type="date"], 
-#back input[type="datetime"], 
-#back input[type="datetime-local"], 
-#back input[type="month"], 
-#back input[type="week"], 
-#back input[type="email"], 
-#back input[type="number"], 
-#back input[type="search"], 
-#back input[type="tel"], 
-#back input[type="time"], 
-#back input[type="url"], 
+#back input[type="text"],
+#back input[type="password"],
+#back input[type="date"],
+#back input[type="datetime"],
+#back input[type="datetime-local"],
+#back input[type="month"],
+#back input[type="week"],
+#back input[type="email"],
+#back input[type="number"],
+#back input[type="search"],
+#back input[type="tel"],
+#back input[type="time"],
+#back input[type="url"],
 #back textarea {
     border: 1px solid #cccccc;
     border-radius: 5px;
@@ -1922,7 +1922,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .event-inner .event-inner-title div:last-child p {
 	font-size: 0.9em;
 	color: #666;
-	line-height: 0;	
+	line-height: 0;
 	text-align: center;
 }
 
@@ -1961,7 +1961,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 }
 
 
-.left-foto-section .tabs dd, 
+.left-foto-section .tabs dd,
 .left-foto-section .tabs .tab-title.active {
 	background: #fff;
 	height: 100%;
@@ -1977,7 +1977,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
     border-radius: 10px 0px 0 0;
 }
 
-.left-foto-section .tabs dd, 
+.left-foto-section .tabs dd,
 .left-foto-section .tabs {
 	border-radius: 10px 10px 0 0;
 	border: 1px solid #ccc;
@@ -1985,35 +1985,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	margin-right: 10px !important;
 }
 
-.left-foto-section .tabs dd, 
+.left-foto-section .tabs dd,
 .left-foto-section .tabs .tab-title.active a,
-.left-foto-section .tabs dd, 
+.left-foto-section .tabs dd,
 .left-foto-section .tabs .tab-title a{
 	border-radius: 10px 0px 0 0;
 }
 
-.left-foto-section .tabs dd, 
+.left-foto-section .tabs dd,
 .left-foto-section .tabs .tab-title {
 	background: #fff;
 	height: 49px;
 	border-right: 1px solid #ccc;
 	border-top: 0px solid #ccc;
 	border-bottom: 1px solid #ccc;
-	border-radius: 10px 0px 0 0;	
+	border-radius: 10px 0px 0 0;
     float: left;
     list-style: none outside none;
     padding-bottom: 2px !important;
     position: relative;
 }
 
-.left-foto-section .tabs dd.active a, 
+.left-foto-section .tabs dd.active a,
 .left-foto-section .tabs .tab-title a {
     background: none repeat scroll 0 0 white;
     color: #222222;
     padding: 10px 5px;
 }
 
-.left-foto-section .tabs dd.active a, 
+.left-foto-section .tabs dd.active a,
 .left-foto-section .tabs .tab-title a:hover {
     background: none repeat scroll 0 0 white;
     color: #222222;
@@ -2094,7 +2094,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 .event-large-inner .event-inner-title div:last-child p {
 	font-size: 0.9em;
 	color: #666;
-	line-height: 0.1;	
+	line-height: 0.1;
 	text-align: center;
 }
 
@@ -2146,7 +2146,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 /*************AFISHA PAGE*******************/
 
 
-.afisha-section .tabs dd, 
+.afisha-section .tabs dd,
 .afisha-section .tabs .tab-title.active {
 	background: #fff;
 	height: 100%;
@@ -2162,12 +2162,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
     border-radius: 10px 0px 0 0;
 }
 
-.afisha-section .tabs dd > a, 
+.afisha-section .tabs dd > a,
 .afisha-section .tabs .tab-title > a {
 	padding: 10px;
 }
 
-.afisha-section .tabs dd, 
+.afisha-section .tabs dd,
 .afisha-section .tabs {
 	border-radius: 10px 0 0;
 	border: 1px solid #ccc;
@@ -2175,34 +2175,34 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	margin-right: 5px !important;
 }
 
-.afisha-section .tabs dd, 
+.afisha-section .tabs dd,
 .afisha-section .tabs .tab-title.active a,
-.afisha-section .tabs dd, 
+.afisha-section .tabs dd,
 .afisha-section .tabs .tab-title a{
 	border-radius: 10px 0px 0 0;
 }
 
-.afisha-section .tabs dd, 
+.afisha-section .tabs dd,
 .afisha-section .tabs .tab-title {
 	background: #fff;
 	height: 49px;
 	border-right: 1px solid #ccc;
 	border-top: 0px solid #ccc;
 	border-bottom: 1px solid #ccc;
-	border-radius: 10px 0px 0 0;	
+	border-radius: 10px 0px 0 0;
     float: left;
     list-style: none outside none;
     padding-bottom: 2px !important;
     position: relative;
 }
 
-.afisha-section .tabs dd.active a, 
+.afisha-section .tabs dd.active a,
 .afisha-section .tabs .tab-title a {
     background: none repeat scroll 0 0 white;
     color: #222222;
 }
 
-.afisha-section .tabs dd.active a, 
+.afisha-section .tabs dd.active a,
 .afisha-section .tabs .tab-title a:hover {
     background: none repeat scroll 0 0 white;
     color: #222222;
@@ -2527,33 +2527,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	font-size: 1.15em;
 }
 
-.left-sector-add-foto .error input, 
-.left-sector-add-foto .error textarea, 
+.left-sector-add-foto .error input,
+.left-sector-add-foto .error textarea,
 .left-sector-add-foto .error select {
     border: 1px solid red !important;
     margin-bottom: -20px;
     padding-bottom: 0 !important;
 }
 
-input[type="text"], 
-input[type="password"], 
-input[type="date"], 
-input[type="datetime"], 
-input[type="datetime-local"], 
-input[type="month"], 
-input[type="week"], 
-input[type="email"], 
-input[type="number"], 
-input[type="search"], 
-input[type="tel"], 
-input[type="time"], 
-input[type="url"], 
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
 textarea {
 	margin: 0 !important;
 }
 
-.left-sector-add-foto [data-abide] .error label.error, 
-.left-sector-add-foto [data-abide] span.error, 
+.left-sector-add-foto [data-abide] .error label.error,
+.left-sector-add-foto [data-abide] span.error,
 .left-sector-add-foto [data-abide] label.error {
     background: #fff;
     color: red;
@@ -2609,7 +2609,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	width: 182px;
 	height: 170px;
 	padding: 0;
-	margin-left: auto; 	
+	margin-left: auto;
 }
 
 .left-sector-add-foto .added-images p {
@@ -2681,7 +2681,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', end
 	clear: left;
 }
 /* These are the classes that are going to be applied: */
-.column { float: left; 
+.column { float: left;
 			padding: 5px; margin: 0;
 }
 .size-1of3 { width: 33.333%; }

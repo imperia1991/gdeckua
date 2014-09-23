@@ -87,13 +87,13 @@ $this->renderPartial('/partials/_breadcrumbs');
             <div class="row collapse share-new">
                 <div class="large-12 columns">
                     <div class="left">
-                        <?php $this->renderPartial(
-                            '/partials/_social',
-                            [
-                                'image' => Yii::app()->createUrl('/uploads/photos/news/' . $currentNewsModel->photo),
-                                'title' => $currentNewsModel->title,
-                            ]
-                        ); ?>
+<!--                        --><?php //$this->renderPartial(
+//                            '/partials/_social',
+//                            [
+//                                'image' => Yii::app()->createUrl('/uploads/photos/news/' . $currentNewsModel->photo),
+//                                'title' => $currentNewsModel->title,
+//                            ]
+//                        ); ?>
                     </div>
                 </div>
             </div>

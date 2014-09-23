@@ -20,7 +20,6 @@
                     </a>
                 </div>
                 <div class="large-8 medium-8 small-9 columns">
-                    <p><?php echo $opinion->created_at; ?>></p>
                     <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $opinion->id . '/' . $opinion->alias); ?>"><h4><?php echo $opinion->getShortTitle(); ?></h4></a>
                 </div>
             </div>

@@ -12,7 +12,7 @@ $this->renderPartial('/partials/_breadcrumbs');
             <div class="row collapse">
                 <div class="large-3 medium-3 columns">
                     <div class="right-section">
-                        <h4><?php echo Yii::t('main', 'Мнения'); ?></h4>
+                        <h4><?php echo Yii::t('main', 'Актуальное'); ?></h4>
 
                         <?php $this->renderPartial(
                             'partials/_previewOpinions',
