@@ -19,7 +19,7 @@
     <link href="/css/custom.css" rel="stylesheet">
 
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-    <script src="/js/vendor/modernizr.js"></script>
+<!--    <script src="/js/vendor/modernizr.js"></script>-->
     <script src="/js/jquery.slimscroll.min.js"></script>
     <script src="/js/jquery.searchselect.min.js"></script>
     <script src="/js/jquery.colorbox-min.js"></script>
@@ -61,11 +61,11 @@
                             <!-- Right Nav Section -->
                             <ul class="right">
                                 <?php if (Yii::app()->user->isGuest):  ?>
-                                    <li><a href="javascript:void(0);" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signin"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signin'); ?>" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signup"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
                                 <?php else: ?>
-                                    <li><a href="javascript:void(0)" class="signin"><?php echo Yii::app()->user->name; ?></a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="signin"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
+                                    <li><a href="javascript:void(0)" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="logout"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
                                 <?php endif; ?>
                             </ul>
                             <div class="right currency">
