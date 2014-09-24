@@ -7,7 +7,7 @@ $currentPage = $dataProvider->getPagination()->currentPage + 1;
 <?php
 $this->breadcrumbs = [
 //    '' => Yii::t('main', 'Поиск') . ': ' . CHtml::encode($model->search) . ' (' . Yii::t('main', 'найдено {n} объект|найдено {n} объекта|найдено {n} объектов', [$dataProvider->getTotalItemCount()]) . ')'
-    '' => Yii::t('main', 'Поиск') . ': ' . CHtml::encode($model->search)
+    '' => Yii::t('main', 'Поиск') . ': ' . $model->search
 ];
 $this->renderPartial('/partials/_breadcrumbs');
 ?>

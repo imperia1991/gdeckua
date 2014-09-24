@@ -20,7 +20,7 @@ $form = $this->beginWidget('CActiveForm', [
     </div>
     <div class="large-4 medium-3 small-6 columns styled-select">
         <?php
-        echo CHtml::dropDownList('districts', $this->selectDistrict, $this->districts, ['empty' => Yii::t('main', 'Весь город') . '...', 'class' => 'select-inner']);
+        echo CHtml::dropDownList('districts', $model->district_id, $this->districts, ['empty' => Yii::t('main', 'Весь город') . '...', 'class' => 'select-inner']);
         ?>
     </div>
     <div class="large-1 medium-1 small-2 columns">

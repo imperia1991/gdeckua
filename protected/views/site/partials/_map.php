@@ -12,15 +12,8 @@ var placeCenter = [49.439172, 32.059268];
 var searchPoints = [];
 <?php foreach ($items as $item): ?>
     <?php
-    $district = '';
+    $district = $item->district->{$title};
     $id = $item->id;
-    if ($model->search || $selectDistrict) {
-        $titleDistrict = 'district_' . Yii::app()->getLanguage();
-        $district= $item->{$titleDistrict};
-        $id = $item->place_id;
-    } else {
-        $district = $item->district->{$title};
-    }
 
     $titleText = CHtml::encode($item->{$title});
     $addressText = Yii::t('main', 'Район') . ' ' . CHtml::encode($district) . ', ' . CHtml::encode($item->{$address});

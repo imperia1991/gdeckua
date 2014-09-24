@@ -70,10 +70,9 @@ class SiteController extends Controller
     {
         $this->modelPlaces = new Places();
         $this->modelPlaces->search = Yii::app()->request->getQuery('search', '');
-        $this->selectDistrict = Yii::app()->request->getQuery('districts', '');
+        $this->modelPlaces->district_id = Yii::app()->request->getQuery('districts', '');
 
-        $results = [];
-        if ($this->modelPlaces->search || $this->selectDistrict) {
+        if ($this->modelPlaces->search || $this->modelPlaces->district_id) {
             if ($this->modelPlaces->search) {
                 $statistics = new WordStatistics();
                 $statistics->words = $this->modelPlaces->search;
@@ -82,16 +81,9 @@ class SiteController extends Controller
             }
 
             $controller = Yii::app()->createController('/search');
-            $results = $controller[0]->search($this->modelPlaces->search, $this->selectDistrict);
+            $results = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
 
-            $dataProvider = new CArrayDataProvider(
-                $results['results'],
-                [
-                    'pagination' => [
-                        'pageSize' => Yii::app()->params['pageSize'],
-                    ],
-                ]
-            );
+            $dataProvider = Places::model()->getByIds($results);
         } else {
             $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
             $dataProvider = $this->modelPlaces->searchMain($isFirst);
@@ -103,7 +95,6 @@ class SiteController extends Controller
             'index',
             [
                 'model' => $this->modelPlaces,
-                'results' => $results,
                 'dataProvider' => $dataProvider,
             ]
         );

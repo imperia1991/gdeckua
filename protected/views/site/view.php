@@ -13,7 +13,7 @@ $this->pageTitle = CHtml::encode($model->{$title});
 ?>
 <?php
 $this->breadcrumbs = [
-    '' => Yii::t('main', 'Расширенный просмотр') . ' - ' . CHtml::encode($model->{$title})
+    '' => Yii::t('main', 'Расширенный просмотр') . ' - ' . $model->{$title}
 ];
 $this->renderPartial('/partials/_breadcrumbs');
 ?>
@@ -25,14 +25,14 @@ $this->renderPartial('/partials/_breadcrumbs');
             <div class="row large-view-box collapse">
                 <div class="large-6 medium-6 small-12 columns">
                     <div class="large-12 mod-title">
-                        <h4><?php echo CHtml::encode($model->{$title}); ?></h4>
+                        <h4><?php echo $model->{$title}; ?></h4>
                     </div>
                     <div class="large-12 mod-description">
                         <p><?php echo Yii::t('main', 'Район') . ' ' . $model->district->{$title}; ?><br>
-                            <?php echo CHtml::encode($model->{$address}); ?>
+                            <?php echo $model->{$address}; ?>
                         </p>
                         <p>
-                            <?php echo CHtml::encode($model->{$shortDescription}); ?>
+                            <?php echo $model->{$shortDescription}; ?>
                         </p>
                     </div>
                     <div class="row mod-images-gallery">
@@ -68,8 +68,8 @@ $this->renderPartial('/partials/_breadcrumbs');
                                             );
                                             ?>"
                                                rel="slideshow"
-                                               title="<?php echo CHtml::encode($model->{$title}); ?>"
-                                               alt="<?php echo CHtml::encode($model->{$title}); ?>"
+                                               title="<?php echo $model->{$title}; ?>"
+                                               alt="<?php echo $model->{$title}; ?>"
                                                class="gallery">
                                                 <?php
                                                 echo Yii::app()->easyImage->thumbOf(
@@ -105,8 +105,8 @@ $this->renderPartial('/partials/_breadcrumbs');
                                                     ]
                                                 );
                                                 ?>"
-                                                   title="<?php echo CHtml::encode($model->{$title}); ?>"
-                                                   alt="<?php echo CHtml::encode($model->{$title}); ?>">
+                                                   title="<?php echo $model->{$title}; ?>"
+                                                   alt="<?php echo $model->{$title}; ?>">
                                                     <?php
                                                     echo Yii::app()->easyImage->thumbOf(
                                                         $path,
