@@ -64,7 +64,11 @@
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signin'); ?>" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signup"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
                                 <?php else: ?>
-                                    <li><a href="javascript:void(0)" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <?php if (Yii::app()->user->checkAccess('admin')): ?>
+                                        <li><a href="<?php echo Yii::app()->createUrl('/admin/') ?>" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <?php else: ?>
+                                        <li><a href="javascript:void(0)" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <?php endif; ?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="logout"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
                                 <?php endif; ?>
                             </ul>
