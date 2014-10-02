@@ -56,6 +56,46 @@ class SitemapController extends AdminController
             ];
         }
 
+        $categories = CategoryPosters::model()->findAll();
+
+        /** @var CategoryPosters[] $categoryPosters */
+        foreach ($categories as $item) {
+            $date = date('c', strtotime("01.09.2014"));
+            $urls[] = [
+                $this->createAbsoluteUrl('/ru/poster/' . $item->alias),
+                $date
+            ];
+        }
+
+        /** @var CategoryPosters[] $categoryPosters */
+        foreach ($categories as $item) {
+            $date = date('c', strtotime("01.09.2014"));
+            $urls[] = [
+                $this->createAbsoluteUrl('/uk/poster/' . $item->alias),
+                $date
+            ];
+        }
+
+        $categories = CategoryNews::model()->findAll();
+
+        /** @var CategoryPosters[] $categoryPosters */
+        foreach ($categories as $item) {
+            $date = date('c', strtotime("01.09.2014"));
+            $urls[] = [
+                $this->createAbsoluteUrl('/ru/news/' . $item->aliases),
+                $date
+            ];
+        }
+
+        /** @var CategoryPosters[] $categoryPosters */
+        foreach ($categories as $item) {
+            $date = date('c', strtotime("01.09.2014"));
+            $urls[] = [
+                $this->createAbsoluteUrl('/uk/news/' . $item->aliases),
+                $date
+            ];
+        }
+
         if ($this->create($urls)) {
             Yii::app()->user->setFlash('success', 'sitemap.xml сформирован');
         } else {

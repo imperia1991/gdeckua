@@ -41,4 +41,28 @@ class DevelopController extends AdminController
 
         $this->redirect(Yii::app()->createUrl('/admin/develop'));
     }
+
+    public function actionUpdateTags()
+    {
+        $tags = PlaceTags::model()->findAll();
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            /** @var PlaceTags $tag */
+            foreach ($tags as $tag) {
+                $tag->tags = str_replace(',', ', ', $tag->tags);
+                $tag->save(false);
+            }
+
+            $transaction->commit();
+
+            Yii::app()->user->setFlash('success', Yii::t('main', 'Теги обновлены'));
+        } catch (Exception $e) {
+            Yii::app()->user->setFlash('error', Yii::t('main', 'Обновление тегов с ошибкой: ' . $e->getMessage()));
+
+            $transaction->rollback();
+        }
+
+        $this->redirect(Yii::app()->createUrl('/admin/develop'));
+    }
 }

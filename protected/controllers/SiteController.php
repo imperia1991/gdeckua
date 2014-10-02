@@ -84,10 +84,16 @@ class SiteController extends Controller
             $results = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
 
             $dataProvider = Places::model()->getByIds($results);
+            $items = $dataProvider['items'];
+            $pages = $dataProvider['pages'];
         } else {
             $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
             $dataProvider = $this->modelPlaces->searchMain($isFirst);
+            $items = $dataProvider->getData();
+            $pages = $dataProvider->getPagination();
         }
+
+        $this->currentPage = $pages->currentPage;
 
         $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
 
@@ -95,7 +101,8 @@ class SiteController extends Controller
             'index',
             [
                 'model' => $this->modelPlaces,
-                'dataProvider' => $dataProvider,
+                'items' => $items,
+                'pages' => $pages,
             ]
         );
     }
@@ -109,12 +116,12 @@ class SiteController extends Controller
     {
         $checker = json_decode(
             file_get_contents(
-                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=ru,uk,en'
+                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=en,' . Yii::app()->getLanguage()
             )
         );
         $checkedStr = $search;
         foreach ($checker as $word) {
-            if ($word->s[0]) {
+            if (isset($word->s[0])) {
                 $checkedStr = str_replace($word->word, $word->s[0], $checkedStr);
             }
         }

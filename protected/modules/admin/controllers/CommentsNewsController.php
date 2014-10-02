@@ -57,6 +57,8 @@ class CommentsNewsController extends AdminController
                 Yii::app()->user->setFlash('success', 'Комментарий отредактирован');
 
                 $this->redirect($this->createUrl('/admin/CommentsNews'));
+            } else {
+                $model->getErrors();
             }
         }
 

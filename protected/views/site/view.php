@@ -138,34 +138,35 @@ $this->renderPartial('/partials/_breadcrumbs');
                                     <div class="large-12 columns scroll-description scroll-pane" style="height:338px;">
                                         <?php if (!$model->isEmptyContact()): ?>
                                             <h3 style="font-size: 18px; font-weight: bold;"><?php echo Yii::t('main', 'Контакты'); ?>:</h3>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->phone_city): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Телефон городской'); ?>:</strong> <?php echo $model->contact->phone_city; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->phone_mobile1): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Телефон мобильный'); ?>:</strong> <?php echo $model->contact->phone_mobile1; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->phone_mobile2): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</strong> <?php echo $model->contact->phone_mobile2; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->phone_mobile3): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</strong> <?php echo $model->contact->phone_mobile3; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->phax): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Факс'); ?>:</strong> <?php echo $model->contact->phax; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->email): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Электронный адрес (email)'); ?>:</strong> <?php echo $model->contact->email; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->skype): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Скайп (skype)'); ?>:</strong> <?php echo $model->contact->skype; ?></label>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->operation_time): ?>
-                                            <label><strong><?php echo Yii::t('main', 'Время работы'); ?>:</strong> <?php echo $model->contact->operation_time; ?>
-                                        <?php endif; ?>
-                                        <?php if ($model->contact->site): ?>
-                                            <?php $site = str_replace(['http://', 'https://'], '', $model->contact->site); ?>
-                                            <label><strong><?php echo Yii::t('main', 'Сайт'); ?>:</strong> <a href="<?php echo $model->contact->site; ?>" target="_blank"><?php echo $site; ?></a>
+
+                                            <?php if ($model->contact->phone_city): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Телефон городской'); ?>:</strong> <?php echo $model->contact->phone_city; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->phone_mobile1): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Телефон мобильный'); ?>:</strong> <?php echo $model->contact->phone_mobile1; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->phone_mobile2): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</strong> <?php echo $model->contact->phone_mobile2; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->phone_mobile3): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Телефон мобильный (дополнительный)'); ?>:</strong> <?php echo $model->contact->phone_mobile3; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->phax): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Факс'); ?>:</strong> <?php echo $model->contact->phax; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->email): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Электронный адрес (email)'); ?>:</strong> <?php echo $model->contact->email; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->skype): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Скайп (skype)'); ?>:</strong> <?php echo $model->contact->skype; ?></label>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->operation_time): ?>
+                                                <label><strong><?php echo Yii::t('main', 'Время работы'); ?>:</strong> <?php echo $model->contact->operation_time; ?>
+                                            <?php endif; ?>
+                                            <?php if ($model->contact->site): ?>
+                                                <?php $site = str_replace(['http://', 'https://'], '', $model->contact->site); ?>
+                                                <label><strong><?php echo Yii::t('main', 'Сайт'); ?>:</strong> <a href="<?php echo $model->contact->site; ?>" target="_blank"><?php echo $site; ?></a>
+                                            <?php endif; ?>
                                         <?php endif; ?>
 
                                         <?php $howToGet = 'how_to_get_' . Yii::app()->getLanguage(); ?>

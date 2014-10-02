@@ -80,32 +80,6 @@ class NewsController extends Controller
     }
 
     /**
-     * This is the action to handle external exceptions.
-     */
-//    public function actionError()
-//    {
-//        if (isset($_GET['object'])) {
-//            $id = Yii::app()->request->getQuery('object', 0);
-//            if ($id) {
-//                $placeModel = Places::model()->findByPk($id);
-//
-//                if ($placeModel) {
-//                    $this->redirect(Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/' . $placeModel->id . '/' . $placeModel->alias));
-//                }
-//            }
-//        }
-//
-//        if ($error = Yii::app()->errorHandler->error) {
-//            if (Yii::app()->request->isAjaxRequest) {
-//                echo $error['message'];
-//            } else {
-//                $this->render('/system/error' . $error['code'], $error);
-//            }
-//        }
-//    }
-
-
-    /**
      * @throws CHttpException
      */
     public function actionView()

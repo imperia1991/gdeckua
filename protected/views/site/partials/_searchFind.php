@@ -1,8 +1,9 @@
 <?php
-/** @var CActiveDataProvider $dataProvider */
+/** @var Places $items */
+/** @var CPagination $pages */
 ?>
 <?php
-$currentPage = $dataProvider->getPagination()->currentPage + 1;
+$currentPage = $pages->currentPage + 1;
 ?>
 <?php
 $this->breadcrumbs = [
@@ -19,7 +20,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                 <!-- LEFT SECTION -->
                 <div class="large-12 columns left-section scroll-pane">
                     <div class="row collapse places">
-                        <?php foreach ($dataProvider->getData() as $data): ?>
+                        <?php foreach ($items as $data): ?>
                             <?php $this->renderPartial('partials/_item', ['data' => $data]); ?>
                         <?php endforeach; ?>
                     </div>
@@ -33,7 +34,7 @@ $this->renderPartial('/partials/_breadcrumbs');
             <div id="placeMap" class="map-section">
                 <?php
                 $this->renderPartial('partials/_map', [
-                        'dataProvider' => $dataProvider,
+                        'items' => $items,
                         'model' => $model,
                         'selectDistrict' => $this->selectDistrict,
                     ]);
@@ -53,7 +54,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 <div class="pagination-centered large-12 columns" >
     <?php
     $this->widget('CLinkPager', [
-            'pages' => $dataProvider->getPagination(),
+            'pages' => $pages,
 //                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
             'header' => '',
             'selectedPageCssClass' => 'current',
@@ -74,7 +75,7 @@ $this->renderPartial('/partials/_breadcrumbs');
     ?>
 </div>
 
-<?php if ($dataProvider->getTotalItemCount() == (Yii::app()->params['pageSize'])): ?>
+<?php if ($pages->getItemCount() == (Yii::app()->params['pageSize'])): ?>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#placeMap').height($('#findedPlaces').height());

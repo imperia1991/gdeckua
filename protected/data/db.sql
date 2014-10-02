@@ -195,6 +195,22 @@ ALTER TABLE places ADD category_id INT DEFAULT NULL ;
 # ALTER TABLE `contacts`
 # ADD COLUMN `phone_mobile3` VARCHAR(20) NULL DEFAULT NULL AFTER `phone_mobile2`;
 
+CREATE TABLE `category_boards` (
+  `id`        INT(11)      NOT NULL AUTO_INCREMENT,
+  `title_ru`  VARCHAR(255) NOT NULL,
+  `title_uk`  VARCHAR(255) NOT NULL,
+  `alias`     VARCHAR(255) NOT NULL,
+  `parent_id` INT(11)      NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `FK1_parent_category` (`parent_id`),
+  CONSTRAINT `FK1_parent_category` FOREIGN KEY (`parent_id`) REFERENCES `category_boards` (`id`)
+    ON UPDATE SET NULL
+    ON DELETE SET NULL
+)
+  ENGINE =InnoDB;
+
+###################################################################################################
+
 CREATE TABLE `banners` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,

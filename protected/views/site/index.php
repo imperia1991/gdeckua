@@ -5,9 +5,10 @@
 $this->pageTitle = $model->search ? CHtml::encode($model->search) : Yii::t('main', 'Введите, что ищете');
 ?>
 
-<?php if ($dataProvider->getData()): ?>
+<?php if ($items): ?>
     <?php $this->renderPartial('/site/partials/_searchFind', [
-            'dataProvider' => $dataProvider,
+            'items' => $items,
+            'pages' => $pages,
             'model' => $model
         ]) ?>
 <?php else: ?>

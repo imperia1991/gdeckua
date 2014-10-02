@@ -6,7 +6,6 @@
     <h4>Список новостей</h4>
 </div>
 <div class="row">
-    <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'link', 'url' => '/admin/news/createCategory', 'label'=> 'Добавить категорию']); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'link', 'url' => '/admin/news/create', 'label'=> 'Добавить новость']); ?>
 </div>
 <div class="row">

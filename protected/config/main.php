@@ -45,6 +45,9 @@ $mainConfig = [
                 ],
             ],
         ],
+        'boards' => [
+
+        ]
     ],
     // application components
     'components' => [
@@ -103,10 +106,10 @@ $mainConfig = [
 //        ),
         // uncomment the following to use a MySQL database
         'db' => [
-            'connectionString' => 'mysql:host=gangstas.mysql.ukraine.com.ua;dbname=gangstas_gde',
+            'connectionString' => 'mysql:host=localhost;dbname=admin_gdeckua',
             'emulatePrepare' => true,
-            'username' => 'gangstas_gde',
-            'password' => 'tflk4mrq',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
         ],
         'errorHandler' => [
@@ -164,6 +167,10 @@ $mainConfig = [
                 'keywords' => 100,
             ],
         ],
+        'sphinx' => [
+            'class' => 'system.db.CDbConnection',
+            'connectionString' => 'mysql:host=127.0.0.1;port=9306',
+        ],
     ],
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
@@ -172,9 +179,10 @@ $mainConfig = [
         'adminEmail' => 'support@gde.ck.ua',
         'supportEmail' => 'support@gde.ck.ua',
         'languages' => ['ru' => 'Русский', 'uk' => 'Українська'],
+        'languagesSelect' => ['ru' => 'uk', 'uk' => 'ru'],
         'pageSize' => 10,
         'pageSizeComment' => 20,
-        'pageSizeNews' => 3,
+        'pageSizeNews' => 20,
         'pageSizePhotos' => 20,
         'pageSizePosters' => 10,
         'admin' => [

@@ -58,6 +58,11 @@ class Controller extends CController
     public $currentPageType = PageTypes::PAGE_DEFAULT;
 
     /**
+     * @var
+     */
+    public $currentPage;
+
+    /**
      * @param string $id
      * @param null $module
      */

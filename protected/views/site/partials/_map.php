@@ -1,5 +1,6 @@
 <?php
-$items = $dataProvider->getData();
+/** @var Places[] $items */
+
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
@@ -12,7 +13,7 @@ var placeCenter = [49.439172, 32.059268];
 var searchPoints = [];
 <?php foreach ($items as $item): ?>
     <?php
-    $district = $item->district->{$title};
+    $district = $item->getDistrict();
     $id = $item->id;
 
     $titleText = CHtml::encode($item->{$title});

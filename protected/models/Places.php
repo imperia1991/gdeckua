@@ -331,7 +331,8 @@ class Places extends ActiveRecord
      */
     public function getDistrict()
     {
-        return is_object($this->district) ? $this->district->title_ru : Yii::t('main', 'Не указан');
+        $title = 'title_' . Yii::app()->getLanguage();
+        return is_object($this->district) ? $this->district->{$title} : Yii::t('main', 'Не указан');
     }
 
     /**
@@ -415,17 +416,25 @@ class Places extends ActiveRecord
     public function getByIds($ids = [])
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('t.id', count($ids) ? $ids : 0);
-        $criteria->with = ['photos'];
+        $criteria->compare('t.id', count($ids) ? array_keys($ids) : 0);
 
-        return new CActiveDataProvider($this,
-            [
-                'criteria' => $criteria,
-                'pagination' => [
-                    'pageSize' => Yii::app()->params['pageSize'],
-                    'pageVar' => 'page',
-                ],
-            ]);
+        $pages = new CPagination(count($ids));
+        $pages->setPageSize(Yii::app()->params['pageSize']);
+        $pages->pageVar = 'page';
+        $pages->applyLimit($criteria);
+
+        $dataReader = Yii::app()->db->createCommand()->select('t.*')->from($this->tableName() . ' t')
+            ->where('t.id IN (' . (count($ids) ? join(',', array_keys($ids)) : 0) . ')')
+            ->query();
+
+        while ($item = $dataReader->readObject('Places', Places::model()->getAttributes())) {
+            $ids[$item->id] = $item;
+        }
+
+        return [
+            'items' => array_slice($ids, $pages->currentPage * $pages->limit, $pages->limit),
+            'pages' => $pages
+        ];
     }
 
     /**

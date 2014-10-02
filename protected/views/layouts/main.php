@@ -111,7 +111,7 @@
         <?php $this->renderPartial('/partials/_ads'); ?>
     </div>
 
-    <div id="content">
+    <div id="content" class="container1">
         <div class="row content-inner">
             <div class="row">
                 <?php echo $content; ?>
@@ -227,7 +227,7 @@
         </div>
     </footer>
 
-    <?php $this->renderpartial('/partials/_login', []); ?>
+    <?php //$this->renderpartial('/partials/_login', []); ?>
 
     <div id="scroller" class="b-top" style="display: none;"><span class="b-top-but"><?php echo Yii::t('main', 'наверх'); ?></span></div>
     <script type="text/javascript">
