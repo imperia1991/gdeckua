@@ -91,7 +91,7 @@ $this->renderPartial('/partials/_breadcrumbs');
 </div>
 
 <script type="text/javascript">
-    $(".gallery").colorbox({
+    $(".gallery, .info").colorbox({
         slideshow: false,
         rel: 'slideshow',
         current: "{current}/{total}"
