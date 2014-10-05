@@ -9,33 +9,33 @@ class SiteController extends Controller
     /**
      * @return array
      */
-    public function filters()
-    {
-        return [
-            'accessControl', // perform access control for CRUD operations
-        ];
-    }
+//    public function filters()
+//    {
+//        return [
+//            'accessControl', // perform access control for CRUD operations
+//        ];
+//    }
 
     /**
      * @return array
      */
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
-                'roles' => ['guest'],
-            ],
-            ['allow',
-                'actions' => ['add', 'logout'],
-                'roles' => ['user', 'admin'],
-            ],
-            ['deny', // deny all users
-                'actions' => ['logout'],
-                'users' => ['*'],
-            ],
-        ];
-    }
+//    public function accessRules()
+//    {
+//        return [
+//            ['allow',
+//                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
+//                'roles' => ['guest'],
+//            ],
+//            ['allow',
+//                'actions' => ['add', 'logout'],
+//                'roles' => ['user', 'admin'],
+//            ],
+//            ['deny', // deny all users
+//                'actions' => ['logout'],
+//                'users' => ['*'],
+//            ],
+//        ];
+//    }
 
     /**
      *
@@ -47,20 +47,20 @@ class SiteController extends Controller
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
-    /**
-     * Declares class-based actions.
-     */
-    public function actions()
-    {
-        return [
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => [
-                'class' => 'CCaptchaAction',
-                'backColor' => 0x494949,
-                'foreColor' => 0xFFFFFF
-            ],
-        ];
-    }
+//    /**
+//     * Declares class-based actions.
+//     */
+//    public function actions()
+//    {
+//        return [
+//            // captcha action renders the CAPTCHA image displayed on the contact page
+//            'captcha' => [
+//                'class' => 'CCaptchaAction',
+//                'backColor' => 0x494949,
+//                'foreColor' => 0xFFFFFF
+//            ],
+//        ];
+//    }
 
     /**
      * This is the default 'index' action that is invoked
@@ -376,7 +376,11 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new Feedback();
-        $model->setAttributes(Yii::app()->request->getPost('Feedback', array()));
+
+//        echo '<pre>';
+//        print_r(Yii::app()->request->getPost('Feedback', []));
+//        echo '</pre>';exit;
+        $model->setAttributes(Yii::app()->request->getPost('Feedback', []));
         $model->message = nl2br($model->message);
 
         if ($model->save()) {

@@ -55,7 +55,7 @@ $mainConfig = [
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'class' => 'WebUser',
-            'loginUrl' => 'signin'
+//            'loginUrl' => 'signin'
         ],
         'request' => [
             'enableCookieValidation' => true,

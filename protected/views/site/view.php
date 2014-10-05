@@ -28,7 +28,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                         <h4><?php echo $model->{$title}; ?></h4>
                     </div>
                     <div class="large-12 mod-description">
-                        <p><?php echo Yii::t('main', 'Район') . ' ' . $model->district->{$title}; ?><br>
+                        <p><?php echo Yii::t('main', 'Район') . ' ' . $model->getDistrict(); ?><br>
                             <?php echo $model->{$address}; ?>
                         </p>
                         <p>

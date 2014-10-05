@@ -12,11 +12,18 @@ class DefaultController extends AdminController
     public function accessRules()
     {
         return [
-            ['allow',
+            [
+                'allow',
+                'actions' => ['login', 'error'],
+                'roles' => ['guest'],
+            ],
+            [
+                'allow',
                 'actions' => ['index', 'error', 'logout'],
                 'roles' => ['admin'],
             ],
-            ['deny', // deny all users
+            [
+                'deny', // deny all users
                 'users' => ['*'],
             ],
         ];

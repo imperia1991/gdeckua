@@ -332,7 +332,7 @@ class Places extends ActiveRecord
     public function getDistrict()
     {
         $title = 'title_' . Yii::app()->getLanguage();
-        return is_object($this->district) ? $this->district->{$title} : Yii::t('main', 'Не указан');
+        return is_object($this->district) ? $this->district->{$title} : Yii::t('main', '');
     }
 
     /**
