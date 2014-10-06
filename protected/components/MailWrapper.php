@@ -25,7 +25,7 @@ class MailWrapper {
     /**
      * @var string
      */
-    private $from = 'support@gde.ck.ua';
+    private $from = 'support@newgdeck.ua';
 
     /**
      * @var string
