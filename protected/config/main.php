@@ -106,7 +106,7 @@ $mainConfig = [
 //        ),
         // uncomment the following to use a MySQL database
         'db' => [
-            'connectionString' => 'mysql:host=localhost;dbname=admin_gdeckua',
+            'connectionString' => 'mysql:host=localhost;dbname=admin_gde',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'root',

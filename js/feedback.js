@@ -16,7 +16,7 @@ var feedback = {
 							$('#error_' + fieldName).html(errorText);
 						});
 					} else {
-//						location.reload();
+						location.reload();
 					}
 
 					return false;

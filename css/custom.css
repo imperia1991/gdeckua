@@ -212,8 +212,8 @@ header .search-panel div:first-child p {
     left: 135px !important;
 }
 
-.slide-image, .slide-image img {
-    height: 362px;
+.slide-image {
+    height: 386px;
 }
 
 .webcam-box img {
