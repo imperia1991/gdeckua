@@ -87,10 +87,16 @@ class TinyMceElFinder extends TinyMceFileManager
             'title' => "Files",
         );
         $settings['editorCallback'] = 'js:function(url) {
-//                        aWin.document.forms[0].elements[aFieldName].value = url;
-                        aWin.document.getElementById(aFieldName).value = url;
+                       var urlsString = [];
+                       console.log(url);
+                       for (var i = 0; i < url.length; i++) {
+                         urlsString.push(url[i]);
+                       }
+                       urls = urlsString.join(",");
+//                        aWin.document.forms[0].elements[aFieldName].value = urls;
+                        aWin.document.getElementById(aFieldName).value = urls;
                         if (type == "image" && aFieldName=="src" && aWin.ImageDialog.showPreviewImage)
-                            aWin.ImageDialog.showPreviewImage(url);
+                            aWin.ImageDialog.showPreviewImage(urls);
                     }';
         $settings['closeOnEditorCallback'] = true;
 

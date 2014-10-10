@@ -84,6 +84,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
             'fileManager' => [
                 'class' => 'ext.elFinder.TinyMceElFinder',
                 'connectorRoute'=>'/admin/elfinder/connector',
+                'settings' => [
+                    'selectMultiple' => true,
+                ]
             ],
             'htmlOptions' => [
                 'rows' => 30,

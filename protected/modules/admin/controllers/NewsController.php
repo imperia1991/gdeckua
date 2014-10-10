@@ -65,7 +65,13 @@ class NewsController extends AdminController
                 if ($oldPhoto != $newsModel->photo) {
                     $photoPath = Yii::app()->params['admin']['files']['tmp'] . $newsModel->photo;
                     $image = Yii::app()->image->load($photoPath);
-                    $image->save(Yii::app()->params['admin']['files']['news'] . $newsModel->photo);
+
+                    $directory = Yii::app()->params['admin']['files']['news'] . '/' . date('dmY') . '/';
+                    if (!file_exists($directory)) {
+                        mkdir($directory, 0775, true);
+                    }
+
+                    $image->save($directory . $newsModel->photo);
 
                     if (file_exists($photoPath)) {
                         unlink($photoPath);
@@ -170,7 +176,13 @@ class NewsController extends AdminController
 
         $photoPath = Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
         $image = Yii::app()->image->load($photoPath);
-        $image->save(Yii::app()->params['admin']['files']['news'] . $result['filename']);
+
+        $directory = Yii::app()->params['admin']['files']['news'] . '/' . date('dmY') . '/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0775, true);
+        }
+
+        $image->save($directory . $result['filename']);
 
         if (file_exists($photoPath)) {
             unlink($photoPath);
