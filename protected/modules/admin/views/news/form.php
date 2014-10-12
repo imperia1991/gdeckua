@@ -63,6 +63,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
                                 if (responseJSON.success)
                                 {
                                     //alert("Фотографии добавлены на сервер")
+                                    $("#newsText").append("<p><img src=\"" + responseJSON.filePath  + "\" /></p>");
                                 }
                             }'
             ]
@@ -71,9 +72,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     ?>
 </div>
 <div class="row">
+    <?php echo $form->checkboxRow($newsModel, 'isWatemark', [
+            'id' => 'isWatermark'
+        ]); ?>
+</div>
+<div class="row">
     <?php echo $form->error($newsModel, 'text'); ?>
     <?php
     $this->widget('ext.tinymce.TinyMce', [
+            'id' => 'newsText',
             'model' => $newsModel,
             'attribute' => 'text',
             // Optional config
@@ -84,9 +91,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
             'fileManager' => [
                 'class' => 'ext.elFinder.TinyMceElFinder',
                 'connectorRoute'=>'/admin/elfinder/connector',
-                'settings' => [
-                    'selectMultiple' => true,
-                ]
+//                'settings' => [
+//                    'selectMultiple' => true,
+//                ]
             ],
             'htmlOptions' => [
                 'rows' => 30,

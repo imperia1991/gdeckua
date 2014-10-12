@@ -208,6 +208,10 @@ ALTER TABLE places ADD category_id INT DEFAULT NULL ;
 #     ON DELETE SET NULL
 # )
 #   ENGINE =InnoDB;
+#
+# ALTER TABLE `category_boards`
+# ADD COLUMN `photo` VARCHAR(255) NOT NULL
+# AFTER `parent_id`;
 
 ###################################################################################################
 

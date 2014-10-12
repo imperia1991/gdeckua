@@ -28,6 +28,13 @@ $dataProvider = $categoriesModel->search();
                     'title_ru',
                     'title_uk',
                     [
+                        'name' => 'photo',
+                        'value' => function($data, $row) {
+                                /** @var CategoryBoards $data */
+                                echo $data->getPhotoWidget();
+                            }
+                    ],
+                    [
                         'class' => 'CButtonColumn',
                         'template' => '{update}{delete}',
                         'buttons' => [],

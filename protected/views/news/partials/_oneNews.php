@@ -7,9 +7,9 @@
         echo Yii::app()->easyImage->thumbOf(
             '/' . Yii::app()->params['admin']['files']['news'] . '/' . $data->photo,
             [
-                'resize' => ['width' => 500, 'height' => 400],
-                'crop' => ['width' => 491, 'height' => 340],
-                'quality' => 100,
+//                'resize' => ['width' => 500, 'height' => 400],
+//                'crop' => ['width' => 491, 'height' => 340],
+//                'quality' => 100,
             ]
         );
         ?>
