@@ -137,6 +137,10 @@ class NewsController extends Controller
             $comment->news_id = $currentNewsModel->id;
             $comment->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
+            if (!Yii::app()->user->isGuest) {
+                $comment->name = Yii::app()->user->name;
+            }
+
             if ($comment->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш комментарий добавлен'));
 

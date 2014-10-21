@@ -290,33 +290,35 @@ $this->renderPartial('/partials/_breadcrumbs');
                     </div>
                     <div class="row capcha-block">
                         <div class="large-12 columns">
-                            <div class="small-12 columns">
-                                <? if (CCaptcha::checkRequirements()): ?>
-                                    <?php $this->widget(
-                                        'CCaptcha',
-                                        [
-                                            'buttonLabel' => Yii::t('main', 'Обновить'),
-                                            'showRefreshButton' => true,
-                                            'buttonOptions' => [
-                                                'class' => 'add-object-captcha-button'
-                                            ],
-//                                    'buttonType' => 'button',
-                                            'clickableImage' => true
-                                        ]
-                                    ); ?>
-                                <? endif ?>
-                            </div>
-                            <br><br>
+                            <?php if (Yii::app()->user->isGuest): ?>
+                                <div class="small-12 columns">
+                                    <? if (CCaptcha::checkRequirements()): ?>
+                                        <?php $this->widget(
+                                            'CCaptcha',
+                                            [
+                                                'buttonLabel' => Yii::t('main', 'Обновить'),
+                                                'showRefreshButton' => true,
+                                                'buttonOptions' => [
+                                                    'class' => 'add-object-captcha-button'
+                                                ],
+    //                                    'buttonType' => 'button',
+                                                'clickableImage' => true
+                                            ]
+                                        ); ?>
+                                    <? endif ?>
+                                </div>
+                                <br><br>
 
-                            <div class="name-field" style="margin-bottom: 10px;">
-                                <p><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></p>
-                                <?php echo $form->textField($model, 'verifyCode', []); ?>
-                                <label class="error"><?php echo $form->error(
-                                        $model,
-                                        'verifyCode',
-                                        ['class' => 'error']
-                                    ); ?></label>
-                            </div>
+                                <div class="name-field" style="margin-bottom: 10px;">
+                                    <p><?php echo Yii::t('main', 'Введите код с картинки'); ?> <span>*</span></p>
+                                    <?php echo $form->textField($model, 'verifyCode', []); ?>
+                                    <label class="error"><?php echo $form->error(
+                                            $model,
+                                            'verifyCode',
+                                            ['class' => 'error']
+                                        ); ?></label>
+                                </div>
+                            <?php endif; ?>
                             <?php echo CHtml::submitButton(Yii::t('main', 'Добавить объект'), ['class' => 'button']); ?>
                         </div>
                     </div>

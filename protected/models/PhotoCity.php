@@ -58,7 +58,7 @@ class PhotoCity extends ActiveRecord
         return [
             ['title, author, created_at, alias', 'required', 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
             ['photo', 'required', 'message' => Yii::t('main', 'Добавьте фотографию')],
-            ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
+            ['verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest],
             ['title, author, site, alias', 'length', 'max' => 255],
             ['site', 'url'],
             // The following rule is used by search().

@@ -65,9 +65,9 @@
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signup"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
                                 <?php else: ?>
                                     <?php if (Yii::app()->user->checkAccess('admin')): ?>
-                                        <li><a href="<?php echo Yii::app()->createUrl('/admin/') ?>" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                        <li><a href="<?php echo Yii::app()->createUrl('/admin/'); ?>" class="username"><?php echo Yii::app()->user->name; ?></a></li>
                                     <?php else: ?>
-                                        <li><a href="javascript:void(0)" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                        <li><a href="<?php echo Yii::app()->createUrl('/user/' . Yii::app()->user->id); ?>" class="username"><?php echo Yii::app()->user->name; ?></a></li>
                                     <?php endif; ?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="logout"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
                                 <?php endif; ?>
@@ -144,7 +144,7 @@
                                 <?php
                                 $feedback = $this->feedback;
                                 ?>
-                                <div id="back">
+                                <div id="back" <?php if (!Yii::app()->user->isGuest): ?> style="height: 279px"<?php endif; ?>>
                                     <a href="#" class="button close-button tiny"><?php echo Yii::t('main', 'Закрыть'); ?></a> <span><p><?php echo CHtml::encode(Yii::t('main', 'Обратная связь')); ?></p></span>
                                     <div class="input-form-footer">
                                         <?php $form = $this->beginWidget('CActiveForm',
@@ -154,24 +154,26 @@
                                                 'enableAjaxValidation' => false,
                                                 'htmlOptions' => [],
                                             ]); ?>
-                                            <div class="name-field">
-                                                <?php echo $form->textField($feedback, 'name', [
-                                                        'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
-                                                        'id' => 'name',
-                                                        'class' => 'message'
-                                                    ]);
-                                                ?>
-                                                <label id="error_name" class="error"></label>
-                                            </div>
-                                            <div class="name-field">
-                                                <?php echo $form->textField($feedback, 'email', [
-                                                        'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
-                                                        'id' => 'email',
-                                                        'class' => 'message'
-                                                    ]);
-                                                ?>
-                                                <label id="error_email" class="error"></label>
-                                            </div>
+                                            <?php if (Yii::app()->user->isGuest): ?>
+                                                <div class="name-field">
+                                                    <?php echo $form->textField($feedback, 'name', [
+                                                            'placeholder' => Yii::t('main', 'Введите Ваши имя и фамилию'),
+                                                            'id' => 'name',
+                                                            'class' => 'message'
+                                                        ]);
+                                                    ?>
+                                                    <label id="error_name" class="error"></label>
+                                                </div>
+                                                <div class="name-field">
+                                                    <?php echo $form->textField($feedback, 'email', [
+                                                            'placeholder' => Yii::t('main', 'Введите Ваш E-mail'),
+                                                            'id' => 'email',
+                                                            'class' => 'message'
+                                                        ]);
+                                                    ?>
+                                                    <label id="error_email" class="error"></label>
+                                                </div>
+                                            <?php endif; ?>
                                             <div class="name-field">
                                                 <?php echo $form->textArea($feedback, 'message', [
                                                         'placeholder' => Yii::t('main', 'Введите текст сообщения'),
@@ -183,31 +185,35 @@
                                                 <label id="error_message" class="error"></label>
                                             </div>
                                             <div class="row">
-                                                <div class="large-12 columns captcha">
-                                                    <?if(CCaptcha::checkRequirements()):?>
-                                                        <?php $this->widget('CCaptcha', ['buttonLabel' => Yii::t('main', 'Обновить'),
-                                                                'showRefreshButton' => true,
-                                                                'buttonOptions' => [
-                                                                    'class' => 'button refresh small left'
-                                                                ],
-                                                                'buttonType' => 'button',
-                                                                'clickableImage' => true
-                                                            ]); ?>
-                                                    <?endif?>
-                                                </div>
+                                                <?php if (Yii::app()->user->isGuest): ?>
+                                                    <div class="large-12 columns captcha">
+                                                        <?if(CCaptcha::checkRequirements()):?>
+                                                            <?php $this->widget('CCaptcha', ['buttonLabel' => Yii::t('main', 'Обновить'),
+                                                                    'showRefreshButton' => true,
+                                                                    'buttonOptions' => [
+                                                                        'class' => 'button refresh small left'
+                                                                    ],
+                                                                    'buttonType' => 'button',
+                                                                    'clickableImage' => true
+                                                                ]); ?>
+                                                        <?endif?>
+                                                    </div>
+                                                <?php endif; ?>
                                                 <div class="large-12 columns">
                                                     <div class="name-field row">
-                                                        <div class="large-8 columns">
-                                                            <?php echo $form->textField($feedback, 'verifyCode', [
-                                                                    'placeholder' => Yii::t('main', 'Введите код с картинки'),
-                                                                    'id' => 'verifyCode',
-                                                                    'rows' => 7,
-                                                                    'class' => 'captcha-input message'
-                                                                ]);
-                                                            ?>
-                                                            <label id="error_verifyCode" class="error"></label>
-                                                        </div>
-                                                        <div class="large-4 columns">
+                                                        <?php if (Yii::app()->user->isGuest): ?>
+                                                            <div class="large-8 columns">
+                                                                <?php echo $form->textField($feedback, 'verifyCode', [
+                                                                        'placeholder' => Yii::t('main', 'Введите код с картинки'),
+                                                                        'id' => 'verifyCode',
+                                                                        'rows' => 7,
+                                                                        'class' => 'captcha-input message'
+                                                                    ]);
+                                                                ?>
+                                                                <label id="error_verifyCode" class="error"></label>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                        <div class="large-4 columns" <?php if (!Yii::app()->user->isGuest): ?> style="margin-left: 0"<?php endif; ?>>
                                                             <?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'button refresh-button left']); ?>
                                                         </div>
                                                     </div>

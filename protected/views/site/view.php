@@ -189,12 +189,12 @@ $this->renderPartial('/partials/_breadcrumbs');
                 <div class="large-6 medium-6 columns map-of-object">
                     <div id="placeMap" class="map-section">
                         <?php
-                        $this->renderPartial(
+                        /*$this->renderPartial(
                             'partials/_mapOne',
                             [
                                 'model' => $model,
                             ]
-                        );
+                        );*/
                         ?>
                     </div>
                 </div>

@@ -22,28 +22,30 @@
         </div>
         <div class="large-5 medium-5 small-5 columns">
             <div class="row collapse" style="padding-left: 5px !important;">
-                <div class="large-12 medium-12 small-12 columns margin-bottom">
-                    <?php echo $form->textField($comment, 'name', ['placeholder' => Yii::t('main', 'Ваше Имя')]); ?>
-                    <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
-                </div>
-                <div class="large-6 medium-6 small-6 columns">
-                    <? if (CCaptcha::checkRequirements()): ?>
-                        <?php $this->widget('CCaptcha', [
-                                'buttonLabel' => Yii::t('main', 'Обновить'),
-                                'showRefreshButton' => true,
-                                'buttonOptions' => [
-                                    'class' => 'button tiny marginTop13'
-                                ],
-                                'buttonType' => 'button',
-                                'clickableImage' => true
-                            ]); ?>
-                    <? endif ?>
-                </div>
-                <div class="large-6 medium-6 small-6 columns">
-                    <?php echo $form->textField($comment, 'verifyCode', ['placeholder' => Yii::t('main', 'Введите код')]); ?>
-                    <?php echo $form->error($comment, 'verifyCode', ['class' => 'error']); ?>
-                </div>
-                <div class="large-12 medium-12 small-12 columns">
+                <?php if (Yii::app()->user->isGuest): ?>
+                    <div class="large-12 medium-12 small-12 columns margin-bottom">
+                        <?php echo $form->textField($comment, 'name', ['placeholder' => Yii::t('main', 'Ваше Имя')]); ?>
+                        <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
+                    </div>
+                    <div class="large-6 medium-6 small-6 columns">
+                        <? if (CCaptcha::checkRequirements()): ?>
+                            <?php $this->widget('CCaptcha', [
+                                    'buttonLabel' => Yii::t('main', 'Обновить'),
+                                    'showRefreshButton' => true,
+                                    'buttonOptions' => [
+                                        'class' => 'button tiny marginTop13'
+                                    ],
+                                    'buttonType' => 'button',
+                                    'clickableImage' => true
+                                ]); ?>
+                        <? endif ?>
+                    </div>
+                    <div class="large-6 medium-6 small-6 columns">
+                        <?php echo $form->textField($comment, 'verifyCode', ['placeholder' => Yii::t('main', 'Введите код')]); ?>
+                        <?php echo $form->error($comment, 'verifyCode', ['class' => 'error']); ?>
+                    </div>
+                <?php endif; ?>
+                <div class="large-12 medium-12 small-12 columns" <?php if (!Yii::app()->user->isGuest): ?> style="margin-top: 10px" <?php endif; ?>>
                     <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), ['class' => 'button small']); ?>
                 </div>
             </div>

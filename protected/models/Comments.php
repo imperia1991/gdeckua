@@ -44,7 +44,7 @@ class Comments extends ActiveRecord
 			['name, message, created_at', 'required', 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
 			['name', 'length', 'max'=>255],
 			['message', 'length', 'max'=>1024],
-            ['verifyCode', 'captcha', 'on' => self::SCENARIO_USER],
+            ['verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest],
 			// The following rule is used by search().
 			['id, name, message, created_at', 'safe', 'on'=>'search'],
 		];

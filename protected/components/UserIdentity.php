@@ -44,6 +44,7 @@ class UserIdentity extends CUserIdentity
             $this->email = $user->email;
             $this->name = $user->name;
 
+            $this->setState('email', $this->email);
             $this->setState('roles', $user->ruleUser->rule->name);
         }
 

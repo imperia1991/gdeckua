@@ -33,11 +33,11 @@ $this->renderPartial('/partials/_breadcrumbs');
         <div class="large-6 medium-5 small-12 columns central-content">
             <div id="placeMap" class="map-section">
                 <?php
-                $this->renderPartial('partials/_map', [
+                /*$this->renderPartial('partials/_map', [
                         'items' => $items,
                         'model' => $model,
                         'selectDistrict' => $this->selectDistrict,
-                    ]);
+                    ]);*/
 
                 ?>
             </div>

@@ -22,17 +22,20 @@ class SiteController extends Controller
     public function accessRules()
     {
         return [
-            ['allow',
+            [
+                'allow',
                 'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
-                'roles' => ['guest'],
+                'roles'   => ['guest'],
             ],
-            ['allow',
+            [
+                'allow',
                 'actions' => ['add', 'logout'],
-                'roles' => ['user', 'admin'],
+                'roles'   => ['user', 'admin'],
             ],
-            ['deny', // deny all users
+            [
+                'deny', // deny all users
                 'actions' => ['logout'],
-                'users' => ['*'],
+                'users'   => ['*'],
             ],
         ];
     }
@@ -68,34 +71,36 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->modelPlaces = new Places();
-        $this->modelPlaces->search = Yii::app()->request->getQuery('search', '');
+        $this->modelPlaces              = new Places();
+        $this->modelPlaces->search      = Yii::app()->request->getQuery('search', '');
         $this->modelPlaces->district_id = Yii::app()->request->getQuery('districts', '');
 
         if ($this->modelPlaces->search || $this->modelPlaces->district_id) {
             if ($this->modelPlaces->search) {
-                $statistics = new WordStatistics();
+                $statistics        = new WordStatistics();
                 $statistics->words = $this->modelPlaces->search;
                 $statistics->save();
                 unset($statistics);
             }
 
             $controller = Yii::app()->createController('/search');
-            $results = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
+            $results    = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
 
             $dataProvider = Places::model()->getByIds($results);
-            $items = $dataProvider['items'];
-            $pages = $dataProvider['pages'];
+            $items        = $dataProvider['items'];
+            $pages        = $dataProvider['pages'];
         } else {
-            $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
+            $isFirst      = Yii::app()->request->getQuery('page', 0) ? false : true;
             $dataProvider = $this->modelPlaces->searchMain($isFirst);
-            $items = $dataProvider->getData();
-            $pages = $dataProvider->getPagination();
+            $items        = $dataProvider->getData();
+            $pages        = $dataProvider->getPagination();
         }
 
         $this->currentPage = $pages->currentPage;
 
-        $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
+        if (!empty($this->modelPlaces->search)) {
+            $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
+        }
 
         $this->render(
             'index',
@@ -114,7 +119,7 @@ class SiteController extends Controller
      */
     private function checkedSearchString($search)
     {
-        $checker = json_decode(
+        $checker    = json_decode(
             file_get_contents(
                 "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=en,' . Yii::app()->getLanguage()
             )
@@ -165,8 +170,8 @@ class SiteController extends Controller
     {
         $this->currentPageType = PageTypes::PAGE_PLACE_VIEW;
 
-        $id = Yii::app()->request->getQuery('id', 0);
-        $model = Places::model()->findByPk((int)$id);
+        $id      = Yii::app()->request->getQuery('id', 0);
+        $model   = Places::model()->findByPk((int)$id);
         $comment = new Comments(Comments::SCENARIO_USER);
 
         if (!is_object($model)) {
@@ -177,9 +182,13 @@ class SiteController extends Controller
             $post = Yii::app()->request->getPost('Comments', array());
 
             $comment->setAttributes($post);
-            $comment->message = nl2br($comment->message);
-            $comment->place_id = $model->id;
+            $comment->message    = nl2br($comment->message);
+            $comment->place_id   = $model->id;
             $comment->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+
+            if (!Yii::app()->user->isGuest) {
+                $comment->name = Yii::app()->user->name;
+            }
 
             if ($comment->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Ваш комментарий добавлен'));
@@ -190,9 +199,9 @@ class SiteController extends Controller
             }
         }
 
-        $criteria = new CDbCriteria();
+        $criteria        = new CDbCriteria();
         $criteria->order = 'title_' . Yii::app()->getLanguage() . ' ASC';
-        $districts = CHtml::listData(
+        $districts       = CHtml::listData(
             Districts::model()->findAllByAttributes([], $criteria),
             'id',
             'title_' . Yii::app()->getLanguage()
@@ -201,8 +210,8 @@ class SiteController extends Controller
         $this->render(
             'view',
             [
-                'model' => $model,
-                'comment' => $comment,
+                'model'     => $model,
+                'comment'   => $comment,
                 'districts' => $districts,
             ]
         );
@@ -213,20 +222,20 @@ class SiteController extends Controller
      */
     public function actionAdd()
     {
-        $model = new Places(Yii::app()->getLanguage());
+        $model         = new Places(Yii::app()->getLanguage());
         $modelContacts = new Contacts();
 
         if (Yii::app()->request->isPostRequest) {
-            $post = Yii::app()->request->getPost('Places', []);
-            $postPhotos = Yii::app()->request->getPost('Photos', []);
+            $post         = Yii::app()->request->getPost('Places', []);
+            $postPhotos   = Yii::app()->request->getPost('Photos', []);
             $postContacts = Yii::app()->request->getPost('Contacts', []);
 
             $transaction = $model->dbConnection->beginTransaction();
             try {
                 $model->setAttributes($post);
-                $model->images = $postPhotos;
+                $model->images     = $postPhotos;
                 $model->is_deleted = 1;
-                $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
+                $model->alias      = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
                 $modelContacts->setAttributes($postContacts);
@@ -259,7 +268,7 @@ class SiteController extends Controller
                         if ($postPhotos) {
                             foreach ($postPhotos as $photo) {
                                 $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
-                                $image = Yii::app()->image->load($photoPath);
+                                $image     = Yii::app()->image->load($photoPath);
                                 $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
 
                                 if (file_exists($photoPath)) {
@@ -292,15 +301,15 @@ class SiteController extends Controller
 
         $title = 'title_' . Yii::app()->getLanguage();
 
-        $districts = CHtml::listData(Districts::model()->findAll(['order' => $title]), 'id', $title);
+        $districts     = CHtml::listData(Districts::model()->findAll(['order' => $title]), 'id', $title);
         $districts[-1] = Yii::t('main', 'Не указан');
 
         $this->render(
             'place',
             [
-                'model' => $model,
+                'model'         => $model,
                 'modelContacts' => $modelContacts,
-                'districts' => $districts
+                'districts'     => $districts
             ]
         );
     }
@@ -322,10 +331,10 @@ class SiteController extends Controller
         Yii::import("ext.EAjaxUpload.qqFileUploader");
 
         $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
-        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+        $result   = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
-        $sessionImages = Yii::app()->session['images'];
-        $sessionImages[] = $result['filename'];
+        $sessionImages                = Yii::app()->session['images'];
+        $sessionImages[]              = $result['filename'];
         Yii::app()->session['images'] = $sessionImages;
 
         $this->respondJSON($result);
@@ -349,7 +358,7 @@ class SiteController extends Controller
             $result = unlink(Yii::app()->params['admin']['files']['tmp'] . $filename);
 
             if (isset(Yii::app()->session['countImages'])) {
-                $countImages = Yii::app()->session['countImages'];
+                $countImages                       = Yii::app()->session['countImages'];
                 Yii::app()->session['countImages'] = $countImages - 1;
             }
 
@@ -379,8 +388,13 @@ class SiteController extends Controller
         $model->setAttributes(Yii::app()->request->getPost('Feedback', []));
         $model->message = nl2br($model->message);
 
+        if (!Yii::app()->user->isGuest) {
+            $model->name  = Yii::app()->user->name;
+            $model->email = Yii::app()->user->email;
+        }
+
         if ($model->save()) {
-            $message = new YiiMailMessage;
+            $message       = new YiiMailMessage;
             $message->view = 'feedback';
             $message->setBody(['model' => $model], 'text/html');
             $message->subject = 'gde.ck.ua: Обратная связь';
@@ -402,7 +416,7 @@ class SiteController extends Controller
         } else {
             $this->respondJSON(
                 [
-                    'error' => 1,
+                    'error'  => 1,
                     'errors' => $model->getErrors(),
                 ]
             );
@@ -446,9 +460,12 @@ class SiteController extends Controller
 
         }
 
-        $this->render('signin',[
+        $this->render(
+            'signin',
+            [
                 'modelUser' => $modelUser,
-            ]);
+            ]
+        );
     }
 
     /**
@@ -483,9 +500,12 @@ class SiteController extends Controller
             }
         }
 
-        $this->render('signup',[
+        $this->render(
+            'signup',
+            [
                 'modelUserRegister' => $modelUserRegister,
-            ]);
+            ]
+        );
     }
 
     /**
@@ -508,12 +528,14 @@ class SiteController extends Controller
 
             if ($modelUserForgot->validate()) {
                 /** @var Users $modelCurrentUser */
-                $modelCurrentUser = Users::model()->findByAttributes([
+                $modelCurrentUser = Users::model()->findByAttributes(
+                    [
                         'email' => $modelUserForgot->email,
-                    ]);
+                    ]
+                );
 
                 $modelCurrentUser->passwordRepeat = StringHelper::getPassword();
-                $modelCurrentUser->password = md5($modelCurrentUser->passwordRepeat);
+                $modelCurrentUser->password       = md5($modelCurrentUser->passwordRepeat);
 
                 if ($modelCurrentUser->save(false)) {
                     $mailWraper = new MailWrapper();
@@ -523,10 +545,16 @@ class SiteController extends Controller
                     $mailWraper->send();
                 }
 
-                Yii::app()->user->setFlash('success',
-                    Yii::t('main', 'На Ваш электронный адрес {email} выслано письмо с новым паролем', [
-                        '{email}' => $modelCurrentUser->email
-                    ]));
+                Yii::app()->user->setFlash(
+                    'success',
+                    Yii::t(
+                        'main',
+                        'На Ваш электронный адрес {email} выслано письмо с новым паролем',
+                        [
+                            '{email}' => $modelCurrentUser->email
+                        ]
+                    )
+                );
 
                 Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage() . '/signin');
             } else {
@@ -534,9 +562,12 @@ class SiteController extends Controller
 
         }
 
-        $this->render('forgot',[
+        $this->render(
+            'forgot',
+            [
                 'modelUserForgot' => $modelUserForgot,
-            ]);
+            ]
+        );
     }
 
 }
