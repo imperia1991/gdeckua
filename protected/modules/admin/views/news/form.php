@@ -2,7 +2,9 @@
 /** @var News $newsModel */
 /** @var CategoryNews[] $categories */
 
-Yii::app()->clientScript->registerScriptFile('/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN);
+//Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
+
+//Yii::app()->clientScript->registerScriptFile('/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN);
 ?>
 
 <?php /** $var TbActiveForm $form */
@@ -72,28 +74,27 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
 </div>
 <div class="row">
     <?php echo $form->error($newsModel, 'text'); ?>
+
     <?php
-    $this->widget('ext.tinymce.TinyMce', [
+    $this->widget(
+        'ext.ckeditor.ECKEditor',
+        [
             'model' => $newsModel,
             'attribute' => 'text',
-            // Optional config
-            'compressorRoute' => '/admin/tinyMce/compressor',
-//									'spellcheckerUrl' => array('/admin/tinyMce/spellchecker'),
-            // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
-            'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-            'fileManager' => [
-                'class' => 'ext.elFinder.TinyMceElFinder',
-                'connectorRoute'=>'/admin/elfinder/connector',
-            ],
-            'htmlOptions' => [
-                'rows' => 30,
-//										'cols' => 60,
-            ],
-            'settings' => [
-                'language' => 'ru'
-            ]
-        ]);
+//            'editorTemplate' => 'advanced',
+//            'toolbar' => [
+//                ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'],
+//                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+//                ['Outdent', 'Indent', '-', 'Blockquote'],
+//                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'],
+//                ['Link', 'Unlink', 'Anchor'],
+//
+//            ]
+//            'optionName' => 'optionValue',
+        ]
+    );
     ?>
+
 </div>
 <div class="row" style="margin-top: 30px;">
     <?php

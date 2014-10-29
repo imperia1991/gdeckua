@@ -10,7 +10,8 @@ class WebUser extends CWebUser
      */
     public function checkAccess($operation, $params = [])
     {
-        $this->loginUrl = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . 'signin');
+//        $this->loginUrl = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . 'signin');
+        $this->loginUrl = Yii::app()->createUrl('/admin/default/login');
         if (empty($this->id))
         {
             $this->setState('roles', 'guest');

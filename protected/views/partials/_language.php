@@ -1,16 +1,14 @@
 <?php
-$url = '?' . Yii::app()->request->queryString;
-if (!Yii::app()->request->queryString) {
-    $tmp = explode(Yii::app()->getLanguage() . '/', Yii::app()->request->requestUri);
+$url = Yii::app()->getRequest()->getPathInfo();
 
-    $url = '/' . $tmp[1];
-}
+$count = 1;
+$url = str_replace(Yii::app()->getLanguage(), '', $url, $count);
 ?>
 
-<a href="<?php echo Yii::app()->baseUrl . '/ru' . $url; ?>">
+<a href="<?php echo '/ru' . $url; ?>">
     <img src="/img/lang-ru.png" alt="Русский" title="Русский">
 </a>
-<a href="<?php echo Yii::app()->baseUrl . '/uk' . $url; ?>">
+<a href="<?php echo '/uk' . $url; ?>">
     <img src="/img/lang-ua.png" alt="Українська" title="Українська">
 </a>
 

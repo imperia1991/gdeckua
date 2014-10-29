@@ -12,8 +12,8 @@
                     echo Yii::app()->easyImage->thumbOf(
                         '/' . Yii::app()->params['admin']['files']['photoPoster'] . '/' . $poster->photo,
                         [
-                            'resize' => ['width' => 500, 'height' => 400],
-                            'crop' => ['width' => 491, 'height' => 340],
+                            'resize' => ['width' => 491, 'height' => 340],
+//                            'crop' => ['width' => 491, 'height' => 340],
                             'quality' => 100,
                         ]
                     );

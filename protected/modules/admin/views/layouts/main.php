@@ -50,7 +50,14 @@
                                         'label' => 'Места',
                                         'url' => '/admin/place',
                                         'items' => [
-                                            ['label' => 'Места', 'url' => '/admin/place'],
+                                            [
+                                                'label' => 'Места',
+                                                'url' => '/admin/place',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/place'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/place/create'],
+                                                ]
+                                            ],
                                             ['label' => 'Категории', 'url' => '/admin/category'],
                                             ['label' => 'Комментарии', 'url' => '/admin/comments'],
                                         ]
@@ -60,8 +67,22 @@
                                         'url' => '/admin/news',
                                         'active' => $this->menuActive == 'news',
                                         'items' => [
-                                            ['label' => 'Новости', 'url' => '/admin/news'],
-                                            ['label' => 'Категории', 'url' => '/admin/categoryNews'],
+                                            [
+                                                'label' => 'Новости',
+                                                'url' => '/admin/news',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/news'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/news/create'],
+                                                ]
+                                            ],
+                                            [
+                                                'label' => 'Категории',
+                                                'url' => '/admin/categoryNews',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/categoryNews'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/categoryNews/create'],
+                                                ]
+                                            ],
                                             ['label' => 'Комментарии', 'url' => '/admin/commentsNews'],
                                         ]
                                     ],
@@ -70,7 +91,14 @@
                                         'url' => '/admin/photoCity',
                                         'active' => $this->menuActive == 'photo',
                                         'items' => [
-                                            ['label' => 'Города', 'url' => '/admin/photoCity'],
+                                            [
+                                                'label' => 'Города',
+                                                'url' => '/admin/photoCity',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/photoCity'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/photoCity/add'],
+                                                ]
+                                            ],
                                             ['label' => 'Фотоблог ', 'url' => '/admin/photoBlog'],
 //                            ['label'=>'Комментарии фото города', 'url'=>'/admin/commentsPhotoCity'],
 //                            ['label'=>'Комментарии фотоблогов', 'url'=>'/admin/commentsPhotoBlog'],
@@ -81,8 +109,45 @@
                                         'url' => '/admin/poster',
                                         'active' => $this->menuActive == 'poster',
                                         'items' => [
-                                            ['label' => 'Категории', 'url' => '/admin/categoryPoster'],
-                                            ['label' => 'Афишы', 'url' => '/admin/posters'],
+                                            [
+                                                'label' => 'Афишы',
+                                                'url' => '/admin/posters',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/posters'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/posters/create'],
+                                                ]
+                                            ],
+                                            [
+                                                'label' => 'Категории',
+                                                'url' => '/admin/categoryPoster',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/categoryPoster'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/categoryPoster/create'],
+                                                ]
+                                            ],
+                                        ]
+                                    ],
+                                    [
+                                        'label' => 'Объявления',
+                                        'url' => '/admin/categoryBoards',
+                                        'active' => $this->menuActive == 'boards',
+                                        'items' => [
+                                            [
+                                                'label' => 'Объявления',
+                                                'url' => '/admin/boards',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/boards'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/boards/create'],
+                                                ]
+                                            ],
+                                            [
+                                                'label' => 'Категории',
+                                                'url' => '/admin/categoryBoards',
+                                                'items' => [
+                                                    ['label' => 'Все', 'url' => '/admin/categoryBoards'],
+                                                    ['label' => 'Добавить', 'url' => '/admin/categoryBoards/create'],
+                                                ]
+                                            ],
                                         ]
                                     ],
                                     [

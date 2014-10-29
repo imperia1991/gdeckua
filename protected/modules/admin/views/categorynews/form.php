@@ -12,7 +12,6 @@
         ]
     ); ?>
 
-    <h4>Добавление категории для новости</h4>
     <?php echo $form->textFieldRow($categoryModel, 'title_ru', array('style' => 'margin-bottom:0')); ?>
     <?php echo $form->textFieldRow($categoryModel, 'title_uk', array('style' => 'margin-bottom:0')); ?>
     <br/><br/>

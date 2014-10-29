@@ -58,6 +58,27 @@ class Controller extends CController
     public $currentPageType = PageTypes::PAGE_DEFAULT;
 
     /**
+     * @var
+     */
+    public $currentPage;
+
+    /**
+     * Declares class-based actions.
+     */
+    public function actions()
+    {
+        return [
+            // captcha action renders the CAPTCHA image displayed on the contact page
+            'captcha' => [
+                'class' => 'CCaptchaActionExtension',
+                'testLimit' => '1',
+                'backColor' => 0x494949,
+                'foreColor' => 0xFFFFFF,
+            ],
+        ];
+    }
+
+    /**
      * @param string $id
      * @param null $module
      */

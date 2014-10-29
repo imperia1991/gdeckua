@@ -225,7 +225,7 @@ class PlaceController extends AdminController
                     }
 
                     $model->tags->place_id = $model->id;
-                    $model->tags->tags = $postPlacetags;
+                    $model->tags->tags = str_replace(',', ', ', $postPlacetags);
                     if (!$model->tags->save(false)) {
                         Yii::app()->user->setFlash('error', 'Ошибка при добавлении тегов');
 

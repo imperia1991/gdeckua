@@ -12,7 +12,7 @@
     </div>
 
     <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="javascript:void(0)"><img src="/img/banners/empty.png" alt="Реклама"></a></div>
+        <div class="reklama-box"><a href="javascript:void(0)"><img src="/img/banners/bus_rek.jpg" alt="Реклама"></a></div>
     </div>
 
     <div class="large-3 medium-3 small-6 columns">

@@ -45,52 +45,7 @@ class SearchController extends AdminController
      */
     public function actionCreate()
     {
-//        setlocale(LC_CTYPE, 'ru_RU.UTF-8');
-        Zend_Search_Lucene_Analysis_Analyzer::setDefault(
-            new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
-
-        $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $this->_indexFiles), true);
-
-        $places = Places::model()->with(array('tags'))->findAll('is_deleted = 0');
-        /** @var Places $place */
-        foreach ($places as $place) {
-            $doc = new Zend_Search_Lucene_Document();
-//            $doc->addField(Zend_Search_Lucene_Field::unIndexed('place_id', CHtml::encode($place->id), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('title_ru', CHtml::encode($place->title_ru), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('title_uk', CHtml::encode($place->title_uk), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('description_ru', CHtml::encode(strip_tags($place->description_ru)), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('description_uk', CHtml::encode(strip_tags($place->description_uk)), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('short_description_ru', CHtml::encode(strip_tags($place->short_description_ru)), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('short_description_uk', CHtml::encode(strip_tags($place->short_description_uk)), 'UTF-8'));
-            $district = str_replace([' ', '/', '.', ',', '\\', '-'], '', $place->district->title_ru);
-            $doc->addField(Zend_Search_Lucene_Field::Text('district_additional_ru', CHtml::encode($district), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('district_ru', CHtml::encode($place->district->title_ru), 'UTF-8'));
-            $district = str_replace([' ', '/', '.', ',', '\\', '-'], '', $place->district->title_uk);
-            $doc->addField(Zend_Search_Lucene_Field::Text('district_additional_uk', CHtml::encode($district), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('district_uk', CHtml::encode($place->district->title_uk), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('address_ru', CHtml::encode($place->address_ru), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::Text('address_uk', CHtml::encode($place->address_uk), 'UTF-8'));
-//            $doc->addField(Zend_Search_Lucene_Field::unIndexed('photoTitle', CHtml::encode($place->photos[0]->title), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::unStored('tags', CHtml::encode($place->tags->tags), 'UTF-8'));
-            $doc->addField(Zend_Search_Lucene_Field::unIndexed('lat', $place->lat));
-            $doc->addField(Zend_Search_Lucene_Field::unIndexed('lng', $place->lng));
-            $doc->addField(Zend_Search_Lucene_Field::keyword('country_id', $place->country_id));
-            $doc->addField(Zend_Search_Lucene_Field::keyword('region_id', $place->region_id));
-            $doc->addField(Zend_Search_Lucene_Field::keyword('city_id', $place->city_id));
-            $doc->addField(Zend_Search_Lucene_Field::unIndexed('place_id', $place->id));
-            $doc->addField(Zend_Search_Lucene_Field::unIndexed('alias', $place->alias));
-
-            $number = 0;
-            foreach ($place->photos as $photo) {
-                $title = 'photoTitle_' . $place->id . '_' . ($number++);
-                $doc->addField(Zend_Search_Lucene_Field::unIndexed($title, CHtml::encode($photo->title), 'UTF-8'));
-            }
-
-            $index->addDocument($doc);
-        }
-
-        $index->optimize();
-        $index->commit();
+        $result = exec('sudo indexer --config /etc/sphinxsearch/sphinx.conf --rotate --all > /home/admin/web/gdeck.ua/public_html/sphinx-update.log');
 
         Yii::app()->user->setFlash('success', 'Индексы обновлены');
 
@@ -102,4 +57,4 @@ class SearchController extends AdminController
         $this->render('index');
     }
 }
-?>
+

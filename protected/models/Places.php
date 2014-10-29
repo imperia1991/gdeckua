@@ -37,16 +37,49 @@
 class Places extends ActiveRecord
 {
 
+    /**
+     *
+     */
     const SCENARIO_RU = 'ru';
+    /**
+     *
+     */
     const SCENARIO_UK = 'uk';
+    /**
+     *
+     */
     const SCENARIO_ADMIN = 'admin';
+    /**
+     *
+     */
     const SCENARIO_GUEST = 'guest';
+    /**
+     * @var
+     */
     public $search;
+    /**
+     * @var
+     */
     public $districtId;
+    /**
+     * @var
+     */
     public $verifyCode;
+    /**
+     * @var
+     */
     public $images;
+    /**
+     * @var
+     */
     public $photo;
+    /**
+     * @var
+     */
     public $category_id;
+    /**
+     * @var array
+     */
     private $categories = [];
 
     /**
@@ -233,6 +266,10 @@ class Places extends ActiveRecord
             ]);
     }
 
+    /**
+     * @param bool $isFirst
+     * @return CActiveDataProvider
+     */
     public function searchMain($isFirst = false)
     {
         $criteria = new CDbCriteria;
@@ -258,11 +295,18 @@ class Places extends ActiveRecord
             ]);
     }
 
+    /**
+     * @return string
+     */
     public function getTotalItemCount()
     {
         return $this->count('is_deleted = 0');
     }
 
+    /**
+     * @param bool $all
+     * @return array|string
+     */
     public function getIsDeletes($all = true)
     {
         if ($all) {
@@ -282,11 +326,18 @@ class Places extends ActiveRecord
         }
     }
 
+    /**
+     * @return string
+     */
     public function getDistrict()
     {
-        return is_object($this->district) ? $this->district->title_ru : Yii::t('main', 'Не указан');
+        $title = 'title_' . Yii::app()->getLanguage();
+        return is_object($this->district) ? $this->district->{$title} : Yii::t('main', '');
     }
 
+    /**
+     * @return array
+     */
     public function getEmptyAddress()
     {
         return [
@@ -295,6 +346,9 @@ class Places extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getCategories()
     {
         $this->categories = CHtml::listData(Categories::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
@@ -302,6 +356,9 @@ class Places extends ActiveRecord
         return $this->categories;
     }
 
+    /**
+     * @return null|string
+     */
     public function getCategory()
     {
         if (!count($this->placesCategories)) {
@@ -316,6 +373,9 @@ class Places extends ActiveRecord
         return join(', ', $result);
     }
 
+    /**
+     * @return array
+     */
     public function isPhoto()
     {
         return [
@@ -324,6 +384,9 @@ class Places extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getCategoriesSelected()
     {
         if (!count($this->placesCategories)) {
@@ -338,11 +401,45 @@ class Places extends ActiveRecord
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function isEmptyContact()
     {
         return !is_object($this->contact);
     }
 
+    /**
+     * @param array $ids
+     * @return CActiveDataProvider
+     */
+    public function getByIds($ids = [])
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('t.id', count($ids) ? array_keys($ids) : 0);
+
+        $pages = new CPagination(count($ids));
+        $pages->setPageSize(Yii::app()->params['pageSize']);
+        $pages->pageVar = 'page';
+        $pages->applyLimit($criteria);
+
+        $dataReader = Yii::app()->db->createCommand()->select('t.*')->from($this->tableName() . ' t')
+            ->where('t.id IN (' . (count($ids) ? join(',', array_keys($ids)) : 0) . ')')
+            ->query();
+
+        while ($item = $dataReader->readObject('Places', Places::model()->getAttributes())) {
+            $ids[$item->id] = $item;
+        }
+
+        return [
+            'items' => array_slice($ids, $pages->currentPage * $pages->limit, $pages->limit),
+            'pages' => $pages
+        ];
+    }
+
+    /**
+     * @return bool
+     */
     protected function beforeSave()
     {
         if (parent::beforeSave()) {

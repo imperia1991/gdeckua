@@ -31,10 +31,13 @@ class NewsController extends AdminController
             $newsModel->setAttributes($get);
         }
 
-        $this->render('index', [
+        $this->render(
+            'index',
+            [
                 'newsModel' => $newsModel,
                 'categoriesModel' => $categoriesModel,
-            ]);
+            ]
+        );
     }
 
     /**
@@ -45,49 +48,6 @@ class NewsController extends AdminController
         $newsModel = new News();
 
         $this->processForm($newsModel);
-    }
-
-    /**
-     * Создание новости
-     */
-    public function actionUpdate()
-    {
-        $id = Yii::app()->request->getQuery('id', 0);
-
-        $newsModel = News::model()->findByPk((int) $id);
-
-        $this->processForm($newsModel);
-    }
-
-    /**
-     * Удаление новости
-     */
-    public function actionDelete()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            $id = Yii::app()->request->getQuery('id');
-
-            News::model()->deleteByPk((int)$id);
-
-            Yii::app()->user->setFlash('success', 'Новость удалена');
-
-            Yii::app()->end();
-        }
-    }
-
-    /**
-     * Загрузка фото для анонса новости
-     */
-    public function actionUpload()
-    {
-        Yii::import("ext.EAjaxUpload.qqFileUploader");
-
-        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
-        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
-
-        Yii::app()->session['newsImage'] = $result['filename'];
-
-        $this->respondJSON($result);
     }
 
     /** @var News $newsModel */
@@ -124,12 +84,79 @@ class NewsController extends AdminController
 
         $categories = CHtml::listData(CategoryNews::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
-        $this->render('form', [
-            'newsModel' => $newsModel,
-            'categories' => $categories,
-        ]);
+        $this->render(
+            'form',
+            [
+                'newsModel' => $newsModel,
+                'categories' => $categories,
+            ]
+        );
     }
 
+    /**
+     * Создание новости
+     */
+    public function actionUpdate()
+    {
+        $id = Yii::app()->request->getQuery('id', 0);
+
+        $newsModel = News::model()->findByPk((int)$id);
+
+        $this->processForm($newsModel);
+    }
+
+    /**
+     * Удаление новости
+     */
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $id = Yii::app()->request->getQuery('id');
+
+            News::model()->deleteByPk((int)$id);
+
+            Yii::app()->user->setFlash('success', 'Новость удалена');
+
+            Yii::app()->end();
+        }
+    }
+
+    /**
+     * Загрузка фото для анонса новости
+     */
+    public function actionUpload()
+    {
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+
+        Yii::app()->session['newsImage'] = $result['filename'];
+
+        $this->respondJSON($result);
+    }
+
+    /**
+     * Загрузка фото для анонса новости
+     */
+    public function actionUploadNewsPhoto()
+    {
+        $directory = Yii::app()->params['admin']['files']['news'] . '/' . date('dmY') . '/';
+        $file = md5(date('YmdHis')) . '.' . pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $array = [];
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $directory . $file)) {
+            $array = [
+                'filelink' => '/' . $directory . $file
+            ];
+        }
+
+        $this->respondJSON($array);
+    }
 
     /**
      * Загрузка файлов новости на сервер

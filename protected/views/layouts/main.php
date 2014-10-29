@@ -15,27 +15,30 @@
     <link rel="stylesheet" href="/css/colorbox.css">
     <link href="/css/jquery.jgrowl.css" rel="stylesheet">
     <link href="/css/pace.css" rel="stylesheet">
+    <link href="/css/auth.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-    <script src="/js/vendor/modernizr.js"></script>
+<!--    <script src="/js/vendor/modernizr.js"></script>-->
     <script src="/js/jquery.slimscroll.min.js"></script>
     <script src="/js/jquery.searchselect.min.js"></script>
     <script src="/js/jquery.colorbox-min.js"></script>
+    <script src="/js/jquery.simplemodal.1.4.4.min.js"></script>
     <script src="/js/pace.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
+    <script type="text/javascript" src="/js/auth.js"></script>
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-50948800-1', 'gde.ck.ua');
-        ga('send', 'pageview');
-
-    </script>
+<!--    <script>-->
+<!--        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+<!--        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+<!--        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+<!--        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+<!---->
+<!--        ga('create', 'UA-50948800-1', 'gde.ck.ua');-->
+<!--        ga('send', 'pageview');-->
+<!---->
+<!--    </script>-->
 
     <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/img/favicon.png" />
     <base href="<?php echo Yii::app()->baseUrl; ?>">
@@ -56,15 +59,21 @@
 
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
+                            <?php /*
                             <ul class="right">
                                 <?php if (Yii::app()->user->isGuest):  ?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signin'); ?>" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signin"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signup'); ?>" class="signup"><?php echo Yii::t('main', 'Регистрация'); ?></a></li>
                                 <?php else: ?>
-                                    <li><a href="javascript:void(0)" class="signin"><?php echo Yii::app()->user->name; ?></a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="signin"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
+                                    <?php if (Yii::app()->user->checkAccess('admin')): ?>
+                                        <li><a href="<?php echo Yii::app()->createUrl('/admin/') ?>" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <?php else: ?>
+                                        <li><a href="javascript:void(0)" class="username"><?php echo Yii::app()->user->name; ?></a></li>
+                                    <?php endif; ?>
+                                    <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="logout"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
                                 <?php endif; ?>
                             </ul>
+                            */ ?>
                             <div class="right currency">
                                 <?php //$this->renderPartial('/partials/_social'); ?>
                             </div>
@@ -104,7 +113,7 @@
         <?php $this->renderPartial('/partials/_ads'); ?>
     </div>
 
-    <div id="content">
+    <div id="content" class="container1">
         <div class="row content-inner">
             <div class="row">
                 <?php echo $content; ?>
@@ -220,6 +229,8 @@
         </div>
     </footer>
 
+    <?php //$this->renderpartial('/partials/_login', []); ?>
+
     <div id="scroller" class="b-top" style="display: none;"><span class="b-top-but"><?php echo Yii::t('main', 'наверх'); ?></span></div>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -239,6 +250,10 @@
             $(".obratnaya").on('click', function(){
                 $("#back").slideToggle("slow");
                 $(this).toggleClass("active");
+                return false
+            });
+            $(".close-button").click(function(){
+                $("#back").slideToggle("slow");
                 return false
             });
         });
@@ -287,30 +302,30 @@
 
 <!-- .footer -->
 <!-- Yandex.Metrika counter-->
-<script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter24984920 = new Ya.Metrika({id:24984920,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true});
-        } catch(e) { }
-    });
-
-    var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-    if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-})(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="//mc.yandex.ru/watch/24984920" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!--<script type="text/javascript">-->
+<!--(function (d, w, c) {-->
+<!--    (w[c] = w[c] || []).push(function() {-->
+<!--        try {-->
+<!--            w.yaCounter24984920 = new Ya.Metrika({id:24984920,-->
+<!--                    clickmap:true,-->
+<!--                    trackLinks:true,-->
+<!--                    accurateTrackBounce:true});-->
+<!--        } catch(e) { }-->
+<!--    });-->
+<!---->
+<!--    var n = d.getElementsByTagName("script")[0],-->
+<!--        s = d.createElement("script"),-->
+<!--        f = function () { n.parentNode.insertBefore(s, n); };-->
+<!--    s.type = "text/javascript";-->
+<!--    s.async = true;-->
+<!--    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";-->
+<!---->
+<!--    if (w.opera == "[object Opera]") {-->
+<!--        d.addEventListener("DOMContentLoaded", f, false);-->
+<!--    } else { f(); }-->
+<!--})(document, window, "yandex_metrika_callbacks");-->
+<!--</script>-->
+<!--<noscript><div><img src="//mc.yandex.ru/watch/24984920" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
 </body>
 </html>

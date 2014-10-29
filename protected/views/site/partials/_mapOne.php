@@ -1,4 +1,6 @@
 <?php
+/** @var Places $model */
+
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $description = 'description_' . Yii::app()->getLanguage();
@@ -9,8 +11,8 @@ var placeMap;
 var placeCenter = [<?php echo $model->lat; ?>, <?php echo $model->lng; ?>];
 var header = '<?php echo CHtml::encode($model->{$title}); ?>';
 <!--var body = '--><?php //echo CHtml::encode($model->{$description}); ?><!--';-->
-var footer = '<?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($model->district->{$title}) . ', ' . CHtml::encode($model->{$address}); ?>';
-var text = '<?php echo '<strong>' . CHtml::encode($model->{$title}) . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . CHtml::encode($model->district->{$title}) . ', ' . CHtml::encode($model->{$address}); ?>';
+var footer = '<?php echo Yii::t('main', 'Район') . ' ' . CHtml::encode($model->getDistrict()) . ', ' . CHtml::encode($model->{$address}); ?>';
+var text = '<?php echo '<strong>' . CHtml::encode($model->{$title}) . '</strong><br/>' . Yii::t('main', 'Район') . ' ' . CHtml::encode($model->getDistrict()) . ', ' . CHtml::encode($model->{$address}); ?>';
 var placemark;
 </script>
 

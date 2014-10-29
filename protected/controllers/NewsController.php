@@ -19,17 +19,17 @@ class NewsController extends Controller
     /**
      * Declares class-based actions.
      */
-    public function actions()
-    {
-        return [
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => [
-                'class' => 'CCaptchaAction',
-                'backColor' => 0x494949,
-                'foreColor' => 0xFFFFFF
-            ],
-        ];
-    }
+//    public function actions()
+//    {
+//        return [
+//            // captcha action renders the CAPTCHA image displayed on the contact page
+//            'captcha' => [
+//                'class' => 'CCaptchaAction',
+//                'backColor' => 0x494949,
+//                'foreColor' => 0xFFFFFF
+//            ],
+//        ];
+//    }
 
     /**
      * This is the default 'index' action that is invoked
@@ -78,32 +78,6 @@ class NewsController extends Controller
             ]
         );
     }
-
-    /**
-     * This is the action to handle external exceptions.
-     */
-//    public function actionError()
-//    {
-//        if (isset($_GET['object'])) {
-//            $id = Yii::app()->request->getQuery('object', 0);
-//            if ($id) {
-//                $placeModel = Places::model()->findByPk($id);
-//
-//                if ($placeModel) {
-//                    $this->redirect(Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view/' . $placeModel->id . '/' . $placeModel->alias));
-//                }
-//            }
-//        }
-//
-//        if ($error = Yii::app()->errorHandler->error) {
-//            if (Yii::app()->request->isAjaxRequest) {
-//                echo $error['message'];
-//            } else {
-//                $this->render('/system/error' . $error['code'], $error);
-//            }
-//        }
-//    }
-
 
     /**
      * @throws CHttpException

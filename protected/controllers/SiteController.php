@@ -9,33 +9,33 @@ class SiteController extends Controller
     /**
      * @return array
      */
-    public function filters()
-    {
-        return [
-            'accessControl', // perform access control for CRUD operations
-        ];
-    }
+//    public function filters()
+//    {
+//        return [
+//            'accessControl', // perform access control for CRUD operations
+//        ];
+//    }
 
     /**
      * @return array
      */
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
-                'roles' => ['guest'],
-            ],
-            ['allow',
-                'actions' => ['add', 'logout'],
-                'roles' => ['user', 'admin'],
-            ],
-            ['deny', // deny all users
-                'actions' => ['logout'],
-                'users' => ['*'],
-            ],
-        ];
-    }
+//    public function accessRules()
+//    {
+//        return [
+//            ['allow',
+//                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
+//                'roles' => ['guest'],
+//            ],
+//            ['allow',
+//                'actions' => ['add', 'logout'],
+//                'roles' => ['user', 'admin'],
+//            ],
+//            ['deny', // deny all users
+//                'actions' => ['logout'],
+//                'users' => ['*'],
+//            ],
+//        ];
+//    }
 
     /**
      *
@@ -47,20 +47,20 @@ class SiteController extends Controller
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
-    /**
-     * Declares class-based actions.
-     */
-    public function actions()
-    {
-        return [
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => [
-                'class' => 'CCaptchaAction',
-                'backColor' => 0x494949,
-                'foreColor' => 0xFFFFFF
-            ],
-        ];
-    }
+//    /**
+//     * Declares class-based actions.
+//     */
+//    public function actions()
+//    {
+//        return [
+//            // captcha action renders the CAPTCHA image displayed on the contact page
+//            'captcha' => [
+//                'class' => 'CCaptchaAction',
+//                'backColor' => 0x494949,
+//                'foreColor' => 0xFFFFFF
+//            ],
+//        ];
+//    }
 
     /**
      * This is the default 'index' action that is invoked
@@ -70,10 +70,9 @@ class SiteController extends Controller
     {
         $this->modelPlaces = new Places();
         $this->modelPlaces->search = Yii::app()->request->getQuery('search', '');
-        $this->selectDistrict = Yii::app()->request->getQuery('districts', '');
+        $this->modelPlaces->district_id = Yii::app()->request->getQuery('districts', '');
 
-        $results = [];
-        if ($this->modelPlaces->search || $this->selectDistrict) {
+        if ($this->modelPlaces->search || $this->modelPlaces->district_id) {
             if ($this->modelPlaces->search) {
                 $statistics = new WordStatistics();
                 $statistics->words = $this->modelPlaces->search;
@@ -82,20 +81,19 @@ class SiteController extends Controller
             }
 
             $controller = Yii::app()->createController('/search');
-            $results = $controller[0]->search($this->modelPlaces->search, $this->selectDistrict);
+            $results = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
 
-            $dataProvider = new CArrayDataProvider(
-                $results['results'],
-                [
-                    'pagination' => [
-                        'pageSize' => Yii::app()->params['pageSize'],
-                    ],
-                ]
-            );
+            $dataProvider = Places::model()->getByIds($results);
+            $items = $dataProvider['items'];
+            $pages = $dataProvider['pages'];
         } else {
             $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
             $dataProvider = $this->modelPlaces->searchMain($isFirst);
+            $items = $dataProvider->getData();
+            $pages = $dataProvider->getPagination();
         }
+
+        $this->currentPage = $pages->currentPage;
 
         $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
 
@@ -103,8 +101,8 @@ class SiteController extends Controller
             'index',
             [
                 'model' => $this->modelPlaces,
-                'results' => $results,
-                'dataProvider' => $dataProvider,
+                'items' => $items,
+                'pages' => $pages,
             ]
         );
     }
@@ -118,12 +116,12 @@ class SiteController extends Controller
     {
         $checker = json_decode(
             file_get_contents(
-                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=ru,uk,en'
+                "http://speller.yandex.net/services/spellservice.json/checkText?text=" . urlencode($search) . '&lang=en,' . Yii::app()->getLanguage()
             )
         );
         $checkedStr = $search;
         foreach ($checker as $word) {
-            if ($word->s[0]) {
+            if (isset($word->s[0])) {
                 $checkedStr = str_replace($word->word, $word->s[0], $checkedStr);
             }
         }
@@ -378,7 +376,11 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new Feedback();
-        $model->setAttributes(Yii::app()->request->getPost('Feedback', array()));
+
+//        echo '<pre>';
+//        print_r(Yii::app()->request->getPost('Feedback', []));
+//        echo '</pre>';exit;
+        $model->setAttributes(Yii::app()->request->getPost('Feedback', []));
         $model->message = nl2br($model->message);
 
         if ($model->save()) {
