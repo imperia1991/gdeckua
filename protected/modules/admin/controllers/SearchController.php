@@ -6,11 +6,6 @@
  */
 class SearchController extends AdminController
 {
-    /**
-     * @var string index dir as alias path from <b>application.</b>  , default to <b>runtime.search</b>
-     */
-    private $_indexFiles = 'runtime.search';
-
     public function filters()
     {
         return [
@@ -32,9 +27,6 @@ class SearchController extends AdminController
 
     public function init()
     {
-        Yii::import('application.vendors.*');
-        require_once('Zend/Search/Lucene.php');
-
         $this->menuActive = 'search';
 
         parent::init();
@@ -45,7 +37,7 @@ class SearchController extends AdminController
      */
     public function actionCreate()
     {
-        $result = exec('sudo indexer --config /etc/sphinxsearch/sphinx.conf --rotate --all > /home/admin/web/gdeck.ua/public_html/sphinx-update.log');
+        exec('sudo indexer --config /etc/sphinxsearch/sphinx.conf --rotate --all > /home/gennady/sphinx-update.log');
 
         Yii::app()->user->setFlash('success', 'Индексы обновлены');
 
