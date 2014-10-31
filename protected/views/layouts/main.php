@@ -27,7 +27,7 @@
     <script src="/js/pace.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
-    <script type="text/javascript" src="/js/auth.js"></script>
+<!--    <script type="text/javascript" src="/js/auth.js"></script>-->
 
 <!--    <script>-->
 <!--        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
@@ -59,7 +59,6 @@
 
                         <section class="top-bar-section">
                             <!-- Right Nav Section -->
-                            <?php /*
                             <ul class="right">
                                 <?php if (Yii::app()->user->isGuest):  ?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/signin'); ?>" class="signin"><?php echo Yii::t('main', 'Войти'); ?></a></li>
@@ -73,7 +72,6 @@
                                     <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/logout'); ?>" class="logout"><?php echo Yii::t('main', 'Выйти'); ?></a></li>
                                 <?php endif; ?>
                             </ul>
-                            */ ?>
                             <div class="right currency">
                                 <?php //$this->renderPartial('/partials/_social'); ?>
                             </div>
@@ -229,7 +227,7 @@
         </div>
     </footer>
 
-    <?php //$this->renderpartial('/partials/_login', []); ?>
+<!--    --><?php //$this->renderPartial('/partials/_login', []); ?>
 
     <div id="scroller" class="b-top" style="display: none;"><span class="b-top-but"><?php echo Yii::t('main', 'наверх'); ?></span></div>
     <script type="text/javascript">

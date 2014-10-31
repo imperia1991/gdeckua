@@ -9,33 +9,33 @@ class SiteController extends Controller
     /**
      * @return array
      */
-//    public function filters()
-//    {
-//        return [
-//            'accessControl', // perform access control for CRUD operations
-//        ];
-//    }
+    public function filters()
+    {
+        return [
+            'accessControl', // perform access control for CRUD operations
+        ];
+    }
 
     /**
      * @return array
      */
-//    public function accessRules()
-//    {
-//        return [
-//            ['allow',
-//                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
-//                'roles' => ['guest'],
-//            ],
-//            ['allow',
-//                'actions' => ['add', 'logout'],
-//                'roles' => ['user', 'admin'],
-//            ],
-//            ['deny', // deny all users
-//                'actions' => ['logout'],
-//                'users' => ['*'],
-//            ],
-//        ];
-//    }
+    public function accessRules()
+    {
+        return [
+            ['allow',
+                'actions' => ['index', 'add', 'view', 'upload', 'deletePreviewUpload', 'feedback', 'about', 'signin', 'signup', 'captcha', 'error'],
+                'roles' => ['guest'],
+            ],
+            ['allow',
+                'actions' => ['add', 'logout'],
+                'roles' => ['user', 'admin'],
+            ],
+            ['deny', // deny all users
+                'actions' => ['logout'],
+                'users' => ['*'],
+            ],
+        ];
+    }
 
     /**
      *
@@ -376,10 +376,6 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new Feedback();
-
-//        echo '<pre>';
-//        print_r(Yii::app()->request->getPost('Feedback', []));
-//        echo '</pre>';exit;
         $model->setAttributes(Yii::app()->request->getPost('Feedback', []));
         $model->message = nl2br($model->message);
 
@@ -443,7 +439,7 @@ class SiteController extends Controller
             $modelUser->setAttributes($post);
 
             if ($modelUser->validate() && $modelUser->login()) {
-                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
+                Yii::app()->getRequest()->redirect(Yii::app()->session['returnUrl']);
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при авторизации'));
             }
@@ -481,7 +477,7 @@ class SiteController extends Controller
 
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Вы зарегистрированы на сайте'));
 
-                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
+                Yii::app()->getRequest()->redirect(Yii::app()->session['returnUrl']);
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при регистрации'));
             }
@@ -532,7 +528,7 @@ class SiteController extends Controller
                         '{email}' => $modelCurrentUser->email
                     ]));
 
-                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage() . '/signin');
             } else {
             }
 

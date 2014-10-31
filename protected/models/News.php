@@ -20,8 +20,17 @@
  */
 class News extends ActiveRecord
 {
+    /**
+     *
+     */
     const OPINION = 'opinion';
+    /**
+     *
+     */
     const SCENARIO_ADMIN = 'admin';
+    /**
+     *
+     */
     const SCENARIO_USER = 'user';
     /**
      * Новость
@@ -31,6 +40,12 @@ class News extends ActiveRecord
      * Мнение
      */
     const IS_NOT_OPINION = 0;
+
+    /**
+     * Добавлять на фото водяной знак или нет
+     * @var bool
+     */
+    public $isWatemark = false;
 
     /**
      * Returns the static model of the specified AR class.
@@ -64,7 +79,7 @@ class News extends ActiveRecord
             ['text', 'required', 'message' => 'Введите текст новости'],
             ['category_news_id, is_deleted', 'numerical', 'integerOnly' => true],
             ['title', 'length', 'max' => 255],
-            ['photo, is_opinion', 'safe'],
+            ['photo, is_opinion, isWatemark', 'safe'],
             // The following rule is used by search().
             ['id, category_news_id, title, text, created_at, is_deleted, is_opinion', 'safe', 'on' => 'search'],
         ];
@@ -97,6 +112,7 @@ class News extends ActiveRecord
             'photo' => Yii::t('main', 'Фото для анонса новости'),
             'short_text' => Yii::t('main', 'Текст для анонса новости'),
             'is_opinion' => Yii::t('main', 'Мнение'),
+            'isWatemark' => Yii::t('main', 'Водяной знак'),
         ];
     }
 
@@ -224,6 +240,9 @@ class News extends ActiveRecord
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getShortTitle()
     {
         $result = mb_substr($this->title, 0, 20, 'UTF-8');
@@ -234,6 +253,9 @@ class News extends ActiveRecord
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function getShortText()
     {
         $result = mb_substr($this->short_text, 0, 100, 'UTF-8');

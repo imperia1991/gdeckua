@@ -61,14 +61,22 @@ class NewsController extends AdminController
             $newsModel->alias = LocoTranslitFilter::cyrillicToLatin($newsModel->title);
 
             $isNewRecord = $newsModel->isNewRecord;
+
             if ($newsModel->save()) {
                 if ($oldPhoto != $newsModel->photo) {
                     $photoPath = Yii::app()->params['admin']['files']['tmp'] . $newsModel->photo;
-                    $image = Yii::app()->image->load($photoPath);
-                    $image->save(Yii::app()->params['admin']['files']['news'] . $newsModel->photo);
+                    $image = new EasyImage($photoPath);
+                    $image->resize(616, 386, EasyImage::RESIZE_PRECISE);
+
+                    $directory = Yii::app()->params['admin']['files']['news'] . '/' ;
+                    $image->save($directory . $newsModel->photo);
 
                     if (file_exists($photoPath)) {
                         unlink($photoPath);
+                    }
+
+                    if (file_exists($directory . $oldPhoto) && !empty($oldPhoto)) {
+                        unlink($directory . $oldPhoto);
                     }
                 }
 
@@ -169,8 +177,21 @@ class NewsController extends AdminController
         $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
         $photoPath = Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
-        $image = Yii::app()->image->load($photoPath);
-        $image->save(Yii::app()->params['admin']['files']['news'] . $result['filename']);
+        $image = new EasyImage($photoPath);
+
+        $isWatermark = Yii::app()->session['toggleWatermark'];
+        if ($isWatermark) {
+            $mark = new EasyImage('/img/watermark.png');
+            $image->watermark($mark, -30, -30);
+        }
+
+        $directory = Yii::app()->params['admin']['files']['news'] . '/' . date('dmY') . '/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0775, true);
+        }
+
+        $image->resize(510, 340, EasyImage::RESIZE_AUTO);
+        $image->save($directory . $result['filename']);
 
         if (file_exists($photoPath)) {
             unlink($photoPath);
@@ -178,6 +199,16 @@ class NewsController extends AdminController
 
         unset($image);
 
+        $result['filePath'] = '/' . $directory . $result['filename'];
+
         $this->respondJSON($result);
+    }
+
+    public function actionToggleWatermark() {
+        Yii::app()->session['toggleWatermark'] = Yii::app()->getRequest()->getQuery('data', 0);
+
+        $this->respondJSON([
+                'response' => Yii::app()->session['toggleWatermark']
+            ]);
     }
 }
