@@ -156,6 +156,7 @@ $mainConfig = [
             'class' => 'application.extensions.easyimage.EasyImage',
             'retinaSupport' => true,
             'quality' => 100,
+            'driver' => 'Imagick',
         ],
         'search' => [
             'class' => 'application.components.DGSphinxSearch',
