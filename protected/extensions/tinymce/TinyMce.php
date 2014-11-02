@@ -56,7 +56,7 @@ class TinyMce extends CInputWidget
             "insertdatetime media nonbreaking save table contextmenu directionality",
             "template paste textcolor"
         ),
-        'toolbar' => "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor",
+        'toolbar' => "insertfile undo redo | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor",
 
 
         'toolbar_items_size' => 'small',
