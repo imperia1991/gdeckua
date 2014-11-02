@@ -102,7 +102,7 @@ function init()
 
 	button = new ymaps.control.Button({
 			data: {
-				content: Yii.t('main', 'Все', '', currLang)
+				content: 'Все'
 			}
 		},
 		{

@@ -126,7 +126,7 @@ class Controller extends CController
             Yii::app()->user->id
         );
 
-        new JsTrans('main', Yii::app()->language, Yii::app()->language);
+//        new JsTrans('main', Yii::app()->language, Yii::app()->language);
 
         $this->feedback = new Feedback();
 

@@ -177,11 +177,12 @@ class NewsController extends AdminController
         $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
         $photoPath = Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
-        $image = new EasyImage($photoPath);
+
+        $image = new EasyImage($photoPath, Yii::app()->easyImage->driver);
 
         $isWatermark = Yii::app()->session['toggleWatermark'];
         if ($isWatermark) {
-            $mark = new EasyImage('/img/watermark.png');
+            $mark = new EasyImage('/img/watermark.png', Yii::app()->easyImage->driver);
             $image->watermark($mark, -30, -30);
         }
 
