@@ -384,7 +384,7 @@ class SiteController extends Controller
             $message->view = 'feedback';
             $message->setBody(['model' => $model], 'text/html');
             $message->subject = 'gde.ck.ua: Обратная связь';
-            $message->addTo('4erkago@gmail.com');
+            $message->addTo('support@gde.ck.ua');
             $message->from = $model->email;
 
             Yii::app()->mail->send($message);
