@@ -101,8 +101,6 @@
                                                 ]
                                             ],
                                             ['label' => 'Фотоблог ', 'url' => '/admin/photoBlog'],
-//                            ['label'=>'Комментарии фото города', 'url'=>'/admin/commentsPhotoCity'],
-//                            ['label'=>'Комментарии фотоблогов', 'url'=>'/admin/commentsPhotoBlog'],
                                         ]
                                     ],
                                     [
@@ -149,6 +147,16 @@
                                                     ['label' => 'Добавить', 'url' => '/admin/categoryBoards/create'],
                                                 ]
                                             ],
+                                        ]
+                                    ],
+                                    [
+                                        'label' => 'Rss',
+                                        'url' => '/admin/rss',
+                                        'active' => $this->menuActive == 'rss',
+                                        'items' => [
+                                            ['label' => 'Сайты', 'url' => '/admin/rss'],
+                                            ['label' => 'Новости', 'url' => '/admin/rss/news'],
+                                            ['label' => 'Добавить сайт', 'url' => '/admin/rss/create'],
                                         ]
                                     ],
                                     [
