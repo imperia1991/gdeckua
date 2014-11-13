@@ -76,6 +76,27 @@ class RssController extends AdminController
             Yii::app()->end();
         }
     }
+    /**
+     *
+     */
+    public function actionNews()
+    {
+        $rssContentModel = new RssContent();
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $params = Yii::app()->request->getParam('RssContent');
+
+            $rssContentModel = new RssContent('search');
+            $rssContentModel->setAttributes($params);
+        }
+
+        $this->render(
+            'news',
+            [
+                'rssContentModel' => $rssContentModel,
+            ]
+        );
+    }
 
     /**
      * @param RssSites $rssSitesModel
@@ -92,6 +113,7 @@ class RssController extends AdminController
             try {
                 /** @var RssSites $rssSitesModel */
                 $rssSitesModel->setAttributes($post);
+                $rssSitesModel->alias = LocoTranslitFilter::cyrillicToLatin($rssSitesModel->title);
 
                 if ($rssSitesModel->save()) {
                     $transaction->commit();

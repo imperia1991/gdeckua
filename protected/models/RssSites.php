@@ -8,7 +8,8 @@
  * @property string $url
  * @property string $created_at
  * @property integer $is_deleted
- *
+ * @property string $title
+ * @property string $alias
  * The followings are the available model relations:
  * @property RssContent[] $rssContents
  */
@@ -43,8 +44,8 @@ class RssSites extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['id, url, created_at', 'required'],
-            ['id, is_deleted', 'numerical', 'integerOnly' => true],
+            ['url, created_at, title, alias', 'required'],
+            ['is_deleted', 'numerical', 'integerOnly' => true],
             ['url', 'length', 'max' => 255],
             ['url', 'url', 'defaultScheme' => 'http', 'allowEmpty' => false, 'validateIDN' => true, 'message' => Yii::t('main', 'Значение не является правильным URL-адресом сайта')],
             // The following rule is used by search().
@@ -73,7 +74,8 @@ class RssSites extends ActiveRecord
             'id'         => '№',
             'url'        => Yii::t('main', 'Адрес Rss сайта'),
             'created_at' => Yii::t('main', 'Дата добавления'),
-            'is_deleted' => Yii::t('main', 'Активно'),
+            'is_deleted' => Yii::t('main', 'Отключить'),
+            'title' => Yii::t('main', 'Название'),
         ];
     }
 
@@ -96,8 +98,8 @@ class RssSites extends ActiveRecord
         if ($this->id) {
             $criteria->compare('id', $this->id);
         }
-        if ($this->id) {
-            $criteria->compare('url', $this->url);
+        if ($this->url) {
+            $criteria->compare('url', $this->url, true);
         }
         if ($this->created_at) {
             $criteria->compare('created_at', $this->created_at);

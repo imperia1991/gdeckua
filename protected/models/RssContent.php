@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'rss_content':
  * @property integer $id
- * @property string $title
+ * @property string $title_news
  * @property string $url
  * @property string $add_at
  * @property string $created_at
@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property RssSites $rssSite
  */
-class RssContent extends CActiveRecord
+class RssContent extends ActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -46,9 +46,9 @@ class RssContent extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['id, title, url, add_at, created_at, is_deleted, rss_site_id', 'required'],
-            ['id, is_deleted, rss_site_id', 'numerical', 'integerOnly' => true],
-            ['title, url', 'length', 'max' => 255],
+            ['title_news, url, add_at, created_at, rss_site_id', 'required'],
+            ['is_deleted, rss_site_id', 'numerical', 'integerOnly' => true],
+            ['title_news, url', 'length', 'max' => 255],
             // The following rule is used by search().
             ['id, title, url, add_at, created_at, is_deleted, rss_site_id', 'safe', 'on' => 'search'],
         ];
@@ -73,11 +73,11 @@ class RssContent extends CActiveRecord
     {
         return [
             'id'          => '№',
-            'title'       => Yii::t('main', 'Заголовок новости'),
+            'title_news'       => Yii::t('main', 'Заголовок новости'),
             'url'         => Yii::t('main', 'Адрес сайта'),
             'add_at'      => Yii::t('main', 'Дата создания новости'),
             'created_at'  => Yii::t('main', 'Дата добавления новости'),
-            'is_deleted'  => Yii::t('main', 'Активно'),
+            'is_deleted'  => Yii::t('main', 'Не показывать'),
             'rss_site_id' => Yii::t('main', 'Сайт'),
         ];
     }
@@ -98,13 +98,21 @@ class RssContent extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('url', $this->url, true);
-        $criteria->compare('add_at', $this->add_at, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('is_deleted', $this->is_deleted);
-        $criteria->compare('rss_site_id', $this->rss_site_id);
+        if ($this->id) {
+            $criteria->compare('id', $this->id);
+        }
+        if ($this->title_news) {
+            $criteria->compare('title_news', $this->title_news, true);
+        }
+        if ($this->url) {
+            $criteria->compare('url', $this->url, true);
+        }
+        if ($this->created_at) {
+            $criteria->compare('created_at', $this->created_at);
+        }
+        if ($this->is_deleted == 0 || $this->is_deleted == 1) {
+            $criteria->compare('is_deleted', $this->is_deleted);
+        }
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
