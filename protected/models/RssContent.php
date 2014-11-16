@@ -136,10 +136,10 @@ class RssContent extends ActiveRecord
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
             'sort' => [
-                'defaultOrder' => 'created_at DESC',
+                'defaultOrder' => 'add_at DESC',
             ],
             'pagination' => [
-                'pageSize' => Yii::app()->params['pageSizeNews'],
+                'pageSize' => Yii::app()->params['pageSizeNews'] + 8,
                 'pageVar' => 'page',
             ],
         ]);

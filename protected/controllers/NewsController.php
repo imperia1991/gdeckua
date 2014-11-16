@@ -53,16 +53,24 @@ class NewsController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             $this->processPageRequest('page');
 
-            $this->renderPartial(
-                '/news/partials/_newsView',
+            $this->respondJSON(
                 [
-                    'news' => $news,
-                    'rss' => $rss,
-                    'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                    'newsView' => $this->renderPartial(
+                        '/news/partials/_newsView',
+                        [
+                            'news' => $news,
+                            'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                        ], true
+                    ),
+                    'rssView' => $this->renderPartial(
+                        '/news/partials/_rssView',
+                        [
+                            'rss' => $rss,
+                            'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                        ], true
+                    )
                 ]
             );
-
-            Yii::app()->end();
         }
 
         $previewComments = CommentsNews::model()->getPreviewComments();
