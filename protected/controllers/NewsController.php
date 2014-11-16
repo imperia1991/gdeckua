@@ -48,19 +48,29 @@ class NewsController extends Controller
 
         $isOpinion = $category == News::OPINION ? News::IS_OPINION : News::IS_NOT_OPINION;
         $news = News::model()->getAll($isOpinion, $category);
+        $rss = RssContent::model()->getAll();
 
         if (Yii::app()->request->isAjaxRequest) {
             $this->processPageRequest('page');
 
-            $this->renderPartial(
-                '/news/partials/_newsView',
+            $this->respondJSON(
                 [
-                    'news' => $news,
-                    'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                    'newsView' => $this->renderPartial(
+                        '/news/partials/_newsView',
+                        [
+                            'news' => $news,
+                            'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                        ], true
+                    ),
+                    'rssView' => $this->renderPartial(
+                        '/news/partials/_rssView',
+                        [
+                            'rss' => $rss,
+                            'page' => Yii::app()->getRequest()->getQuery('page', 0)
+                        ], true
+                    )
                 ]
             );
-
-            Yii::app()->end();
         }
 
         $previewComments = CommentsNews::model()->getPreviewComments();
@@ -71,6 +81,7 @@ class NewsController extends Controller
             'index',
             [
                 'news' => $news,
+                'rss' => $rss,
                 'previewComments' => $previewComments,
                 'previewOpinions' => $previewOpinions,
                 'categories' => $categories,

@@ -9,6 +9,7 @@
  * @property string $title_uk
  * @property string $alias
  * @property integer $parent_id
+ * @property string $photo
  *
  * The followings are the available model relations:
  * @property CategoryBoards $parent
@@ -16,7 +17,7 @@
  */
 class CategoryBoards extends CActiveRecord
 {
-	/**
+    /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -34,7 +35,8 @@ class CategoryBoards extends CActiveRecord
 		return [
 			['title_ru, title_uk, alias', 'required'],
 			['parent_id', 'numerical', 'integerOnly'=>true],
-			['title_ru, title_uk, alias', 'length', 'max'=>255],
+			['title_ru, title_uk, alias, photo', 'length', 'max'=>255],
+            ['photo', 'safe'],
 			// The following rule is used by search().
 			['id, title_ru, title_uk, alias, parent_id', 'safe', 'on'=>'search'],
 		];
@@ -64,6 +66,7 @@ class CategoryBoards extends CActiveRecord
 			'title_uk' => Yii::t('main', 'Название (украинский)'),
 			'alias' => 'Alias',
 			'parent_id' => Yii::t('main', 'Родительская категория'),
+			'photo' => Yii::t('main', 'Иконка'),
 		];
 	}
 
@@ -120,6 +123,45 @@ class CategoryBoards extends CActiveRecord
 
 
     /**
+     * Возвращет html тег иконки или пустую строку в случае ее отсутствия
+     * @return string
+     */
+    public function getPhotoWidget()
+    {
+        if (empty($this->photo)) {
+            return '';
+        }
+
+        return CHtml::image($this->getPhoto(), $this->getTitle());
+    }
+
+    /**
+     * @return string
+     */
+    public function getDirectory()
+    {
+        return '/' . Yii::app()->params['admin']['files']['boardIcons'] . '/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        $title = 'title_' . Yii::app()->getLanguage();
+
+        return $this->{$title};
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->getDirectory() . $this->photo;
+    }
+
+    /**
      * @param CActiveRecord[] $categories
      * @return array
      */
@@ -139,7 +181,7 @@ class CategoryBoards extends CActiveRecord
 
             $result[] = [
                 'id' => $category->id,
-                'title' => $category->title_ru,
+                'title' => $category->getPhotoWidget() . ' ' . $category->title_ru,
                 'children' => $this->prepareTree($category->categoryBoards),
             ];
         }

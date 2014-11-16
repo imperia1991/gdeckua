@@ -88,7 +88,8 @@ class CategoryBoardsController extends AdminController
             $transaction = $categoryModel->dbConnection->beginTransaction();
 
             try {
-                /** @var CategoryNews $categoryModel */
+                $oldPhoto = $categoryModel->photo;
+
                 $categoryModel->setAttributes($post);
                 if (!empty($post['parent_id'])) {
                     $categoryModel->parent_id = $post['parent_id'][0];
@@ -99,6 +100,33 @@ class CategoryBoardsController extends AdminController
                 }
 
                 if ($categoryModel->save()) {
+                    if ($oldPhoto != $categoryModel->photo) {
+                        $photoPath = Yii::app()->params['admin']['files']['tmp'] . $categoryModel->photo;
+                        $image = new EasyImage($photoPath);
+                        $directoryBoards = Yii::app()->params['admin']['files']['boards'] . '/';
+                        $directoryBoardIcons = Yii::app()->params['admin']['files']['boardIcons'] . '/';
+
+                        if (!file_exists($directoryBoards)) {
+                            mkdir($directoryBoards, 0775, true);
+
+                            if (!file_exists($directoryBoardIcons)) {
+                                mkdir($directoryBoardIcons, 0775, true);
+                            }
+                        }
+
+                        $image->save($directoryBoardIcons . $categoryModel->photo);
+
+                        if (file_exists($photoPath)) {
+                            unlink($photoPath);
+                        }
+
+                        if (file_exists($directoryBoardIcons . $oldPhoto && !empty($oldPhoto))) {
+                            unlink($directoryBoardIcons . $oldPhoto);
+                        }
+                    }
+
+                    unset(Yii::app()->session['categoryBoardsImage']);
+
                     $transaction->commit();
 
                     Yii::app()->user->setFlash(
@@ -125,5 +153,20 @@ class CategoryBoardsController extends AdminController
                 'categoryModel' => $categoryModel,
             ]
         );
+    }
+
+    /**
+     * Загрузка иконки
+     */
+    public function actionUpload()
+    {
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+        $uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+        $result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+
+        Yii::app()->session['categoryBoardsImage'] = $result['filename'];
+
+        $this->respondJSON($result);
     }
 }

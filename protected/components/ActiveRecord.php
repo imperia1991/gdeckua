@@ -78,5 +78,29 @@ class ActiveRecord extends CActiveRecord
         }
     }
 
+
+    /**
+     * @param bool $all
+     * @return array|string
+     */
+    public function getIsDeletes($all = true)
+    {
+        if ($all) {
+            return [
+                0 => 'Активно',
+                1 => 'Не активно'
+            ];
+        } else {
+            switch ($this->is_deleted) {
+                case 0:
+                    return 'Активно';
+                case 1:
+                    return 'Не активно';
+                default:
+                    return 'Активно';
+            }
+        }
+    }
+
 }
 

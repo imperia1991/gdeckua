@@ -32,7 +32,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                 </div>
             </div>
 
-            <div class="row collapse">
+            <div id="itemsNews" class="row collapse">
                 <?php $this->renderPartial(
                     'partials/_news',
                     [
@@ -41,7 +41,19 @@ $this->renderPartial('/partials/_breadcrumbs');
                         'currentCategory' => $currentCategory,
                     ]
                 ) ?>
+
+                <?php $this->renderPartial(
+                    'partials/_rss',
+                    [
+                        'rss' => $rss,
+                    ]
+                ) ?>
             </div>
+
+            <?php $this->renderPartial('partials/_buttonAnotherView', [
+                'news' => $news,
+                'rss' => $rss,
+            ]); ?>
 
         </div>
 

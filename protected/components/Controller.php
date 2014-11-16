@@ -63,6 +63,11 @@ class Controller extends CController
     public $currentPage;
 
     /**
+     * @var
+     */
+    public $returnUrl;
+
+    /**
      * Declares class-based actions.
      */
     public function actions()
@@ -121,7 +126,7 @@ class Controller extends CController
             Yii::app()->user->id
         );
 
-        new JsTrans('main', Yii::app()->language, Yii::app()->language);
+//        new JsTrans('main', Yii::app()->language, Yii::app()->language);
 
         $this->feedback = new Feedback();
 
@@ -138,6 +143,8 @@ class Controller extends CController
         );
 
         $this->previewNews = News::model()->getPreviewNews();
+
+        $this->prepareReturnUrl();
     }
 
     /**
@@ -174,6 +181,23 @@ class Controller extends CController
     {
         if (Yii::app()->request->isAjaxRequest && null !== Yii::app()->getRequest()->getPost($param, null)) {
             $_GET[$param] = Yii::app()->request->getPost($param);
+        }
+    }
+
+    private function prepareReturnUrl()
+    {
+        if (!Yii::app()->getRequest()->isAjaxRequest) {
+            $pathInfo = Yii::app()->getRequest()->pathInfo;
+            $pathInfoArray = explode('/', $pathInfo);
+            if (isset($pathInfoArray[1])) {
+                if ('signin' != $pathInfoArray[1] && 'signup' != $pathInfoArray[1] && 'captcha' != $pathInfoArray[1]) {
+                    Yii::app()->session['returnUrl'] = !empty($pathInfo) ? '/' . $pathInfo : '/' . Yii::app()->getLanguage();
+                }
+            }
+        }
+
+        if (empty(Yii::app()->session['returnUrl'])) {
+            Yii::app()->session['returnUrl'] = '/' . Yii::app()->getLanguage();
         }
     }
 }

@@ -154,6 +154,9 @@ $mainConfig = [
         ],
         'easyImage' => [
             'class' => 'application.extensions.easyimage.EasyImage',
+            'retinaSupport' => true,
+            'quality' => 100,
+            'driver' => 'Imagick',
         ],
         'search' => [
             'class' => 'application.components.DGSphinxSearch',
@@ -196,6 +199,8 @@ $mainConfig = [
                 'photoBlog' => 'uploads/photos/photoBlog/',
                 'photoCity' => 'uploads/photos/photoCity/',
                 'photoPoster' => 'uploads/photos/photoPoster/',
+                'boards' => 'uploads/photos/boards/',
+                'boardIcons' => 'uploads/photos/boards/icons',
             ],
             'images' => [
                 'small' => [

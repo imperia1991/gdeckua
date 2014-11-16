@@ -208,6 +208,37 @@ ALTER TABLE places ADD category_id INT DEFAULT NULL ;
 #     ON DELETE SET NULL
 # )
 #   ENGINE =InnoDB;
+#
+# ALTER TABLE `category_boards`
+# ADD COLUMN `photo` VARCHAR(255) NOT NULL
+# AFTER `parent_id`;
+
+CREATE TABLE rss_content
+(
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  title_news VARCHAR(255),
+  url VARCHAR(255) NOT NULL,
+  add_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
+  is_deleted TINYINT DEFAULT 0,
+  rss_site_id INT NOT NULL,
+  FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
+);
+
+
+CREATE TABLE rss_content
+(
+  id INT PRIMARY KEY NOT NULL,
+  title_news VARCHAR(255) NOT NULL,
+  url VARCHAR(255) NOT NULL,
+  add_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
+  is_deleted TINYINT NOT NULL,
+  rss_site_id INT NOT NULL,
+  FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
+);
+
+
 
 ###################################################################################################
 

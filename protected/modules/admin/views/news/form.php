@@ -2,9 +2,7 @@
 /** @var News $newsModel */
 /** @var CategoryNews[] $categories */
 
-//Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
-
-//Yii::app()->clientScript->registerScriptFile('/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN);
+Yii::app()->clientScript->registerScriptFile('/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN);
 ?>
 
 <?php /** $var TbActiveForm $form */
@@ -65,6 +63,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
                                 if (responseJSON.success)
                                 {
                                     //alert("Фотографии добавлены на сервер")
+                                    $("#newsText").append("<p><img src=\"" + responseJSON.filePath  + "\" /></p>");
                                 }
                             }'
             ]
@@ -73,28 +72,38 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     ?>
 </div>
 <div class="row">
+    <?php echo $form->checkboxRow($newsModel, 'isWatemark', [
+            'id' => 'isWatermark'
+        ]); ?>
+</div>
+<div class="row">
     <?php echo $form->error($newsModel, 'text'); ?>
-
     <?php
-    $this->widget(
-        'ext.ckeditor.ECKEditor',
-        [
+    $this->widget('ext.tinymce.TinyMce', [
+            'id' => 'newsText',
             'model' => $newsModel,
             'attribute' => 'text',
-//            'editorTemplate' => 'advanced',
-//            'toolbar' => [
-//                ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'],
-//                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
-//                ['Outdent', 'Indent', '-', 'Blockquote'],
-//                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'],
-//                ['Link', 'Unlink', 'Anchor'],
-//
-//            ]
-//            'optionName' => 'optionValue',
-        ]
-    );
+            // Optional config
+            'compressorRoute' => '/admin/tinyMce/compressor',
+//									'spellcheckerUrl' => array('/admin/tinyMce/spellchecker'),
+            // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
+            'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
+            'fileManager' => [
+                'class' => 'ext.elFinder.TinyMceElFinder',
+                'connectorRoute'=>'/admin/elfinder/connector',
+//                'settings' => [
+//                    'selectMultiple' => true,
+//                ]
+            ],
+            'htmlOptions' => [
+                'rows' => 30,
+//										'cols' => 60,
+            ],
+            'settings' => [
+                'language' => 'ru'
+            ]
+        ]);
     ?>
-
 </div>
 <div class="row" style="margin-top: 30px;">
     <?php

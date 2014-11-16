@@ -87,7 +87,12 @@ class TinyMceElFinder extends TinyMceFileManager
             'title' => "Files",
         );
         $settings['editorCallback'] = 'js:function(url) {
-//                        aWin.document.forms[0].elements[aFieldName].value = url;
+//                       var urlsString = [];
+//                       for (var i = 0; i < url.length; i++) {
+//                         urlsString.push(url[i]);
+//                       }
+//                       urls = urlsString.join(",");
+//                        aWin.document.forms[0].elements[aFieldName].value = urls;
                         aWin.document.getElementById(aFieldName).value = url;
                         if (type == "image" && aFieldName=="src" && aWin.ImageDialog.showPreviewImage)
                             aWin.ImageDialog.showPreviewImage(url);
