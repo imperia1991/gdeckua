@@ -37,6 +37,7 @@ $this->renderPartial('/partials/_breadcrumbs');
                     'partials/_news',
                     [
                         'news' => $news,
+                        'rss' => $rss,
                         'categories' => $categories,
                         'currentCategory' => $currentCategory,
                     ]

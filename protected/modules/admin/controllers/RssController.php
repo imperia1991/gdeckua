@@ -130,6 +130,9 @@ class RssController extends AdminController
                     $transaction->rollback();
                 }
             } catch (Exception $e) {
+                echo '<pre>';
+                print_r($e->getMessage());
+                echo '</pre>';
                 Yii::app()->user->setFlash('error', 'Ошибка на сервере при добалении сайта. Попробуйте позже.');
 
                 $transaction->rollback();

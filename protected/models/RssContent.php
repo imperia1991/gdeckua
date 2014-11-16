@@ -116,6 +116,98 @@ class RssContent extends ActiveRecord
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ],
         ]);
     }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function getAll()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->compare('is_deleted', 0);
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['pageSizeNews'],
+                'pageVar' => 'page',
+            ],
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddAt()
+    {
+        return $this->add_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted()
+    {
+        return $this->is_deleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRssSite()
+    {
+        return $this->rssSite;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRssSiteId()
+    {
+        return $this->rss_site_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitleNews()
+    {
+        return $this->title_news;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+
 }

@@ -7,6 +7,7 @@
 </div>
 <div class="row">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/rss/create', 'label'=> 'Добавить сайт')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'url' => '/admin/rss/news', 'label'=> 'Новости с RSS')); ?>
 </div>
 <div class="row">
     <?php $this->widget(
@@ -17,8 +18,16 @@
             'emptyText' => 'Новости не найдены',
             'template' => '{pager}{summary}{items}{pager}',
             'filter' => $rssSitesModel,
+            'rowCssClassExpression' => '
+                ( $data->getIsRead() ? null : " error" )
+            ',
             'columns' => [
                 'title',
+                [
+                    'name' => 'site',
+                    'sortable' => false,
+                    'filter' => false,
+                ],
                 [
                     'name' => 'url',
                     'sortable' => false,
@@ -33,9 +42,20 @@
                     'value' => '$data->getIsDeletes(false)'
                 ],
                 [
+                    'name' => 'message',
+                    'sortable' => false,
+                    'filter' => false,
+                    'value' => function($data, $row) {
+                        /**@var RssSites $data */
+                        echo $data->getMessage();
+                    }
+                ],
+                [
                     'class' => 'bootstrap.widgets.TbButtonColumn',
                     'template' => '{update}{delete}',
-                    'htmlOptions' => array('style' => 'width: 50px'),
+                    'htmlOptions' => [
+                        'style' => 'width: 50px'
+                    ],
                 ],
             ],
             'pager' => [

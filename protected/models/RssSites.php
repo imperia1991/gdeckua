@@ -6,10 +6,13 @@
  * The followings are the available columns in table 'rss_sites':
  * @property integer $id
  * @property string $url
+ * @property string $site
  * @property string $created_at
  * @property integer $is_deleted
  * @property string $title
  * @property string $alias
+ * @property string $message
+ * @property integer $is_read
  * The followings are the available model relations:
  * @property RssContent[] $rssContents
  */
@@ -44,10 +47,11 @@ class RssSites extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['url, created_at, title, alias', 'required'],
+            ['url, site, created_at, title, alias', 'required'],
             ['is_deleted', 'numerical', 'integerOnly' => true],
-            ['url', 'length', 'max' => 255],
-            ['url', 'url', 'defaultScheme' => 'http', 'allowEmpty' => false, 'validateIDN' => true, 'message' => Yii::t('main', 'Значение не является правильным URL-адресом сайта')],
+            ['site, url', 'length', 'max' => 255],
+            ['site, url', 'url', 'defaultScheme' => 'http', 'allowEmpty' => false, 'validateIDN' => true, 'message' => Yii::t('main', 'Значение не является правильным URL-адресом сайта')],
+            ['message, is_read', 'safe'],
             // The following rule is used by search().
             ['id, url, created_at, is_deleted', 'safe', 'on' => 'search'],
         ];
@@ -73,9 +77,11 @@ class RssSites extends ActiveRecord
         return [
             'id'         => '№',
             'url'        => Yii::t('main', 'Адрес Rss сайта'),
+            'site'        => Yii::t('main', 'URL новостного сайта'),
             'created_at' => Yii::t('main', 'Дата добавления'),
             'is_deleted' => Yii::t('main', 'Отключить'),
-            'title' => Yii::t('main', 'Название'),
+            'title' => Yii::t('main', 'Название сайта'),
+            'message' => Yii::t('main', 'Сообщение'),
         ];
     }
 
@@ -110,6 +116,102 @@ class RssSites extends ActiveRecord
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 'created_at DESC',
+            ],
+            'pagination' => [
+                'pageSize' => Yii::app()->params['admin']['pageSize'],
+            ],
         ]);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted()
+    {
+        return $this->is_deleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsRead()
+    {
+        return $this->is_read;
+    }
+
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @param mixed $is_read
+     */
+    public function setIsRead($is_read)
+    {
+        $this->is_read = $is_read;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param mixed $site
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+    }
+
+
 }

@@ -5,7 +5,9 @@
 <div class="row">
     <h4>Список новостей из Rss сайтов</h4>
 </div>
-
+<div class="row">
+    <?php $this->widget('bootstrap.widgets.TbButton', ['buttonType'=>'link', 'url' => '/admin/rss', 'label'=> 'Rss Сайты']); ?>
+</div>
 <div class="row">
     <?php $this->widget(
         'bootstrap.widgets.TbGridView',
@@ -17,10 +19,14 @@
             'filter' => $rssContentModel,
             'columns' => [
                 'id',
-                'title_news',
                 [
-                    'name' => 'url',
-                    'sortable' => false,
+                    'name' => 'title_news',
+                    'value' => function ($data, $row) {
+                        echo $data->getTitleNews();
+                    },
+                ],
+                [
+                    'name' => 'rssSite.title',
                 ],
                 [
                     'name' => 'created_at',
@@ -34,7 +40,9 @@
                 [
                     'class' => 'bootstrap.widgets.TbButtonColumn',
                     'template' => '{update}{delete}',
-                    'htmlOptions' => array('style' => 'width: 50px'),
+                    'htmlOptions' => [
+                        'style' => 'width: 50px'
+                    ],
                 ],
             ],
             'pager' => [

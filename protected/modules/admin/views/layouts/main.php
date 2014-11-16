@@ -8,6 +8,7 @@
     <?php Yii::app()->getModule('admin')->bootstrap->register(); ?>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <link rel="stylesheet" href="/css/admin.css" />
     <script type="text/javascript" src="/js/admin/news.js"></script>
     <base href="<?php echo Yii::app()->baseUrl; ?>"/>
 </head>

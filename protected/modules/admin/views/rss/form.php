@@ -18,6 +18,7 @@
 
     <?php echo $form->textFieldRow($rssSitesModel, 'url', array('style' => 'margin-bottom:0')); ?>
     <?php echo $form->textFieldRow($rssSitesModel, 'title', array('style' => 'margin-bottom:0')); ?>
+    <?php echo $form->textFieldRow($rssSitesModel, 'site', array('style' => 'margin-bottom:0')); ?>
     <?php echo $form->checkboxRow($rssSitesModel, 'is_deleted', ['style' => 'margin-bottom:0']); ?>
     <br/><br/>
     <?php $this->widget(
