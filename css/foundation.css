@@ -138,7 +138,9 @@ select {
         display: table; }
       .row .row.collapse:after {
         clear: both; }
-
+.large-12.columns.news-accordion ul.tabs, .llarge-12.columns.news-accordion ul.tabs {
+	
+}
 .column,
 .columns {
   padding-left: 0.9375rem;
@@ -865,6 +867,10 @@ select {
 
   .large-2 {
     width: 16.66667%; }
+    
+      .llarge-2 {
+    width: 25.66667%; }
+
 
   .large-3 {
     width: 25%; }
@@ -889,12 +895,17 @@ select {
 
   .large-10 {
     width: 83.33333%; }
+    
+     .llarge-10 {
+    width: 74.33333%; }
 
   .large-11 {
     width: 91.66667%; }
 
   .large-12 {
     width: 100%; }
+    .llarge-12 {
+    width: 33%; }
 
   .large-offset-0 {
     margin-left: 0% !important; }
@@ -1295,7 +1306,7 @@ meta.foundation-mq-topbar {
         padding: 0 15px; }
   .top-bar .toggle-topbar {
     position: absolute;
-    right: 0;
+    left:0;
     top: 0; }
     .top-bar .toggle-topbar a {
       color: white;
@@ -2174,9 +2185,7 @@ meta.foundation-mq-topbar {
   overflow: hidden;
   width: 100%;
   position: relative;
-  background: none;
-    height: 452px;
-}
+  background: none; }
   .orbit-container .orbit-slides-container {
     list-style: none;
     margin: 0;
@@ -2890,7 +2899,12 @@ blockquote p {
     display: inherit !important; } }
 .tabs {
   margin-bottom: 0 !important;
-  margin-left: 0; }
+  margin-left: 0; 
+  
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.35);
+-moz-box-shadow:    0px 0px 2px 1px rgba(0, 0, 0, 0.35);
+box-shadow:         0px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  }
   .tabs:before, .tabs:after {
     content: " ";
     display: table; }
@@ -2936,11 +2950,11 @@ blockquote p {
   .tabs-content > .content {
     display: none;
     float: left;
-    padding: 0.9375rem 0;
+    padding: 3p 0;
     width: 100%; }
     .tabs-content > .content.active {
       display: block;
-      float: none; }
+      float: left; }
     .tabs-content > .content.contained {
       padding: 0.9375rem; }
   .tabs-content.vertical {
@@ -3181,7 +3195,7 @@ ul.pagination {
   top: 0;
   left: 0; }
 
-dialog, .reveal-modal {
+.dialog, .reveal-modal {
   visibility: hidden;
   display: none;
   position: absolute;
