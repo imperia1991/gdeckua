@@ -16,6 +16,6 @@
     </div>
 
     <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="http://trikita.su/fonar-shoker/?utm_source=gde.ck.ua&utm_medium=banner&utm_campaign=100" target="_blank" style="display: block"><img src="/img/b/fonar-246x104.gif" alt="Фонарь-элетрошокер"></a></div>
+        <div class="reklama-box"><a href="http://trikita.su/fonar-shoker/?utm_source=gde.ck.ua&utm_medium=banner&utm_campaign=100" target="_blank" style="display: block"><img src="/img/b/fonar-shoker2.jpg" alt="Фонарь-элетрошокер"></a></div>
     </div>
 </div>
