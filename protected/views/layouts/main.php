@@ -109,6 +109,7 @@
     </header>
 
     <!-- REKLAMA -->
+    <?php $this->renderPartial('/partials/_rss'); ?>
     <div class="row collapse">
         <?php $this->renderPartial('/partials/_ads'); ?>
     </div>
