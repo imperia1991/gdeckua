@@ -29,6 +29,10 @@
                     'name' => 'rssSite.title',
                 ],
                 [
+                    'name' => 'add_at',
+                    'filter' => false,
+                ],
+                [
                     'name' => 'created_at',
                     'filter' => false,
                 ],

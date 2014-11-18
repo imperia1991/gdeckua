@@ -27,17 +27,10 @@ class RssCommand extends CConsoleCommand
     {
         $successSites = [];
         foreach ($rssSites as $rssSite) {
-            /**@var SimplePie $feed */
-            $feed = Yii::app()->simplepie->config([
-                'set_feed_url'       => $rssSite->url,
-                'enable_cache'       => false,
-                'set_cache_location' => Yii::app()->runtimePath . DIRECTORY_SEPARATOR . 'cache',
-                'set_cache_duration' => 30 * 24 * 3600,
-            ])
-                ->parse();
+            $feeds = $this->getFeeds($rssSite->getUrl());
 
-            if (is_object($feed)) {
-                $this->add($feed, $rssSite);
+            if ($feeds) {
+                $this->add($feeds, $rssSite);
 
                 $successSites[$rssSite->getId()] = $rssSite;
             }
@@ -46,34 +39,58 @@ class RssCommand extends CConsoleCommand
         $this->saveMessages($rssSites, $successSites);
     }
 
+    private function getAllNews()
+    {
+        /** @var CDbCommand $command */
+        $command = Yii::app()->db->createCommand();
+        $fetch = $command->select('url')
+            ->from('rss_content')
+            ->queryAll();
+
+        $result = [];
+        foreach ($fetch as $item) {
+            $result[$item['url']] = $item['url'];
+        }
+
+        return $result;
+    }
+
+    private function getFeeds($feedUrl)
+    {
+        $rawFeed = file_get_contents($feedUrl);
+
+        // give an XML object to be iterate
+        $xml = new SimpleXMLElement($rawFeed);
+
+        return isset($xml->channel->item) ? $xml->channel->item : false;
+    }
 
     /**
-     * @param $feed
+     * @param SimpleXMLElement[] $feeds
      * @param RssSites $rssSite
      *
      * @throws CDbException
      */
-    private function add($feed, $rssSite)
+    private function add($feeds, $rssSite)
     {
-        foreach ($feed->items as $item) {
+        foreach ($feeds as $item) {
+            if (RssContent::model()->exists('url=:url', ['url' => $item->link])) {
+                continue;
+            }
+
             $pubDate = time();
-            if (isset($item['date'])) {
-                $pubDate = $item['date'];
-            } elseif (isset($item['pubDate'])) {
-                $pubDate = $item['pubDate'];
+            if (isset($item->date)) {
+                $pubDate = $item->date;
+            } elseif (isset($item->pubDate)) {
+                $pubDate = $item->pubDate;
             }
 
             try {
-                $titleNews = $item['title'];
-                if (mb_detect_encoding($titleNews) != 'UTF-8') {
-                    $titleNews = html_entity_decode(str_replace('&amp;', '&', $item['title']), ENT_QUOTES, 'UTF-8');
-                }
-
                 /** @var CDbCommand $command */
                 $command = Yii::app()->db->createCommand();
                 $command->insert('rss_content', [
-                    'title_news'  => $titleNews,
-                    'url'         => $item['link'],
+                    'title_news'  => $item->title,
+                    'url'         => $item->link,
                     'add_at'      => Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', strtotime($pubDate)),
                     'rss_site_id' => $rssSite->id,
                     'created_at'  => Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time()),
@@ -85,7 +102,6 @@ class RssCommand extends CConsoleCommand
         }
 
     }
-
 
     /**
      * @param RssSites[] $rssSites

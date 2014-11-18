@@ -18,9 +18,9 @@
             'emptyText' => 'Новости не найдены',
             'template' => '{pager}{summary}{items}{pager}',
             'filter' => $rssSitesModel,
-            'rowCssClassExpression' => '
-                ( $data->getIsRead() ? null : " error" )
-            ',
+//            'rowCssClassExpression' => '
+//                ( $data->getIsRead() ? null : " error" )
+//            ',
             'columns' => [
                 'title',
                 [
