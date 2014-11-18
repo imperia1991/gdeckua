@@ -139,7 +139,7 @@ class RssContent extends ActiveRecord
                 'defaultOrder' => 'add_at DESC',
             ],
             'pagination' => [
-                'pageSize' => Yii::app()->params['pageSizeNews'] + 2,
+                'pageSize' => Yii::app()->params['pageSizeNews'] + 8,
                 'pageVar' => 'page',
             ],
         ]);
