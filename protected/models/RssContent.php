@@ -76,7 +76,7 @@ class RssContent extends ActiveRecord
             'title_news'       => Yii::t('main', 'Заголовок новости'),
             'url'         => Yii::t('main', 'Адрес сайта'),
             'add_at'      => Yii::t('main', 'Дата создания новости'),
-            'created_at'  => Yii::t('main', 'Дата добавления новости'),
+            'created_at'  => Yii::t('main', 'Дата добавления новости на сайт'),
             'is_deleted'  => Yii::t('main', 'Не показывать'),
             'rss_site_id' => Yii::t('main', 'Сайт'),
         ];
