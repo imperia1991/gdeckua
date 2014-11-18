@@ -108,8 +108,13 @@
         </div>
     </header>
 
+    <?php
+        if ($this->currentPageType != PageTypes::PAGE_NEWS) {
+            $this->renderPartial('/partials/_rss');
+        }
+    ?>
+
     <!-- REKLAMA -->
-    <?php $this->renderPartial('/partials/_rss'); ?>
     <div class="row collapse">
         <?php $this->renderPartial('/partials/_ads'); ?>
     </div>
