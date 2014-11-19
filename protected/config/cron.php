@@ -19,8 +19,8 @@ $cronConfig =  [
         'db'  => [
             'connectionString' => 'mysql:host=localhost;dbname=gdeckua',
             'emulatePrepare'   => true,
-            'username'         => 'root',
-            'password'         => '123456',
+            'username'         => 'gdeckua',
+            'password'         => 'gdeckua2014',
             'charset'          => 'utf8',
         ],
         'log' => [

@@ -1,6 +1,7 @@
 /assets
 /protected/runtime
 /protected/config/local.php
+/protected/config/cron_local.php
 /framework
 /.idea
 /uploads
