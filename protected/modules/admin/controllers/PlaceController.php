@@ -198,7 +198,7 @@ class PlaceController extends AdminController
     {
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('Places', []);
-            $postCategoryIds = $post['category_id'];
+            $postCategoryIds = isset($post['category_id']) ? $post['category_id'] : [];
             $postPlacetags = Yii::app()->request->getPost('PlaceTags', []);
             $postPhotos = Yii::app()->request->getPost('Photos', []);
             $postContacts = Yii::app()->request->getPost('Contacts', []);
