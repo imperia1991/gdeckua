@@ -119,7 +119,7 @@ class Places extends ActiveRecord
             ['is_deleted', 'numerical', 'integerOnly' => true],
             ['title_ru, title_uk, alias', 'length', 'max' => 255],
             [
-                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search, how_to_get_ru, how_to_get_uk, short_description_ru, short_description_uk',
+                'user_id, updated_at, country_id, region_id, city_id, description_ru, description_uk, district_id, search, how_to_get_ru, how_to_get_uk, short_description_ru, short_description_uk, category_id',
                 'safe'
             ],
             ['verifyCode', 'captcha', 'on' => self::SCENARIO_RU . ', ' . self::SCENARIO_UK],

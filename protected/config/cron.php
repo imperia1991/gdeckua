@@ -1,8 +1,8 @@
 <?php
-
+$localConfig = file_exists(dirname(__FILE__) . '/cron_local.php') ? require_once(dirname(__FILE__) . '/cron_local.php') : [];
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
-return [
+$cronConfig =  [
     'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name'       => 'Cron',
 
@@ -43,3 +43,5 @@ return [
         ]
     ],
 ];
+
+return is_array($localConfig) ? CMap::mergeArray($cronConfig, $localConfig) : $cronConfig;
