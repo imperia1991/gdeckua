@@ -200,7 +200,7 @@ class NewsController extends AdminController
 
         unset($image);
 
-        $result['filePath'] = '/' . $directory . $result['filename'];
+        $result['filePath'] = '/' . $direc/tory . $result['filename'];
 
         $this->respondJSON($result);
     }

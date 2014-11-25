@@ -213,60 +213,60 @@ ALTER TABLE places ADD category_id INT DEFAULT NULL ;
 # ADD COLUMN `photo` VARCHAR(255) NOT NULL
 # AFTER `parent_id`;
 
-CREATE TABLE rss_content
-(
-  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  title_news VARCHAR(255),
-  url VARCHAR(255) NOT NULL,
-  add_at DATETIME NOT NULL,
-  created_at DATETIME NOT NULL,
-  is_deleted TINYINT DEFAULT 0,
-  rss_site_id INT NOT NULL,
-  FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
-);
-
-
-CREATE TABLE rss_content
-(
-  id INT PRIMARY KEY NOT NULL,
-  title_news VARCHAR(255) NOT NULL,
-  url VARCHAR(255) NOT NULL,
-  add_at DATETIME NOT NULL,
-  created_at DATETIME NOT NULL,
-  is_deleted TINYINT NOT NULL,
-  rss_site_id INT NOT NULL,
-  FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
-);
+# CREATE TABLE rss_content
+# (
+#   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+#   title_news VARCHAR(255),
+#   url VARCHAR(255) NOT NULL,
+#   add_at DATETIME NOT NULL,
+#   created_at DATETIME NOT NULL,
+#   is_deleted TINYINT DEFAULT 0,
+#   rss_site_id INT NOT NULL,
+#   FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
+# );
+#
+#
+# CREATE TABLE rss_content
+# (
+#   id INT PRIMARY KEY NOT NULL,
+#   title_news VARCHAR(255) NOT NULL,
+#   url VARCHAR(255) NOT NULL,
+#   add_at DATETIME NOT NULL,
+#   created_at DATETIME NOT NULL,
+#   is_deleted TINYINT NOT NULL,
+#   rss_site_id INT NOT NULL,
+#   FOREIGN KEY (rss_site_id) REFERENCES rss_sites (id)
+# );
 
 
 
 ###################################################################################################
 
-CREATE TABLE `banners` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `photo` VARCHAR(255) NULL DEFAULT NULL,
-  `created_at` DATETIME NOT NULL,
-  `is_showing` TINYINT(1) NOT NULL DEFAULT '1',
-  `is_right_column` TINYINT(1) NOT NULL DEFAULT '0',
-  `counter` INT(11) NOT NULL,
-  `orderby` INT(11) NOT NULL,
-  PRIMARY KEY (`id`)
-)
-  COLLATE='utf8_general_ci'
-  ENGINE=InnoDB;
-
-CREATE TABLE `banners_categories` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `place_category_id` INT(11) NULL DEFAULT NULL,
-  `banner_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `place_category_id_banner_id` (`place_category_id`, `banner_id`),
-  INDEX `FK2_banner_banner` (`banner_id`),
-  CONSTRAINT `FK1_category_banner` FOREIGN KEY (`place_category_id`) REFERENCES `categories` (`id`) ON UPDATE SET NULL ON DELETE SET NULL,
-  CONSTRAINT `FK2_banner_banner` FOREIGN KEY (`banner_id`) REFERENCES `banners` (`id`) ON UPDATE SET NULL ON DELETE SET NULL
-)
-  ENGINE=InnoDB;
+# CREATE TABLE `banners` (
+#   `id` INT(11) NOT NULL AUTO_INCREMENT,
+#   `title` VARCHAR(255) NOT NULL,
+#   `photo` VARCHAR(255) NULL DEFAULT NULL,
+#   `created_at` DATETIME NOT NULL,
+#   `is_showing` TINYINT(1) NOT NULL DEFAULT '1',
+#   `is_right_column` TINYINT(1) NOT NULL DEFAULT '0',
+#   `counter` INT(11) NOT NULL,
+#   `orderby` INT(11) NOT NULL,
+#   PRIMARY KEY (`id`)
+# )
+#   COLLATE='utf8_general_ci'
+#   ENGINE=InnoDB;
+#
+# CREATE TABLE `banners_categories` (
+#   `id` INT(11) NOT NULL AUTO_INCREMENT,
+#   `place_category_id` INT(11) NULL DEFAULT NULL,
+#   `banner_id` INT(11) NULL DEFAULT NULL,
+#   PRIMARY KEY (`id`),
+#   UNIQUE INDEX `place_category_id_banner_id` (`place_category_id`, `banner_id`),
+#   INDEX `FK2_banner_banner` (`banner_id`),
+#   CONSTRAINT `FK1_category_banner` FOREIGN KEY (`place_category_id`) REFERENCES `categories` (`id`) ON UPDATE SET NULL ON DELETE SET NULL,
+#   CONSTRAINT `FK2_banner_banner` FOREIGN KEY (`banner_id`) REFERENCES `banners` (`id`) ON UPDATE SET NULL ON DELETE SET NULL
+# )
+#   ENGINE=InnoDB;
 
 
 CREATE TABLE comments_photo_city (

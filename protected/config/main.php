@@ -46,7 +46,12 @@ $mainConfig = [
             ],
         ],
         'boards' => [
-
+            'preload' => ['bootstrap'],
+            'components' => [
+                'bootstrap' => [
+                    'class' => 'bootstrap.components.Bootstrap',
+                ],
+            ],
         ]
     ],
     // application components
@@ -78,10 +83,10 @@ $mainConfig = [
             'showScriptName' => false,
             'urlFormat' => 'path',
             'rules' => [
-                '<module:(admin)>' => '<module>/default/index',
+                '<module:(admin|board)>' => '<module>/default/index',
                 '<module:(admin)>/sitemap.xml' => '<module>/sitemap/index',
-                '<module:(admin)>/<controller:\w+>' => '<module>/<controller>/index',
-                '<module:(admin)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<module:(admin|board)>/<controller:\w+>' => '<module>/<controller>/index',
+                '<module:(admin|board)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<language:(ru|uk)>/' => 'site/index',
                 '<language:(ru|uk)>/page/<page:\d+>' => 'site/index',
                 '<language:(ru|uk)>/view/<id:\d+>/<alias>' => 'site/view',
@@ -192,7 +197,7 @@ $mainConfig = [
             'pageSize' => 30,
             'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
             'files' => [
-                'banners' => 'uploads/banners/',
+                'banners' => 'uploads/b/',
                 'images' => 'uploads/images/',
                 'tmp' => 'uploads/tmp/',
                 'news' => 'uploads/photos/news/',
