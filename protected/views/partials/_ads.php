@@ -16,6 +16,6 @@
     </div>
 
     <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="http://trikita.su/fonar-shoker/?utm_source=gde.ck.ua&utm_medium=banner&utm_campaign=100" target="_blank" style="display: block"><img src="/img/b/fonar-shoker2.jpg" alt="Фонарь-электрошокер"></a></div>
+        <div class="reklama-box"><a href="http://www.frahts.com" target="_blank"><img src="/img/b/frahts_com.png" alt="Фрахты - Мир грузоперевозок"></a></div>
     </div>
 </div>
