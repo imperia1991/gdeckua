@@ -8,7 +8,7 @@ Yii::setPathOfAlias('bootstrap', realpath(__DIR__ . '/../extensions/bootstrap'))
 $mainConfig = [
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Где в Черкассах?',
+    'name' => 'Где в Черкассах',
     //Язык по умолчанию
 //    'sourceLanguage' => 'ru',
 //    'language' => 'ru',
