@@ -7,24 +7,22 @@
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>" />
 	<meta name="description" content="<?php echo Yii::t('main', 'Где в Черкассах? Поиск в городе организаций, зданий, объектов, городской фотогид') ?>" />
     <meta name='yandex-verification' content='72cc09e6d8e79d9c' />
-    <link rel="stylesheet" href="/css/foundation.css" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/mobile.css" />
-    <link rel="stylesheet" href="/css/scroll.css" />
-    <link rel="stylesheet" href="/css/jquery.searchselect.css">
-    <link rel="stylesheet" href="/css/colorbox.css">
-    <link href="/css/jquery.jgrowl.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/css/new/normalize.css">
+    <link rel="stylesheet" href="/css/new/colorbox.css">
+    <link rel="stylesheet" href="/css/new/jquery.bxslider.css">
+    <link rel="stylesheet" href="/css/new/style.css">
     <link href="/css/pace.css" rel="stylesheet">
-    <link href="/css/auth.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-<!--    <script src="/js/vendor/modernizr.js"></script>-->
-    <script src="/js/jquery.slimscroll.min.js"></script>
-    <script src="/js/jquery.searchselect.min.js"></script>
-    <script src="/js/jquery.colorbox-min.js"></script>
-    <script src="/js/jquery.simplemodal.1.4.4.min.js"></script>
+    <script src="js/jquery.bxslider.js"></script>
+    <script src="js/jquery.colorbox-min.js"></script>
+    <script src="js/jquery.freetile.js"></script>
     <script src="/js/pace.min.js"></script>
+    <script src="js/script.js"></script>
     <script type="text/javascript" src="/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="/js/feedback.js"></script>
     <script type="text/javascript" src="/js/auth.js"></script>
@@ -40,7 +38,7 @@
 <!---->
 <!--    </script>-->
 
-    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/img/favicon.png" />
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.png" />
     <base href="<?php echo Yii::app()->baseUrl; ?>">
 </head>
 
@@ -99,7 +97,9 @@
         <div class="row search-panel">
             <div class="large-3 medium-3 columns">
                 <?php $logo = 'logo_' . Yii::app()->getLanguage(); ?>
-                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><img src="/img/<?php echo $logo; ?>.png"></a>
+                <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">
+                    <img src="/img/<?php echo $logo; ?>.png">
+                </a>
                 <p><?php echo Yii::t('main', 'Уже {n} объект|Уже {n} объекта|Уже {n} объектов', [(int)(Yii::app()->session['totalItemCount'] * 1.8)]); ?></p>
             </div>
             <div class="large-9 medium-9 columns">

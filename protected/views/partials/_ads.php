@@ -1,21 +1,12 @@
-<div class="row collapse reklama-section">
-    <div class="large-12 show-for-small columns">
-
-    </div>
-
-    <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="http://www.tinna.com.ua" target="_blank" style="display: block"><img src="/img/b/tinna_com_ua.png" alt="Профессиональный Свадебный фотограф Tinna Tihonenko"></a></div>
-    </div>
-
-    <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="http://www.vechirka.net" target="_blank" style="display: block"><img src="/img/b/www_vechirka_net.png" alt="Сучасний міський портал Черкас"></a></div>
-    </div>
-
-    <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="javascript:void(0)" style="display: block"><img src="/img/b/bus_rek.jpg" alt="Реклама"></a></div>
-    </div>
-
-    <div class="large-3 medium-3 small-6 columns">
-        <div class="reklama-box"><a href="http://trikita.su/fonar-shoker/?utm_source=gde.ck.ua&utm_medium=banner&utm_campaign=100" target="_blank" style="display: block"><img src="/img/b/fonar-246x104.gif" alt="Фонарь-электрошокер"></a></div>
-    </div>
-</div>
+<a href="http://www.tinna.com.ua" target="_blank" class="advertise_item">
+    <img src="/images/b/tinna_com_ua_l.png" alt="Профессиональный Свадебный фотограф Tinna Tihonenko">
+</a>
+<a href="http://www.vechirka.net" target="_blank" class="advertise_item">
+    <img src="/images/b/www_vechirka_net_l.png" alt="Сучасний міський портал Черкас">
+</a>
+<a href="javascript:void(0)" class="advertise_item">
+    <img src="/images/b/empty_l.png" alt="Реклама">
+</a>
+<a href="http://www.frahts.com" target="_blank" class="advertise_item">
+    <img src="/images/b/frahts_com_l.png" alt="Фрахты - Мир грузоперевозок">
+</a>

@@ -9,29 +9,34 @@ $form = $this->beginWidget('CActiveForm', [
     ]);
 ?>
 
-<div class="row collapse search">
-    <div class="large-7 medium-8 small-5 columns">
-        <?php
-        echo $form->textField($model, 'search', [
-                'name' => 'search',
-                'placeholder' => Yii::t('main', 'Введите, что ищете') . '...',
-            ]);
-        ?>
-    </div>
-    <div class="large-4 medium-3 small-6 columns styled-select">
-        <?php
-        echo CHtml::dropDownList('districts', $model->district_id, $this->districts, ['empty' => Yii::t('main', 'Весь город') . '...', 'class' => 'select-inner']);
-        ?>
-    </div>
-    <div class="large-1 medium-1 small-2 columns">
-        <?php echo CHtml::submitButton(Yii::t('main', 'найти'), ['name' => '', 'class' => 'button postfix']); ?>
-    </div>
-</div>
-<?php $this->endWidget(); ?>
-
 <?php if ($this->checkedString): ?>
 <div class="large-12 columns maybe">
     <p><?php echo Yii::t('main', 'Возможно вы имели ввиду'); ?>: <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?search=' . urlencode($this->checkedString) . '&districts=' . $this->selectDistrict) ?>"><?php echo $this->checkedString; ?>?</a></p>
 </div>
 <?php endif; ?>
 
+<div class="search_block">
+    <?php
+    echo $form->textField($model, 'search', [
+        'name' => 'search',
+        'placeholder' => Yii::t('main', 'Введите, что ищете') . '...',
+        'class' => 'search_input'
+    ]);
+    ?>
+    <div class="search_select">
+        <div class="select">
+            <a href="javascript:void(0);" class="slct"><?php echo Yii::t('main', 'Весь город'); ?>...</a>
+            <ul class="drop">
+                <?php /**@var Districts $district */ ?>
+                <?php $title = 'title_' . Yii::app()->getLanguage(); ?>
+                <?php foreach ($this->districts as $district): ?>
+                    <li><a href="#"><?php echo $district; ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+            <input type="hidden"  />
+        </div>
+    </div>
+    <input type="submit" class="search_submit" value="">
+</div>
+
+<?php $this->endWidget(); ?>

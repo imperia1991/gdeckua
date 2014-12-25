@@ -11,6 +11,8 @@ class PosterController extends Controller
      */
     public function init()
     {
+        $this->currentPageType = PageTypes::PAGE_POSTERS;
+
         parent::init();
 
         Yii::import('application.extensions.LocoTranslitFilter');

@@ -416,6 +416,8 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+        $this->currentPageType = PageTypes::PAGE_ABOUT;
+
         $settingsModel = Settings::model()->find();
 
         $this->render(

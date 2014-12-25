@@ -11,6 +11,8 @@ class PhotoController extends Controller
      */
     public function init()
     {
+        $this->currentPageType = PageTypes::PAGE_PHOTO_CITY;
+
         parent::init();
 
         Yii::import('application.extensions.LocoTranslitFilter');

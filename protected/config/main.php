@@ -69,7 +69,7 @@ $mainConfig = [
         'clientScript' => [
             'packages' => [
                 'jquery' => [
-                    'baseUrl' => '/js',
+                    'baseUrl' => '/js/new',
                     'js' => ['jquery-1.11.1.min.js']
                 ],
 //                'jquery.ui' => array(
