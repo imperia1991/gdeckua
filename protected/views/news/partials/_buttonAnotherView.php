@@ -3,7 +3,7 @@
     <div id="showNews" class="row collapse">
         <div class="show-other-news">
             <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
-            <a id="showMore" href="javascript:void(0);"><?php echo Yii::t('main', 'Показать другие новости'); ?></a>
+            <a id="showMore" href="javascript:void(0);" class="more_news button"><?php echo Yii::t('main', 'Показать другие новости'); ?></a>
         </div>
     </div>
     <script type="text/javascript">

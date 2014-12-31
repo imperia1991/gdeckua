@@ -46,7 +46,7 @@
     <!---->
     <!--    </script>-->
 
-    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>//images/favicon.png"/>
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.png"/>
     <base href="<?php echo Yii::app()->baseUrl; ?>">
 </head>
 <body>
@@ -120,7 +120,7 @@
                 <div class="advertise_title">
                     <a href="javascript:void(0);"><?php echo Yii::t('main', 'реклама'); ?></a>
                 </div>
-                <?php $this->renderPartial('/partials/_ads'); ?>
+                <?php $this->renderPartial('/partials/_adsLeft'); ?>
             </div>
         </div>
     </div>
@@ -134,268 +134,24 @@
             <?php $this->renderPartial('/partials/_search', []); ?>
         </header>
         <div class="content_advertise">
-                <span class="content_advertise_wrap">
-                    <a href="#" class="content_advertise_item"><img src="/images/data/contentban1.jpg" alt=""></a>
-                    <a href="#" class="content_advertise_item"><img src="/images/data/contentban2.jpg" alt=""></a>
-                </span>
-                <span class="content_advertise_wrap">
-                    <a href="#" class="content_advertise_item"><img src="/images/data/contentban3.jpg" alt=""></a>
-                    <a href="#" class="content_advertise_item"><img src="/images/data/contentban4.jpg" alt=""></a>
-                </span>
+            <?php $this->renderPartial('/partials/_adsTop'); ?>
         </div>
         <nav class="clearfix">
-            <ul class="breadcrumbs">
-                <li><a href="#">Главная</a></li>
-            </ul>
-            <div class="nav_date">24 ноября, 2014</div>
+            <?php $this->renderPartial('/partials/_breadcrumbs'); ?>
+
+            <div class="nav_date">
+                <?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', time()); ?>
+            </div>
         </nav>
-        <div class="page_content">
-            <div class="block_with_map clearfix">
-                <div class="block_with_map_left">
 
-                    <script type="text/javascript"
-                            charset="utf-8"
-                            src="http://api-maps.yandex.ru/services/constructor/1.0/js/?sid=VmG6h2HaO5j43R7K8XnnTXBcsmrwH9MU"></script>
+        <?php echo $content; ?>
 
-                </div>
-                <div class="block_with_map_left_right">
-                    <div class="cathegories">
-                        <a href="#" class="cathegories_item active">Объекты</a>
-                        <a href="#" class="cathegories_item">Акции</a>
-                        <a href="#" class="cathegories_item">Афиша</a>
-                        <a href="#" class="cathegories_item">Кино</a>
-                    </div>
-                    <div class="objects clearfix">
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/1-1.png" class="colorbox"><img src="/images/data/1-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Черкасский государственный технологический университет
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/2-1.png" class="colorbox"><img src="/images/data/2-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Черкасский национальный институ имени Тараса Григорьевича Шевченко
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/1-1.png" class="colorbox"><img src="/images/data/1-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Черкасская областная государственная администрация
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/2-1.png" class="colorbox"><img src="/images/data/2-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Аптека
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/1-1.png" class="colorbox"><img src="/images/data/1-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Департамент соціальної політики та молоді і ще і спорту України
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="object_item">
-                            <div class="object_item_block">
-                                <div class="object_item_photo">
-                                    <a href="/images/data/2-1.png" class="colorbox"><img src="/images/data/2-1.png"
-                                                                                        alt=""></a>
-                                </div>
-                                <a href="#">
-                                    <div class="object_item_bottom">
-                                        <div class="object_item_title">
-                                            Ночной клуб Миллениум
-                                        </div>
-                                        <div class="object_more">розширений перегляд</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="home_news">
-                <div class="title"><a href="#">НОВОСТИ</a></div>
-                <ul class="home_news_list clearfix">
-                    <li class="home_news_item">
-                        <a href="#">
-                            <div class="home_news_item_text">
-                                Sinoptik: Погода в Черкасах та Черкаській області на вівторо 25 листопада
-                            </div>
-                            <div class="home_news_item_date">
-                                23 листопада 14:54
-                            </div>
-                        </a>
-                    </li>
-                    <li class="home_news_item">
-                        <a href="#">
-                            <div class="home_news_item_text">
-                                Украинцы на референдуме примут решение, вступать ли государству в НАТО или нет
-                            </div>
-                            <div class="home_news_item_date">
-                                23 листопада 14:54
-                            </div>
-                        </a>
-                    </li>
-                    <li class="home_news_item">
-                        <a href="#">
-                            <div class="home_news_item_text">
-                                Украинцы на референдуме примут решение, вступать ли государству в НАТО или нет
-                            </div>
-                            <div class="home_news_item_date">
-                                23 листопада 14:54
-                            </div>
-                        </a>
-                    </li>
-                    <li class="home_news_item">
-                        <a href="#">
-                            <div class="home_news_item_text">
-                                Sinoptik: Погода в Черкасах та Черкаській області на вівторо 25 листопада
-                            </div>
-                            <div class="home_news_item_date">
-                                23 листопада 14:54
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="photos">
-                <div class="title"><a href="#">ФОТО ГОРОДА</a></div>
-                <ul class="photos_list clearfix">
-                    <li class="photos_item">
-                        <div class="photos_item_wrap">
-                            <div class="photos_item_image">
-                                <a href="#"><img src="/images/data/photo1.jpg" alt=""></a>
-                            </div>
-                            <div class="photos_item_mask">
-                                <div class="photos_item_title">
-                                    ЧНУ
-                                </div>
-                                <div class="photos_item_author">
-                                    фото: Євген
-                                </div>
-                                <a href="/images/data/photo1.jpg"
-                                   class="photos_item_link colorbox"
-                                   title="ЧНУ">Увеличить</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="photos_item">
-                        <div class="photos_item_wrap">
-                            <div class="photos_item_image">
-                                <a href="#"><img src="/images/data/photo2.jpg" alt=""></a>
-                            </div>
-                            <div class="photos_item_mask">
-                                <div class="photos_item_title">
-                                    ЧНУ
-                                </div>
-                                <div class="photos_item_author">
-                                    фото: Євген
-                                </div>
-                                <a href="/images/data/photo2.jpg"
-                                   class="photos_item_link colorbox"
-                                   title="ЧНУ">Увеличить</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="photos_item">
-                        <div class="photos_item_wrap">
-                            <div class="photos_item_image">
-                                <a href="#"><img src="/images/data/photo3.jpg" alt=""></a>
-                            </div>
-                            <div class="photos_item_mask">
-                                <div class="photos_item_title">
-                                    ЧНУ
-                                </div>
-                                <div class="photos_item_author">
-                                    фото: Євген
-                                </div>
-                                <a href="/images/data/photo3.jpg"
-                                   class="photos_item_link colorbox"
-                                   title="ЧНУ">Увеличить</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="photos_item">
-                        <div class="photos_item_wrap">
-                            <div class="photos_item_image">
-                                <a href="#"><img src="/images/data/photo3.jpg" alt=""></a>
-                            </div>
-                            <div class="photos_item_mask">
-                                <div class="photos_item_title">
-                                    ЧНУ
-                                </div>
-                                <div class="photos_item_author">
-                                    фото: Євген
-                                </div>
-                                <a href="/images/data/photo3.jpg" class="photos_item_link colorbox " title="ЧНУ">Увеличить</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="page_text">
-                Вы не нашли объект или организацию которую искали? Напишите нам в “Обратную связь” или добавьте
-                самостоятельно воспользовавшись функцией “Добавить объект”. По вопросам сотрудничества, размещение
-                рекламы, новостных статей обращайтесь через “Обратную связь” или напишите письмо по адресу
-                support@gde.ck.ua
-            </div>
-        </div>
         <footer class="clearfix">
             <div class="footer_text">
-                <div class="copyright">©2014-2015 <a href="#">www.gde.ck.ua</a> - "Где в Черкассах"</div>
+                <div class="copyright">©<?php echo Yii::app()->dateFormatter->format('yyyy', time()); ?>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">www.gde.ck.ua</a>
+                                       - "<?php echo Yii::t('main', 'Где в Черкассах'); ?>"
+                </div>
                 Перепечатка и иное использование материалов,
                 присутствующие на разрешается при условии
                 ссылки на www.gde.ck.ua. Интернет-издания могут
@@ -406,19 +162,52 @@
                 Интерфакс-Украина, УНИАН, Reuters, Associated Press
                 материалы обозначены меткой "Реклама"
                 публикуются на<br/>
-                Все права защищены
+                <?php echo Yii::t('main', 'Все права защищены'); ?>
             </div>
             <ul class="footer_links">
-                <li><a href="">Главная</a></li>
-                <li><a href="">Новости</a></li>
-                <li><a href="">Барахолка</a></li>
-                <li><a href="">Афиша</a></li>
-                <li><a href="">Фотоблог</a></li>
-                <li><a href="">Фото города</a></li>
-                <li><a href="">Вэб камеры</a></li>
-                <li><a href="">О проекте</a></li>
-                <li><a href="">Обратная связь</a></li>
-                <li><a href="">Помощь сайту</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">
+                        <?php echo Yii::t('main', 'Главная'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>">
+                        <?php echo Yii::t('main', 'Новости'); ?>
+                    </a>
+                </li>
+                <li>
+                <li>
+                    <a href="#"><span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></a>
+                </li>
+                <li>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webcams'); ?>">
+                        <?php echo Yii::t('main', 'Веб-камеры'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/poster'); ?>">
+                        <?php echo Yii::t('main', 'Афиши'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/photo'); ?>">
+                        <?php echo Yii::t('main', 'Фото города'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about'); ?>">
+                        <?php echo Yii::t('main', 'О проекте'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="feedback_link">
+                        <?php echo CHtml::encode(Yii::t('main', 'Связь с нами')); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <?php echo Yii::t('main', 'Помочь сайту'); ?>
+                    </a>
+                </li>
             </ul>
             <div class="footer_facebook">
                 <img src="/images/data/fb.jpg" alt="">
@@ -429,8 +218,8 @@
         </footer>
     </div>
     <div class="right_block">
-        <a href="#" class="right_block_go_bot">вниз</a>
-        <a href="#" class="right_block_go_top">вверх</a>
+        <a href="#" class="right_block_go_bot"><?php echo Yii::t('main', 'вниз') ?></a>
+        <a href="#" class="right_block_go_top"><?php echo Yii::t('main', 'вверх') ?></a>
     </div>
     <div class="cover"></div>
     <div class="select_cover"></div>

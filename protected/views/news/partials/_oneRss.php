@@ -2,16 +2,17 @@
 /** @var RssContent $data */
 ?>
 
-<div class="row1">
-    <div class="row title-two" id="news1">
-        <h4>
-            <?php echo Yii::app()->dateFormatter->format('dd.MM.yyyy HH:mm', $data->getAddAt()); ?> -
-            <a href="<?php echo $data->getRssSite()->getSite(); ?>" style="font-size:14px; text-decoration: underline;color:#0066cc" target="_blank">
-                <?php echo $data->getRssSite()->getTitle(); ?>
-            </a>
-        </h4>
+<li class="other_news_item">
+    <div class="othe_news_item_title">
+        <a href="<?php echo $data->getRssSite()->getSite(); ?>" target="_blank">
+            <?php echo Yii::app()->dateFormatter->format('HH:mm', $data->getAddAt()); ?>
+            -
+            <?php echo $data->getRssSite()->getTitle(); ?>
+        </a>
     </div>
-    <p>
-        <a href="<?php echo $data->getUrl(); ?>" target="_blank"><?php echo $data->getTitleNews(); ?></a>
-    </p>
-</div>
+    <div class="other_news_item_text">
+        <a href="<?php echo $data->getUrl(); ?>" target="_blank">
+            <?php echo $data->getTitleNews(); ?>
+        </a>
+    </div>
+</li>

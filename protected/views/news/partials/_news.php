@@ -1,21 +1,10 @@
-<div class="large-12 columns news-accordion">
+<div id="newsView">
+
     <?php $this->renderPartial(
-        'partials/_categories',
+        'partials/_newsView',
         [
-            'categories' => $categories,
-            'currentCategory' => $currentCategory,
+            'news' => $news,
         ]
-    ); ?>
-    <div class="tabs-content">
-        <div id="newsView" class="content active">
+    ) ?>
 
-            <?php $this->renderPartial(
-                'partials/_newsView',
-                [
-                    'news' => $news,
-                ]
-            ) ?>
-
-        </div>
-    </div>
 </div>

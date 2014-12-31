@@ -162,4 +162,18 @@ class PhotoCity extends ActiveRecord
             ],
         ]);
     }
+
+    /**
+     * Возвращает превью фото
+     * @param int $limit количество на страницу
+     * @return CActiveRecord[]
+     */
+    public function getPreview($limit = 4)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'created_at DESC';
+        $criteria->limit = $limit;
+
+        return $this->findAll($criteria);
+    }
 }

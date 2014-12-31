@@ -2,19 +2,21 @@
 /** @var CategoryNews[] $categories */
 /** @var CategoryNews $category */
 ?>
-<ul class="tabs">
-    <li class="tab-title <?php if (empty($currentCategory)) echo 'active'; ?>">
-        <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>">
-            <?php echo Yii::t('main', 'Все новости'); ?>
-        </a>
-    </li>
-    <?php foreach ($categories as $category): ?>
-    <li class="tab-title <?php if ($currentCategory == $category->aliases) echo 'active'; ?>">
-        <?php $title = 'title_' . Yii::app()->getLanguage(); ?>
-        <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $category->aliases . '/'); ?>"><?php echo $category->{$title}; ?></a>
-    </li>
-    <?php endforeach; ?>
-    <li class="tab-title <?php if ($currentCategory == News::OPINION) echo 'active'; ?>">
-        <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . News::OPINION); ?>"><?php echo Yii::t('main', 'Актуальное'); ?></a>
-    </li>
-</ul>
+
+<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news'); ?>"
+   class="cathegories_item <?php if (empty($currentCategory)) echo 'active'; ?>">
+    <?php echo Yii::t('main', 'Все новости'); ?>
+</a>
+
+<?php foreach ($categories as $category): ?>
+    <?php $title = 'title_' . Yii::app()->getLanguage(); ?>
+    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . $category->aliases . '/'); ?>"
+       class="cathegories_item <?php if ($currentCategory == $category->aliases) echo 'active'; ?>">
+        <?php echo $category->{$title}; ?>
+    </a>
+<?php endforeach; ?>
+
+<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/news/' . News::OPINION); ?>"
+   class="cathegories_item <?php if ($currentCategory == News::OPINION) echo 'active'; ?>">
+    <?php echo Yii::t('main', 'Актуальное'); ?>
+</a>

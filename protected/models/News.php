@@ -161,7 +161,7 @@ class News extends ActiveRecord
      * @param int $limit количество на страницу
      * @return CActiveRecord[]
      */
-    public function getPreviewNews($is_opinion = 0, $limit = 4)
+    public function getPreview($is_opinion = 0, $limit = 4)
     {
         $criteria = new CDbCriteria();
         $criteria->compare('is_deleted', 0);

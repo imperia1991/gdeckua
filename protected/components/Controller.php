@@ -142,7 +142,7 @@ class Controller extends CController
             'title_' . Yii::app()->getLanguage()
         );
 
-        $this->previewNews = News::model()->getPreviewNews();
+        $this->previewNews = [];
 
         $this->prepareReturnUrl();
     }
