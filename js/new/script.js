@@ -135,17 +135,17 @@ $(document).ready(function(){
     })
     slider = true;
   })
-  $('.city_photos').each(function(){
-    $(this).freetile({
-          selector: '.photo_item'
-      });
-  })
 
-    $(".colorbox").colorbox({
-        slideshow: false,
-        rel: 'slideshow',
-        current: "{current}/{total}"
-    });
+  $("#panelPhotoCity").freetile({
+    selector       : '.photo_item',
+    containerResize: false
+  });
+
+  $(".colorbox").colorbox({
+      slideshow: false,
+      rel: 'slideshow',
+      current: "{current}/{total}"
+  });
 
 })
 

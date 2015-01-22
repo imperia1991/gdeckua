@@ -39,8 +39,6 @@ class PhotoController extends Controller
      */
     public function actionIndex()
     {
-        $this->currentPageType = PageTypes::PAGE_PHOTO_CITY;
-
         $photos = PhotoCity::model()->getPhotoCities();
 
         if (Yii::app()->getRequest()->isAjaxRequest) {
@@ -70,8 +68,6 @@ class PhotoController extends Controller
      */
     public function actionAdd()
     {
-        $this->currentPageType = PageTypes::PAGE_ADD_PHOTO_CITY;
-
         $photoCityModel = new PhotoCity(PhotoCity::SCENARIO_USER);
 
         if (Yii::app()->getRequest()->isPostRequest) {

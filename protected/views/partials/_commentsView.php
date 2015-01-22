@@ -1,29 +1,30 @@
 <?php /** @var CActiveDataProvider $dataProvider */ ?>
 <?php $this->widget(
-    'zii.widgets.CListView',
-    [
-        'dataProvider' => $dataProvider,
-        'itemView' => '/partials/_comment', // представление для одной записи
-        'ajaxUpdate' => true, // отключаем ajax поведение
-        'emptyText' => Yii::t('main', 'Комментарии еще не добавлены'),
-        'summaryText' => "",
-        'emptyTagName' => 'div',
-        'enablePagination' => false,
-        'viewData' => [
-            'page' => isset($page) ? $page : 1,
-        ],
-        'htmlOptions' => [
-            'class' => 'row collapse comment-block'
-        ],
+	'zii.widgets.CListView',
+	[
+		'dataProvider'     => $dataProvider,
+		'itemView'         => '/partials/_comment', // представление для одной записи
+		'ajaxUpdate'       => true, // отключаем ajax поведение
+		'emptyText'        => Yii::t( 'main', 'Комментарии еще не добавлены' ),
+		'summaryText'      => "",
+		'emptyTagName'     => 'ul',
+		'itemsTagName'     => 'ul',
+		'enablePagination' => false,
+		'viewData'         => [
+			'page' => isset( $page ) ? $page : 1,
+		],
+		'htmlOptions'      => [
+			'class' => 'comments clearfix'
+		],
 //            'template'=>'{summary} {sorter} {items} <hr> {pager}',
-        // ключи, которые были описаны $sort->attributes
-        // если не описывать $sort->attributes, можно использовать атрибуты модели
-        // настройки CSort перекрывают настройки sortableAttributes
+		// ключи, которые были описаны $sort->attributes
+		// если не описывать $sort->attributes, можно использовать атрибуты модели
+		// настройки CSort перекрывают настройки sortableAttributes
 //            'pager'=>[
 //                'class'=>'CLinkPager',
 //                'header'=>false,
 ////                'cssFile'=>'/css/pager.css', // устанавливаем свой .css файл
 //                'htmlOptions'=>['class'=>'pager'],
 //            ],
-    ]
+	]
 );

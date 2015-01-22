@@ -13,6 +13,8 @@ class NewsController extends Controller
     {
         parent::init();
 
+        $this->currentPageType = PageTypes::PAGE_NEWS;
+
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
@@ -91,57 +93,23 @@ class NewsController extends Controller
      */
     public function actionView()
     {
-        $this->currentPageType = PageTypes::PAGE_ONE_NEWS_VIEW;
-
         $id = Yii::app()->request->getQuery('id', 0);
 
-        if (null === News::model()->findByPk($id)) {
+        $newsModel = News::model()->findByPk($id);
+
+        if (null === $newsModel) {
             throw new CHttpException(404);
         }
 
         /** @var News[] $newsModels  */
-        $newsModels = News::model()->getViewNews($id);
-
         $comment = new CommentsNews(CommentsNews::SCENARIO_USER);
-
-        if (!is_array($newsModels)) {
-            throw new CHttpException(404, Yii::t('main', 'Такая новость не найдена'));
-        }
-
-        /** @var News $prevNewsModel */
-        $prevNewsModel = null;
-        /** @var News $currentNewsModel */
-        $currentNewsModel = null;
-        /** @var News $nextNewsModel */
-        $nextNewsModel = null;
-
-
-        if (count($newsModels) == 3) {
-            $prevNewsModel = $newsModels[2];
-            $currentNewsModel = $newsModels[1];
-            $nextNewsModel = $newsModels[0];
-        } elseif (count($newsModels) == 2) {
-            if ($id == $newsModels[1]->id) {
-                $prevNewsModel = null;
-                $currentNewsModel = $newsModels[1];
-                $nextNewsModel = $newsModels[0];
-            } else {
-                $prevNewsModel = $newsModels[1];
-                $currentNewsModel = $newsModels[0];
-                $newsModels = null;
-            }
-        } elseif (count($newsModels == 1)) {
-            $prevNewsModel = null;
-            $currentNewsModel = $newsModels[0];
-            $nextNewsModel = null;
-        }
 
         if (Yii::app()->request->isPostRequest) {
             $post = Yii::app()->request->getPost('CommentsNews', []);
 
             $comment->setAttributes($post);
             $comment->message = nl2br($comment->message);
-            $comment->news_id = $currentNewsModel->id;
+            $comment->news_id = $newsModel->id;
             $comment->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
 
             if ($comment->save()) {
@@ -156,9 +124,7 @@ class NewsController extends Controller
         $this->render(
             'view',
             [
-                'prevNewsModel' => $prevNewsModel,
-                'currentNewsModel' => $currentNewsModel,
-                'nextNewsModel' => $nextNewsModel,
+                'newsModel' => $newsModel,
                 'comment' => $comment
             ]
         );

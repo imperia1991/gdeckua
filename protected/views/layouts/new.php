@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/new/normalize.css">
     <link rel="stylesheet" href="/css/new/colorbox.css">
     <link rel="stylesheet" href="/css/new/jquery.bxslider.css">
+    <link rel="stylesheet" href="/css/new/jquery.jgrowl.css">
     <link rel="stylesheet" href="/css/new/style.css">
     <link href="/css/pace.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
@@ -50,7 +51,20 @@
     <base href="<?php echo Yii::app()->baseUrl; ?>">
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=229877880358538&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="container">
+
+    <?php $this->renderPartial('/partials/_notify'); ?>
+
     <div class="sidebar">
         <div class="sidebar_wrap">
             <div class="sidebar_top">
@@ -210,10 +224,10 @@
                 </li>
             </ul>
             <div class="footer_facebook">
-                <img src="/images/data/fb.jpg" alt="">
+                <?php $this->renderPartial('/partials/_fbclub'); ?>
             </div>
             <div class="footer_vk">
-                <img src="/images/data/vk.jpg" alt="">
+                <?php $this->renderPartial('/partials/_vkclub'); ?>
             </div>
         </footer>
     </div>

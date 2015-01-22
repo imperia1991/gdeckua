@@ -1,4 +1,6 @@
 <?php
+$this->pageTitle = Yii::t('main', 'Новости');
+
 $this->breadcrumbs = [
     '' => Yii::t('main', 'Новости')
 ];

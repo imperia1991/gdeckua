@@ -193,16 +193,22 @@ class News extends ActiveRecord
 
     /**
      * Возвращает массив состоящий из предыдущей, текущей и следующей новостей
-     * @param $id int текущая новость
      * @return News[]
      */
-    public function getViewNews($id)
+    public function getViewNews()
     {
         $query = 'SELECT * FROM news WHERE (
-                    id = (SELECT MAX(id) FROM news WHERE id < ' . $id . ' AND is_deleted = 0)
-                    OR id = (SELECT MIN(id) FROM news WHERE id > ' . $id . ' AND is_deleted = 0)
-                    OR id = ' . $id . ' AND is_deleted = 0)
-                  ORDER BY created_at DESC';
+                      id = (SELECT MAX(id) FROM news WHERE id < ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT MIN(id) FROM news WHERE id > ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MAX(id) - 1) FROM news WHERE id < ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MIN(id) + 1) FROM news WHERE id > ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MIN(id) + 2) FROM news WHERE id > ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MAX(id) - 2) FROM news WHERE id < ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MAX(id) - 3) FROM news WHERE id < ' . $this->id . ' AND is_deleted = 0)
+                      OR id = (SELECT (MIN(id) + 3) FROM news WHERE id > ' . $this->id . ' AND is_deleted = 0)
+                    ) AND is_opinion = 0
+                    ORDER BY id DESC, created_at DESC
+                    ';
 
         $dataReader = Yii::app()->db->createCommand($query)->query();
         $items = [];
@@ -210,7 +216,17 @@ class News extends ActiveRecord
             $items[] = $item;
         }
 
-        return $items;
+        $countItems = count($items);
+
+        if ($countItems == 4) {
+            return $items;
+        } elseif ($countItems == 5 || $countItems == 6) {
+            return array_slice($items, 0, 4);
+        } elseif (count($items) == 7) {
+            return array_slice($items, 1, 4);
+        } else {
+            return array_slice($items, 2, 4);
+        }
     }
 
     /**
@@ -264,5 +280,13 @@ class News extends ActiveRecord
         }
 
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

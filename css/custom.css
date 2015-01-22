@@ -12,3 +12,16 @@
 .news_single_content h1 {
     font-size: 1em;
 }
+
+.error {
+    font-size: 13px;
+    color: #ff0000;
+}
+
+.fb_iframe_widget {
+    background: #fff;
+}
+
+.input_error.photo {
+    position: inherit;
+}

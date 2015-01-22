@@ -1,141 +1,152 @@
 <?php
 /** @var Comments $comment */
 ?>
-<div class="large-12 columns comments">
-    <a name="comments"></a>
-    <?php echo $caption; ?>
-</div>
-<div class="row collapse input-form-new">
-    <?php $form = $this->beginWidget(
-            'CActiveForm',
-            [
-                'id' => 'comment-model-form',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => [
-                    'class' => 'row collapse'
-                ],
-            ]
-        ); ?>
-        <div class="large-7 medium-7 small-7 columns">
-            <?php echo $form->textArea($comment, 'message', ['placeholder' => Yii::t('main', 'Напишите комментарий') . "...", 'value' => StringHelper::br2nl($comment->message)]); ?>
-            <?php echo $form->error($comment, 'message', ['class' => 'error']); ?>
-        </div>
-        <div class="large-5 medium-5 small-5 columns">
-            <div class="row collapse" style="padding-left: 5px !important;">
-                <div class="large-12 medium-12 small-12 columns margin-bottom">
-                    <?php echo $form->textField($comment, 'name', ['placeholder' => Yii::t('main', 'Ваше Имя')]); ?>
-                    <?php echo $form->error($comment, 'name', ['class' => 'error']); ?>
-                </div>
-                <div class="large-6 medium-6 small-6 columns">
-                    <? if (CCaptcha::checkRequirements()): ?>
-                        <?php $this->widget('CCaptcha', [
-                                'buttonLabel' => Yii::t('main', 'Обновить'),
-                                'showRefreshButton' => true,
-                                'buttonOptions' => [
-                                    'class' => 'button tiny marginTop13'
-                                ],
-                                'buttonType' => 'button',
-                                'clickableImage' => true
-                            ]); ?>
-                    <? endif ?>
-                </div>
-                <div class="large-6 medium-6 small-6 columns">
-                    <?php echo $form->textField($comment, 'verifyCode', ['placeholder' => Yii::t('main', 'Введите код')]); ?>
-                    <?php echo $form->error($comment, 'verifyCode', ['class' => 'error']); ?>
-                </div>
-                <div class="large-12 medium-12 small-12 columns">
-                    <?php echo CHtml::submitButton(Yii::t('main', 'Добавить'), ['class' => 'button small']); ?>
-                </div>
-            </div>
-        </div>
-    <?php $this->endWidget(); ?>
 
-</div>
+<h2 id="comments"><?php echo $caption; ?>:</h2>
+
+<?php $form = $this->beginWidget(
+	'CActiveForm',
+	[
+		'id'                   => 'comment-model-form',
+		'enableAjaxValidation' => false,
+		'htmlOptions'          => [
+			'class' => 'row collapse'
+		],
+	]
+);
+
+$errors = $comment->getErrors();
+?>
+	<div class="add_comment ">
+		<div class="add_comment_left">
+			<div class="input_wrap">
+				<?php echo $form->textArea( $comment, 'message', [
+					'class'       => 'input',
+					'placeholder' => Yii::t( 'main', 'Напишите комментарий' ) . "...",
+					'value'       => StringHelper::br2nl( $comment->message )
+				] ); ?>
+
+				<?php if (isset($errors['message'])): ?>
+					<label class="error"><?php echo $errors['message'][0]; ?></label>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="add_comment_right">
+			<?php if (isset($errors['name'])): ?>
+				<label class="error"><?php echo $errors['name'][0]; ?></label>
+			<?php endif; ?>
+			<div class="input_wrap">
+				<?php echo $form->textField( $comment, 'name', [
+					'class'       => 'input',
+					'placeholder' => Yii::t( 'main', 'Ваше Имя' ) . ' *'
+				] ); ?>
+
+			</div>
+
+			<div class="input_wrap captcha_block clearfix">
+				<?php if (isset($errors['verifyCode'])): ?>
+					<label class="error"><?php echo $errors['verifyCode'][0]; ?></label>
+				<?php endif; ?>
+				<div class="captcha_image">
+					<? if ( CCaptcha::checkRequirements() ): ?>
+						<?php $this->widget( 'CCaptcha', [
+							'buttonLabel'       => Yii::t( 'main', 'Обновить' ),
+							'showRefreshButton' => true,
+							'buttonOptions'     => [
+								'class' => 'captcha_refresh'
+							],
+//                            'buttonType' => 'button',
+							'clickableImage'    => true
+						] ); ?>
+					<? endif ?>
+				</div>
+				<?php echo $form->textField( $comment, 'verifyCode', [
+					'class'       => 'input captcha_input',
+					'placeholder' => Yii::t( 'main', 'Введите код' ) . ' *'
+				] ); ?>
+
+			</div>
+			<div class="pop_up_bottom clearfix">
+				<?php echo CHtml::submitButton( Yii::t( 'main', 'Добавить' ), [ 'class' => 'submit' ] ); ?>
+			</div>
+		</div>
+	</div>
+
+<?php $this->endWidget(); ?>
 
 <?php
 /** @var CActiveDataProvider $dataProvider */
-$dataProvider = $comment->search($model->id);
+$dataProvider = $comment->search( $model->id );
 ?>
-<div id="commentsView" class="row collapse comment-block">
-<?php $this->renderPartial('/partials/_commentsView', [
-        'dataProvider' => $dataProvider,
-        'model' => $model
-    ]) ?>
-</div>
-<?php if ($dataProvider->getTotalItemCount() > $dataProvider->getPagination()->pageSize): ?>
 
-<br>
-<div id="showComments" class="row collapse">
-    <div class="show-other-news">
-        <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
-        <a id="showMore" href="javascript:void(0)"><?php echo Yii::t('main', 'Показать больше комментариев') ?></a>
-    </div>
+<div id="commentsView">
+<?php $this->renderPartial( '/partials/_commentsView', [
+	'dataProvider' => $dataProvider,
+	'model'        => $model
+] ) ?>
 </div>
 
-    <script type="text/javascript">
-        /*<![CDATA[*/
-        (function($)
-        {
-            // скрываем стандартный навигатор
+<?php if ( $dataProvider->getTotalItemCount() > $dataProvider->getPagination()->pageSize ): ?>
+
+	<br>
+	<div id="showComments" class="row collapse">
+		<div class="show-other-news">
+			<img id="loading" style="display: none" src="/img/loading.gif" alt=""/>
+			<a id="showMore" class="more_news button"
+			   href="javascript:void(0)"><?php echo Yii::t( 'main', 'Показать больше комментариев' ) ?></a>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		(function ($) {
+			// скрываем стандартный навигатор
 //            $('.paginator').hide();
-
-            // запоминаем текущую страницу и их максимальное количество
-            var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
-            var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
-
-            var loadingFlag = false;
-
-            $('#showMore').on('click', function()
-            {
-                // защита от повторных нажатий
-                if (!loadingFlag)
-                {
-                    // выставляем блокировку
-                    loadingFlag = true;
-
-                    // отображаем анимацию загрузки
-                    $('#showMore').hide();
-                    $('#loading').show();
-
-                    $.ajax({
-                        type: 'post',
-                        url: '<?php echo $url; ?>',
-                        data: {
-                            // передаём номер нужной страницы методом POST
-                            'page': page + 1,
-                            'id': <?php echo $model->id ?>
-                        },
-                        success: function(data)
-                        {
-                            // увеличиваем номер текущей страницы и снимаем блокировку
-                            page++;
-                            loadingFlag = false;
-
-                            // прячем анимацию загрузки
-                            $('#loading').hide();
-                            $('#showMore').show();
-
-                            // вставляем полученные записи после имеющихся в наш блок
-                            $('#commentsView').append(data);
-
-                            // если достигли максимальной страницы, то прячем кнопку
-                            if (page >= pageCount)
-                                $('#showComments').hide();
-
-                            var n = $(document).height();
-                            $('html, body').animate({ scrollTop: n }, 1000);
-                        },
-                        done: function()
-                        {
-                            $('#loading').hide();
-                            $('#showMore').show();
-                        }
-                    });
-                }
-                return false;
-            })
-        })(jQuery);
-        /*]]>*/
-    </script>
+			// запоминаем текущую страницу и их максимальное количество
+			var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
+			var pageCount = parseInt('<?php echo (int)$dataProvider->pagination->pageCount; ?>');
+			var loadingFlag = false;
+			$('#showMore').on('click', function () {
+				// защита от повторных нажатий
+				if (!loadingFlag) {
+					// выставляем блокировку
+					loadingFlag = true;
+					// отображаем анимацию загрузки
+					$('#showMore').hide();
+					$('#loading').show();
+					$.ajax({
+						type   : 'post',
+						url    : '<?php echo $url; ?>',
+						data   : {
+							// передаём номер нужной страницы методом POST
+							'page': page + 1,
+							'id'  : <?php echo $model->id ?>
+						},
+						success: function (data) {
+							// увеличиваем номер текущей страницы и снимаем блокировку
+							page++;
+							loadingFlag = false;
+							// прячем анимацию загрузки
+							$('#loading').hide();
+							$('#showMore').show();
+							// вставляем полученные записи после имеющихся в наш блок
+							$('#commentsView').html(data);
+							// если достигли максимальной страницы, то прячем кнопку
+							if (page >= pageCount)
+								$('#showComments').hide();
+							var n = $(document).height();
+							$('html, body').animate({scrollTop: n}, 1000);
+						},
+						done   : function () {
+							$('#loading').hide();
+							$('#showMore').show();
+						}
+					});
+				}
+				return false;
+			})
+		})(jQuery);
+		/*]]>*/
+	</script>
 
 <?php endif; ?>
