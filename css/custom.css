@@ -25,3 +25,27 @@
 .input_error.photo {
     position: inherit;
 }
+
+.qq-upload-button {
+    background: none;
+    /*border-bottom: 0;*/
+    /*color: transparent;*/
+    width: auto;
+    /*display: inline;*/
+}
+.qq-upload-list {
+    display: none;
+}
+
+/*.qq-upload-button input {*/
+    /*height: 38px;*/
+    /*border: 0;*/
+/*}*/
+
+/*.qq-upload-button input[type="file"] {*/
+    /*font-size: 0px !important;*/
+/*}*/
+
+.jGrowl-message {
+    font-size: 15px;
+}
