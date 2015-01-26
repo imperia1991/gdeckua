@@ -24,9 +24,6 @@ $(document).ready(function(){
       })
     });
 
-
-
-
   $('.slct').click(function(){
     $('.drop').css('z-index', 49).slideUp(function(){$(this).css('z-index', 50)});
     $('.slct').removeClass('active');
@@ -146,6 +143,16 @@ $(document).ready(function(){
       rel: 'slideshow',
       current: "{current}/{total}"
   });
+
+  if ($('.webcam_list_item').length) {
+    $('.webcam_list_item').on('click', function() {
+      var dataWeb = $(this).data('web');
+      $('.webcam_list_item.active').removeClass('active');
+      $(this).addClass('active');
+      $('.webcam_block').hide();
+      $('#' + dataWeb).show();
+    });
+  }
 
 })
 

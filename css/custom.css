@@ -49,3 +49,17 @@
 .jGrowl-message {
     font-size: 15px;
 }
+
+.film_single {
+    margin-bottom: 62px;
+}
+.webcam_list {
+    width: 100%;
+}
+.webcam_block {
+    margin: 0;
+}
+
+.about_contacts p {
+    margin-bottom: 0;
+}

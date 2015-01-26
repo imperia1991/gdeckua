@@ -63,6 +63,28 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ?>
 </div>
 <div class="row" style="margin-top: 20px">
+    <label>Помощь сайту</label>
+    <?php echo $form->error($settingsModel, 'helps'); ?>
+    <?php
+    $this->widget('ext.tinymce.TinyMce', array(
+            'model' => $settingsModel,
+            'attribute' => 'helps',
+            'compressorRoute' => '/admin/tinyMce/compressor',
+            'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
+            'fileManager' => array(
+                'class' => 'ext.elFinder.TinyMceElFinder',
+                'connectorRoute'=>'/admin/elfinder/connector',
+            ),
+            'htmlOptions' => array(
+                'rows' => 20,
+            ),
+            'settings' => array(
+                'language' => 'ru'
+            )
+        ));
+    ?>
+</div>
+<div class="row" style="margin-top: 20px">
     <?php echo $form->textFieldRow($settingsModel, 'lat', array()); ?>
     <?php echo $form->textFieldRow($settingsModel, 'lng', array()); ?>
 </div>

@@ -124,7 +124,7 @@
                     </a>
                 </li>
                 <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_HELP_SITE): ?>active<?php endif; ?>">
-                    <a href="#">
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/about#help'); ?>">
                         <span class="menu_item_text"><?php echo Yii::t('main', 'Помочь сайту'); ?></span>
                         <span class="menu_item_icon icon9"></span>
                     </a>

@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $about
  * @property string $contacts
+ * @property string $helps
  * @property double $lat
  * @property double $lng
  */
@@ -28,7 +29,7 @@ class Settings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('about, contacts', 'required'),
+			array('about, contacts, helps', 'required'),
 			array('lat, lng', 'numerical'),
 			array('id, about, contacts, lat, lng', 'safe', 'on'=>'search'),
 		);
@@ -54,6 +55,7 @@ class Settings extends CActiveRecord
 			'id' => 'ID',
 			'about' => 'О проекте',
 			'contacts' => 'Контактная информация',
+			'helps' => 'О Проекте',
 			'lat' => 'Долгота',
 			'lng' => 'Широта',
 		);
@@ -73,8 +75,6 @@ class Settings extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 //		$criteria->compare('id',$this->id);

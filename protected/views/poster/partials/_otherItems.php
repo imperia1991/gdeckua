@@ -6,73 +6,46 @@
 
 <?php if ($posters->getTotalItemCount()): ?>
     <?php foreach ($posters->getData() as $poster): ?>
-        <div class="large-12 columns afisha-block">
-            <div class="row collapse">
-                <div class="large-4 medium-4 columns">
-                    <div class="row collapse">
-                        <div class="large-12 columns ">
-                            <?php
-                            echo Yii::app()->easyImage->thumbOf(
-                                '/' . Yii::app()->params['admin']['files']['photoPoster'] . '/' . $poster->photo,
-                                [
-                                    'resize' => ['width' => 491, 'height' => 340],
+        <div class="film_single">
+            <div class="film_poster">
+                <a href="#">
+                    <?php
+                    echo Yii::app()->easyImage->thumbOf(
+                        '/' . Yii::app()->params['admin']['files']['photoPoster'] . '/' . $poster->photo,
+                        [
+                            'resize' => ['width' => 491, 'height' => 340],
 //                                    'crop' => ['width' => 491, 'height' => 340],
-                                    'quality' => 100,
-                                ]
-                            );
-                            ?>
-                        </div>
-                        <div class="large-12 columns foto-inner-soc">
-                            <ul class="soc-icons-list">
-<!--                                --><?php //$this->renderPartial(
-//                                    '/partials/_social',
-//                                    [
-//                                        'image' => Yii::app()->createUrl(
-//                                                '/uploads/photos/photoPoster/' . $poster->photo
-//                                            ),
-//                                        'title' => $data->title,
-//                                    ]
-//                                ); ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="large-8 medium-8 columns">
-                    <div class="row collapse">
-                        <div class="row collapse afisha-title">
-                            <?php $columns = (!$poster->date_from && !$poster->date_to) ? 12 : 8; ?>
-                            <div class="large-<?php echo $columns; ?> medium-8 small-8 columns afisha-name"><h3><?php echo $poster->title; ?></h3></div>
-                            <?php if ($poster->date_from && $poster->date_to): ?>
-                                <div class="large-4 medium-4 small-4 columns afisha-date">
-                                    <h4>
-                                        <?php echo Yii::t('main', 'Показ'); ?>
-                                        <?php echo Yii::t('main', 'с'); ?>
-                                        <?php echo Yii::app()->dateFormatter->format(
-                                            'dd.MM',
-                                            strtotime($poster->date_from)
-                                        ); ?>
-                                        <?php echo Yii::t('main', 'по'); ?>
-                                        <?php echo Yii::app()->dateFormatter->format(
-                                            'dd.MM',
-                                            strtotime($poster->date_to)
-                                        ); ?>
-                                    </h4>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="row collapse afisha-table">
-                            <div class="row collapse">
-                                <div class="large-12 columns thin-description">
-                                    <?php echo $poster->description; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            'quality' => 100,
+                        ]
+                    );
+                    ?>
+                </a>
+            </div>
+            <div class="film_title">
+                <?php echo $poster->title; ?>
+                <div class="film_title_capt">
+                    <?php echo Yii::t('main', 'Показ'); ?>
+                    <?php echo Yii::t('main', 'с'); ?>
+                    <?php echo Yii::app()->dateFormatter->format(
+                        'dd.MM',
+                        strtotime($poster->date_from)
+                    ); ?>
+                    <?php echo Yii::t('main', 'по'); ?>
+                    <?php echo Yii::app()->dateFormatter->format(
+                        'dd.MM',
+                        strtotime($poster->date_to)
+                    ); ?>
                 </div>
             </div>
+            <?php echo $poster->description; ?>
+            <div class="film_text">
+                Каждый год, все птицы улетают на юг. Должна улететь и стая нашего<br/> юного героя Чижика, но в последний момент перед перелетом на вожака стаи Дариуса злой кот. Только Дариус знает дорогу на юг, и он успевает передать секрет Чижику, который юного героя Чижика, но в последний момент перед перелетом на вожака стаи Дариуса нападает злой кот. Только Дариус знает дорогу на юг, и он успевает передать секрет Чижику, который
+            </div>
         </div>
-        <hr>
     <?php endforeach; ?>
 <?php else: ?>
     <p style="padding-left: 5px;"><?php echo Yii::t('main', 'В данной категории информация отсутствует'); ?></p>
-<?php endif;
+<?php endif; ?>
+
+
+
