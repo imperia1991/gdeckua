@@ -1,9 +1,12 @@
 var feedback = {
 	send: function() {
 		$('#feedback-form').on('submit', function(e){
-			$('.error').html('');
+			$('.input_error').html('');
+			$('.submit', this).hide();
+			$('#loadingFeedback').show();
 
 			var form = $(this);
+
 			$.ajax({
 				type: 'post',
 				url: form.attr('action'),
@@ -15,6 +18,9 @@ var feedback = {
 						$.each(errors, function(fieldName, errorText){
 							$('#error_' + fieldName).html(errorText);
 						});
+
+						$('.submit', form).show();
+						$('#loadingFeedback').hide();
 					} else {
 						location.reload();
 					}

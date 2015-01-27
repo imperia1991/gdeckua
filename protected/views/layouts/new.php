@@ -239,6 +239,8 @@
     <div class="select_cover"></div>
 </div>
 
+<?php $this->renderPartial('/partials/_popups'); ?>
+
 <!-- Yandex.Metrika counter-->
 <!--<script type="text/javascript">-->
 <!--(function (d, w, c) {-->

@@ -63,3 +63,7 @@
 .about_contacts p {
     margin-bottom: 0;
 }
+
+.input_error {
+    font-size: 13px;
+}
