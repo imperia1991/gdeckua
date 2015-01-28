@@ -100,6 +100,7 @@ $mainConfig = [
                 '<language:(ru|uk)>/<controller:(photo)>' => 'photo/index',
                 '<language:(ru|uk)>/<controller:(poster)>' => 'poster/index',
                 '<language:(ru|uk)>/<controller:(webcams)>' => 'webcams/index',
+                '<language:(ru|uk)>/<controller:(place)>' => 'place/index',
                 '<language:(ru|uk)>/<action:\w+>/*' => 'site/<action>',
                 '<language:(ru|uk)>/<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<language:(ru|uk)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

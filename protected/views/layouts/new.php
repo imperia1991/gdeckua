@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_PLACES): ?>active<?php endif; ?>">
-                    <a href="#"><span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></span>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place'); ?>"><span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></span>
                         <span class="menu_item_icon icon3"></span></a>
                 </li>
                 <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_WEBCAMS): ?>active<?php endif; ?>">

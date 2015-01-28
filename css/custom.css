@@ -67,3 +67,11 @@
 .input_error {
     font-size: 13px;
 }
+
+#placeMap {
+    /*min-height: 300px;*/
+}
+
+.unavailable {
+    display: none !important;
+}

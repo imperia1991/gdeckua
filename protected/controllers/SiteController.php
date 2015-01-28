@@ -44,6 +44,8 @@ class SiteController extends Controller
     {
         parent::init();
 
+        $this->currentPageType = PageTypes::PAGE_DEFAULT;
+
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
