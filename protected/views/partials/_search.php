@@ -9,12 +9,6 @@ $form = $this->beginWidget('CActiveForm', [
     ]);
 ?>
 
-<?php if ($this->checkedString): ?>
-<div class="large-12 columns maybe">
-    <p><?php echo Yii::t('main', 'Возможно вы имели ввиду'); ?>: <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '?search=' . urlencode($this->checkedString) . '&districts=' . $this->selectDistrict) ?>"><?php echo $this->checkedString; ?>?</a></p>
-</div>
-<?php endif; ?>
-
 <div class="search_block">
     <?php
     echo $form->textField($model, 'search', [
@@ -34,7 +28,7 @@ $form = $this->beginWidget('CActiveForm', [
                     <li><a href="<?php echo $id; ?>"><?php echo $district; ?></a></li>
                 <?php endforeach; ?>
             </ul>
-            <input id="districts" type="hidden" name="districts" value="<?php echo $this->modelPlaces->district_id ?: ''; ?>" />
+            <input id="districts" type="hidden" name="districts" value="<?php echo is_object($this->modelPlaces) ? $this->modelPlaces->district_id : ''; ?>" />
         </div>
     </div>
     <input type="submit" class="search_submit" value="">
@@ -42,6 +36,17 @@ $form = $this->beginWidget('CActiveForm', [
 
 <?php $this->endWidget(); ?>
 
+<?php if ($this->checkedString): ?>
+<div class="maybe">
+    <span>
+        <?php echo Yii::t('main', 'Возможно вы имели ввиду'); ?>:
+        <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place/?search=' . urlencode($this->checkedString) . '&districts=' . $this->selectDistrict) ?>">
+            <?php echo $this->checkedString; ?>?
+        </a>
+    </span>
+</div>
+<?php endif; ?>
+
 <script type="text/javascript">
-    $('.slct').html($('#district a[href=' + <?php echo $this->modelPlaces->district_id; ?> + ']').html());
+    $('.slct').html($('#district a[href=' + <?php echo is_object($this->modelPlaces) ? $this->modelPlaces->district_id : ''; ?> + ']').html());
 </script>
