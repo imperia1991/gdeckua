@@ -195,7 +195,7 @@ class PlaceController extends Controller
                     if (!$modelContacts->save()) {
                         $model->addErrors($modelContacts->getErrors());
 
-                        Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
+                        Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении места'));
 
                         $transaction->rollback();
                     } else {
@@ -221,14 +221,14 @@ class PlaceController extends Controller
                             Yii::t('main', 'Спасибо. Ваш объект добавлен. После модерации он появится в поиске')
                         );
 
-                        $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/'));
+                        $this->redirect(Yii::app()->createUrl(Yii::app()->getLanguage() . '/place'));
                     }
                 } else {
                     if (!$modelContacts->validate()) {
                         $model->addErrors($modelContacts->getErrors());
 
                     }
-                    Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении объекта'));
+                    Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при добавлении места'));
                 }
             } catch (Exception $e) {
                 $transaction->rollback();

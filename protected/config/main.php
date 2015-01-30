@@ -96,6 +96,7 @@ $mainConfig = [
                 '<language:(ru|uk)>/photo/<id:\d+>/<alias>' => 'photo/view',
                 '<language:(ru|uk)>/photo/<action:\w+>/<id:\d+>' => 'photo/<action>',
                 '<language:(ru|uk)>/poster/<alias:[\w-_]+>' => 'poster/index',
+                '<language:(ru|uk)>/place/<id:\d+>/<alias>' => 'place/view',
                 '<language:(ru|uk)>/place/<action:\w+>' => 'place/<action>',
                 '<language:(ru|uk)>/<controller:(news)>' => 'news/index',
                 '<language:(ru|uk)>/<controller:(photo)>' => 'photo/index',

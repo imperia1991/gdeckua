@@ -4,7 +4,7 @@
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $shortDescription = 'short_description_' . Yii::app()->getLanguage();
-$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/view');
+$url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place');
 
 $this->keywords .= $data->{$title} . ', ';
 $photoPath = '/' . Yii::app()->params['admin']['files']['images'];

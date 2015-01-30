@@ -15,10 +15,10 @@ $shortDescription = 'short_description_' . Yii::app()->getLanguage();
 ?>
 
 <?php
-$this->pageTitle = Yii::t('main', 'Добавить объект');
+$this->pageTitle = Yii::t('main', 'Добавление места');
 
 $this->breadcrumbs = [
-    '' => Yii::t('main', 'Добавить объект')
+    '' => Yii::t('main', 'Добавление места')
 ];
 
 $errors = $model->getErrors();
@@ -255,6 +255,62 @@ $errors = $model->getErrors();
                     <span class="input_error"><?php echo $errors['site'][0]; ?></span>
                 <?php endif; ?>
             </div>
+        </div>
+        <div class="form_input_wrap photos">
+            <?php
+            $template = $this->renderPartial('partials/_uploadPhotoTemplate', [], true);
+            $this->widget(
+                'ext.EAjaxUpload.EAjaxUpload',
+                [
+                    'id' => 'uploadPhoto',
+                    'config' => [
+                        'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place/upload'),
+                        'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
+                        'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
+                        'multiple' => true,
+                        'template' => $template,
+                        'messages' => [
+                            'typeError' => "{file} имеет недопустимый формат. Допустимые форматы: {extensions}.",
+                            'sizeError' => "{file} имеет слишком большой объём, максимальный объём файла – {sizeLimit}.",
+                            'minSizeError' => "{file} имеет слишком маленький объём, минимальный объём файла – {minSizeLimit}.",
+                            'emptyError' => "{file} пуст, пожалуйста, выберите другой файл.",
+                            'noFilesError' => "Файлы для загрузки не выбраны.",
+                            'onLeave' => "В данный момент идёт загрузка файлов, если вы покинете страницу, загрузка будет отменена."
+                        ],
+                        'text' => [
+                            'failUpload' => 'Загрузка не удалась',
+                            'dragZone' => 'Перетащите файл для загрузки',
+                            'cancelButton' => 'Отмена',
+                            'waitingForResponse' => 'Обработка...'
+                        ],
+                        'onComplete' => 'js:function(id, fileName, responseJSON){
+                                                        if (responseJSON.success)
+                                                        {
+                                                            $("#uploadPhoto").append(
+                                                                    "<div class=\"input_wrap delClass\" data-filename=\"" + responseJSON.filename + "\">" +
+                                                                        "<div class=\"object-img-box\"><img class=\"delClass\" src=\"/' . Yii::app(
+                            )->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"100\" height=\"90\" data-filename=\"" + responseJSON.filename + "\" /></div>" +
+                                                                         "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" rel=\"" + responseJSON.filename + "\" class=\"remove-photo\"><img src=\"/img/delete.png\"> ' . Yii::t(
+                                'main',
+                                'Удалить'
+                            ) . '</a>" +
+                                                                    "</div>"
+                                                                );
+
+                                                            $("#uploadPhoto").append(
+                                                                     "<input name=\"Photos[]\" type=\"hidden\" value=\"" + responseJSON.filename + "\" data-filename=\"" + responseJSON.filename + "\" class=\"delClass\"/>"
+                                                                );
+
+                                                            $("#errorPhotos").html("");
+                                                        }
+                                                    }'
+                    ]
+                ]
+            );
+            ?>
+            <?php if (isset($errors['images'])): ?>
+                <span class="error" id="errorPhotos"><?php echo $errors['images'][0]; ?></span>
+            <?php endif; ?>
         </div>
         <div class="form_input_bottom clearfix">
             <div class="captcha_block">

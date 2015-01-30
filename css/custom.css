@@ -28,13 +28,16 @@
 
 .qq-upload-button {
     background: none;
-    /*border-bottom: 0;*/
+    border-bottom: 0;
     /*color: transparent;*/
     width: auto;
     /*display: inline;*/
 }
 .qq-upload-list {
     display: none;
+}
+.qq-upload-drop-area {
+    background: none;
 }
 
 /*.qq-upload-button input {*/
@@ -94,4 +97,18 @@
 
 .maybe span a, .no-find a {
     color: #ee7829;
+}
+
+.form_input_wrap.photos #uploadPhoto{
+    text-align: center;
+}
+.form_input_wrap.photos .input_wrap{
+    margin-left: 0;
+}
+.form_input_wrap.photos .input_wrap.delClass{
+    display: inline-table;
+    margin-top: 5px;
+}
+.form_input_wrap.photos .input_wrap.delClass p{
+    margin-bottom: 0;
 }

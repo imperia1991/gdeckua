@@ -83,6 +83,9 @@ class Comments extends ActiveRecord
      */
     public function search($placeId = 0)
 	{
+		$page     = Yii::app()->request->getQuery( 'page', 0 );
+		$pageSize = $page ? Yii::app()->params['pageSizeComment'] * $page : Yii::app()->params['pageSizeComment'];
+
 		$criteria = new CDbCriteria;
 
         $criteria->compare('place_id', $placeId);
@@ -93,8 +96,8 @@ class Comments extends ActiveRecord
                 'defaultOrder' => 'created_at DESC',
             ],
             'pagination' => [
-                'pageSize' => Yii::app()->params['pageSizeComment'],
-                'pageVar' =>'page',
+                'pageSize' => $pageSize,
+//                'pageVar' =>'page',
 //                'currentPage' => Yii::app()->getRequest()->getParam('page', 0)
             ],
 		]);
