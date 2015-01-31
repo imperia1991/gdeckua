@@ -71,10 +71,12 @@
                 <?php $this->renderPartial('/partials/_language'); ?>
                 <a href="#" class="menu_icon"></a>
             </div>
+            <?php /*
             <div class="sidebar_enter">
                 <a href="#" class="enter_pop_up_link"><?php echo Yii::t('main', 'Войти'); ?></a>
                 <a href="#" class="registr_pop_up_link"><?php echo Yii::t('main', 'Регистрация'); ?></a>
             </div>
+            */ ?>
             <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place/add'); ?>" class="add_place ">+ <?php echo Yii::t('main', 'ДОБАВИТЬ МЕСТО'); ?></a>
             <ul class="menu">
                 <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_DEFAULT): ?> active <?php endif; ?>">

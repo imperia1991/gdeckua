@@ -13,12 +13,29 @@
  * @property string $photo
  * @property string $created_at
  * @property string $alias
+ * @property integer $place_id
  *
  * The followings are the available model relations:
  * @property CategoryPosters $categoryPoster
+ * @property Places $place
  */
 class Posters extends ActiveRecord
 {
+	public $placeTitle;
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 *
+	 * @param string $className active record class name.
+	 *
+	 * @return Posters the static model class
+	 */
+	public static function model($className = __CLASS__)
+	{
+		return parent::model($className);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,11 +53,15 @@ class Posters extends ActiveRecord
 		// will receive user inputs.
 		return [
 			['created_at, photo, category_poster_id', 'required'],
-			['category_poster_id', 'numerical', 'integerOnly'=>true],
-			['title, photo, alias', 'length', 'max'=>255],
-			['description, date_from, date_to', 'safe'],
+			['category_poster_id', 'numerical', 'integerOnly' => true],
+			['title, photo, alias', 'length', 'max' => 255],
+			['description, date_from, date_to, place_id', 'safe'],
 			// The following rule is used by search().
-			['id, category_poster_id, title, description, date_from, date_to, photo, created_at, alias', 'safe', 'on'=>'search'],
+			[
+				'id, category_poster_id, title, description, date_from, date_to, photo, created_at, alias, place_id',
+				'safe',
+				'on' => 'search'
+			],
 		];
 	}
 
@@ -53,6 +74,7 @@ class Posters extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return [
 			'categoryPoster' => [self::BELONGS_TO, 'CategoryPosters', 'category_poster_id'],
+			'place'          => [self::BELONGS_TO, 'Places', 'place_id'],
 		];
 	}
 
@@ -62,15 +84,17 @@ class Posters extends ActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => 'ID',
+			'id'                 => 'ID',
 			'category_poster_id' => Yii::t('main', 'Категория'),
-			'title' => Yii::t('main', 'Заголовок'),
-			'description' => Yii::t('main', 'Описание'),
-			'date_from' => Yii::t('main', 'с'),
-			'date_to' => Yii::t('main', 'по'),
-			'photo' => Yii::t('main', 'Фото'),
-			'created_at' => Yii::t('main', 'Добавлено'),
-			'alias' => 'Alias',
+			'title'              => Yii::t('main', 'Заголовок'),
+			'description'        => Yii::t('main', 'Описание'),
+			'date_from'          => Yii::t('main', 'с'),
+			'date_to'            => Yii::t('main', 'по'),
+			'photo'              => Yii::t('main', 'Фото'),
+			'created_at'         => Yii::t('main', 'Добавлено'),
+			'place_id'           => 'Место',
+			'placeTitle'         => 'Место',
+			'alias'              => 'Alias',
 		];
 	}
 
@@ -88,70 +112,91 @@ class Posters extends ActiveRecord
 	 */
 	public function search()
 	{
-        $criteria = new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-        if ($this->id) {
-            $criteria->compare('id', $this->id);
-        }
+		if ($this->id) {
+			$criteria->compare('id', $this->id);
+		}
 
-        if ($this->category_poster_id) {
-            $criteria->compare('category_poster_id', $this->category_poster_id);
-        }
-        if ($this->title) {
-            $criteria->compare('title', $this->title);
-        }
-        if ($this->created_at) {
-            $criteria->compare('created_at', $this->created_at);
-        }
+		if ($this->category_poster_id) {
+			$criteria->compare('category_poster_id', $this->category_poster_id);
+		}
+		if ($this->title) {
+			$criteria->compare('title', $this->title);
+		}
+		if ($this->created_at) {
+			$criteria->compare('created_at', $this->created_at);
+		}
+		if ($this->place_id) {
+			$criteria->compare('place_id', $this->place_id);
+		}
 
-        return new CActiveDataProvider($this, [
-            'criteria' => $criteria,
-            'sort' => [
-                'defaultOrder' => 'created_at DESC',
-            ],
-            'pagination' => [
-                'pageSize' => Yii::app()->params['admin']['pageSize'],
-            ],
-        ]);
+		return new CActiveDataProvider($this, [
+			'criteria'   => $criteria,
+			'sort'       => [
+				'defaultOrder' => 'created_at DESC',
+			],
+			'pagination' => [
+				'pageSize' => Yii::app()->params['admin']['pageSize'],
+			],
+		]);
 	}
 
 	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Posters the static model class
+	 * @param int $currentCategoryId
+	 *
+	 * @return CActiveDataProvider
 	 */
-	public static function model($className=__CLASS__)
+	public function getPosters($currentCategoryId = 0)
 	{
-		return parent::model($className);
+		$criteria = new CDbCriteria();
+
+		if ($currentCategoryId) {
+			$criteria->compare('category_poster_id', $currentCategoryId);
+		}
+
+		$criteria->order = 'created_at DESC';
+
+		$dataProvider = new CActiveDataProvider($this, [
+			'criteria'   => $criteria,
+			'sort'       => [
+				'defaultOrder' => 'created_at DESC',
+			],
+			'pagination' => [
+				'pageSize' => Yii::app()->params['pageSizePosters'],
+				'pageVar'  => 'page',
+			],
+		]);
+
+		return $dataProvider;
 	}
 
+	public function getPlaceTitle()
+	{
+		if (is_object($this->place)) {
+			return $this->place->title_ru . ' (' . $this->place->getDistrict() . ', ' . $this->place->address_ru . ')';
+		}
 
-    /**
-     * @param int $currentCategoryId
-     * @return CActiveDataProvider
-     */
-    public function getPosters($currentCategoryId = 0)
-    {
-        $criteria = new CDbCriteria();
+		return '';
+	}
 
-        if ($currentCategoryId) {
-            $criteria->compare('category_poster_id', $currentCategoryId);
-        }
+	public function getForMainPage($categoryId)
+	{
+		$criteria = new CDbCriteria();
 
-        $criteria->order = 'created_at DESC';
+		$criteria->compare('category_poster_id', $categoryId);
 
-        $dataProvider = new CActiveDataProvider($this, [
-            'criteria' => $criteria,
-            'sort' => [
-                'defaultOrder' => 'created_at DESC',
-            ],
-            'pagination' => [
-                'pageSize' => Yii::app()->params['pageSizePosters'],
-                'pageVar' => 'page',
-            ],
-        ]);
+		$criteria->order = 'created_at DESC';
+		$criteria->limit = 6;
 
-        return $dataProvider;
-    }
+		$dataProvider = new CActiveDataProvider($this, [
+			'criteria'   => $criteria,
+			'sort'       => [
+				'defaultOrder' => 'created_at DESC',
+			],
+			'pagination' => false,
+		]);
+
+		return $dataProvider->getData();
+	}
 }

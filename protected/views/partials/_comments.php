@@ -45,7 +45,7 @@ $errors = $comment->getErrors();
 
 			<div class="input_wrap captcha_block clearfix">
 				<?php if (isset($errors['verifyCode'])): ?>
-					<label class="error"><?php echo $errors['verifyCode'][0]; ?></label>
+					<span style="margin-left: 10px;" class="error"><?php echo $errors['verifyCode'][0]; ?></span>
 				<?php endif; ?>
 				<div class="captcha_image">
 					<? if ( CCaptcha::checkRequirements() ): ?>

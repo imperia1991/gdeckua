@@ -70,46 +70,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-//        $this->modelPlaces = new Places();
-//        $this->modelPlaces->search = Yii::app()->request->getQuery('search', '');
-//        $this->modelPlaces->district_id = Yii::app()->request->getQuery('districts', '');
-//
-//        if ($this->modelPlaces->search || $this->modelPlaces->district_id) {
-//            if ($this->modelPlaces->search) {
-//                $statistics = new WordStatistics();
-//                $statistics->words = $this->modelPlaces->search;
-//                $statistics->save();
-//                unset($statistics);
-//            }
-//
-//            $controller = Yii::app()->createController('/search');
-//            $results = $controller[0]->search($this->modelPlaces->search, $this->modelPlaces->district_id);
-//
-//            $dataProvider = Places::model()->getByIds($results);
-//            $items = $dataProvider['items'];
-//            $pages = $dataProvider['pages'];
-//        } else {
-//            $isFirst = Yii::app()->request->getQuery('page', 0) ? false : true;
-//            $dataProvider = $this->modelPlaces->searchMain($isFirst);
-//            $items = $dataProvider->getData();
-//            $pages = $dataProvider->getPagination();
-//        }
-//
-//        $this->currentPage = $pages->currentPage;
-//
-//        $this->checkedString = $this->checkedSearchString($this->modelPlaces->search);
-
         $modelsNews = News::model()->getPreview();
         $modelsPhotoCity = PhotoCity::model()->getPreview();
+        $categories = CategoryPosters::model()->getAll();
+
+        $currentCategoryId = Yii::app()->getRequest()->getQuery('alias', $categories[0]->alias);
+
+        $modelPosters = new Posters();
 
         $this->render(
             'index',
             [
-//                'model' => $this->modelPlaces,
-//                'items' => $items,
-//                'pages' => $pages,
                 'modelNews' => $modelsNews,
                 'modelsPhotoCity' => $modelsPhotoCity,
+                'categories' => $categories,
+                'currentCategoryId' => $currentCategoryId,
+                'modelPosters' => $modelPosters->getForMainPage($currentCategoryId),
             ]
         );
     }
