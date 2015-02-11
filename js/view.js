@@ -22,7 +22,7 @@ function init()
 			hintContent: text
 		},
 		{
-			iconImageHref: '/img/home_icon.png',
+			iconImageHref: '/images/home_icon.png',
 			iconImageSize: [32, 37]
 		}
 	);

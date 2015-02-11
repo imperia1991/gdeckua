@@ -5,164 +5,167 @@
  */
 class PostersController extends AdminController
 {
-    /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
+	/**
+	 *
+	 */
+	public function init()
+	{
+		parent::init();
 
-        $this->menuActive = 'poster';
+		$this->menuActive = 'poster';
 
-        Yii::import( 'application.extensions.LocoTranslitFilter' );
-    }
+		Yii::import('application.extensions.LocoTranslitFilter');
+		Yii::import('ext.jcrop.jCropWidget');
+	}
 
-    /**
-     * Список афиш
-     */
-    public function actionIndex()
-    {
-        $postersModel    = new Posters();
-        $categoriesModel = new CategoryPosters();
+	/**
+	 * Список афиш
+	 */
+	public function actionIndex()
+	{
+		$postersModel    = new Posters();
+		$categoriesModel = new CategoryPosters();
 
-        if ( Yii::app()->request->isAjaxRequest ) {
-            $get = Yii::app()->request->getQuery( 'Posters' );
+		if (Yii::app()->request->isAjaxRequest) {
+			$get = Yii::app()->request->getQuery('Posters');
 
-            $postersModel->setAttributes( $get );
-        }
+			$postersModel->setAttributes($get);
+		}
 
-        $this->render( 'index', [
-            'postersModel'    => $postersModel,
-            'categoriesModel' => $categoriesModel,
-        ] );
-    }
+		unset(Yii::app()->session['posterImage']);
 
-    /**
-     *
-     */
-    public function actionCreate()
-    {
-        $posterModel = new Posters();
+		$this->render('index', [
+			'postersModel'    => $postersModel,
+			'categoriesModel' => $categoriesModel,
+		]);
+	}
 
-        $this->processForm( $posterModel );
-    }
+	/**
+	 *
+	 */
+	public function actionCreate()
+	{
+		$posterModel = new Posters();
 
-    /**
-     * Создание новости
-     */
-    public function actionUpdate()
-    {
-        $id = Yii::app()->request->getQuery( 'id', 0 );
+		$this->processForm($posterModel);
+	}
 
-        $posterModel = Posters::model()->findByPk( (int) $id );
+	/** @var Posters $posterModel */
+	private function processForm($posterModel)
+	{
+		if (Yii::app()->request->isPostRequest) {
+			$post     = Yii::app()->request->getPost('Posters');
+			$oldPhoto = $posterModel->photo;
 
-        $this->processForm( $posterModel );
-    }
+			$posterModel->setAttributes($post);
+			$posterModel->alias = LocoTranslitFilter::cyrillicToLatin($posterModel->title);
+			if ($posterModel->date_from) {
+				$posterModel->date_from = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $posterModel->date_from);
+			} else {
+				$posterModel->date_from = null;
+			}
 
-    /**
-     * Удаление новости
-     */
-    public function actionDelete()
-    {
-        if ( Yii::app()->request->isAjaxRequest ) {
-            $id = Yii::app()->request->getQuery( 'id' );
+			if ($posterModel->date_to) {
+				$posterModel->date_to = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $posterModel->date_to);
+			} else {
+				$posterModel->date_to = null;
+			}
 
-            Posters::model()->deleteByPk( (int) $id );
+			if (empty($post['placeTitle'])) {
+				$posterModel->place_id = null;
+			}
 
-            Yii::app()->user->setFlash( 'success', 'Афиша удалена' );
+			$isNewRecord = $posterModel->isNewRecord;
+			if ($posterModel->save()) {
+				if ($oldPhoto != $posterModel->photo) {
+					$photoPath = Yii::app()->params['admin']['files']['tmp'] . $posterModel->photo;
+					$image     = Yii::app()->image->load($photoPath);
+					$image->save(Yii::app()->params['admin']['files']['photoPoster'] . $posterModel->photo);
 
-            Yii::app()->end();
-        }
-    }
+					if (file_exists($photoPath)) {
+						unlink($photoPath);
+					}
+				}
 
-    /**
-     * Загрузка фото для афишы
-     */
-    public function actionUpload()
-    {
-        Yii::import( "ext.EAjaxUpload.qqFileUploader" );
+				unset(Yii::app()->session['posterImage']);
 
-        $uploader = new qqFileUploader( Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit'] );
-        $result   = $uploader->handleUpload( Yii::app()->params['admin']['files']['tmp'] );
+				Yii::app()->user->setFlash('success', $isNewRecord ? 'Афиша добавлена' : 'Афиша изменена');
 
-        Yii::app()->session['posterImage'] = $result['filename'];
+				$this->redirect($this->createUrl('/admin/posters'));
+			} else {
+				Yii::app()->user->setFlash('error', 'Допущены ошибки при добавлении Афишы. Исправьте их.');
+			}
+		}
 
-        $this->respondJSON( $result );
-    }
+		$categories = CHtml::listData(CategoryPosters::model()->findAll(['order' => 'title_ru']), 'id', 'title_ru');
 
-    public function actionAutocomplete()
-    {
-        $term = Yii::app()->getRequest()->getParam( 'term' );
+		$this->render('form', [
+			'posterModel' => $posterModel,
+			'categories'  => $categories,
+		]);
+	}
 
-        if ( Yii::app()->request->isAjaxRequest && $term ) {
-            $places = Places::model()->findAll( [
-                'condition' => "title_ru LIKE '%$term%'"
-            ] );
+	/**
+	 * Создание новости
+	 */
+	public function actionUpdate()
+	{
+		$id = Yii::app()->request->getQuery('id', 0);
 
-            /** @var Places[] $places */
-            $result = [];
-            foreach ( $places as $place ) {
-                $label    = $place->title_ru;
-                $label .= '(' . $place->getDistrict() . ', ' . $place->address_ru . ')';
-                $result[] = [ 'id' => $place['id'], 'label' => $label, 'value' => $label ];
-            }
-            echo CJSON::encode( $result );
-            Yii::app()->end();
-        }
-    }
+		$posterModel = Posters::model()->findByPk((int) $id);
 
-    /** @var Posters $posterModel */
-    private function processForm( $posterModel )
-    {
-        if ( Yii::app()->request->isPostRequest ) {
-            $post     = Yii::app()->request->getPost( 'Posters' );
-            $oldPhoto = $posterModel->photo;
+		$this->processForm($posterModel);
+	}
 
-            $posterModel->setAttributes( $post );
-            $posterModel->alias = LocoTranslitFilter::cyrillicToLatin( $posterModel->title );
-            if ( $posterModel->date_from ) {
-                $posterModel->date_from = Yii::app()->dateFormatter->format( 'yyyy-MM-dd HH:mm:ss', $posterModel->date_from );
-            } else {
-                $posterModel->date_from = null;
-            }
+	/**
+	 * Удаление новости
+	 */
+	public function actionDelete()
+	{
+		if (Yii::app()->request->isAjaxRequest) {
+			$id = Yii::app()->request->getQuery('id');
 
-            if ( $posterModel->date_to ) {
-                $posterModel->date_to = Yii::app()->dateFormatter->format( 'yyyy-MM-dd HH:mm:ss', $posterModel->date_to );
-            } else {
-                $posterModel->date_to = null;
-            }
+			Posters::model()->deleteByPk((int) $id);
 
-            if (empty($post['placeTitle'])) {
-                $posterModel->place_id = null;
-            }
+			Yii::app()->user->setFlash('success', 'Афиша удалена');
 
-            $isNewRecord = $posterModel->isNewRecord;
-            if ( $posterModel->save() ) {
-                if ( $oldPhoto != $posterModel->photo ) {
-                    $photoPath = Yii::app()->params['admin']['files']['tmp'] . $posterModel->photo;
-                    $image     = Yii::app()->image->load( $photoPath );
-                    $image->save( Yii::app()->params['admin']['files']['photoPoster'] . $posterModel->photo );
+			Yii::app()->end();
+		}
+	}
 
-                    if ( file_exists( $photoPath ) ) {
-                        unlink( $photoPath );
-                    }
-                }
+	/**
+	 * Загрузка фото для афишы
+	 */
+	public function actionUpload()
+	{
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-                unset( Yii::app()->session['posterImage'] );
+		$uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+		$result   = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
 
-                Yii::app()->user->setFlash( 'success', $isNewRecord ? 'Афиша добавлена' : 'Афиша изменена' );
+		Yii::app()->session['posterImage'] = $result['filename'];
 
-                $this->redirect( $this->createUrl( '/admin/posters' ) );
-            } else {
-                Yii::app()->user->setFlash( 'error', 'Допущены ошибки при добавлении Афишы. Исправьте их.' );
-            }
-        }
+		$this->respondJSON($result);
+	}
 
-        $categories = CHtml::listData( CategoryPosters::model()->findAll( [ 'order' => 'title_ru' ] ), 'id', 'title_ru' );
+	public function actionAutocomplete()
+	{
+		$term = Yii::app()->getRequest()->getParam('term');
 
-        $this->render( 'form', [
-            'posterModel' => $posterModel,
-            'categories'  => $categories,
-        ] );
-    }
+		if (Yii::app()->request->isAjaxRequest && $term) {
+			$places = Places::model()->findAll([
+				'condition' => "title_ru LIKE '%$term%'"
+			]);
+
+			/** @var Places[] $places */
+			$result = [];
+			foreach ($places as $place) {
+				$label = $place->title_ru;
+				$label .= '(' . $place->getDistrict() . ', ' . $place->address_ru . ')';
+				$result[] = ['id' => $place['id'], 'label' => $label, 'value' => $label];
+			}
+			echo CJSON::encode($result);
+			Yii::app()->end();
+		}
+	}
 }

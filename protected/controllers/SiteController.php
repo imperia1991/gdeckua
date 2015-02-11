@@ -74,18 +74,16 @@ class SiteController extends Controller
         $modelsPhotoCity = PhotoCity::model()->getPreview();
         $categories = CategoryPosters::model()->getAll();
 
-        $currentCategoryId = Yii::app()->getRequest()->getQuery('alias', $categories[0]->alias);
-
         $modelPosters = new Posters();
 
         $this->render(
             'index',
             [
+                'places' => Places::model()->getForMainPage()->getData(),
                 'modelNews' => $modelsNews,
                 'modelsPhotoCity' => $modelsPhotoCity,
                 'categories' => $categories,
-                'currentCategoryId' => $currentCategoryId,
-                'modelPosters' => $modelPosters->getForMainPage($currentCategoryId),
+                'modelPosters' => $modelPosters->getForMainPage(),
             ]
         );
     }

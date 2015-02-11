@@ -13,6 +13,7 @@
  * @property string $photo
  * @property string $created_at
  * @property string $alias
+ * @property string $cropID
  * @property integer $place_id
  *
  * The followings are the available model relations:
@@ -21,7 +22,15 @@
  */
 class Posters extends ActiveRecord
 {
+	/**
+	 * @var
+	 */
 	public $placeTitle;
+	public $cropID;
+	public $cropX;
+	public $cropY;
+	public $cropW;
+	public $cropH;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -55,7 +64,7 @@ class Posters extends ActiveRecord
 			['created_at, photo, category_poster_id', 'required'],
 			['category_poster_id', 'numerical', 'integerOnly' => true],
 			['title, photo, alias', 'length', 'max' => 255],
-			['description, date_from, date_to, place_id', 'safe'],
+			['description, date_from, date_to, place_id, cropID', 'safe'],
 			// The following rule is used by search().
 			[
 				'id, category_poster_id, title, description, date_from, date_to, photo, created_at, alias, place_id',
@@ -95,6 +104,7 @@ class Posters extends ActiveRecord
 			'place_id'           => 'Место',
 			'placeTitle'         => 'Место',
 			'alias'              => 'Alias',
+			'cropID'              => 'Превью',
 		];
 	}
 
@@ -171,6 +181,9 @@ class Posters extends ActiveRecord
 		return $dataProvider;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getPlaceTitle()
 	{
 		if (is_object($this->place)) {
@@ -180,13 +193,16 @@ class Posters extends ActiveRecord
 		return '';
 	}
 
-	public function getForMainPage($categoryId)
+	/**
+	 * @return array
+	 */
+	public function getForMainPage()
 	{
 		$criteria = new CDbCriteria();
 
-		$criteria->compare('category_poster_id', $categoryId);
-
-		$criteria->order = 'created_at DESC';
+		$criteria->join = 'join category_posters cp ON t.category_poster_id = cp.id AND cp.is_affisha = 0';
+		$criteria->addCondition('t.place_id IS NOT NULL');
+		$criteria->order = 't.created_at DESC';
 		$criteria->limit = 6;
 
 		$dataProvider = new CActiveDataProvider($this, [
@@ -199,4 +215,29 @@ class Posters extends ActiveRecord
 
 		return $dataProvider->getData();
 	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getFullTitle()
+	{
+		$title = 'title_' . Yii::app()->getLanguage();
+		$fullTitle = Yii::t('main', 'с') . ' ' . Yii::app()->dateFormatter->format('dd.MM', strtotime($this->date_from))
+		              . ' ' . Yii::t('main', 'по') . ' ' . Yii::app()->dateFormatter->format('dd.MM',	strtotime($this->date_to));
+		$fullTitle .= '<br/>' . $this->categoryPoster->{$title} . ': ' . $this->title;
+
+		return $fullTitle;
+	}
+
+	public function getAddress()
+	{
+		return is_object($this->place) ? $this->place->getTitleWithAddress() : '';
+	}
+
+	public function getPlaceUrl()
+	{
+		return is_object($this->place) ? $this->place->getUrl() : '/';
+	}
+
 }

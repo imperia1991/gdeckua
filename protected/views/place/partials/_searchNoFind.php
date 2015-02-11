@@ -10,11 +10,11 @@ $this->breadcrumbs = [
 	<h6><?php echo Yii::t( 'main', 'Извините, к сожалению по Вашему запросу ничего не найдено' ); ?> :(</h6>
 	<?php if ( $this->checkedString ): ?>
 		<p><?php echo Yii::t( 'main', 'Возможно вы имели ввиду' ); ?>:
-			<a href="<?php echo Yii::app()->createUrl( '/' . Yii::app()->getLanguage() . '/place/?search=' . urlencode( $this->checkedString ) . '&districts=' . $this->selectDistrict ) ?>"><?php echo $this->checkedString; ?>
+			<a href="<?php echo Yii::app()->createUrl( '/' . Yii::app()->getLanguage() . '/?search=' . urlencode( $this->checkedString ) . '&districts=' . $this->selectDistrict ) ?>"><?php echo $this->checkedString; ?>
 		</p>
 	<?php endif; ?>
-	<img src="/img/nothing-find.png">
+	<img src="/images/nothing-find.png">
 	<?php if ( $this->checkedString ): ?>
 		<p><?php echo Yii::t( 'main', 'попробуйте снова' ); ?>!</p>
 	<?php endif; ?>
-</div
+</div>

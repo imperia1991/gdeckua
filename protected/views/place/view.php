@@ -56,26 +56,11 @@ $this->breadcrumbs = [
                     ?>
                     <li class="objects_previews_item active">
                         <a class="colorbox" href="<?php
-                        echo Yii::app()->easyImage->thumbSrcOf(
-                            $path,
-                            [
-                                'resize'  => [ 'width' => 800, 'height' => 600 ],
-                                'quality' => 100,
-                            ]
-                        );
+                        echo $path;
                         ?>"
                            title="<?php echo $model->{$title}; ?>"
                            alt="<?php echo $model->{$title}; ?>">
-                            <?php
-                            echo Yii::app()->easyImage->thumbOf(
-                                $path,
-                                [
-                                    'resize'  => [ 'width' => 143, 'height' => 93 ],
-                                    'crop'    => [ 'width' => 133, 'height' => 83 ],
-                                    'quality' => 100,
-                                ]
-                            );
-                            ?>
+                            <img src="<?php echo $path; ?>" />
                         </a>
                     </li>
                 <?php endforeach; ?>

@@ -334,7 +334,7 @@ $errors = $model->getErrors();
                     <span class="error"><?php echo $errors['verifyCode'][0]; ?></span>
                 <?php endif; ?>
             </div>
-            <input type="submit" value="Добавить" class="submit">
+            <input type="submit" value="<?php echo Yii::t('main', 'Добавить'); ?>" class="submit">
         </div>
         <?php $this->endWidget( 'place-model-form' ); ?>
     </div>

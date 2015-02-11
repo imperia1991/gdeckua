@@ -112,3 +112,18 @@
 .form_input_wrap.photos .input_wrap.delClass p{
     margin-bottom: 0;
 }
+.main .object_more {
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+    right: 0;
+}
+.main .block_with_map_left_right {
+    width: 100%;
+}
+.main .block_with_map_left_right .object_item {
+    width: 25%;
+}
+.main .objects {
+    margin-top: 5px;
+}

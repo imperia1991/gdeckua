@@ -2,52 +2,52 @@
 /** @var Posters $posterModel */
 /** @var CategoryNews[] $categories */
 
-Yii::app()->clientScript->registerScriptFile( '/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN );
+Yii::app()->clientScript->registerScriptFile('/js/jquery-migrate-1.2.1.js', CClientScript::POS_BEGIN);
 ?>
 
 <?php /** $var TbActiveForm $form */
-$form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
     'id'                     => 'addPosterForm',
     'type'                   => 'horizontal',
-    'htmlOptions'            => [ 'enctype' => 'multipart/form-data' ],
+    'htmlOptions'            => ['enctype' => 'multipart/form-data'],
     'enableAjaxValidation'   => true,
     'enableClientValidation' => false,
     'clientOptions'          => [
         'validateOnSubmit' => false,
         'validateOnChange' => false,
     ],
-    'focus'                  => ( $posterModel->hasErrors() ) ? '.error:first' : [ $posterModel, 'title' ],
-] ); ?>
+    'focus'                  => ($posterModel->hasErrors()) ? '.error:first' : [$posterModel, 'title'],
+]); ?>
 
     <div class="row">
         <?php
         $posterPhoto = '';
         $namePhoto   = '';
-        if ( isset( Yii::app()->session['posterImage'] ) ) {
+        if (isset(Yii::app()->session['posterImage'])) {
             $namePhoto   = Yii::app()->session['posterImage'];
-            $posterPhoto = '/' . Yii::app()->params['admin']['files']['tmp'] . Yii::app()->session['posterImage'] . '?r=' . rand( 0, 10000 );
-        } elseif ( !empty( $posterModel->photo ) ) {
+            $posterPhoto = '/' . Yii::app()->params['admin']['files']['tmp'] . Yii::app()->session['posterImage'] . '?r=' . rand(0, 10000);
+        } elseif ( !empty($posterModel->photo)) {
             $namePhoto   = $posterModel->photo;
-            $posterPhoto = '/' . Yii::app()->params['admin']['files']['photoPoster'] . $posterModel->photo . '?r=' . rand( 0, 10000 );
+            $posterPhoto = '/' . Yii::app()->params['admin']['files']['photoPoster'] . $posterModel->photo . '?r=' . rand(0, 10000);
         }
         ?>
 
         <label class="control-label required"
-               style="width: auto"><?php echo Yii::t( 'main', 'Фото для афишы (Фото желательно 491х340, иначе оно будет мутным)' ) ?>
+               style="width: auto"><?php echo Yii::t('main', 'Фото для афишы (Фото желательно 491х340, иначе оно будет мутным)') ?>
             <span class="required">*</span></label>
         <br/><br/>
         <img id="itemPhoto"
-             width="71"
-             height="60"
-             alt=""
-             src="<?php echo $posterPhoto; ?>"
-             style="margin-bottom: 20px;margin-top: 20px;"/>
+         width="71"
+         height="60"
+        alt=""
+        src="<?php echo $posterPhoto; ?>"
+        style="margin-bottom: 20px;margin-top: 20px;"/>
         <input id="uploadInputPhoto" name="Posters[photo]" type="hidden" value="<?php echo $namePhoto; ?>"/>
         <?php
-        $this->widget( 'ext.EAjaxUpload.EAjaxUpload', [
+        $this->widget('ext.EAjaxUpload.EAjaxUpload', [
                 'id'     => 'uploadAvatar',
                 'config' => [
-                    'action'            => Yii::app()->createUrl( '/admin/posters/upload' ),
+                    'action'            => Yii::app()->createUrl('/admin/posters/upload'),
                     'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
                     'sizeLimit'         => Yii::app()->params['admin']['images']['sizeLimit'],
                     'multiple'          => false,
@@ -83,16 +83,23 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
             ]
         );
         ?>
+
+        <!-- Begin optional preview box -->
+        <div id="preview" style="position:relative; overflow:hidden; width:217px; height:130px; margin-top: 10px; margin-bottom: 10px;">
+            <img id="avatar-preview"
+                 src="<?php echo $posterPhoto ?>"
+                 style="width: 0px; height: 0px; margin-left: 0px; margin-top: 0px;">
+        </div>
     </div>
     <div class="row">
-        <?php echo $form->error( $posterModel, 'photo' ); ?>
+        <?php echo $form->error($posterModel, 'photo'); ?>
     </div>
 
     <div class="row" style="margin-top: 30px;">
-        <?php echo $form->dropDownListRow( $posterModel, 'category_poster_id', $categories, [ 'empty' => 'Выберите категорию' ] ); ?>
-        <?php echo $form->textFieldRow( $posterModel, 'title', [
+        <?php echo $form->dropDownListRow($posterModel, 'category_poster_id', $categories, ['empty' => 'Выберите категорию']); ?>
+        <?php echo $form->textFieldRow($posterModel, 'title', [
             'style' => 'width:90%'
-        ] ); ?>
+        ]); ?>
     </div>
 
     <div class="row" style="margin-bottom: 20px;">
@@ -101,11 +108,11 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
         ]); ?>
         <?php echo $form->label($posterModel, 'place_id'); ?>
         <?php
-        $this->widget( 'zii.widgets.jui.CJuiAutoComplete', [
+        $this->widget('zii.widgets.jui.CJuiAutoComplete', [
             'model'       => $posterModel,   // модель
             'attribute'   => 'placeTitle',  // атрибут модели
             // "источник" данных для выборки
-            'source'      => Yii::app()->createUrl('/admin/posters/autocomplete' ),
+            'source'      => Yii::app()->createUrl('/admin/posters/autocomplete'),
             // параметры, подробнее можно посмотреть на сайте
             // http://jqueryui.com/demos/autocomplete/
             'options'     => [
@@ -122,14 +129,14 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
                 'style' => 'width:50%',
                 'value' => $posterModel->getPlaceTitle()
             ],
-        ] );
+        ]);
         ?>
     </div>
 
     <div class="row">
         <label>Показ (если дата одна достаточно её указать в поле "с")</label>
         c <?php
-        $this->widget( 'zii.widgets.jui.CJuiDatePicker', [
+        $this->widget('zii.widgets.jui.CJuiDatePicker', [
             'name'        => 'Posters[date_from]',
             // additional javascript options for the date picker plugin
             'options'     => [
@@ -139,12 +146,12 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
                 'style' => 'height:20px;'
             ],
             'language'    => 'ru',
-            'value'       => Yii::app()->dateFormatter->format( 'dd.MM.yyyy', $posterModel->date_from )
-        ] );
+            'value'       => Yii::app()->dateFormatter->format('dd.MM.yyyy', $posterModel->date_from)
+        ]);
         ?>
 
         по <?php
-        $this->widget( 'zii.widgets.jui.CJuiDatePicker', [
+        $this->widget('zii.widgets.jui.CJuiDatePicker', [
             'name'        => 'Posters[date_to]',
             // additional javascript options for the date picker plugin
             'options'     => [
@@ -154,16 +161,16 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
                 'style' => 'height:20px;'
             ],
             'language'    => 'ru',
-            'value'       => Yii::app()->dateFormatter->format( 'dd.MM.yyyy', $posterModel->date_to )
-        ] );
+            'value'       => Yii::app()->dateFormatter->format('dd.MM.yyyy', $posterModel->date_to)
+        ]);
         ?>
         <!--    --><?php //echo $form->textFieldRow($posterModel, 'date_from', []); ?>
         <!--    --><?php //echo $form->textFieldRow($posterModel, 'date_to', []); ?>
     </div>
     <div class="row" style="margin-top: 30px;">
-        <?php echo $form->error( $posterModel, 'description' ); ?>
+        <?php echo $form->error($posterModel, 'description'); ?>
         <?php
-        $this->widget( 'ext.tinymce.TinyMce', [
+        $this->widget('ext.tinymce.TinyMce', [
             'model'           => $posterModel,
             'attribute'       => 'description',
             // Optional config
@@ -182,21 +189,21 @@ $form = $this->beginWidget( 'bootstrap.widgets.TbActiveForm', [
             'settings'        => [
                 'language' => 'ru'
             ]
-        ] );
+        ]);
         ?>
     </div>
 
     <div class="form-actions">
-        <?php $this->widget( 'bootstrap.widgets.TbButton', [
+        <?php $this->widget('bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'type'       => 'primary',
             'label'      => $posterModel->isNewRecord ? 'Добавить' : 'Сохранить'
-        ] ); ?>
-        <?php $this->widget( 'bootstrap.widgets.TbButton', [
+        ]); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', [
             'buttonType' => 'link',
             'url'        => '/admin/posters',
             'label'      => 'Отмена'
-        ] ); ?>
+        ]); ?>
     </div>
 
 <?php $this->endWidget(); ?>

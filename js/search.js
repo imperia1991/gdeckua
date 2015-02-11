@@ -24,7 +24,7 @@ function init()
                 hintContent         : point.text
             },
             {
-                iconImageHref: '/img/blue1.png',
+                iconImageHref: '/images/blue1.png',
                 iconImageSize: [24, 34]
             }
         );
@@ -33,7 +33,7 @@ function init()
             {
                 // Ссылку на объект, вызвавший событие,
                 // можно получить из поля 'target'.
-                e.get('target').options.set('iconImageHref', '/img/orrange1.png');
+                e.get('target').options.set('iconImageHref', '/images/orrange1.png');
                 e.get('target').options.set('iconImageSize', [24, 34]);
                 var placeId = 0;
                 placemarks.forEach(function (item, index)
@@ -47,13 +47,13 @@ function init()
             })
             .add('mouseleave', function (e)
             {
-                e.get('target').options.set('iconImageHref', '/img/blue1.png');
+                e.get('target').options.set('iconImageHref', '/images/blue1.png');
                 e.get('target').options.set('iconImageSize', [24, 34]);
                 $('.item-active').removeClass('item-active');
             })
             .add('click', function (e)
             {
-                e.get('target').options.set('iconImageHref', '/img/blue1.png');
+                e.get('target').options.set('iconImageHref', '/images/blue1.png');
                 e.get('target').options.set('iconImageSize', [24, 34]);
                 var placeId = 0;
                 placemarks.forEach(function (item, index)

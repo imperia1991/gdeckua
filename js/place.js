@@ -52,7 +52,7 @@ function init()
 			balloonContent: address
 		},
 		{
-			iconImageHref: '/img/home_icon.png',
+			iconImageHref: '/images/home_icon.png',
 			iconImageSize: [32, 37],
 			draggable: true
 		}
@@ -100,7 +100,7 @@ function init()
 				// имена всех остальных найденных объектов.
 				balloonContent:names.reverse().join(', ')
 			}, {
-				iconImageHref: '/img/home_icon.png',
+				iconImageHref: '/images/home_icon.png',
 				iconImageSize: [32, 37],
 				balloonMaxWidth:'250',
 				draggable: true

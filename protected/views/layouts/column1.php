@@ -1,5 +1,5 @@
 <?php /* @var $this Controller */ ?>
-<?php $this->beginContent('//layouts/new'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
 
 <?php echo $content; ?>
 

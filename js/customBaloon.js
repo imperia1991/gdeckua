@@ -90,15 +90,17 @@ ymaps.ready(function () {
         });
 });
 
-ymaps.ready(function () {
+ymaps.ready(function ()
+{
     var myMap = new ymaps.Map('YMapsID', {
-            center: [55.751574, 37.573856],
-            zoom: 9,
+            center   : [55.751574, 37.573856],
+            zoom     : 9,
             behaviors: ['default', 'scrollZoom']
         }),
         myPlacemark,
-        createPlacemark = function (positiom) {
-            if(myPlacemark) {
+        createPlacemark = function (positiom)
+        {
+            if (myPlacemark) {
                 myPlacemark.geometry.setCoordinates(positiom);
             }
             else {
@@ -106,13 +108,13 @@ ymaps.ready(function () {
                 myMap.geoObjects.add(myPlacemark);
             }
         };
-
-    myMap.events.add('click', function (e) {
+    myMap.events.add('click', function (e)
+    {
         myMap.balloon.open(e.get('coordPosition'), {
             title: 'Создать объект'
         }, {
             layout: BalloonConfirm.BalloonLayout
         });
     });
-
-    new BalloonConfirm(myMap.balloon, createPlacemark);
+    new BalloonConfirm(myMap.balloon, createPlacemark)
+});
