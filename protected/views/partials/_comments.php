@@ -91,7 +91,7 @@ $dataProvider = $comment->search( $model->id );
 	<br>
 	<div id="showComments" class="row collapse">
 		<div class="show-other-news">
-			<img id="loading" style="display: none" src="/img/loading.gif" alt=""/>
+			<img id="loading" style="display: none" src="/images/loading.gif" alt=""/>
 			<a id="showMore" class="more_news button"
 			   href="javascript:void(0)"><?php echo Yii::t( 'main', 'Показать больше комментариев' ) ?></a>
 		</div>

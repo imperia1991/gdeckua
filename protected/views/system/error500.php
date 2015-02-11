@@ -8,7 +8,7 @@ $this->breadcrumbs = [
 
 <div class="no-find">
 
-    <h6><?php echo Yii::t('main', 'На сервере произошла'); ?> :(</h6>
+    <h6><?php echo Yii::t('main', 'На сервере произошла'); ?><br/> <?php echo Yii::t('main', 'непредвиденная ошибка'); ?> :(</h6>
 
     <p>
         <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/main') ?>">

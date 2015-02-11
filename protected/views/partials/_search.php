@@ -3,7 +3,7 @@ $model = is_object($this->modelPlaces) ? $this->modelPlaces : new Places();
 
 $form = $this->beginWidget('CActiveForm', [
     'id' => 'searchForm',
-    'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place?page=' . $this->currentPage),
+    'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/?page=' . $this->currentPage),
     'method' => 'GET',
     'htmlOptions' => [],
     ]);

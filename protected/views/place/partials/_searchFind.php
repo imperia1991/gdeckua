@@ -60,5 +60,5 @@ $this->breadcrumbs = [
 	?>
 
 <script type="text/javascript">
-	$('#placeMap').height($('.block_with_map').height() - 20);
+	$('#placeMap').height($('.block_with_map').height());
 </script>

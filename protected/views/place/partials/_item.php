@@ -1,3 +1,4 @@
+<?php if (is_object($data)): ?>
 <?php
 /** @var Places $data */
 
@@ -32,3 +33,4 @@ $photoPath = '/' . Yii::app()->params['admin']['files']['images'];
         </a>
     </div>
 </div>
+<?php endif;

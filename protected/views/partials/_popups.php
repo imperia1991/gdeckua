@@ -119,7 +119,7 @@ $feedback = $this->feedback;
 			<span id="error_verifyCode" class="input_error"></span>
 		</div>
 		<div class="pop_up_bottom clearfix">
-			<img id="loadingFeedback" style="float: right; display: none" src="/img/loading.gif" alt=""/>
+			<img id="loadingFeedback" style="float: right; display: none" src="/images/loading.gif" alt=""/>
 			<?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'submit']); ?>
 		</div>
 	</div>

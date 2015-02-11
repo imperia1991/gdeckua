@@ -27,7 +27,7 @@
 
 <?php if ($posters->getTotalItemCount() > $posters->getPagination()->pageSize): ?>
     <div id="showItems" class="large-12 columns show-other-news">
-        <img id="loading" style="display: none" src="/img/loading.gif" alt="" />
+        <img id="loading" style="display: none" src="/images/loading.gif" alt="" />
         <a id="showMore" href="javascript:void(0);" class="more_news button"><?php echo Yii::t('main', 'Показать еще'); ?></a>
     </div>
     <script type="text/javascript">

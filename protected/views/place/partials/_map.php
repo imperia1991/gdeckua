@@ -11,8 +11,13 @@ var currLang = '<?php echo Yii::app()->getLanguage(); ?>';
 var placeMap;
 var placeCenter = [49.439172, 32.059268];
 var searchPoints = [];
+
 <?php foreach ($items as $item): ?>
     <?php
+    if (!is_object($item)) {
+        continue;
+    }
+
     $district = $item->getDistrict();
     $id = $item->id;
 
