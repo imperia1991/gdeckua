@@ -2,6 +2,8 @@
 /** @var News $data */
 ?>
 
+<?php if (file_exists(Yii::app()->params['admin']['files']['news'] . '/' . $data->photo)): ?>
+
 <li class="news_item">
     <div class="news_item_photo_wrap">
         <div class="news_item_photo">
@@ -44,3 +46,4 @@
         </div>
     </div>
 </li>
+<?php endif; ?>
