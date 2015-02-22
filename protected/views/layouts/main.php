@@ -185,7 +185,7 @@
                 </li>
                 <li>
                 <li>
-                    <a href="#"><span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></a>
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>"><span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></a>
                 </li>
                 <li>
                     <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/webcams'); ?>">
