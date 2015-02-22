@@ -23,7 +23,7 @@
 				<a id="image_<?php echo $image; ?>" href="javascript:void(0);"
 				   onclick="photo.deletePreviewUpload(this);" rel="<?php echo $image; ?>"
 				   class="remove-photo">
-					<img src="/img/delete.png">
+					<img src="/images/delete.gif">
 					<?php echo Yii::t( 'main', 'Удалить' ); ?>
 				</a>
 			</p>

@@ -21,28 +21,10 @@ $this->breadcrumbs = [
             <h2>
                 <?php echo $model->{$title}; ?>
             </h2>
-            <?php $path = '/' . Yii::app()->params['admin']['files']['images'] . $model->photos[0]->title; ?>
+            <?php $path = '/' . Yii::app()->params['admin']['files']['imagesB'] . $model->photos[0]->title; ?>
             <div class="object_big_photo">
-                <a href="<?php
-                echo Yii::app()->easyImage->thumbSrcOf(
-                    $path,
-                    [
-                        'resize'  => [ 'width' => 800, 'height' => 600 ],
-                        'quality' => 100,
-                    ]
-                );
-                ?>" class="colorbox">
-
-                <?php echo Yii::app()->easyImage->thumbOf(
-                    $path,
-                    [
-                        'resize'  => [ 'width' => 430, 'height' => 269 ],
-                        'crop'    => [ 'width' => 415, 'height' => 259 ],
-                        'quality' => 100,
-                    ]
-                );
-                ?>
-
+                <a href="<?php echo $path; ?>" class="colorbox">
+	                <img src="<?php echo $path ?>">
                 </a>
             </div>
             <ul class="objects_previews">
@@ -52,15 +34,14 @@ $this->breadcrumbs = [
                     if ( $index ++ == 0 ) {
                         continue;
                     }
-                    $path = '/' . Yii::app()->params['admin']['files']['images'] . $photo->title
+                    $pathB = '/' . Yii::app()->params['admin']['files']['imagesB'] . $photo->title;
+                    $pathS = '/' . Yii::app()->params['admin']['files']['imagesS'] . $photo->title;
                     ?>
                     <li class="objects_previews_item active">
-                        <a class="colorbox" href="<?php
-                        echo $path;
-                        ?>"
+                        <a class="colorbox" href="<?php echo $pathB; ?>"
                            title="<?php echo $model->{$title}; ?>"
                            alt="<?php echo $model->{$title}; ?>">
-                            <img src="<?php echo $path; ?>" />
+                            <img src="<?php echo $pathS; ?>" />
                         </a>
                     </li>
                 <?php endforeach; ?>

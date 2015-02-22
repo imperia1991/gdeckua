@@ -17,21 +17,6 @@ class PlaceController extends Controller
         Yii::import('application.extensions.LocoTranslitFilter');
     }
 
-//    /**
-//     * Declares class-based actions.
-//     */
-//    public function actions()
-//    {
-//        return [
-//            // captcha action renders the CAPTCHA image displayed on the contact page
-//            'captcha' => [
-//                'class' => 'CCaptchaAction',
-//                'backColor' => 0x494949,
-//                'foreColor' => 0xFFFFFF
-//            ],
-//        ];
-//    }
-
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
@@ -204,8 +189,16 @@ class PlaceController extends Controller
                         if ($postPhotos) {
                             foreach ($postPhotos as $photo) {
                                 $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
-                                $image = Yii::app()->image->load($photoPath);
-                                $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+
+	                            $image = new EasyImage($photoPath);
+	                            $image->resize(800, 600, EasyImage::RESIZE_PRECISE);
+	                            $image->save(Yii::app()->params['admin']['files']['imagesB']  . $photo);
+
+	                            unset($image);
+
+	                            $image = new EasyImage($photoPath);
+	                            $image->resize(220, 150,  EasyImage::RESIZE_PRECISE);
+	                            $image->save(Yii::app()->params['admin']['files']['imagesS']  . $photo);
 
                                 if (file_exists($photoPath)) {
                                     unlink($photoPath);

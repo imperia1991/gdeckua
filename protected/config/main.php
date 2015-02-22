@@ -210,6 +210,8 @@ $mainConfig = [
                 'photoPoster' => 'uploads/photos/photoPoster/',
                 'boards' => 'uploads/photos/boards/',
                 'boardIcons' => 'uploads/photos/boards/icons',
+	            'imagesB' => 'uploads/images/b/',
+	            'imagesS' => 'uploads/images/s/',
             ],
             'images' => [
                 'small' => [

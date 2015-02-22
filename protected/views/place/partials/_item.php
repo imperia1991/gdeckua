@@ -8,15 +8,16 @@ $shortDescription = 'short_description_' . Yii::app()->getLanguage();
 $url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place');
 
 $this->keywords .= $data->{$title} . ', ';
-$photoPath = '/' . Yii::app()->params['admin']['files']['images'];
+$photoPathS = '/' . Yii::app()->params['admin']['files']['imagesS'];
+$photoPathB = '/' . Yii::app()->params['admin']['files']['imagesB'];
 
 ?>
 
 <div class="object_item">
     <div class="object_item_block">
         <div class="object_item_photo">
-            <a href="<?php echo $photoPath . $data->photos[0]->title; ?>" class="colorbox">
-                <img src="<?php echo $photoPath . $data->photos[0]->title; ?>" />
+            <a href="<?php echo $photoPathB . $data->photos[0]->title; ?>" class="colorbox">
+                <img src="<?php echo $photoPathS . $data->photos[0]->title; ?>" />
             </a>
         </div>
         <a href="<?php echo $data->getUrl(); ?>">

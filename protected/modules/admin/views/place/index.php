@@ -17,7 +17,7 @@
                 'name' => 'photo',
                 'value' => function ($data, $row) {
                         if (isset($data->photos[0])) {
-                            echo CHtml::image('/' . Yii::app()->params['admin']['files']['images'] . $data->photos[0]->title, '', ['width' => 60, 'height' => 60]);
+                            echo CHtml::image('/' . Yii::app()->params['admin']['files']['imagesS'] . $data->photos[0]->title, '', ['width' => 60, 'height' => 60]);
                         }
                     },
                 'filter' => $model->isPhoto(),

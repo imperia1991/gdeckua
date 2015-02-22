@@ -48,9 +48,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
 <?php if (isset($model->photos)): ?>
 <div class="row" style="margin-top: 20px;">
     <?php foreach ($model->photos as $photo): ?>
-        <img width="280" height="180" src="<?php echo '/' . Yii::app()->params['admin']['files']['images'] . $photo->title; ?>" alt="" class="photo_<?php echo $photo->id ?>" style="margin: 0 10px;">
+        <img width="280" height="180" src="<?php echo '/' . Yii::app()->params['admin']['files']['imagesB'] . $photo->title; ?>" alt="" class="photo_<?php echo $photo->id ?>" style="margin: 0 10px;">
         <a href="javascript:void(0)" rel="<?php echo $photo->id ?>" style="disply:block;vertical-align:top;margin: 0 -5px 0 -10px;" class="deletePhoto photo_<?php echo $photo->id; ?>">
-            <img src="/img/deleteFile.png" alt="">
+            <img src="/images/delete.gif" alt="">
         </a>
     <?php endforeach; ?>
 </div>
@@ -93,7 +93,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
                                                         "<img class=\"delClass\" src=\"/' . Yii::app()->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"280\" height=\"180\" data-filename=\"" + responseJSON.filename + "\" />"
                                                     );
                                                 $("#uploadPhoto").append(
-                                                        "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" data-filename=\"" + responseJSON.filename + "\" rel=\"" + responseJSON.filename + "\" class=\"delClass\" style=\"margin:0 5px 0 5px; vertical-align:top;\"><img src=\"/img/deleteFile.png\" /></a>"
+                                                        "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" data-filename=\"" + responseJSON.filename + "\" rel=\"" + responseJSON.filename + "\" class=\"delClass\" style=\"margin:0 5px 0 5px; vertical-align:top;\"><img src=\"/images/delete.gif\" /></a>"
                                                     );
                                                 $("#uploadPhoto").append(
                                                          "<input name=\"Photos[]\" type=\"hidden\" value=\"" + responseJSON.filename + "\" data-filename=\"" + responseJSON.filename + "\" class=\"delClass\"/>"

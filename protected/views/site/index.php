@@ -7,7 +7,8 @@ $this->pageTitle = Yii::t('main', 'Главная');
 $title = 'title_' . Yii::app()->getLanguage();
 $address = 'address_' . Yii::app()->getLanguage();
 $url = Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/place');
-$photoPath = '/' . Yii::app()->params['admin']['files']['images'];
+$photoPathB = '/' . Yii::app()->params['admin']['files']['imagesB'];
+$photoPathS = '/' . Yii::app()->params['admin']['files']['imagesS'];
 ?>
 
 <div class="page_content">
@@ -23,8 +24,8 @@ $photoPath = '/' . Yii::app()->params['admin']['files']['images'];
 					<div class="object_item">
 						<div class="object_item_block">
 							<div class="object_item_photo">
-								<a href="<?php echo $photoPath . $place->photos[0]->title; ?>" class="colorbox">
-                                    <img src="<?php echo $photoPath . $place->photos[0]->title; ?>" />
+								<a href="<?php echo $photoPathB . $place->photos[0]->title; ?>" class="colorbox">
+                                    <img src="<?php echo $photoPathS . $place->photos[0]->title; ?>" />
 								</a>
 							</div>
 							<a href="<?php echo $place->getUrl(); ?>" target="_blank">

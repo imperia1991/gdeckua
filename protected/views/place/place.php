@@ -290,7 +290,7 @@ $errors = $model->getErrors();
                                                                     "<div class=\"input_wrap delClass\" data-filename=\"" + responseJSON.filename + "\">" +
                                                                         "<div class=\"object-img-box\"><img class=\"delClass\" src=\"/' . Yii::app(
                             )->params['admin']['files']['tmp'] . '" + responseJSON.filename + "\" width=\"100\" height=\"90\" data-filename=\"" + responseJSON.filename + "\" /></div>" +
-                                                                         "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" rel=\"" + responseJSON.filename + "\" class=\"remove-photo\"><img src=\"/img/delete.png\"> ' . Yii::t(
+                                                                         "<a id=\"image_" + responseJSON.filename + "\" href=\"javascript:void(0)\" onclick=\"photo.deletePreviewUpload(this);\" rel=\"" + responseJSON.filename + "\" class=\"remove-photo\"><img src=\"/images/delete.gif\"> ' . Yii::t(
                                 'main',
                                 'Удалить'
                             ) . '</a>" +

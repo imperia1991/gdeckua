@@ -119,8 +119,11 @@ class PlaceController extends AdminController
 
             if ($model->delete()) {
                 foreach ($photos as $photo) {
-                    if (file_exists(Yii::app()->params['admin']['files']['images'] . $photo->title)) {
-                        unlink(Yii::app()->params['admin']['files']['images'] . $photo->title);
+                    if (file_exists(Yii::app()->params['admin']['files']['imagesB'] . $photo->title)) {
+                        unlink(Yii::app()->params['admin']['files']['imagesB'] . $photo->title);
+                    }
+	                if (file_exists(Yii::app()->params['admin']['files']['imagesS'] . $photo->title)) {
+                        unlink(Yii::app()->params['admin']['files']['imagesS'] . $photo->title);
                     }
                 }
             }
@@ -181,8 +184,11 @@ class PlaceController extends AdminController
         $model = Photos::model()->findByPk($id);
 
         if ($model->delete()) {
-            if (file_exists(Yii::app()->params['admin']['files']['images'] . $model->title)) {
-                unlink(Yii::app()->params['admin']['files']['images'] . $model->title);
+            if (file_exists(Yii::app()->params['admin']['files']['imagesB'] . $model->title)) {
+                unlink(Yii::app()->params['admin']['files']['imagesB'] . $model->title);
+            }
+	        if (file_exists(Yii::app()->params['admin']['files']['imagesS'] . $model->title)) {
+                unlink(Yii::app()->params['admin']['files']['imagesS'] . $model->title);
             }
 
             $this->respondJSON(true);
@@ -270,8 +276,16 @@ class PlaceController extends AdminController
                     if ($postPhotos) {
                         foreach ($postPhotos as $photo) {
                             $photoPath = Yii::app()->params['admin']['files']['tmp'] . $photo;
-                            $image = Yii::app()->image->load($photoPath);
-                            $image->save(Yii::app()->params['admin']['files']['images'] . $photo);
+
+	                        $image = new EasyImage($photoPath);
+	                        $image->resize(800, 600, EasyImage::RESIZE_PRECISE);
+	                        $image->save(Yii::app()->params['admin']['files']['imagesB']  . $photo);
+
+	                        unset($image);
+
+	                        $image = new EasyImage($photoPath);
+	                        $image->resize(220, 150,  EasyImage::RESIZE_PRECISE);
+	                        $image->save(Yii::app()->params['admin']['files']['imagesS']  . $photo);
 
                             if (file_exists($photoPath)) {
                                 unlink($photoPath);

@@ -13,7 +13,7 @@ class DevelopController extends AdminController
 
     public function actionIndex()
     {
-        $this->render('index', array());
+        $this->render('index', []);
     }
 
     public function actionMakeAlias()
@@ -65,4 +65,33 @@ class DevelopController extends AdminController
 
         $this->redirect(Yii::app()->createUrl('/admin/develop'));
     }
+
+	public function actionCorrectImages()
+	{
+		/** @var Photos[] $placesPhotos */
+		$placesPhotos = Photos::model()->findAll();
+		$photoPath = Yii::app()->params['admin']['files']['images'];
+		$directoryB = Yii::app()->params['admin']['files']['imagesB'];
+		$directoryS = Yii::app()->params['admin']['files']['imagesS'];
+
+		foreach ($placesPhotos as $photo) {
+			if (!file_exists($photoPath . $photo->title)) {
+				continue;
+			}
+
+			$image = new EasyImage($photoPath . $photo->title);
+			$image->resize(800, 600, EasyImage::RESIZE_PRECISE);
+			$image->save($directoryB . $photo->title);
+
+			unset($image);
+
+			$image = new EasyImage($photoPath . $photo->title);
+			$image->resize(220, 150, EasyImage::RESIZE_PRECISE);
+			$image->save($directoryS . $photo->title);
+
+			unset($image);
+		}
+
+		$this->redirect(Yii::app()->createUrl('/admin/develop'));
+	}
 }
