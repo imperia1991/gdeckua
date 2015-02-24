@@ -19,7 +19,7 @@ $photoPathS = '/' . Yii::app()->params['admin']['files']['imagesS'];
                     <?php echo Yii::t('main', 'Места города') ?>
                 </a>
             </div>
-			<div class="objects clearfix">
+			<div class="objects clearfix main-page">
 				<?php foreach ($places as $place): ?>
 					<div class="object_item">
 						<div class="object_item_block">

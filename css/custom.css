@@ -72,7 +72,7 @@
 }
 
 #placeMap {
-    /*min-height: 300px;*/
+    min-height: 1000px;
 }
 
 .unavailable {
@@ -128,7 +128,6 @@
     margin-top: 5px;
 }
 
-.object_item_photo img {
-    max-width: 208px;
-    max-height: 138px;
+.main-page .object_item {
+    margin-bottom: 30px;
 }

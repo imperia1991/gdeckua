@@ -1211,7 +1211,7 @@ button.button{
 
 @media screen and (max-width: 959px){
     .block_with_map{display: block;}
-    .block_with_map_left{display: block;width: 100%;height: 300px;margin-bottom: 20px;position: relative;}
+    .block_with_map_left{display: block;width: 100%;margin-bottom: 20px;position: relative;}
     .block_with_map_left_right{width: 100%; float: none;}
     .object_item{max-width: 315px;margin: 0 0 20px;width: 50%;}
     .home_news_item{width: 100%;margin-top: 10px;margin-bottom: 10px;}
@@ -1226,6 +1226,9 @@ button.button{
     .content{padding-left: 60px;}
     .objects_page_list{margin-bottom: 0;}
     .objects_page .pagination{width: auto;}
+    #placeMap {
+        min-height: 400px !important;
+    }
 }
 @media screen and (max-width: 860px){
     .form_input_bottom .captcha_block{float: none;}
@@ -1276,7 +1279,7 @@ button.button{
 
 @media screen and (max-width: 600px){
     .cathegories{text-align: center;}
-    .object_item{width: 100%; margin: 0 auto 20px;float: none;}
+    .object_item{width: 72%; margin: 0 auto 20px;float: none;}
     .title{display: block;text-align: center;}
     .home_news_item{text-align: center;max-width: 250px; margin: 20px auto 20px; float: none;}
     .photos_item{float: none; width: 100%; margin: 0 auto 20px;}

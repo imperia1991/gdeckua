@@ -217,8 +217,6 @@ $(window).resize(function ()
     $('.object_photo_block h2,.object_adress h2').removeAttr('style').css('height', Math.max($('.object_photo_block h2').height(), $('.object_adress h2').height()));
     $('.page_content').css('min-height', $('.sidebar_wrap').height() - $('header').height() - $('footer').height());
 
-    $('#placeMap').height($('.block_with_map').height() - 20);
-
     $("#panelPhotoCity").freetile({
         selector       : '.photo_item',
         containerResize: false

@@ -58,7 +58,3 @@ $this->breadcrumbs = [
 		'maxButtonCount'       => 5
 	] );
 	?>
-
-<script type="text/javascript">
-	$('#placeMap').height($('.block_with_map').height());
-</script>

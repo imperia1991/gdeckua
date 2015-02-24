@@ -2,8 +2,6 @@ ymaps.ready(init);
 var placemarks = [];
 function init()
 {
-    $('#placeMap').height($('.block_with_map').height() - 20);
-
     placeMap = new ymaps.Map('placeMap', {
         center: placeCenter,
         zoom  : 16
