@@ -907,7 +907,7 @@ textarea.input{resize: vertical;min-height: 217px;}
 }
 .object_adress{width: 50%;float: left;}
 .object_adress h2{text-align: center;    margin-bottom: 20px;}
-.object_map{display: block;height: 378px;}
+.object_map #placeMap{display: block;height: 285px;}
 .add_comment{display: table; width: 100%; table-layout: fixed;}
 .add_comment textarea.input{min-height: 166px;}
 .add_comment_left{display: table-cell;padding-right: 17px;}
@@ -1226,7 +1226,7 @@ button.button{
     .content{padding-left: 60px;}
     .objects_page_list{margin-bottom: 0;}
     .objects_page .pagination{width: auto;}
-    #placeMap {
+    .search #placeMap {
         min-height: 400px !important;
     }
 }
@@ -1245,7 +1245,7 @@ button.button{
     .add_comment_right{margin-bottom: 20px;}
     .object_photo_block,.object_adress{display: block; float: none; width: auto;}
     .object_photo_block h2,.object_adress h2{height: auto!important}
-    .object_map{height: 250px!important;}
+    .object_map #placeMap{height: 250px!important;}
     .news_main,.other_news{float: none; width: auto;margin-bottom: 20px;}
     .other_news .title{text-align: left;}
     .webcam_list{float: none; width: auto;  text-align: center;padding: 0;}

@@ -51,7 +51,7 @@ $this->breadcrumbs = [
             <h2><?php echo $model->{$address}; ?></h2>
 
             <div class="object_map view">
-                <div id="placeMap" style="height: 378px">
+                <div id="placeMap">
                     <?php
                     $this->renderPartial(
                         'partials/_mapOne',
