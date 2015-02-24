@@ -127,3 +127,8 @@
 .main .objects {
     margin-top: 5px;
 }
+
+.object_item_photo img {
+    max-width: 208px;
+    max-height: 138px;
+}

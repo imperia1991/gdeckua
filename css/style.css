@@ -1229,6 +1229,10 @@ button.button{
 }
 @media screen and (max-width: 860px){
     .form_input_bottom .captcha_block{float: none;}
+    .cboxPhoto {
+        max-width: 580px !important;
+        max-height: 320px !important;
+    }
 
 }
 @media screen and (max-width: 769px){
@@ -1264,6 +1268,10 @@ button.button{
     .film_poster{float: none;margin: 0 auto 20px;text-align: center;}
     .film_title{text-align: center;padding-right: 0;}
     .film_title_capt{position: relative; top:0; right:0; margin: 5px 0 0;}
+    .cboxPhoto {
+        max-width: 580px !important;
+        max-height: 320px !important;
+    }
 }
 
 @media screen and (max-width: 600px){
@@ -1280,6 +1288,13 @@ button.button{
     .about{padding-left: 10px;}
     .mobile_go_top{z-index: 100;}
     .mobile_go_top.active{display: block;opacity: 1;}
+    .main .block_with_map_left_right .object_item {
+        width: 50% !important;
+    }
+    .cboxPhoto {
+        max-width: 580px !important;
+        max-height: 320px !important;
+    }
 } 
 
 @media screen and (max-width: 480px){
@@ -1318,10 +1333,24 @@ button.button{
     .news_item_content{margin: 0; text-align: center;}
     .main_news_item_text{font-size: 12px; line-height: 18px;}
     .pagination li{font-size: 18px;margin: 0 4px}
+    .main .block_with_map_left_right .object_item {
+        width: 50% !important;
+    }
+    .cboxPhoto {
+        max-width: 390px !important;
+        max-height: 280px !important;
+    }
 }
 @media screen and (max-width: 360px){
     .cathegories_item{display: block; margin: 0 0 5px;}
     .home_news_list{margin-left: 0; ;}
+    .main .block_with_map_left_right .object_item {
+        width: 79% !important;
+    }
+    .cboxPhoto {
+        max-width: 300px !important;
+        max-height: 200px !important;
+    }
 }
 
 
