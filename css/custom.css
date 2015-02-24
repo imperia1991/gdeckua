@@ -71,7 +71,7 @@
     font-size: 13px;
 }
 
-#placeMap {
+.search #placeMap {
     min-height: 1000px;
 }
 

@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 ?>
 
 <div class="block_with_map clearfix ">
-	<div class="block_with_map_left">
+	<div class="block_with_map_left search">
 		<div id="placeMap">
 			<?php
 			$this->renderPartial( 'partials/_map', [
