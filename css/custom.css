@@ -131,3 +131,6 @@
 .main-page .object_item {
     margin-bottom: 30px;
 }
+.object_item_photo img {
+    max-height: 138px;
+}
