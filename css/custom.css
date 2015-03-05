@@ -19,7 +19,7 @@
 }
 
 .fb_iframe_widget {
-    background: #fff;
+    background: #ffffff;
 }
 
 .input_error.photo {
@@ -33,20 +33,22 @@
     width: auto;
     /*display: inline;*/
 }
+
 .qq-upload-list {
     display: none;
 }
+
 .qq-upload-drop-area {
     background: none;
 }
 
 /*.qq-upload-button input {*/
-    /*height: 38px;*/
-    /*border: 0;*/
+/*height: 38px;*/
+/*border: 0;*/
 /*}*/
 
 /*.qq-upload-button input[type="file"] {*/
-    /*font-size: 0px !important;*/
+/*font-size: 0px !important;*/
 /*}*/
 
 .jGrowl-message {
@@ -56,9 +58,11 @@
 .film_single {
     margin-bottom: 62px;
 }
+
 .webcam_list {
     width: 100%;
 }
+
 .webcam_block {
     margin: 0;
 }
@@ -83,6 +87,7 @@
     text-align: center;
     margin-bottom: 30px;
 }
+
 .no-find h6 {
     font-size: 20px;
 }
@@ -99,31 +104,38 @@
     color: #ee7829;
 }
 
-.form_input_wrap.photos #uploadPhoto{
+.form_input_wrap.photos #uploadPhoto {
     text-align: center;
 }
-.form_input_wrap.photos .input_wrap{
+
+.form_input_wrap.photos .input_wrap {
     margin-left: 0;
 }
-.form_input_wrap.photos .input_wrap.delClass{
+
+.form_input_wrap.photos .input_wrap.delClass {
     display: inline-table;
     margin-top: 5px;
 }
-.form_input_wrap.photos .input_wrap.delClass p{
+
+.form_input_wrap.photos .input_wrap.delClass p {
     margin-bottom: 0;
 }
+
 .main .object_more {
     font-size: 13px;
     width: 100%;
     text-align: center;
     right: 0;
 }
+
 .main .block_with_map_left_right {
     width: 100%;
 }
+
 .main .block_with_map_left_right .object_item {
     width: 25%;
 }
+
 .main .objects {
     margin-top: 5px;
 }
@@ -131,6 +143,24 @@
 .main-page .object_item {
     margin-bottom: 30px;
 }
+
 .object_item_photo img {
     max-height: 138px;
+}
+
+.cinema, .cinema h5, .cinema h4 {
+    line-height: 29px !important;
+    font: 16px 'Roboto Condensed', sans-serif;
+    color: #7d807f;
+}
+
+.cinema h5 strong, .cinema h4 strong, .cinema h5 span, .cinema h4 span {
+    color: #010101;
+    font-family: "Roboto", 'Roboto Condensed', sans-serif;
+    margin-right: 5px;
+    font-weight: normal;
+}
+
+.cinema h5 a, .cinema h5 strong a, .cinema h4 a, .cinema h4 strong a, .cinema h5 span a, .cinema h4 span a {
+    color: #237dbb;
 }
