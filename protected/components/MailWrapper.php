@@ -61,7 +61,9 @@ class MailWrapper {
      */
     public function getFrom()
     {
-        return $this->from;
+        return [
+	        $this->from => Yii::t('main', 'Где в Чрекассах')
+        ];
     }
 
     /**

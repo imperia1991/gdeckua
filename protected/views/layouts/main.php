@@ -132,6 +132,30 @@
                         <span class="menu_item_icon icon9"></span>
                     </a>
                 </li>
+	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_MUSER)): ?>
+                <li class="menu_item">
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/mnews'); ?>">
+                        <span class="menu_item_text"><?php echo Yii::t('main', 'Редактирование новостей'); ?></span>
+                        <span class="menu_item_icon icon2"></span>
+                    </a>
+                </li>
+	            <?php endif; ?>
+	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)): ?>
+                <li class="menu_item">
+                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/che'); ?>">
+                        <span class="menu_item_text"><?php echo Yii::t('main', 'Чашка Кави.Че'); ?></span>
+                        <span class="menu_item_icon icon2"></span>
+                    </a>
+                </li>
+	            <?php endif; ?>
+	            <?php if (!Yii::app()->user->isGuest): ?>
+                <li class="menu_item">
+                    <a href="<?php echo Yii::app()->createUrl('/logout'); ?>">
+                        <span class="menu_item_text"><?php echo Yii::t('main', 'Выйти'); ?></span>
+                        <span class="menu_item_icon icon7"></span>
+                    </a>
+                </li>
+	            <?php endif; ?>
             </ul>
             <div class="advertise">
                 <div class="advertise_title">

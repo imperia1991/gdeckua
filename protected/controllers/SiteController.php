@@ -184,7 +184,7 @@ class SiteController extends Controller
             $modelUser->setAttributes($post);
 
             if ($modelUser->validate() && $modelUser->login()) {
-                Yii::app()->getRequest()->redirect(Yii::app()->session['returnUrl']);
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при авторизации'));
             }
@@ -222,7 +222,7 @@ class SiteController extends Controller
 
                 Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Вы зарегистрированы на сайте'));
 
-                Yii::app()->getRequest()->redirect(Yii::app()->session['returnUrl']);
+                Yii::app()->getRequest()->redirect('/' . Yii::app()->getLanguage());
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('main', 'Вы допустили ошибки при регистрации'));
             }

@@ -164,3 +164,9 @@
 .cinema h5 a, .cinema h5 strong a, .cinema h4 a, .cinema h4 strong a, .cinema h5 span a, .cinema h4 span a {
     color: #237dbb;
 }
+.news_item_photo img {
+    max-height: 96px;
+}
+.main_news_item img {
+    max-height: 290px;
+}

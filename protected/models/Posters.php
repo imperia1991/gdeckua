@@ -240,4 +240,22 @@ class Posters extends ActiveRecord
 		return is_object($this->place) ? $this->place->getUrl() : '/';
 	}
 
+	public function fromTo()
+	{
+		if ($this->date_from && $this->date_to && $this->date_from != $this->date_to) {
+			return Yii::t('main', 'с') . ' ' . Yii::app()->dateFormatter->format(
+				'dd.MM',
+				strtotime($this->date_from)
+			) . ' ' . Yii::t('main', 'по') . ' ' . Yii::app()->dateFormatter->format(
+				'dd.MM',
+				strtotime($this->date_to)
+			);
+		} else {
+			return Yii::app()->dateFormatter->format(
+				'd MMMM',
+				strtotime($this->date_from)
+			);
+		}
+	}
+
 }

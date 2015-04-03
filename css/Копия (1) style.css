@@ -1009,7 +1009,7 @@ textarea.input{resize: vertical;min-height: 217px;}
 .news_single_title{font-size: 20px;margin-bottom: 0;font-weight: normal;}
 .news_single_date{color: #ee7829;margin-bottom: 11px;font-size: 14px;}
 .news_single_content{margin-bottom: 30px;line-height: 25px; font-family: "Helvetica",'Roboto Condensed', sans-serif}
-.news_single_content img{}
+.news_single_content img{float: left; margin: 0 10px 0 0}
 .news_single_caption{text-align: right;}
 .news_single .socials{margin: 35px 0 -13px;}
 .socials_item{display: inline-block; vertical-align: top;}
@@ -1359,5 +1359,77 @@ button.button{
 
 
 
+
+
+
+
+
+
+/* =================================================================================================================
+                                                                                                                
+                                                          HELPER
+                                                                                                               (qwe)
+   =================================================================================================================
+
+   ======= IE Fix display: inline-block; =======
+
+   *display: inline; zoom: 1;
+
+    ======= Transform =======
+
+    -moz-transform:rotate(-5deg);
+    -webkit-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);
+    transform:rotate(-5deg);
+
+    ======= Opacity =======
+
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+
+    ======= Text shadow =======  (txtsh)
+
+    text-shadow: 0px 1px 0px #e5e5ee;
+    filter: dropshadow(color=#e5e5ee,offX=0,offY=1);
+
+    ======= Border radius =======
+
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    behavior: url(css/PIE/PIE.htc);
+
+    ======= Box shadow =======
+
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.5);
+
+    ======= Boxx sizing =======   (bxs)
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    ======= Gradient =======
+
+    background: #ffffff;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffffff), to(#e8e8e8));
+    background: -webkit-linear-gradient(#ffffff, #e8e8e8);
+    background: -moz-linear-gradient(#ffffff, #e8e8e8);
+    background: -ms-linear-gradient(#ffffff, #e8e8e8);
+    background: -o-linear-gradient(#ffffff, #e8e8e8);
+    background: linear-gradient(#ffffff, #e8e8e8);
+    }
+
+    ======== Transition =======
+
+    transition        : all 0.2s;
+    -moz-transition   : all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition     : all 0.2s;
+
+   ================================================================================================================= */
 
 

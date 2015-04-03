@@ -25,16 +25,7 @@
                 <?php echo $poster->title; ?>
                 <div class="film_title_capt">
                     <?php echo Yii::t('main', 'Показ'); ?>
-                    <?php echo Yii::t('main', 'с'); ?>
-                    <?php echo Yii::app()->dateFormatter->format(
-                        'dd.MM',
-                        strtotime($poster->date_from)
-                    ); ?>
-                    <?php echo Yii::t('main', 'по'); ?>
-                    <?php echo Yii::app()->dateFormatter->format(
-                        'dd.MM',
-                        strtotime($poster->date_to)
-                    ); ?>
+                    <?php echo $poster->fromTo(); ?>
                 </div>
             </div>
 	        <div class="cinema">
