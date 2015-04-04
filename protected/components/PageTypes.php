@@ -31,4 +31,8 @@ class PageTypes {
     const PAGE_FEEDBACK = 'feedback';
     /** Страница помочь сайту */
     const PAGE_HELP_SITE = 'help_site';
-} 
+	/** Страница Чашки кави.Че */
+    const PAGE_CHASHKA_CHE = 'chashka';
+	/** Страница новостей от Черкащан */
+    const PAGE_MUSER = 'muser';
+}

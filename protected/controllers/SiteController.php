@@ -28,7 +28,7 @@ class SiteController extends Controller
             ],
             ['allow',
                 'actions' => ['add', 'logout'],
-                'roles' => ['user', 'admin'],
+                'roles' => ['user', 'admin', 'muser', 'chashka'],
             ],
             ['deny', // deny all users
                 'actions' => ['logout'],
@@ -264,7 +264,7 @@ class SiteController extends Controller
                     $mailWraper = new MailWrapper();
                     $mailWraper->setModel($modelCurrentUser);
                     $mailWraper->setView('forgot_' . Yii::app()->getLanguage());
-                    $mailWraper->setSubject(Yii::t('main', 'Востановление пароля'));
+                    $mailWraper->setSubject(Yii::t('main', 'Восстановление пароля'));
                     $mailWraper->send();
                 }
 

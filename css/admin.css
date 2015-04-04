@@ -1,3 +1,13 @@
 .table tbody tr.error {
     background-color: #f2dede !important;
 }
+
+.show {
+    color: #008000;
+}
+.not-show {
+    color: #ff0000;
+}
+.right {
+    float: right !important;
+}

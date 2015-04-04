@@ -1,64 +1,49 @@
 <?php
 
+/**
+ * Class DefaultController
+ */
 class DefaultController extends AdminController
 {
-    public function filters()
+	/**
+	 * @return array
+	 */
+	public function filters()
     {
         return [
             'accessControl', // perform access control for CRUD operations
         ];
     }
 
-    public function accessRules()
-    {
-        return [
-            [
-                'allow',
-                'actions' => ['login', 'error'],
-                'roles' => ['guest'],
-            ],
-            [
-                'allow',
-                'actions' => ['index', 'error', 'logout'],
-                'roles' => ['admin'],
-            ],
-            [
-                'deny', // deny all users
-                'users' => ['*'],
-            ],
-        ];
-    }
+	/**
+	 * @return array
+	 */
+	public function accessRules()
+	{
+		return [
+			['allow',
+				'roles' => [Users::ROLE_ADMIN, Users::ROLE_MUSER, Users::ROLE_CHASHKA],
+			],
+			['deny', // deny all users
+				'users' => ['*'],
+			],
+		];
+	}
 
-    public function init()
+	/**
+	 *
+	 */
+	public function actionIndex()
     {
-        parent::init();
+	    if (Yii::app()->user->checkAccess(Users::ROLE_ADMIN)) {
+		    $this->redirect('/admin/news');
+	    }
 
-        $this->menuActive = 'index';
-    }
+	    if (Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)) {
+		    $this->redirect('/admin/meeting');
+	    }
 
-    public function actionIndex()
-    {
         $this->render('index');
-    }
-
-    public function actionLogin()
-    {
-        if (!Yii::app()->user->isGuest) {
-            $this->redirect(Yii::app()->baseUrl . '/admin');
-        }
-
-        $this->modelUser->scenario = Users::SCENARIO_LOGIN;
-        if (Yii::app()->request->isPostRequest && $post = Yii::app()->request->getPost(get_class($this->modelUser), [])) {
-            $this->modelUser->setAttributes($post);
-            if ($this->modelUser->validate() && $this->modelUser->login()) {
-                $this->redirect(Yii::app()->baseUrl . '/admin');
-            }
-        }
-
-        // display the login form
-        $this->render('login', [
-            'login' => true,
-        ]);
     }
 
     /**

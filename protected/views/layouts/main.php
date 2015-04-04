@@ -90,6 +90,22 @@
                         <span class="menu_item_icon icon2"></span>
                     </a>
                 </li>
+	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_MUSER)): ?>
+		            <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_MUSER): ?>active<?php endif; ?>">
+			            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/mnews'); ?>">
+				            <span class="menu_item_text"><?php echo Yii::t('main', 'Редактирование новостей'); ?></span>
+				            <span class="menu_item_icon icon2"></span>
+			            </a>
+		            </li>
+	            <?php endif; ?>
+	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)): ?>
+		            <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_CHASHKA_CHE): ?>active<?php endif; ?>">
+			            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/che'); ?>">
+				            <span class="menu_item_text"><?php echo Yii::t('main', 'Чашка Кави.Че'); ?></span>
+				            <span class="menu_item_icon icon2"></span>
+			            </a>
+		            </li>
+	            <?php endif; ?>
                 <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_PLACES): ?>active<?php endif; ?>">
                     <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">
                         <span class="menu_item_text"><?php echo CHtml::encode(Yii::t('main', 'Места города')); ?></span>
@@ -132,29 +148,23 @@
                         <span class="menu_item_icon icon9"></span>
                     </a>
                 </li>
-	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_MUSER)): ?>
-                <li class="menu_item">
-                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/mnews'); ?>">
-                        <span class="menu_item_text"><?php echo Yii::t('main', 'Редактирование новостей'); ?></span>
-                        <span class="menu_item_icon icon2"></span>
-                    </a>
-                </li>
-	            <?php endif; ?>
-	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)): ?>
-                <li class="menu_item">
-                    <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/che'); ?>">
-                        <span class="menu_item_text"><?php echo Yii::t('main', 'Чашка Кави.Че'); ?></span>
-                        <span class="menu_item_icon icon2"></span>
-                    </a>
-                </li>
-	            <?php endif; ?>
 	            <?php if (!Yii::app()->user->isGuest): ?>
-                <li class="menu_item">
-                    <a href="<?php echo Yii::app()->createUrl('/logout'); ?>">
-                        <span class="menu_item_text"><?php echo Yii::t('main', 'Выйти'); ?></span>
-                        <span class="menu_item_icon icon7"></span>
-                    </a>
-                </li>
+		            <li class="menu_item" style="border-bottom: 1px solid #5d5e5e">
+		            </li>
+		            <?php if (Yii::app()->user->checkAccess(Users::ROLE_ADMIN) || Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)): ?>
+		            <li class="menu_item">
+			            <a href="<?php echo Yii::app()->createUrl('/admin'); ?>">
+				            <span class="menu_item_text"><?php echo Yii::t('admin', 'Админпанель'); ?></span>
+				            <span class="menu_item_icon icon7"></span>
+			            </a>
+		            </li>
+		            <?php endif; ?>
+	                <li class="menu_item">
+	                    <a href="<?php echo Yii::app()->createUrl('/logout'); ?>">
+	                        <span class="menu_item_text"><?php echo Yii::t('main', 'Выйти'); ?></span>
+	                        <span class="menu_item_icon icon7"></span>
+	                    </a>
+	                </li>
 	            <?php endif; ?>
             </ul>
             <div class="advertise">

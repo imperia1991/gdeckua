@@ -222,6 +222,7 @@ $mainConfig = [
 				'boardIcons'  => 'uploads/photos/boards/icons',
 				'imagesB'     => 'uploads/images/b/',
 				'imagesS'     => 'uploads/images/s/',
+				'ch'          => 'uploads/photos/ch/',
 			],
 			'images'      => [
 				'small'             => [
@@ -240,6 +241,7 @@ $mainConfig = [
 				'sizeLimit'         => 2 * 1024 * 1024
 			],
 		],
+		'siteUrl' => 'http://www.gde.ck.ua/'
 	],
 ];
 

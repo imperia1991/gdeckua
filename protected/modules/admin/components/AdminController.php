@@ -25,7 +25,7 @@ class AdminController extends Controller
     {
         return [
             ['allow',
-                'roles' => ['admin'],
+                'roles' => [Users::ROLE_ADMIN],
             ],
             ['deny', // deny all users
                 'users' => ['*'],

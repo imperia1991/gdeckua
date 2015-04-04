@@ -224,6 +224,10 @@ class Users extends ActiveRecord
 		]);
 	}
 
+	/**
+	 * @param $attribute
+	 * @param $params
+	 */
 	public function authenticate($attribute, $params)
 	{
 		if ( !$this->hasErrors()) {
@@ -239,6 +243,9 @@ class Users extends ActiveRecord
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function login()
 	{
 		if ($this->_identity === null) {
@@ -274,6 +281,10 @@ class Users extends ActiveRecord
 		return parent::model($className);
 	}
 
+	/**
+	 * @param $attribute
+	 * @param $params
+	 */
 	public function forgot($attribute, $params)
 	{
 		$model = $this->findByAttributes([
@@ -287,6 +298,9 @@ class Users extends ActiveRecord
 		}
 	}
 
+	/**
+	 * @param Users $model
+	 */
 	public function setPassword(Users $model)
 	{
 		$this->newPassword = StringHelper::getPassword();
@@ -295,6 +309,10 @@ class Users extends ActiveRecord
 		$model->save();
 	}
 
+	/**
+	 * @param $attribute
+	 * @param $params
+	 */
 	public function mustCheck($attribute, $params)
 	{
 		if ( !$this->agree) {
@@ -302,6 +320,9 @@ class Users extends ActiveRecord
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
@@ -316,13 +337,16 @@ class Users extends ActiveRecord
 	}
 
 
+	/**
+	 *
+	 */
 	protected function afterSave()
 	{
 		parent::afterSave();
 
 		if ($this->scenario == self::SCENARIO_REGISTER) {
 			$role                    = Rules::model()->findByAttributes([
-				'name' => self::ROLE_USER
+				'name' => self::ROLE_MUSER
 			]);
 			$this->ruleUser          = new RulesUsers();
 			$this->ruleUser->user_id = $this->id;
