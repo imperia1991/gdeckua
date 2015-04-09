@@ -148,7 +148,9 @@ $(document).ready(function ()
     {
         news_slider = $(this).bxSlider({
             pager           : false,
-            hideControlOnEnd: true
+            hideControlOnEnd: true,
+            auto: true,
+            pause: 8000
         })
         slider = true;
     });

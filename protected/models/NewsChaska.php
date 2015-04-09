@@ -189,4 +189,32 @@ class NewsChaska extends ActiveRecord
 
 		return $statuses[$this->status];
 	}
+
+	/**
+	 * @param int $type
+	 *
+	 * @return CActiveDataProvider
+	 */
+	public function getAll($type = self::TYPE_MEETING)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->compare('status', static::STATUS_SHOW);
+		$criteria->compare('type', $type);
+
+		$pageSize = Yii::app()->params['pageSizeMeeting'];
+		if (static::TYPE_CLUB) {
+			$pageSize = Yii::app()->params['pageSizeClub'];
+		}
+
+		return new CActiveDataProvider($this, [
+			'criteria' => $criteria,
+			'sort' => [
+				'defaultOrder' => 'created_at DESC',
+			],
+			'pagination' => [
+				'pageSize' => $pageSize,
+				'pageVar' => 'page',
+			],
+		]);
+	}
 }

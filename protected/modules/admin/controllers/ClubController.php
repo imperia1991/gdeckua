@@ -25,15 +25,10 @@ class ClubController extends AdminController
 		return [
 			'imageUpload' => [
 				'class'        => 'ext.redactor.actions.ImageUpload',
-				'uploadPath'   => Yii::app()->params['admin']['files']['ch'],
-				'uploadUrl'    => Yii::app()->params['siteUrl'] . Yii::app()->params['admin']['files']['ch'],
 				'uploadCreate' => true,
-				'permissions'  => 0755,
 			],
 			'imageList'   => [
-				'class'      => 'ext.redactor.actions.ImageList',
-				'uploadPath' => Yii::app()->params['admin']['files']['ch'],
-				'uploadUrl'  => Yii::app()->params['siteUrl'] . Yii::app()->params['admin']['files']['ch'],
+				'class' => 'ext.redactor.actions.ImageList',
 			],
 		];
 	}
@@ -87,7 +82,7 @@ class ClubController extends AdminController
 	{
 		Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
 
-		$clubModel->type = NewsChaska::TYPE_MEETING;
+		$clubModel->type = NewsChaska::TYPE_CLUB;
 
 		if (Yii::app()->request->isPostRequest) {
 			$post     = Yii::app()->request->getPost('NewsChaska');
@@ -164,7 +159,7 @@ class ClubController extends AdminController
 
 		$image = new EasyImage($photoPath, Yii::app()->easyImage->driver);
 
-		$directory = Yii::app()->params['admin']['files']['ch'] . '/' . date('dmY') . '/';
+		$directory = Yii::app()->params['admin']['files']['ch'] . date('dmY') . '/';
 		if ( !file_exists($directory)) {
 			mkdir($directory, 0775, true);
 		}
@@ -181,5 +176,34 @@ class ClubController extends AdminController
 		$result['filePath'] = '/' . $directory . $result['filename'];
 
 		$this->respondJSON($result);
+	}
+
+	public function actionImageUpload()
+	{
+		$image    = CUploadedFile::getInstanceByName('file');
+		$filename = 'a_' . date('YmdHis') . '_' . substr(md5(time()), 0, rand(7, 13)) . '.' . $image->extensionName;
+		$photoPath = Yii::app()->params['admin']['files']['tmp'] . $filename;
+		$image->saveAs($photoPath);
+
+		$directory = Yii::app()->params['admin']['files']['ch'] . date('dmY');
+		if ( !file_exists($directory)) {
+			mkdir($directory, 0775, true);
+		}
+
+		$image = new EasyImage($photoPath, Yii::app()->easyImage->driver);
+		$image->resize(360, 250, EasyImage::RESIZE_AUTO);
+		$image->save($directory . $filename);
+
+		if (file_exists($photoPath)) {
+			unlink($photoPath);
+		}
+
+		unset($image);
+
+		$array = [
+			'filelink' => '/' . $directory . $filename,
+			'filename' => $filename
+		];
+		echo stripslashes(json_encode($array));
 	}
 }

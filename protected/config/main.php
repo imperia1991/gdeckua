@@ -101,6 +101,7 @@ $mainConfig = [
 				'<language:(ru|uk)>/view/<id:\d+>/<alias>'                  => 'place/view',
 				'<language:(ru|uk)>/news/<id:\d+>/<alias>'                  => 'news/view',
 				'<language:(ru|uk)>/news/<alias:[\w-_]+>'                   => 'news/index',
+				'<language:(ru|uk)>/chashka-che/<alias>'                    => 'chashkaChe/view',
 				'<language:(ru|uk)>/photo/<action:\w+>'                     => 'photo/<action>',
 				'<language:(ru|uk)>/photo/<id:\d+>/<alias>'                 => 'photo/view',
 				'<language:(ru|uk)>/photo/<action:\w+>/<id:\d+>'            => 'photo/<action>',
@@ -108,6 +109,7 @@ $mainConfig = [
 				'<language:(ru|uk)>/place/<id:\d+>/<alias>'                 => 'place/view',
 				'<language:(ru|uk)>/place/<action:\w+>'                     => 'place/<action>',
 				'<language:(ru|uk)>/<controller:(news)>'                    => 'news/index',
+				'<language:(ru|uk)>/<controller:(chashka-che)>'             => 'chashkaChe/index',
 				'<language:(ru|uk)>/<controller:(photo)>'                   => 'photo/index',
 				'<language:(ru|uk)>/<controller:(poster)>'                  => 'poster/index',
 				'<language:(ru|uk)>/<controller:(webcams)>'                 => 'webcams/index',
@@ -207,6 +209,8 @@ $mainConfig = [
 		'pageSizePhotos'  => 20,
 		'pageSizePosters' => 10,
 		'pageSizeRss'     => 35,
+		'pageSizeMeeting' => 5,
+		'pageSizeClub'    => 12,
 		'admin'           => [
 			'pageSize'    => 30,
 			'uploadsPath' => realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..') . '/',
@@ -241,7 +245,7 @@ $mainConfig = [
 				'sizeLimit'         => 2 * 1024 * 1024
 			],
 		],
-		'siteUrl' => 'http://www.gde.ck.ua/'
+		'siteUrl'         => 'http://www.gde.ck.ua/'
 	],
 ];
 
