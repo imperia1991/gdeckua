@@ -43,6 +43,10 @@ class DefaultController extends AdminController
 		    $this->redirect('/admin/meeting');
 	    }
 
+	    if (Yii::app()->user->checkAccess(Users::ROLE_MUSER)) {
+		    $this->redirect('/admin/blog');
+	    }
+
         $this->render('index');
     }
 

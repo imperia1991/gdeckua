@@ -1,5 +1,5 @@
 <?php if ($meetings->getTotalItemCount() > $meetings->getPagination()->pageSize
-|| $clubs->getTotalItemCount() > $clubs->getPagination()->pageSize): ?>
+&& $clubs->getTotalItemCount() > $clubs->getPagination()->pageSize): ?>
     <div id="showNews" class="row collapse">
         <div class="show-other-news">
             <img id="loading" style="display: none" src="/images/loading.gif" alt="" />
@@ -15,7 +15,8 @@
 
             // запоминаем текущую страницу и их максимальное количество
             var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
-            var pageCount = parseInt('<?php echo (int)$meetings->pagination->pageCount; ?>');
+            var pageCountClubs = parseInt('<?php echo (int)$clubs->pagination->pageCount; ?>');
+            var pageCountMeetings = parseInt('<?php echo (int)$meetings->pagination->pageCount; ?>');
 
             var loadingFlag = false;
 
@@ -49,11 +50,15 @@
                             $('#showMore').show();
 
                             // вставляем полученные записи после имеющихся в наш блок
-                            $('#meetingView').append(data.meetingView);
-                            $('#clubView').append(data.clubView);
+                            if (page <= pageCountMeetings) {
+	                            $('#meetingView').append(data.meetingView);
+                            }
+	                        if (page <= pageCountClubs) {
+		                        $('#clubView').append(data.clubView);
+	                        }
 
                             // если достигли максимальной страницы, то прячем кнопку
-                            if (page >= pageCount)
+                            if (page >= pageCountClubs && page >= pageCountMeetings)
                                 $('#showNews').hide();
                         },
                         done: function()

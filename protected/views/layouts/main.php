@@ -101,8 +101,8 @@
 	            <?php if (Yii::app()->user->checkAccess(Users::ROLE_CHASHKA)): ?>
 		            <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_CHASHKA_CHE): ?>active<?php endif; ?>">
 			            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/chashka-che'); ?>">
-				            <span class="menu_item_text"><?php echo Yii::t('main', 'Чашка Кави.Че'); ?></span>
-				            <span class="menu_item_icon icon2"></span>
+				            <span class="menu_item_text font-20"><?php echo Yii::t('main', 'Чашка Кави.Че'); ?></span>
+				            <span class="menu_item_icon iconCh"></span>
 			            </a>
 		            </li>
 	            <?php endif; ?>
@@ -158,6 +158,14 @@
 				            <span class="menu_item_icon icon7"></span>
 			            </a>
 		            </li>
+		            <?php endif; ?>
+		            <?php if (Yii::app()->user->checkAccess(Users::ROLE_ADMIN) || Yii::app()->user->checkAccess(Users::ROLE_MUSER)): ?>
+			            <li class="menu_item">
+				            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser'); ?>">
+					            <span class="menu_item_text"><?php echo Yii::t('admin', 'Мой кабинет'); ?></span>
+					            <span class="menu_item_icon icon7"></span>
+				            </a>
+			            </li>
 		            <?php endif; ?>
 	                <li class="menu_item">
 	                    <a href="<?php echo Yii::app()->createUrl('/logout'); ?>">

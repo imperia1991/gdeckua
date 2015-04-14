@@ -57,8 +57,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
 				'video'     => [
 					'js' => ['video.js',],
 				],
-				'counter'     => [
-					'js' => ['counter.js',],
+				'fontfamily'     => [
+					'js' => ['fontfamily.js',],
 				],
 			],
 		]);

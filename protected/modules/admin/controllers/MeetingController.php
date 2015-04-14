@@ -86,7 +86,19 @@ class MeetingController extends AdminController
 				if ($oldPhoto != $newPhoto) {
 					$photoPath = Yii::app()->params['admin']['files']['tmp'] . $newPhoto;
 					$image     = new EasyImage($photoPath);
-					$image->resize(500, 300, EasyImage::RESIZE_PRECISE);
+					$width = $image->image()->width;
+					$height = $image->image()->height;
+					$proportional = $width / $height;
+					$proportionalSlider = 497 / 290;
+
+					$newWidth = 497;
+					$newHeight = 497 / $proportional;
+					$image->resize($newWidth, $newHeight, EasyImage::RESIZE_PRECISE);
+
+					$diff = 1 - $proportional / $proportionalSlider;
+					if ($width > $height) {
+						$image->crop($newWidth, ($newHeight - $newHeight * $diff));
+					}
 
 					$directory = Yii::app()->params['admin']['files']['ch'] . '/';
 

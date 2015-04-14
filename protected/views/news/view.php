@@ -2,11 +2,11 @@
 /** @var News $newsModel */
 ?>
 <?php
-$this->pageTitle = Yii::t('main', 'Просмотр новости') . ': ' . $newsModel->title;
+$this->pageTitle = $newsModel->title;
 
 $this->breadcrumbs = [
 	'news'  => Yii::t('main', 'Новости'),
-    '' => Yii::t('main', 'Просмотр новости') . ': ' . $newsModel->title,
+    '' => $newsModel->title,
 ];
 ?>
 

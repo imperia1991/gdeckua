@@ -81,7 +81,7 @@ class UserController extends AdminController
             }
         }
 
-        $rules = CHtml::listData(Rules::model()->findAll(), 'id', 'name');
+        $rules = CHtml::listData(Rules::model()->findAll('status=1'), 'id', 'description');
 
         $this->render('user', [
             'model' => $model,

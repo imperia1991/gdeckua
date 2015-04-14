@@ -6,25 +6,6 @@
  */
 class SearchController extends AdminController
 {
-    public function filters()
-    {
-        return [
-            'accessControl', // perform access control for CRUD operations
-        ];
-    }
-
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'roles' => ['admin'],
-            ],
-            ['deny', // deny all users
-                'users' => ['*'],
-            ],
-        ];
-    }
-
     public function init()
     {
         $this->menuActive = 'search';

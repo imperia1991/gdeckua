@@ -8,12 +8,11 @@
         'columns'=>array(
             'id',
             'name',
-            'phone',
             'email',
             array(
                 'name' => 'rule',
                 'value' => function($data, $row) {
-                    echo $data->ruleUser->rule->name;
+                    echo $data->ruleUser->rule->description . ' (' . $data->ruleUser->rule->name . ')';
                 }
             ),
             'logins',

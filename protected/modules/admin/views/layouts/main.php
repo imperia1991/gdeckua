@@ -167,6 +167,29 @@
 										]
 									],
 									[
+										'label'  => 'Новости пользователей',
+										'url'    => '/admin/muser',
+										'active' => $this->menuActive == 'muser',
+										'items'  => [
+											[
+												'label' => 'Новости',
+												'url'   => '/admin/muser',
+												'items' => [
+													['label' => 'Все', 'url' => '/admin/muser'],
+												]
+											],
+											[
+												'label'  => 'Категории',
+												'url'    => '/admin/categoryBlog',
+												'active' => $this->menuActive == 'blog',
+												'items'  => [
+													['label' => 'Все', 'url' => '/admin/categoryBlog'],
+													['label' => 'Добавить', 'url' => '/admin/categoryBlog/create'],
+												]
+											],
+										]
+									],
+									[
 										'label'   => 'Статистика',
 										'url'     => '/admin/statistics',
 										'active'  => $this->menuActive == 'statistic',

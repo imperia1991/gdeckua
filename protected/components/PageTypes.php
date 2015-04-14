@@ -35,4 +35,6 @@ class PageTypes {
     const PAGE_CHASHKA_CHE = 'chashka';
 	/** Страница новостей от Черкащан */
     const PAGE_MUSER = 'muser';
+	/** Личный кабинет пользователя */
+    const PAGE_BLOG = 'blog';
 }

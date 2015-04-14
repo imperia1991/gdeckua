@@ -4,8 +4,8 @@
         'zii.widgets.CListView',
         [
             'dataProvider'     => $clubs,
-            'itemView'         => 'partials/_oneClub', // представление для одной записи
-            'ajaxUpdate'       => false, // отключаем ajax поведение
+            'itemView'         => 'partials/_oneClub',
+            'ajaxUpdate'       => false,
             'emptyText'        => Yii::t('main', 'К сожалению в данном разделе новостей еще нет'),
             'summaryText'      => "",
             'emptyTagName'     => 'ul',

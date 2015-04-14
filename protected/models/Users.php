@@ -100,7 +100,7 @@ class Users extends ActiveRecord
 			['phone, password', 'length', 'max' => 50],
 			['email', 'length', 'max' => 30],
 			[
-				'name, phone, email',
+				'name, email',
 				'required',
 				'on'      => self::SCENARIO_ADMIN,
 				'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')
@@ -189,6 +189,8 @@ class Users extends ActiveRecord
 		if ($this->rule) {
 			$criteria->compare('userRule.name', $this->rule, true);
 		}
+
+		$criteria->addCondition('userRule.name != "admin"');
 
 		$criteria->with = [
 			'ruleUser.rule' => [

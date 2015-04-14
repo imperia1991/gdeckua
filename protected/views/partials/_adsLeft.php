@@ -7,6 +7,6 @@
 <a href="javascript:void(0)" class="advertise_item">
     <img src="/images/b/empty_l.png" alt="Реклама">
 </a>
-<a href="http://www.frahts.com" target="_blank" class="advertise_item">
-    <img src="/images/b/frahts_com_l.png" alt="Фрахты - Мир грузоперевозок">
+<a href="javascript:void(0)" class="advertise_item">
+	<img src="/images/b/empty_l.png" alt="Реклама">
 </a>

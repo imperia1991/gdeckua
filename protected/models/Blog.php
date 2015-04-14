@@ -1,32 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "news_chaska".
+ * This is the model class for table "blog".
  *
- * The followings are the available columns in table 'news_chaska':
+ * The followings are the available columns in table 'blog':
  * @property integer $id
  * @property integer $user_id
- * @property integer $type
+ * @property integer $category_id
  * @property string $title
- * @property string $short_text
  * @property string $text
+ * @property string $short_text
  * @property string $photo
- * @property string $created_at
- * @property string $updated_at
  * @property string $alias
  * @property integer $status
+ * @property string $created_at
+ * @property string $updated_at
  *
  * The followings are the available model relations:
+ * @property CategoryBlog $category
  * @property Users $user
  */
-class NewsChaska extends ActiveRecord
+class Blog extends CActiveRecord
 {
 	const STATUS_SHOW     = 1;
 	const STATUS_NOT_SHOW = 2;
 	const STATUS_DELETED  = 3;
-
-	const TYPE_MEETING = 1;
-	const TYPE_CLUB    = 2;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -34,7 +32,7 @@ class NewsChaska extends ActiveRecord
 	 *
 	 * @param string $className active record class name.
 	 *
-	 * @return NewsChaska the static model class
+	 * @return Blog the static model class
 	 */
 	public static function model($className = __CLASS__)
 	{
@@ -46,7 +44,7 @@ class NewsChaska extends ActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'news_chaska';
+		return 'blog';
 	}
 
 	/**
@@ -57,14 +55,13 @@ class NewsChaska extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return [
-			['type, title, short_text, text, created_at, alias', 'required'],
-			['user_id, type, status', 'numerical', 'integerOnly' => true],
-			['title, alias', 'length', 'max' => 255],
-			['photo', 'length', 'max' => 64],
-			['update_at', 'safe'],
+			['title, text, short_text, alias, user_id, category_id', 'required'],
+			['user_id, category_id, status', 'numerical', 'integerOnly' => true],
+			['title, short_text, photo, alias', 'length', 'max' => 255],
+			['created_at, updated_at, photo', 'safe'],
 			// The following rule is used by search().
 			[
-				'id, user_id, type, title, short_text, text, created_at, updated_at, alias, status',
+				'id, user_id, category_id, title, text, short_text, photo, alias, status, created_at, updated_at',
 				'safe',
 				'on' => 'search'
 			],
@@ -79,7 +76,8 @@ class NewsChaska extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return [
-			'user' => [self::BELONGS_TO, 'Users', 'user_id'],
+			'category'          => [self::BELONGS_TO, 'CategoryBlog', 'category_id'],
+			'user'              => [self::BELONGS_TO, 'Users', 'user_id'],
 		];
 	}
 
@@ -89,35 +87,19 @@ class NewsChaska extends ActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id'         => 'ID',
-			'user_id'    => 'User',
-			'type'       => 'Type',
-			'alias'      => 'Alias',
-			'status'     => Yii::t('admin', 'Статус'),
-			'title'      => Yii::t('admin', 'Заголовок'),
-			'text'       => Yii::t('admin', 'Полный текст'),
-			'short_text' => Yii::t('admin', 'Краткое описание'),
-			'created_at' => Yii::t('admin', 'Дата добавления'),
-			'updated_at' => Yii::t('admin', 'Дата обновления'),
+			'id'          => 'ID',
+			'user_id'     => Yii::t('main', 'Пользователь'),
+			'category_id' => Yii::t('main', 'Категория'),
+			'title'       => Yii::t('main', 'Название'),
+			'text'        => Yii::t('admin', 'Полный текст'),
+			'short_text'  => Yii::t('admin', 'Краткое описание'),
+			'photo'       => Yii::t('main', 'Фото для анонса новости'),
+			'alias'       => 'Alias',
+			'status'      => Yii::t('admin', 'Статус'),
+			'created_at'  => Yii::t('admin', 'Дата добавления'),
+			'updated_at'  => Yii::t('admin', 'Дата обновления'),
 		];
 	}
-
-	protected function beforeValidate()
-	{
-		if (parent::beforeValidate()) {
-			$this->user_id = Yii::app()->user->id;
-
-			if (empty($this->alias)) {
-				$random      = substr(md5(rand()), 0, 7);
-				$this->alias = $random . '-' . LocoTranslitFilter::cyrillicToLatin($this->title);
-			}
-
-			return true;
-		};
-
-		return false;
-	}
-
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -147,8 +129,8 @@ class NewsChaska extends ActiveRecord
 		if ($this->status) {
 			$criteria->compare('status', $this->status);
 		}
-		if ($this->type) {
-			$criteria->compare('type', $this->type);
+		if ($this->category_id) {
+			$criteria->compare('category_id', $this->category_id);
 		}
 
 		return new CActiveDataProvider($this, [
@@ -157,7 +139,7 @@ class NewsChaska extends ActiveRecord
 				'defaultOrder' => 'created_at DESC',
 			],
 			'pagination' => [
-				'pageSize' => Yii::app()->params['admin']['pageSize'],
+				'pageSize' => Yii::app()->params['pageSizeNews'],
 			],
 		]);
 	}
@@ -190,33 +172,5 @@ class NewsChaska extends ActiveRecord
 		];
 
 		return $statuses[$this->status];
-	}
-
-	/**
-	 * @param int $type
-	 *
-	 * @return CActiveDataProvider
-	 */
-	public function getAll($type = self::TYPE_MEETING)
-	{
-		$criteria = new CDbCriteria();
-		$criteria->compare('status', static::STATUS_SHOW);
-		$criteria->compare('type', $type);
-
-		$pageSize = Yii::app()->params['pageSizeMeeting'];
-		if (static::TYPE_CLUB) {
-			$pageSize = Yii::app()->params['pageSizeClub'];
-		}
-
-		return new CActiveDataProvider($this, [
-			'criteria' => $criteria,
-			'sort' => [
-				'defaultOrder' => 'created_at DESC',
-			],
-			'pagination' => [
-				'pageSize' => $pageSize,
-				'pageVar' => 'page',
-			],
-		]);
 	}
 }
