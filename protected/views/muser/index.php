@@ -8,85 +8,157 @@ $this->breadcrumbs = [
 <div class="page_content news clearfix">
 	<div class="news_main muser">
 		<div class="news_cathegories">
-			<a href="#" class="cathegories_item"><?php echo Yii::t('main', 'Личная информация'); ?></a>
-			<a href="#" class="cathegories_item"><?php echo Yii::t('main', 'Изменить E-Mail'); ?></a>
-			<a href="#" class="cathegories_item"><?php echo Yii::t('main', 'Изменить пароль'); ?></a>
-			<a href="#" class="cathegories_item"><?php echo Yii::t('main', 'Мои блоги'); ?></a>
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser'); ?>" class="cathegories_item">
+				<?php echo Yii::t('main', 'Личная информация'); ?>
+			</a>
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/email'); ?>" class="cathegories_item">
+				<?php echo Yii::t('main', 'Изменить E-Mail'); ?>
+			</a>
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/password'); ?>" class="cathegories_item">
+				<?php echo Yii::t('main', 'Изменить пароль'); ?>
+			</a>
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/blog'); ?>" class="cathegories_item">
+				<?php echo Yii::t('main', 'Мои блоги'); ?>
+			</a>
 		</div>
-		<ul class="news_list">
-			<li class="news_item">
-				<div class="news_item_photo_wrap">
-					<div class="news_item_photo">
-						<a href="#"><img src="images/data/n1.jpg" alt=""></a>
+		<div class="add_object">
+			<form>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Название <span class="nes">*</span>
 					</div>
-					<div class="news_item_date">
-						16.04.2014 в 15:42
-					</div>
-				</div>
-				<div class="news_item_content">
-					<div class="news_item_title">
-						<a href="#">Справу з шахрайством в університеті Поплавського передадуть до Генпрокуратури – Квіт</a>
-					</div>
-					<div class="news_item_text">
-						Директора КП «Черкаські ринки» засуджено до 3 років позбавлення волі
+					<div class="input_wrap ">
+						<input type="text" class="input error">
+						<span class="input_error">Ошибка</span>
 					</div>
 				</div>
-			</li>
-			<li class="news_item">
-				<div class="news_item_photo_wrap">
-					<div class="news_item_photo">
-						<a href="#"><img src="images/data/n2.jpg" alt=""></a>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Район  <span class="nes">*</span>
 					</div>
-					<div class="news_item_date">
-						16.04.2014 в 15:42
-					</div>
-				</div>
-				<div class="news_item_content">
-					<div class="news_item_title">
-						<a href="#">«Батьківщина» підтримає кандидатуру Гройсмана на посаду спікера</a>
-					</div>
-					<div class="news_item_text">
-						Про це повідомив представник об’єднання
-					</div>
-				</div>
-			</li>
-			<li class="news_item">
-				<div class="news_item_photo_wrap">
-					<div class="news_item_photo">
-						<a href="#"><img src="images/data/n3.jpg" alt=""></a>
-					</div>
-					<div class="news_item_date">
-						16.04.2014 в 15:42
+					<div class="input_wrap">
+						<div class="select">
+							<a href="javascript:void(0);" class="slct"> </a>
+							<ul class="drop">
+								<li><a href="#">Центр</a></li>
+								<li><a href="#">Розы Люксемберг</a></li>
+								<li><a href="#">Героев Сталинграда</a></li>
+								<li><a href="#">Героев Днепра</a></li>
+								<li><a href="#">Дахновка</a></li>
+								<li><a href="#">ЮЗР</a></li>
+							</ul>
+							<input type="hidden"  />
+						</div>
 					</div>
 				</div>
-				<div class="news_item_content">
-					<div class="news_item_title">
-						<a href="#">У новій Верховній Раді буде 27 комітетів</a>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Адрес  <span class="nes">*</span>
 					</div>
-					<div class="news_item_text">
-						Про це повідомив представник об’єднання
-					</div>
-				</div>
-			</li>
-			<li class="news_item">
-				<div class="news_item_photo_wrap">
-					<div class="news_item_photo">
-						<a href="#"><img src="images/data/n4.jpg" alt=""></a>
-					</div>
-					<div class="news_item_date">
-						16.04.2014 в 15:42
+					<div class="input_wrap">
+						<input type="text" class="input">
 					</div>
 				</div>
-				<div class="news_item_content">
-					<div class="news_item_title">
-						<a href="#">ВВП України скоротиться на 7% – Яценюк</a>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Краткое описание  <span class="nes">*</span>
 					</div>
-					<div class="news_item_text">
-						При цьому дефіцит бюджету складає 4%
+					<div class="input_wrap">
+						<input type="text" class="input">
 					</div>
 				</div>
-			</li>
-		</ul>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Описание  <span class="nes">*</span>
+					</div>
+					<div class="input_wrap">
+						<textarea class="input"></textarea>
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Тел. городской
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Тел. мобильный
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Тел. мобильный
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Тел. мобильный
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Факс
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						E-mail
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Skype
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Время работы
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_wrap">
+					<div class="form_input_label">
+						Сайт
+					</div>
+					<div class="input_wrap">
+						<input type="text" class="input">
+					</div>
+				</div>
+				<div class="form_input_bottom clearfix">
+					<div class="captcha_block">
+						<div class="captcha_image">
+							<img src="images/data/captcha.jpg" alt="">
+							<a href="#" class="captcha_refresh">Обновить</a>
+						</div>
+						<input type="text" class="input captcha_input" placeholder="Введите код с картинки">
+					</div>
+					<input type="submit" value="Добавить" class="submit">
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 

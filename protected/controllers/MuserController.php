@@ -51,6 +51,22 @@ class MuserController extends Controller
         $this->render('index', []);
     }
 
+	/**
+	 *
+	 */
+	public function actionEmail()
+	{
+		$this->render('email', []);
+	}
+
+	/**
+	 *
+	 */
+	public function actionPassword()
+	{
+		$this->render('password', []);
+	}
+
     /**
      * @throws CHttpException
      */
