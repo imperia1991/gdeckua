@@ -48,7 +48,54 @@ class MuserController extends Controller
      */
     public function actionIndex()
     {
-        $this->render('index', []);
+	    $modelPrivateInfoForm = new PrivateInfoForm();
+	    $modelPrivateInfoForm->setAttributes($this->modelUser->getAttributes());
+
+	    if (Yii::app()->request->isPostRequest) {
+		    $post = Yii::app()->request->getPost(get_class($modelPrivateInfoForm));
+		    $oldPhoto = $modelPrivateInfoForm->photo;
+		    $modelPrivateInfoForm->setAttributes($post);
+
+		    if ($modelPrivateInfoForm->save()) {
+			    if ($oldPhoto != $modelPrivateInfoForm->photo) {
+				    $photoPath = $modelPrivateInfoForm->photo;
+				    $photoArray = explode('/', $photoPath);
+				    $photoName = $photoArray[count($photoArray) - 1];
+				    $photoNameArray = explode('.', $photoName);
+				    $extension = 'png';
+				    if (isset($photoNameArray[count($photoNameArray) - 1])) {
+					    $extension = $photoNameArray[count($photoNameArray) - 1];
+				    }
+
+				    $image = new EasyImage($photoPath);
+				    $image->resize(120, 75, EasyImage::RESIZE_PRECISE);
+
+				    $file = md5(date('YmdHism')) . '.' .$extension;
+
+				    $directory = Yii::app()->params['admin']['files']['mu'];
+				    $image->save($directory . $file);
+
+				    $modelPrivateInfoForm->photo = $directory . $file;
+				    $modelPrivateInfoForm->save(false);
+
+				    if (file_exists($photoPath)) {
+					    unlink($photoPath);
+				    }
+
+				    if (file_exists($directory . $oldPhoto) && !empty($oldPhoto)) {
+					    unlink($directory . $oldPhoto);
+				    }
+			    }
+
+			    Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. Информация сохранена'));
+		    } else {
+			    Yii::app()->user->setFlash('error', Yii::t('error', 'Вы допустили ошибки. Исправьте их пожалуйста'));
+		    };
+	    }
+
+        $this->render('index', [
+	        'modelPrivateInfoForm' => $modelPrivateInfoForm
+        ]);
     }
 
 	/**
@@ -108,5 +155,19 @@ class MuserController extends Controller
             ]
         );
     }
+
+	/**
+	 * Загрузка изображений во временную папку
+	 */
+	public function actionUpload()
+	{
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+		$uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app()->params['admin']['images']['sizeLimit']);
+		$result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+		$result['filename'] = '/' . Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
+
+		$this->respondJSON($result);
+	}
 
 }

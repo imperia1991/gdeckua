@@ -1,4 +1,4 @@
-<div class="pop_up " id="enter_pop_up">
+<div class="pop_up" id="enter_pop_up">
 	<div class="pop_up_title">
 		<span class="enter_icon"></span>
 		<div class="pop_up_title_wrap">Вход в личный кабинет</div>
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 </div>
-<div class="pop_up " id="registr_pop_up">
+<div class="pop_up" id="registr_pop_up">
 	<div class="pop_up_title">
 		<span class="registr_icon"></span>
 		<div class="pop_up_title_wrap">Регистрация нового пользователя</div>
@@ -97,6 +97,7 @@ $feedback = $this->feedback;
 			?>
 			<span id="error_message" class="input_error"></span>
 		</div>
+		<?php if (Yii::app()->user->isGuest): ?>
 		<div class="input_wrap captcha_block clearfix">
 			<div class="captcha_image">
 				<?if(CCaptcha::checkRequirements()):?>
@@ -118,6 +119,7 @@ $feedback = $this->feedback;
 			?>
 			<span id="error_verifyCode" class="input_error"></span>
 		</div>
+		<?php endif; ?>
 		<div class="pop_up_bottom clearfix">
 			<img id="loadingFeedback" style="float: right; display: none" src="/images/loading.gif" alt=""/>
 			<?php echo CHtml::submitButton(Yii::t('main', 'Отправить'), ['class' => 'submit']); ?>

@@ -9,15 +9,16 @@
  * @property string $phone
  * @property string $email
  * @property string $password
+ * @property string $full_name
+ * @property string $phone_add
+ * @property string $site
+ * @property string $photo
  * @property integer $logins
  * @property string $last_login
  * @property string $created_at
  * @property string $updated_at
  *
  * The followings are the available model relations:
- * @property Promo[] $promos
- * @property ServiceReviews[] $serviceReviews
- * @property Services[] $services
  */
 class Users extends ActiveRecord
 {
@@ -86,7 +87,7 @@ class Users extends ActiveRecord
 				'message' => Yii::t('main', 'Пароль должен быть минимум 6 символов')
 			],
 			['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTER],
-			['verifyCode', 'captcha', 'on' => self::SCENARIO_REGISTER],
+			['verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest, 'on' => self::SCENARIO_REGISTER],
 			['name, passwordRepeat', 'required', 'on' => self::SCENARIO_REGISTER],
 //            ['agree', 'mustCheck', 'on' => self::SCENARIO_REGISTER],
 			['logins', 'numerical', 'integerOnly' => true],
@@ -105,7 +106,7 @@ class Users extends ActiveRecord
 				'on'      => self::SCENARIO_ADMIN,
 				'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')
 			],
-			['last_login, updated_at', 'safe'],
+			['last_login, updated_at, full_name, photo, photo_add, site, photo', 'safe'],
 			// The following rule is used by search().
 			['id, name, phone, email, password, logins, last_login, created_at, updated_at', 'safe', 'on' => 'search'],
 		];
@@ -120,9 +121,9 @@ class Users extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return [
 			'ruleUser'       => [self::HAS_ONE, 'RulesUsers', 'user_id'],
-			'promos'         => [self::HAS_MANY, 'Promo', 'user_id'],
-			'serviceReviews' => [self::HAS_MANY, 'ServiceReviews', 'user_id'],
-			'services'       => [self::HAS_MANY, 'Services', 'user_id'],
+//			'promos'         => [self::HAS_MANY, 'Promo', 'user_id'],
+//			'serviceReviews' => [self::HAS_MANY, 'ServiceReviews', 'user_id'],
+//			'services'       => [self::HAS_MANY, 'Services', 'user_id'],
 		];
 	}
 

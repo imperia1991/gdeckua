@@ -2,7 +2,7 @@
 $this->pageTitle = Yii::t('main', 'Изменить E-Mail');
 
 $this->breadcrumbs = [
-	'muser' => Yii::t('main', 'Личная информация'),
+	'muser' => Yii::t('main', 'Мой кабинет'),
 	'' => Yii::t('main', 'Изменить E-Mail'),
 ];
 ?>

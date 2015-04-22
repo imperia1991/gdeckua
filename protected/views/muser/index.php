@@ -1,163 +1,161 @@
 <?php
-$this->pageTitle = Yii::t('main', 'Мой кабинет');
+$this->pageTitle = Yii::t('main', 'Личная информация');
 
 $this->breadcrumbs = [
-	'' => Yii::t('main', 'Мой кабинет')
+	'muser' => Yii::t('main', 'Мой кабинет'),
+	''      => Yii::t('main', 'Личная информация')
 ];
+
+/**@var PrivateInfoForm $modelPrivateInfoForm */
+
+$errors = $modelPrivateInfoForm->getErrors();
 ?>
 <div class="page_content news clearfix">
 	<div class="news_main muser">
 		<div class="news_cathegories">
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser'); ?>" class="cathegories_item">
-				<?php echo Yii::t('main', 'Личная информация'); ?>
-			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/email'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/email'); ?>"
+			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Изменить E-Mail'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/password'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/password'); ?>"
+			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Изменить пароль'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/blog'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/blog'); ?>"
+			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Мои блоги'); ?>
 			</a>
 		</div>
 		<div class="add_object">
-			<form>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Название <span class="nes">*</span>
-					</div>
-					<div class="input_wrap ">
-						<input type="text" class="input error">
-						<span class="input_error">Ошибка</span>
-					</div>
+			<?php $form = $this->beginWidget(
+				'CActiveForm',
+				[
+					'id'                   => 'private-info-model-form',
+					'enableAjaxValidation' => false,
+					'htmlOptions'          => ['enctype' => 'multipart/form-data'],
+				]
+			); ?>
+			<div class="form_input_wrap">
+				<div class="form_input_label">
+					<?php echo Yii::t('main', 'ФИО'); ?> <span class="nes">*</span>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Район  <span class="nes">*</span>
-					</div>
-					<div class="input_wrap">
-						<div class="select">
-							<a href="javascript:void(0);" class="slct"> </a>
-							<ul class="drop">
-								<li><a href="#">Центр</a></li>
-								<li><a href="#">Розы Люксемберг</a></li>
-								<li><a href="#">Героев Сталинграда</a></li>
-								<li><a href="#">Героев Днепра</a></li>
-								<li><a href="#">Дахновка</a></li>
-								<li><a href="#">ЮЗР</a></li>
-							</ul>
-							<input type="hidden"  />
-						</div>
-					</div>
+				<div class="input_wrap ">
+					<?php echo $form->textField($modelPrivateInfoForm, 'full_name', [
+						'class' => 'input'
+					]); ?>
+					<?php if (isset($errors['full_name'])): ?>
+						<span class="input_error"><?php echo $errors['full_name'][0]; ?></span>
+					<?php endif; ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Адрес  <span class="nes">*</span>
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+			</div>
+			<div class="form_input_wrap">
+				<div class="form_input_label">
+					<?php echo Yii::t('main', 'Мобильный телефон'); ?> <span class="nes">*</span>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Краткое описание  <span class="nes">*</span>
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+				<div class="input_wrap ">
+					<?php
+					$this->widget('CMaskedTextField', [
+						'model' => $modelPrivateInfoForm,
+						'attribute' => 'phone',
+						'mask' => '999 999 9999',
+						'placeholder' => '*',
+						'htmlOptions' => [
+							'class' => 'input'
+						]
+					]);
+					?>
+					<?php if (isset($errors['phone'])): ?>
+						<span class="input_error"><?php echo $errors['phone'][0]; ?></span>
+					<?php endif; ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Описание  <span class="nes">*</span>
-					</div>
-					<div class="input_wrap">
-						<textarea class="input"></textarea>
-					</div>
+			</div>
+			<div class="form_input_wrap">
+				<div class="form_input_label">
+					<?php echo Yii::t('main', 'Дополнительный телефон'); ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Тел. городской
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+				<div class="input_wrap ">
+					<?php
+					$this->widget('CMaskedTextField', [
+						'model' => $modelPrivateInfoForm,
+						'attribute' => 'phone_add',
+						'mask' => '999999?9999',
+						'placeholder' => '*',
+						'htmlOptions' => [
+							'class' => 'input'
+						]
+					]);
+					?>
+					<?php if (isset($errors['phone_add'])): ?>
+						<span class="input_error"><?php echo $errors['phone_add'][0]; ?></span>
+					<?php endif; ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Тел. мобильный
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+			</div>
+			<div class="form_input_wrap">
+				<div class="form_input_label">
+					<?php echo Yii::t('main', 'Сайт'); ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Тел. мобильный
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+				<div class="input_wrap ">
+					<?php echo $form->textField($modelPrivateInfoForm, 'site', [
+						'class' => 'input'
+					]); ?>
+					<?php if (isset($errors['site'])): ?>
+						<span class="input_error"><?php echo $errors['site'][0]; ?></span>
+					<?php endif; ?>
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Тел. мобильный
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
+			</div>
+			<div class="form_input_wrap photos">
+				<?php
+				$template = $this->renderPartial('partials/_uploadPhotoTemplate', [], true);
+				$this->widget(
+					'ext.EAjaxUpload.EAjaxUpload',
+					[
+						'id' => 'uploadPhoto',
+						'config' => [
+							'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/upload'),
+							'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
+							'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
+							'multiple' => true,
+							'template' => $template,
+							'messages' => [
+								'typeError' => "{file} имеет недопустимый формат. Допустимые форматы: {extensions}.",
+								'sizeError' => "{file} имеет слишком большой объём, максимальный объём файла – {sizeLimit}.",
+								'minSizeError' => "{file} имеет слишком маленький объём, минимальный объём файла – {minSizeLimit}.",
+								'emptyError' => "{file} пуст, пожалуйста, выберите другой файл.",
+								'noFilesError' => "Файлы для загрузки не выбраны.",
+								'onLeave' => "В данный момент идёт загрузка файлов, если вы покинете страницу, загрузка будет отменена."
+							],
+							'text' => [
+								'failUpload' => 'Загрузка не удалась',
+								'dragZone' => 'Перетащите файл для загрузки',
+								'cancelButton' => 'Отмена',
+								'waitingForResponse' => 'Обработка...'
+							],
+							'onComplete' => 'js:function(id, fileName, responseJSON){
+                                                        if (responseJSON.success)
+                                                        {
+                                                        	$("#uploadPhotoImg").attr("src", "" + responseJSON.filename + "");
+                                                        	$("#uploadPhotoInput").val(responseJSON.filename);
+                                                        }
+                                                    }'
+						]
+					]
+				);
+				?>
+				<div style="width: 100%; text-align: center; margin-top: 10px;">
+					<?php if (!empty($modelPrivateInfoForm->photo)): ?>
+						<img id="uploadPhotoImg" src="/<?php echo $modelPrivateInfoForm->photo; ?>" />
+					<?php else: ?>
+						<img id="uploadPhotoImg" src="/images/user.png" width="150" height="150" />
+					<?php endif; ?>
+					<input id="uploadPhotoInput" name="PrivateInfoForm[photo]" type="hidden" value="<?php echo $modelPrivateInfoForm->photo ?>" />
 				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Факс
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
-				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						E-mail
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
-				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Skype
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
-				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Время работы
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
-				</div>
-				<div class="form_input_wrap">
-					<div class="form_input_label">
-						Сайт
-					</div>
-					<div class="input_wrap">
-						<input type="text" class="input">
-					</div>
-				</div>
-				<div class="form_input_bottom clearfix">
-					<div class="captcha_block">
-						<div class="captcha_image">
-							<img src="images/data/captcha.jpg" alt="">
-							<a href="#" class="captcha_refresh">Обновить</a>
-						</div>
-						<input type="text" class="input captcha_input" placeholder="Введите код с картинки">
-					</div>
-					<input type="submit" value="Добавить" class="submit">
-				</div>
-			</form>
+			</div>
+			<div class="form_input_bottom clearfix">
+				<?php echo CHtml::submitButton(Yii::t('main', 'Обновить'), [
+					'class' => 'submit'
+				]); ?>
+			</div>
+			<?php $this->endWidget('private-info-model-form'); ?>
 		</div>
 	</div>
 </div>

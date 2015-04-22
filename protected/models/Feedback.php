@@ -34,7 +34,7 @@ class Feedback extends ActiveRecord
 		return [
 			['name, email, message, created_at', 'required', 'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')],
 			['email', 'email', 'message' => Yii::t('main', '{attribute} не является правильным E-Mail адресом')],
-            ['verifyCode', 'captcha'],
+            ['verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest],
 			['is_reading, is_answer', 'numerical', 'integerOnly'=>true],
 			['name, email', 'length', 'max'=>255],
 			// The following rule is used by search().

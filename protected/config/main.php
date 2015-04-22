@@ -229,6 +229,7 @@ $mainConfig = [
 				'imagesB'     => 'uploads/images/b/',
 				'imagesS'     => 'uploads/images/s/',
 				'ch'          => 'uploads/photos/ch/',
+				'mu'          => 'uploads/photos/mu/',
 			],
 			'images'      => [
 				'small'             => [
