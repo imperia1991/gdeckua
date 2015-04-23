@@ -106,7 +106,7 @@ class Users extends ActiveRecord
 				'on'      => self::SCENARIO_ADMIN,
 				'message' => Yii::t('main', 'Необходимо заполнить поле «{attribute}»')
 			],
-			['last_login, updated_at, full_name, photo, photo_add, site, photo', 'safe'],
+			['last_login, updated_at, full_name, phone_add, site, photo', 'safe'],
 			// The following rule is used by search().
 			['id, name, phone, email, password, logins, last_login, created_at, updated_at', 'safe', 'on' => 'search'],
 		];

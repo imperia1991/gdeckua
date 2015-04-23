@@ -20,6 +20,7 @@ $mainConfig = [
 	'import'     => [
 		'application.models.*',
 		'application.components.*',
+		'application.models.forms.*',
 		'ext.mail.YiiMailMessage',
 		'ext.JsTrans.*',
 		'ext.Scalar.*',

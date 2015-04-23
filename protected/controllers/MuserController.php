@@ -103,7 +103,23 @@ class MuserController extends Controller
 	 */
 	public function actionEmail()
 	{
-		$this->render('email', []);
+		$modelChangeEmailForm = new ChangeEmailForm();
+
+		if (Yii::app()->request->isPostRequest) {
+			$post = Yii::app()->request->getPost(get_class($modelChangeEmailForm));
+
+			$modelChangeEmailForm->setAttributes($post);
+
+			if ($modelChangeEmailForm->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('main', 'Спасибо. E-Mail изменен'));
+			} else {
+				Yii::app()->user->setFlash('error', Yii::t('error', 'Вы допустили ошибки. Исправьте их пожалуйста'));
+			}
+		}
+
+		$this->render('email', [
+			'modelChangeEmailForm' => $modelChangeEmailForm
+		]);
 	}
 
 	/**

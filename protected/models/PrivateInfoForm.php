@@ -20,6 +20,7 @@ class PrivateInfoForm extends CFormModel
 			['site', 'url', 'defaultScheme' => 'http', 'allowEmpty' => true, 'validateIDN' => true],
 			['full_name, photo', 'length', 'max' => 255],
 			['phone, phone_add', 'length', 'max' => 15],
+			['phone_add', 'safe'],
 		];
 	}
 

@@ -143,7 +143,7 @@ $errors = $modelPrivateInfoForm->getErrors();
 				?>
 				<div style="width: 100%; text-align: center; margin-top: 10px;">
 					<?php if (!empty($modelPrivateInfoForm->photo)): ?>
-						<img id="uploadPhotoImg" src="/<?php echo $modelPrivateInfoForm->photo; ?>" />
+						<img id="uploadPhotoImg" src="/<?php echo $modelPrivateInfoForm->photo; ?>" style="max-width: 150px; max-height: 150px" />
 					<?php else: ?>
 						<img id="uploadPhotoImg" src="/images/user.png" width="150" height="150" />
 					<?php endif; ?>
