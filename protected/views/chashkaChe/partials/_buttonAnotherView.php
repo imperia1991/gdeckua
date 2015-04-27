@@ -1,5 +1,5 @@
 <?php if ($meetings->getTotalItemCount() > $meetings->getPagination()->pageSize
-&& $clubs->getTotalItemCount() > $clubs->getPagination()->pageSize): ?>
+|| $clubs->getTotalItemCount() > $clubs->getPagination()->pageSize): ?>
     <div id="showNews" class="row collapse">
         <div class="show-other-news">
             <img id="loading" style="display: none" src="/images/loading.gif" alt="" />
@@ -10,9 +10,6 @@
         /*<![CDATA[*/
         (function($)
         {
-            // скрываем стандартный навигатор
-            //            $('.paginator').hide();
-
             // запоминаем текущую страницу и их максимальное количество
             var page = parseInt('<?php echo (int)Yii::app()->request->getParam('page', 1); ?>');
             var pageCountClubs = parseInt('<?php echo (int)$clubs->pagination->pageCount; ?>');
