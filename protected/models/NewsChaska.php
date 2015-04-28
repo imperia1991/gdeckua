@@ -163,6 +163,39 @@ class NewsChaska extends ActiveRecord
 	}
 
 	/**
+	 * @return CActiveDataProvider
+	 */
+	public function adminSearch()
+	{
+		$criteria = new CDbCriteria;
+
+		$criteria->addCondition('status != ' . static::STATUS_DELETED);
+
+		if ($this->title) {
+			$criteria->compare('title', $this->title, true);
+		}
+		if ($this->created_at) {
+			$criteria->compare('created_at', $this->created_at);
+		}
+		if ($this->status) {
+			$criteria->compare('status', $this->status);
+		}
+		if ($this->type) {
+			$criteria->compare('type', $this->type);
+		}
+
+		return new CActiveDataProvider($this, [
+			'criteria'   => $criteria,
+			'sort'       => [
+				'defaultOrder' => 'created_at DESC',
+			],
+			'pagination' => [
+				'pageSize' => Yii::app()->params['admin']['pageSize'],
+			],
+		]);
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getStatuses()

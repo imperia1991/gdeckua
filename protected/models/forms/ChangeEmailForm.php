@@ -50,6 +50,7 @@ class ChangeEmailForm extends AbstractForm
 	{
 		$email = Users::model()->findByAttributes([
 			'email' => $this->email,
+			'id' => Yii::app()->getUser()->id
 		]);
 
 		$newEmail = Users::model()->findByAttributes([

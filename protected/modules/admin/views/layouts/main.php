@@ -190,6 +190,22 @@
 										]
 									],
 									[
+										'label'  => 'Чашка Кави.Че',
+										'url'    => '/admin/chMeeting',
+										'active' => $this->menuActive == 'chMeeting',
+										'items'  => [
+											[
+												'label' => 'Заседания',
+												'url'   => '/admin/chMeeting',
+											],
+											[
+												'label'  => 'Новости клуба',
+												'url'    => '/admin/chClub',
+												'active' => $this->menuActive == 'chClub',
+											],
+										]
+									],
+									[
 										'label'   => 'Статистика',
 										'url'     => '/admin/statistics',
 										'active'  => $this->menuActive == 'statistic',

@@ -1,6 +1,6 @@
 <?php
 
-class MnewsModule extends CWebModule
+class UserModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class MnewsModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'mnews.models.*',
-			'mnews.components.*',
+			'user.models.*',
+			'user.components.*',
 		));
 	}
 
@@ -18,7 +18,7 @@ class MnewsModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-			$controller->layout = 'main';
+			$controller->layout = '//main';
 			// this method is called before any module controller action is performed
 			// you may place customized code here
 			return true;
