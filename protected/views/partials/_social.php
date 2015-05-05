@@ -11,11 +11,16 @@ $dataTitle = $this->pageTitle;
 if (isset($title)) {
     $dataTitle = $title;
 }
+$dataDescription = $this->pageDescription;
+if (isset($description)) {
+	$dataDescription = $description;
+}
 ?>
 <div class="share42init"
      data-image="<?php echo $dataImage; ?>"
      data-url="<?php echo $dataUrl; ?>"
      data-title="<?php echo $dataTitle; ?>"
+     data-description="<?php echo $dataDescription; ?>"
     ></div>
 
 <script type="text/javascript" src="http://<?php echo Yii::app()->getRequest()->serverName; ?>/js/share42/share42.js"></script>

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class MuserController
+ * Class UserController
  */
-class MuserController extends Controller
+class UserController extends MuserController
 {
     /**
      *
@@ -150,8 +150,23 @@ class MuserController extends Controller
 		]);
 	}
 
-	public function actionBlogs()
+	/**
+	 * Загрузка фото на странице
+	 */
+	public function actionUpload()
 	{
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
 
+		$uploader = new qqFileUploader(Yii::app()->params['admin']['images']['allowedExtensions'], Yii::app(
+		)->params['admin']['images']['sizeLimit']);
+
+		$result = $uploader->handleUpload(Yii::app()->params['admin']['files']['tmp']);
+
+		$filePath = '/' . Yii::app()->params['admin']['files']['tmp'] . $result['filename'];
+		Yii::app()->session['photoUser'] = $filePath;
+
+		$result['filename'] = $filePath;
+
+		$this->respondJSON($result);
 	}
 }

@@ -158,6 +158,7 @@ class PlaceController extends Controller
                 $model->is_deleted = 1;
                 $model->alias = LocoTranslitFilter::cyrillicToLatin($model->title_ru);
                 $model->created_at = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', time());
+	            $model->user_id = Yii::app()->user->id ?: null;
 
                 $modelContacts->setAttributes($postContacts);
 

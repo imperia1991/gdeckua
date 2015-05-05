@@ -2,7 +2,7 @@
 $this->pageTitle = Yii::t('main', 'Личная информация');
 
 $this->breadcrumbs = [
-	'muser' => Yii::t('main', 'Мой кабинет'),
+	'user' => Yii::t('main', 'Мой кабинет'),
 	''      => Yii::t('main', 'Личная информация')
 ];
 
@@ -13,15 +13,15 @@ $errors = $modelPrivateInfoForm->getErrors();
 <div class="page_content news clearfix">
 	<div class="news_main muser">
 		<div class="news_cathegories">
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/email'); ?>"
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/email'); ?>"
 			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Изменить E-Mail'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/password'); ?>"
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/password'); ?>"
 			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Изменить пароль'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/blog'); ?>"
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/blog'); ?>"
 			   class="cathegories_item">
 				<?php echo Yii::t('main', 'Мои блоги'); ?>
 			</a>
@@ -111,7 +111,7 @@ $errors = $modelPrivateInfoForm->getErrors();
 					[
 						'id' => 'uploadPhoto',
 						'config' => [
-							'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/upload'),
+							'action' => Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/user/upload'),
 							'allowedExtensions' => Yii::app()->params['admin']['images']['allowedExtensions'],
 							'sizeLimit' => Yii::app()->params['admin']['images']['sizeLimit'],
 							'multiple' => true,
@@ -142,7 +142,9 @@ $errors = $modelPrivateInfoForm->getErrors();
 				);
 				?>
 				<div style="width: 100%; text-align: center; margin-top: 10px;">
-					<?php if (!empty($modelPrivateInfoForm->photo)): ?>
+					<?php if (!empty(Yii::app()->session['photoUser'])): ?>
+						<img id="uploadPhotoImg" src="<?php echo Yii::app()->session['photoUser']; ?>" width="150" height="150" />
+					<?php elseif (!empty($modelPrivateInfoForm->photo)): ?>
 						<img id="uploadPhotoImg" src="/<?php echo $modelPrivateInfoForm->photo; ?>" style="max-width: 150px; max-height: 150px" />
 					<?php else: ?>
 						<img id="uploadPhotoImg" src="/images/user.png" width="150" height="150" />

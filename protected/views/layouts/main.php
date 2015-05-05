@@ -7,7 +7,7 @@
     <title><?php echo CHtml::encode(Yii::t('main', Yii::app()->name)) . ' | ' . CHtml::encode(Yii::t('main', $this->pageTitle)); ?></title>
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
     <meta name="description"
-          content="<?php echo Yii::t('main', 'Где в Черкассах. Поиск в городе организаций, зданий, объектов, городской фотогид') ?>"/>
+          content="<?php echo $this->pageDescription ?: Yii::t('main', 'Где в Черкассах. Поиск в городе организаций, зданий, объектов, городской фотогид') ?>"/>
     <meta name='yandex-verification' content='72cc09e6d8e79d9c'/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,12 +62,12 @@
 
 <div class="container">
 
-    <?php $this->renderPartial('/partials/_notify'); ?>
+    <?php $this->renderPartial('///partials/_notify'); ?>
 
     <div class="sidebar">
         <div class="sidebar_wrap">
             <div class="sidebar_top">
-                <?php $this->renderPartial('/partials/_language'); ?>
+                <?php $this->renderPartial('///partials/_language'); ?>
                 <a href="#" class="menu_icon"></a>
             </div>
             <?php /*
@@ -150,8 +150,8 @@
 		            </li>
 		            <?php endif; ?>
 		            <?php if (Yii::app()->user->checkAccess(Users::ROLE_ADMIN) || Yii::app()->user->checkAccess(Users::ROLE_MUSER)): ?>
-			            <li class="menu_item">
-				            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser'); ?>">
+			            <li class="menu_item <?php if ($this->currentPageType == PageTypes::PAGE_MUSER): ?>active<?php endif; ?>">
+				            <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user'); ?>">
 					            <span class="menu_item_text"><?php echo Yii::t('admin', 'Мой кабинет'); ?></span>
 					            <span class="menu_item_icon icon7"></span>
 				            </a>
@@ -169,7 +169,7 @@
                 <div class="advertise_title">
                     <a href="javascript:void(0);"><?php echo Yii::t('main', 'реклама'); ?></a>
                 </div>
-                <?php $this->renderPartial('/partials/_adsLeft'); ?>
+                <?php $this->renderPartial('//partials/_adsLeft'); ?>
             </div>
         </div>
     </div>
@@ -180,13 +180,13 @@
                 <img src="/images/<?php echo $logo; ?>.png" alt="<?php echo Yii::t('main', 'Где в Черкассах'); ?>">
             </a>
 
-            <?php $this->renderPartial('/partials/_search', []); ?>
+            <?php $this->renderPartial('//partials/_search', []); ?>
         </header>
         <div class="content_advertise">
-            <?php $this->renderPartial('/partials/_adsTop'); ?>
+            <?php $this->renderPartial('//partials/_adsTop'); ?>
         </div>
         <nav class="clearfix">
-            <?php $this->renderPartial('/partials/_breadcrumbs'); ?>
+            <?php $this->renderPartial('//partials/_breadcrumbs'); ?>
 
             <div class="nav_date">
                 <?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', time()); ?>
@@ -201,7 +201,7 @@
                     <a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage()); ?>">www.gde.ck.ua</a>
                                        - "<?php echo Yii::t('main', 'Где в Черкассах'); ?>"
                 </div>
-                <?php $this->renderPartial('/partials/_signature_' . Yii::app()->getLanguage()); ?>
+                <?php $this->renderPartial('//partials/_signature_' . Yii::app()->getLanguage()); ?>
                 <br/>
                 <?php echo Yii::t('main', 'Все права защищены'); ?>
             </div>
@@ -251,10 +251,10 @@
                 </li>
             </ul>
             <div class="footer_facebook">
-                <?php $this->renderPartial('/partials/_fbclub'); ?>
+                <?php $this->renderPartial('//partials/_fbclub'); ?>
             </div>
             <div class="footer_vk">
-                <?php $this->renderPartial('/partials/_vkclub'); ?>
+                <?php $this->renderPartial('//partials/_vkclub'); ?>
             </div>
         </footer>
     </div>
@@ -266,7 +266,7 @@
     <div class="select_cover"></div>
 </div>
 
-<?php $this->renderPartial('/partials/_popups'); ?>
+<?php $this->renderPartial('//partials/_popups'); ?>
 
  Yandex.Metrika counter
 <script type="text/javascript">

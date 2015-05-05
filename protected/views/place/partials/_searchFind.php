@@ -40,7 +40,6 @@ $this->breadcrumbs = [
 	<?php
 	$this->widget( 'CLinkPager', [
 		'pages'                => $pages,
-//                'cssFile'=>Yii::app()->baseUrl."/css/pagination.css",
 		'header'               => '',
 		'selectedPageCssClass' => 'active',
 		'footer'               => '',

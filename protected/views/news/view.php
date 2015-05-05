@@ -8,6 +8,7 @@ $this->breadcrumbs = [
 	'news'  => Yii::t('main', 'Новости'),
     '' => $newsModel->title,
 ];
+$this->pageDescription = strip_tags($newsModel->short_text);
 ?>
 
 <div class="page_content news_single">
@@ -37,13 +38,14 @@ $this->breadcrumbs = [
                 <?php echo $newsModel->text; ?>
             </p>
         </div>
-        <?php $this->renderPartial(
-            '/partials/_social',
-            [
-                'image' => Yii::app()->createUrl('/uploads/photos/news/' . $newsModel->photo),
-                'title' => $newsModel->title,
-            ]
-        ); ?>
+	    <?php $this->renderPartial(
+		    '/partials/_social',
+		    [
+			    'image'       => Yii::app()->createUrl('/uploads/photos/news/' . $newsModel->photo),
+			    'title'       => $newsModel->title,
+			    'description' => $newsModel->getShortText(),
+		    ]
+	    ); ?>
     </div>
 
     <div class="home_news">

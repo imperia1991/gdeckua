@@ -2,7 +2,7 @@
 $this->pageTitle = Yii::t('main', 'Изменить пароль');
 
 $this->breadcrumbs = [
-	'muser' => Yii::t('main', 'Мой кабинет'),
+	'user' => Yii::t('main', 'Мой кабинет'),
 	'' => Yii::t('main', 'Изменить пароль')
 ];
 
@@ -14,13 +14,13 @@ $errors = $modelChangePasswordForm->getErrors();
 <div class="page_content news clearfix">
 	<div class="news_main muser">
 		<div class="news_cathegories">
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user'); ?>" class="cathegories_item">
 				<?php echo Yii::t('main', 'Личная информация'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/email'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/email'); ?>" class="cathegories_item">
 				<?php echo Yii::t('main', 'Изменить E-Mail'); ?>
 			</a>
-			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/muser/blog'); ?>" class="cathegories_item">
+			<a href="<?php echo Yii::app()->createUrl('/' . Yii::app()->getLanguage() . '/user/blog'); ?>" class="cathegories_item">
 				<?php echo Yii::t('main', 'Мои блоги'); ?>
 			</a>
 		</div>

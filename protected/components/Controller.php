@@ -67,6 +67,8 @@ class Controller extends CController
      */
     public $returnUrl;
 
+	public $pageDescription;
+
     /**
      * Declares class-based actions.
      */

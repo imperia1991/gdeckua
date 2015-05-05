@@ -168,14 +168,14 @@
 									],
 									[
 										'label'  => 'Новости пользователей',
-										'url'    => '/admin/muser',
-										'active' => $this->menuActive == 'muser',
+										'url'    => '/admin/user',
+										'active' => $this->menuActive == 'user',
 										'items'  => [
 											[
 												'label' => 'Новости',
-												'url'   => '/admin/muser',
+												'url'   => '/admin/user',
 												'items' => [
-													['label' => 'Все', 'url' => '/admin/muser'],
+													['label' => 'Все', 'url' => '/admin/user'],
 												]
 											],
 											[

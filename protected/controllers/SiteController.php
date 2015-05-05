@@ -28,7 +28,7 @@ class SiteController extends Controller
             ],
             ['allow',
                 'actions' => ['add', 'logout'],
-                'roles' => ['user', 'admin', 'muser', 'chashka'],
+                'users' => ['@'],
             ],
             ['deny', // deny all users
                 'actions' => ['logout'],

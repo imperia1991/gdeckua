@@ -34,7 +34,7 @@ class PageTypes {
 	/** Страница Чашки кави.Че */
     const PAGE_CHASHKA_CHE = 'chashka';
 	/** Страница новостей от Черкащан */
-    const PAGE_MUSER = 'muser';
+    const PAGE_MUSER = 'user';
 	/** Личный кабинет пользователя */
     const PAGE_BLOG = 'blog';
 }

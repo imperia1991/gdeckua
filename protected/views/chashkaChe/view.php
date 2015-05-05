@@ -8,6 +8,7 @@ $this->breadcrumbs = [
 	'chashka-che'  => Yii::t('main', 'Новости от Чашка Кави.Че'),
     '' => $newsModel->title,
 ];
+$this->pageDescription = strip_tags($newsModel->short_text);
 ?>
 
 <div class="page_content news_single">
@@ -42,6 +43,7 @@ $this->breadcrumbs = [
             [
                 'image' => Yii::app()->createUrl('/uploads/photos/ch/' . $newsModel->photo),
                 'title' => $newsModel->title,
+                'description' => $newsModel->short_text,
             ]
         ); ?>
     </div>
